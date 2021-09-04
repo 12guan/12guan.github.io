@@ -130,27 +130,36 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
-<li>Node.js</li>
-<li>Appium</li>
-<li>Appium-desktop</li>
-<li>Appium-doctor</li>
-<li>Appium-Python-Client</li>
-<li>Python</li>
-<li>JDK</li>
-<li>Andriod SDK</li>
+<li><p>Node.js</p>
+</li>
+<li><p>Appium</p>
+</li>
+<li><p>Appium-desktop</p>
+</li>
+<li><p>Appium-doctor</p>
+</li>
+<li><p>Appium-Python-Client</p>
+</li>
+<li><p>Python</p>
+</li>
+<li><p>JDK</p>
+</li>
+<li><p>Andriod SDK</p>
+ <span id="more"></span></li>
 </ul>
 <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入如下命令：</span><br><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">v12.18.3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">6.14.6</span><br></pre></td></tr></table></figure>
 
 
 
-<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><ul>
+<p><strong>说明：</strong></p>
+<ul>
 <li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
 <li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
 </ul>
 <h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
 <p>选用的镜像是 <a target="_blank" rel="noopener" href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<h3 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a>镜像设置</h3><p>执行以下命令</p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><p>执行以下命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 
 <p> 执行完成命令看到如下提示则表示设置完成</p>
@@ -215,7 +224,7 @@
 
 
 <p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h4><p><a target="_blank" rel="noopener" href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a target="_blank" rel="noopener" href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
 
         
             <div id="toc-article">
@@ -223,7 +232,7 @@
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="toc-text">环境依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="toc-text">安装Node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-text">说明：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appium-%E5%AE%89%E8%A3%85"><span class="toc-text">Appium 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">镜像设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#appium-%E5%AE%89%E8%A3%85"><span class="toc-text">appium 安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium%E9%85%8D%E7%BD%AE"><span class="toc-text">appium配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium%E8%BF%90%E8%A1%8C"><span class="toc-text">appium运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%87%BAappium"><span class="toc-text">退出appium</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Appium-desktop"><span class="toc-text">安装Appium-desktop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">python环境安装配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Appium-Python-Client"><span class="toc-text">安装Appium-Python-Client</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">JDK安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Andriod-sdk-%E5%AE%89%E8%A3%85"><span class="toc-text">Andriod sdk 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-appium-doctor"><span class="toc-text">安装 appium-doctor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="toc-text">环境依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appium-%E5%AE%89%E8%A3%85"><span class="toc-text">Appium 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">镜像设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium-%E5%AE%89%E8%A3%85"><span class="toc-text">appium 安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium%E9%85%8D%E7%BD%AE"><span class="toc-text">appium配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appium%E8%BF%90%E8%A1%8C"><span class="toc-text">appium运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%87%BAappium"><span class="toc-text">退出appium</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Appium-desktop"><span class="toc-text">安装Appium-desktop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">python环境安装配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Appium-Python-Client"><span class="toc-text">安装Appium-Python-Client</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">JDK安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Andriod-sdk-%E5%AE%89%E8%A3%85"><span class="toc-text">Andriod sdk 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-appium-doctor"><span class="toc-text">安装 appium-doctor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
     </div>
   </div>
 

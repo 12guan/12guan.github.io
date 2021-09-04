@@ -172,296 +172,14 @@
         <h1 id="Appium的数据配置与日志收集"><a href="#Appium的数据配置与日志收集" class="headerlink" title="Appium的数据配置与日志收集"></a><strong>Appium的数据配置与日志收集</strong></h1><p>问题：</p>
 <p>在我们配置Capability时，各个参数都是在代码里面写死的，比如：desired_caps[‘platformVersion’]=’7.1.2’ 一旦设备和测试的app发生改变则需要去代码里面一个个修改，要么同时根据不同设备不同App来维护多套代码，这样显示是不符合规范而且是低效的！违背了自动化的初衷，那么如何改进这样的现状呢？</p>
 <p>针对这种可能频繁变动的部分，可以将数据和代码分离。将数据单独抽离出来放在配置文件里面， 代码直接从配置文件去读取数据，这样能够减少代码冗余，提高效率。PS：类似的Web前端的html标签和css分离。配置数据该如何管理？这里我们推荐使用****yaml****来管理配置数据。</p>
-<h1 id="一、yaml概述"><a href="#一、yaml概述" class="headerlink" title="一、yaml概述"></a><strong>一、yaml概述</strong></h1><h2 id="1-yaml简介"><a href="#1-yaml简介" class="headerlink" title="1 yaml简介"></a><strong>1 yaml简介</strong></h2><p>正如YAML所表示的YAML Ain’t Markup Language，YAML 是一种简洁的非标记语言。YAML以数据为中心，使用空白，缩进，分行组织数据，从而使得表示更加简洁易读。</p>
-<p>由于实现简单，解析成本很低，YAML特别适合在脚本语言中使用。列一下现有的语言实现：Ruby，Java，Perl，Python，PHP，JavaScript等。</p>
-<p>YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。比如同一段数据Josn和Yaml的表示分别如下：</p>
-<p><strong>Json</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: &#x27;Tom Smith&#x27;,age: 37,spouse: &#123; name: &#x27;Jane Smith&#x27;, age: 25 &#125;,children: [ &#123; name: &#x27;Jimmy Smith&#x27;, age: 15 &#125;,&#123; name: &#x27;Jenny Smith&#x27;, age: 12 &#125; ] &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>yaml</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line"></span><br><span class="line">age: 37</span><br><span class="line"></span><br><span class="line">spouse:</span><br><span class="line"></span><br><span class="line">  name: Jane Smith</span><br><span class="line"></span><br><span class="line">  age: 25</span><br><span class="line"></span><br><span class="line">children:</span><br><span class="line"></span><br><span class="line"> name: Jimmy Smith</span><br><span class="line"></span><br><span class="line">  age: 15</span><br><span class="line"></span><br><span class="line"> name: Jenny Smith</span><br><span class="line"></span><br><span class="line">  age: 12</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-语法特点【注意】"><a href="#2-语法特点【注意】" class="headerlink" title="2 语法特点【注意】"></a><strong>2 语法特点【注意】</strong></h2><p>· 大小写敏感</p>
-<p>· 使用缩进表示层级关系</p>
-<p>· 缩进时不允许使用Tab键，只允许使用空格。</p>
-<p>· 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</p>
-<h2 id="3-yaml下载安装"><a href="#3-yaml下载安装" class="headerlink" title="3 yaml下载安装"></a><strong>3 yaml下载安装</strong></h2><p>官网：<a target="_blank" rel="noopener" href="http://pyyaml.org/wiki/PyYAML">http://pyyaml.org/wiki/PyYAML</a></p>
-<p>· 下载安装：cmd 输入pip install pyyaml或者pip3 install pyyaml</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1630762433194.png" alt="1630762433194"> </p>
-<p>· 安装完成后在python引入yaml检测是否安装成功。</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1630762452872.png" alt="1630762452872"> </p>
-<h1 id="二、yaml数据类型详解"><a href="#二、yaml数据类型详解" class="headerlink" title="二、yaml数据类型详解"></a>二、yaml数据类型详解</h1><h2 id="1-支持数据类型"><a href="#1-支持数据类型" class="headerlink" title="1.支持数据类型"></a>1.支持数据类型</h2><p><strong>1）.纯量</strong>（scalars）：单个的、不可再分的值</p>
-<p><strong>2）.</strong> <strong>数组</strong>：一组按次序排列的值，又称为序列（sequence） / 列表（list）</p>
-<p><strong>3）.</strong> <strong>对象</strong>：键值对的集合，又称为映射（mapping）/ 哈希（hashes） / 字典（dictionary）</p>
-<h2 id="2-纯量"><a href="#2-纯量" class="headerlink" title="2. 纯量"></a><strong>2. 纯量</strong></h2><p>数据最小的单位，不可以再分割。类似于Python中单个变量</p>
-<p>flag</p>
-<h2 id="3-list数组"><a href="#3-list数组" class="headerlink" title="3. list数组"></a><strong>3. list数组</strong></h2><p>与Python的list结构类似，数组元素使用“-”开头，也可以根据缩进进行数组嵌套。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- Jack</span><br><span class="line"></span><br><span class="line">\- Harry</span><br><span class="line"></span><br><span class="line">\- Sunny</span><br></pre></td></tr></table></figure>
-
-<p># 也可以写成一行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Jack,Harry,Sunny]</span><br></pre></td></tr></table></figure>
-
-<p>对应到python的list写法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;Jack&#x27;,&#x27;Harry&#x27;,&#x27;Sunny&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="4-对象"><a href="#4-对象" class="headerlink" title="4. 对象"></a><strong>4.</strong> 对象</h2><p>对象的一组键值对，使用冒号结构表示。类似Python中的字典数据结构。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line"></span><br><span class="line">platformVersion: 7.1.2</span><br></pre></td></tr></table></figure>
-
-<p># <strong>Yaml</strong>也允许另一种写法，将所有键值对写成一个行内对象。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;platformName: Android,platformVersion: 7.1.2&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：冒号后面一定要有空格！对应到python字典的写法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;platformName&#x27;: &#x27;Android&#x27;, &#x27;platformVersion&#x27;: &#x27;6.0.1&#x27;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="5-数据嵌套"><a href="#5-数据嵌套" class="headerlink" title="5.数据嵌套"></a>5.数据嵌套</h2><p>yaml数据嵌套表示可以将上面的各类数据根据实际场景进行组合嵌套。</p>
-<p>数据场景：</p>
-<p>Tom Smith 37岁，他有一个妻子叫 Jane Smith，35岁。 另外他有2个孩子，一个叫Jimmy Smith，15岁；另外一个叫Jenny Smith ，12岁。</p>
-<p>yaml语法表示如下：</p>
-<p><strong>familyInfo.yaml</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line">age: 37</span><br><span class="line">spouse:</span><br><span class="line">    name: Jane Smith</span><br><span class="line">    age: 35</span><br><span class="line">children:</span><br><span class="line"> - name: Jimmy Smith</span><br><span class="line">   age: 15</span><br><span class="line"> - name: Jenny Smith</span><br><span class="line">   age: 12</span><br></pre></td></tr></table></figure>
-
-<p>转化为Python的写法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;name&#x27;:&#x27;Tom Smith&#x27;,&#x27;age&#x27;:37,&#x27;spouse&#x27;:&#123;&#x27;name&#x27;:&#x27;Jane Smith&#x27;,&#x27;age&#x27;:25&#125;,&#x27;childern&#x27;:[&#123;&#x27;name&#x27;:&#x27;Jimmy Smith&#x27;,&#x27;age&#x27;:15&#125;,&#123;&#x27;name&#x27;:&#x27;Jenny Smith&#x27;,&#x27;age&#x27;:12&#125;]&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="三、yaml数据操作"><a href="#三、yaml数据操作" class="headerlink" title="三、yaml数据操作"></a>三、yaml数据操作</h1><h2 id="1-数据读取"><a href="#1-数据读取" class="headerlink" title="1. 数据读取"></a><strong>1.</strong> <strong>数据读取</strong></h2><h3 id="1-测试场景"><a href="#1-测试场景" class="headerlink" title="1) 测试场景"></a>1) 测试场景</h3><p>· 读取配置中的所有信息</p>
-<p>· 读取yaml数据表中Tom Smith的姓名、年龄、信息</p>
-<p>· 单独读取配偶的姓名和年龄信息</p>
-<p>· 分别读取两个孩子的姓名、年龄信息</p>
-<h3 id="2-load方法"><a href="#2-load方法" class="headerlink" title="2) load方法"></a>2) load方法</h3><p>load(stream, Loader=Loader) 解析文件流中的第一个YAML文档并生成相应的Python对象。</p>
-<h3 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3) 代码实现"></a><strong>3) 代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import yaml&lt;!--须在设置里面添加pyaml--&gt;</span><br><span class="line">file=open(&#x27;runtest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line">print(data[&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;spouse&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;age&#x27;])</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-数据修改"><a href="#2-数据修改" class="headerlink" title="2. 数据修改"></a><strong>2.</strong> <strong>数据修改</strong></h2><p>如果想改变某个数据，可以使用如下方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line">file=open(&#x27;runTest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line">data[&#x27;name&#x27;]=&#x27;Test123&#x27;</span><br><span class="line">print(data[&#x27;name&#x27;])</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意：此处只是变量类型的数据变更，不会真正修改到yaml配置表中的数据。</p>
-<h2 id="3-数据转化"><a href="#3-数据转化" class="headerlink" title="3. 数据转化"></a><strong>3.</strong> <strong>数据转化</strong></h2><p>方法：dump()可以将Python对象序列化成YAML流。如果stream为None，则返回生成的字符串。</p>
-<h3 id="1-测试场景-1"><a href="#1-测试场景-1" class="headerlink" title="1) 测试场景"></a>1) <strong>测试场景</strong></h3><p>将下面python数据类型转化为yaml数据类型</p>
-<h3 id="2-代码实践"><a href="#2-代码实践" class="headerlink" title="2) 代码实践"></a>2) <strong>代码实践</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">city=[&#x27;changsha&#x27;,&#x27;wuhan&#x27;,&#x27;beijing&#x27;]</span><br><span class="line">person=&#123;&#x27;tom&#x27;:&#x27;18&#x27;&#125;</span><br><span class="line"></span><br><span class="line">#python data</span><br><span class="line">print(city)</span><br><span class="line">print(person)</span><br><span class="line">#yaml data</span><br><span class="line">print(yaml.dump(city))</span><br><span class="line">print(yaml.dump(person))</span><br></pre></td></tr></table></figure>
-
-
-
-<p>运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;changsha&#x27;, &#x27;wuhan&#x27;, &#x27;beijing&#x27;]</span><br><span class="line"></span><br><span class="line">&#123;&#x27;tom&#x27;: &#x27;18&#x27;&#125;</span><br><span class="line"></span><br><span class="line">\- changsha</span><br><span class="line"></span><br><span class="line">\- wuhan</span><br><span class="line"></span><br><span class="line">\- beijing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tom: &#x27;18&#x27;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="4-Capability配置数据分离"><a href="#4-Capability配置数据分离" class="headerlink" title="4. Capability配置数据分离"></a><strong>4.</strong> Capability配置数据分离</h2><h3 id="1-测试场景-2"><a href="#1-测试场景-2" class="headerlink" title="1) 测试场景"></a><strong>1) 测试场景</strong></h3><p>将capability的各项参数值与代码进行分离。</p>
-<h3 id="2-场景分析"><a href="#2-场景分析" class="headerlink" title="2) 场景分析"></a><strong>2)</strong> <strong>场景分析</strong></h3><p>我们可以把之前capability中各项写死的配置信息来抽离出来，存放在一个yaml配置文件中，使用 对象数据类型来存储数据；然后调用load()方法读取数据，从而实现数据和代码的分离。</p>
-<h3 id="3-代码实现-1"><a href="#3-代码实现-1" class="headerlink" title="3) 代码实现"></a><strong>3)</strong> <strong>代码实现</strong></h3><ol>
-<li>参数配置表：<strong>desired_caps.yaml</strong></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line">platformVersion: 7.1.2</span><br><span class="line">deviceName: 127.0.0.1:62025</span><br><span class="line">app: D\kaoyan3.1.0.apk</span><br><span class="line">noReset: False</span><br><span class="line">appPackage: com.tal.kaoyan&lt;!--#此次测试了考研帮--&gt;</span><br><span class="line">appActivity: com.tal.kaoyan.ui.activity.SplashActivity</span><br><span class="line">ip: 127.0.0.1</span><br><span class="line">port: 4723</span><br></pre></td></tr></table></figure>
-
-<p>Python脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>报错分析</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaml.scanner.ScannerError: mapping values are not allowed here</span><br></pre></td></tr></table></figure>
-
-<p>该报错说明map对象数据类型写法错误，一般为“：”后面没有留空格。如：platformName:Android</p>
-<p> <strong>问题思考</strong></p>
-<p>在自动化脚本运行过程中，IDE控制台一般都会输出运行日志。但是如果测试项目是在liunx服务器上面运行，没有IDE控制台输出log，那么我们该如何采集日志？</p>
-<h1 id="四、日志概述"><a href="#四、日志概述" class="headerlink" title="四、日志概述"></a>四、日志概述</h1><h2 id="1-日志作用"><a href="#1-日志作用" class="headerlink" title="1 日志作用"></a><strong>1 日志作用</strong></h2><p>不管是在项目开发还是测试过程中，项目运行一旦出现问题日志信息就非常重要了。日志是定位问题的重要手段，就像侦探人员要根据现场留下的线索来推断案情。</p>
-<h2 id="2-日志级别"><a href="#2-日志级别" class="headerlink" title="2 日志级别"></a><strong>2 日志级别</strong></h2><p>脚本运行会有很多的情况，比如调试信息、报错异常信息等。日志要根据这些不同的情况来继续分级管理，不然对于排查问题的筛选会有比较大的干扰。 。日志一般定位的级别如下：</p>
-<table>
-<thead>
-<tr>
-<th>级别</th>
-<th>何时使用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>DEBUG</td>
-<td>调试信息，也是最详细的日志信息。</td>
-</tr>
-<tr>
-<td>INFO</td>
-<td>证明事情按预期工作。</td>
-</tr>
-<tr>
-<td>WARNING</td>
-<td>表明发生了一些意外，或者不久的将来会发生问题（如‘磁盘满了’）。软件还是在正常工作。</td>
-</tr>
-<tr>
-<td>ERROR</td>
-<td>由于更严重的问题，软件已不能执行一些功能了。</td>
-</tr>
-<tr>
-<td>CRITICAL</td>
-<td>严重错误，表明软件已不能继续运行了。</td>
-</tr>
-</tbody></table>
-<p>首先我们日志需要按照info、debug、error等级别来进行区分的。当然这个级别可以自己去设置。在一般的情况下我们普通的输出我们直接用info类型，调试的时候用debug类型，如果预计有错误时那么我们就需要用error类型的日志，一般情况去info级别最为合适。</p>
-<h2 id="3-日志格式"><a href="#3-日志格式" class="headerlink" title="3 日志格式"></a><strong>3 日志格式</strong></h2><p>日志格式化是为了提高日志的可阅读性，比如：<strong>时间+模块+行数+日志</strong>具体信息的内容格式。如果日志信息杂乱无章的全部输出来，这样也不利于定位问题。</p>
-<h2 id="4-日志位置"><a href="#4-日志位置" class="headerlink" title="4 日志位置"></a><strong>4 日志位置</strong></h2><p>一个项目中会有很多的日志采集点，而日志采集点必须结合业务属性来设置。比如在登录代码执行前可以插入“准备登录..”日志信息,如果登录完成之后，再设置登录的提示日志就会给人造成误解，无法判断到底是登录之前的问题还是登录之后的问题，因此日志采集点的位置很重要。</p>
-<h1 id="五、logging模块"><a href="#五、logging模块" class="headerlink" title="五、logging模块"></a><strong>五、logging模块</strong></h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a><strong>1 简介</strong></h2><p>Python的logging模块提供了通用的日志系统，这个模块提供不同的日志级别，并可以采用不同的方式记录日志，比如文件，HTTP GET/POST，SMTP，Socket等，甚至可以自己实现方式记录日志。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#导入logging模块</span><br><span class="line">import logging</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-logging构成"><a href="#2-logging构成" class="headerlink" title="2 logging构成"></a><strong>2 logging构成</strong></h2><p>logging模块包括<strong>logger，Handler，Filter，Formatter</strong>四个部分。</p>
-<p>· Logger 记录器，用于设置日志采集。</p>
-<p>· Handler 处理器，将日志记录发送至合适的路径。</p>
-<p>· Filter 过滤器，提供了更好的粒度控制，它可以决定输出哪些日志记录。</p>
-<p>· Formatter 格式化器，指明了最终输出中日志的格式。</p>
-<h2 id="3-Logger-记录器"><a href="#3-Logger-记录器" class="headerlink" title="3 Logger 记录器"></a><strong>3 Logger 记录器</strong></h2><p>Logger是一个树形层级结构，在使用接口debug，info，warn，error，critical；使用之前必须创建Logger实例，即创建一个记录器，如果没有显式的进行创建，则默认创建一个root logger，并应用默认的日志级别(WARN)，Handler和Formatter。</p>
-<p><strong>方法:</strong></p>
-<p>basicConfig(参数) 为日志记录系统做基本配置。</p>
-<p><strong>部分参数</strong></p>
-<p>filename :指定日志文件名称</p>
-<p>filemode:指定打开文件的模式，如果指定了filename（如果文件模式未指定，则默认为’a）</p>
-<p><strong>文件读写模式</strong>:</p>
-<p>w 以写方式打开，</p>
-<p>W 文件若存在，首先要清空，然后（重新）创建</p>
-<p>a 以追加模式打开 (从 EOF 开始, 必要时创建新文件)</p>
-<p>r+ 以读写模式打开</p>
-<p>w+ 以读写模式打开 (参见 w )</p>
-<p>a+ 以读写模式打开 (参见 a )</p>
-<p>format:为处理程序使用指定的格式字符串。</p>
-<p>datefmt: 使用指定的日期/时间格式。样式如果指定了格式字符串，则使用它来指定 格式字符串的类型.</p>
-<p>level:将根记录器级别设置为指定级别。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line">logging.basicConfig(level=logging.INFO)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-Handler-处理器"><a href="#4-Handler-处理器" class="headerlink" title="4 Handler 处理器"></a><strong>4 Handler 处理器</strong></h2><p>Handler 处理器，将日志记录发送至合适的路径,Handler处理器类型有很多种，比较常用的有三个：</p>
-<h3 id="1-StreamHandler"><a href="#1-StreamHandler" class="headerlink" title="1).StreamHandler"></a><strong>1).StreamHandler</strong></h3><p>将日志记录输出发送到诸如sys.stdout，sys.stderr或任何类似文件流的对象。</p>
-<h3 id="2-FileHandler"><a href="#2-FileHandler" class="headerlink" title="2).FileHandler"></a><strong>2).FileHandler</strong></h3><p>将日志记录输出发送到磁盘文件。 它继承了StreamHandler的输出功能。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG)</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-NullHandler"><a href="#3-NullHandler" class="headerlink" title="3).NullHandler"></a><strong>3).NullHandler</strong></h3><p>不做任何格式化或输出。 它本质上是一个开发人员使用的“无操作”处理程序。</p>
-<h2 id="5-Formatter"><a href="#5-Formatter" class="headerlink" title="5 Formatter"></a><strong>5 Formatter</strong></h2><p>使用Formatter对象设置日志信息最后的规则、结构和内容，默认的时间格式为%Y-%m-%d %H:%M:%S。</p>
-<table>
-<thead>
-<tr>
-<th>格式</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>%(levelno)s</td>
-<td>打印日志级别的数值</td>
-</tr>
-<tr>
-<td>%(levelname)s</td>
-<td>打印日志级别名称</td>
-</tr>
-<tr>
-<td>%(pathname)s</td>
-<td>打印当前执行程序的路径</td>
-</tr>
-<tr>
-<td>%(filename)s</td>
-<td>打印当前执行程序名称</td>
-</tr>
-<tr>
-<td>%(funcName)s</td>
-<td>打印日志的当前函数</td>
-</tr>
-<tr>
-<td>%(lineno)d</td>
-<td>打印日志的当前行号</td>
-</tr>
-<tr>
-<td>%(asctime)s</td>
-<td>打印日志的时间</td>
-</tr>
-<tr>
-<td>%(thread)d</td>
-<td>打印线程id</td>
-</tr>
-<tr>
-<td>%(threadName)s</td>
-<td>打印线程名称</td>
-</tr>
-<tr>
-<td>%(process)d</td>
-<td>打印进程ID</td>
-</tr>
-<tr>
-<td>%(message)s</td>
-<td>打印日志信息</td>
-</tr>
-</tbody></table>
-<p>使用方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG,</span><br><span class="line">format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&#x27;)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<p>2021-09-02 11:50:20,094   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,359   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,360   .py[line:6] INFO hello tom<br>2021-09-02 11:50:41,360   .py[line:7] WARNING warning info<br>2021-09-02 11:50:41,360   .py[line:8] ERROR error info<br>2021-09-02 11:50:41,360 </p>
-<h1 id="六、Logging实践操作"><a href="#六、Logging实践操作" class="headerlink" title="六、Logging实践操作"></a><strong>六、Logging实践操作</strong></h1><h2 id="1测试场景"><a href="#1测试场景" class="headerlink" title="1测试场景"></a><strong>1测试场景</strong></h2><p>将前面所学的启动考研帮App的脚本增加log采集功能，设置指定的日志格式输出，并将日志保存到指定文件。</p>
-<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a><strong>2 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO,filename=&#x27;runlog.log&#x27;,</span><br><span class="line">                    format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d]%(levelname)s%(message)s&#x27;)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">logging.info(&#x27;start app...&#x27;)</span><br><span class="line">driver=webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;,desired_caps)</span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    logging.info(&#x27;check cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no cancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&#x27;check skipBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_cancelBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-问题思考"><a href="#3-问题思考" class="headerlink" title="3 问题思考"></a><strong>3 问题思考</strong></h2><p>前面我们已经实现了在代码中增添log，log也按照预期的采集到了，看似一切完美无瑕。但是该log配置的作用域也只是控制当前的脚本 。 然而一个自动化项目中通常有很多模块脚本，难道我们需要每一个脚本都这样配置吗？</p>
-<h2 id="4解决思路"><a href="#4解决思路" class="headerlink" title="4解决思路"></a><strong>4解决思路</strong></h2><p>将这些日志配置的参数抽离出来，各个模块需要使用则直接引用即可。</p>
-<h2 id="5日志格式配置"><a href="#5日志格式配置" class="headerlink" title="5日志格式配置"></a><strong>5日志格式配置</strong></h2><p>将log输出格式，输出路径等参数抽离出来作为一个配置表，如下所示：</p>
-<p><strong>log.conf</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys=root,infoLogger</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=DEBUG</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[logger_infoLogger]</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line">qualname=infoLogger</span><br><span class="line">propagate=0</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form02</span><br><span class="line">args=(sys.stdout,)</span><br><span class="line"></span><br><span class="line">[handler_fileHandler]</span><br><span class="line">class=FileHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form01</span><br><span class="line">args=(&#x27;runlog.log&#x27;, &#x27;a&#x27;)</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys=form01,form02</span><br><span class="line"></span><br><span class="line">[formatter_form01]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br><span class="line">[formatter_form02]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在需要调用的模块增加如下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br></pre></td></tr></table></figure>
-
-<p>方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileConfig(fname, defaults=None, disable_existing_loggers=True)</span><br></pre></td></tr></table></figure>
-
-<p>该放在作用是从ConfigParser格式的文件中读取日志配置，同时如果当前脚本有配置log参数，则覆盖当前log配置选项。</p>
-<h2 id="6-代码实现"><a href="#6-代码实现" class="headerlink" title="6 代码实现"></a><strong>6 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line">stream=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(stream)</span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br><span class="line"></span><br><span class="line">def check_updateBtn():</span><br><span class="line">    logging.info(&quot;check_pdateBtn&quot;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;update element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;skipBtn element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
-
-
-
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/04/Appium%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%93%8D%E4%BD%9C/#more">Read More</a>
+        </p>
       
       
       
@@ -508,14 +226,39 @@
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
       
     </div>
     <footer class="article-footer">
       
-        
-        <p class="article-more-link">
-          <a href="/2021/09/03/hello-world/#more">Read More</a>
-        </p>
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
       
       
       
@@ -559,188 +302,14 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>优化：把启动app的脚本封装在一个模块，接下来的每次试验直接调用即可。</p>
-<p>Capability.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;False&#x27;</span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(2)</span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&#x27;check cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no cancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&#x27;check skipBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_cancelBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
-
-<h2 id="一、name定位"><a href="#一、name定位" class="headerlink" title="一、name定位"></a><strong>一、name定位</strong></h2><p>根据name进行定位，对于android来说，就是text属性</p>
-<p>但是由于text稳定性不是很好，所以appium 1.5开始废弃了该方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from Capability import *</span><br><span class="line">driver.find_element_by_name(&#x27;请输入用户名&#x27;).send_keys(&#x27;&#x27;)</span><br><span class="line">driver.find_element_by_name(&#x27;登录&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-<p><em>运行提示： Locator Strategy ‘name’ is not supported for this session</em></p>
-<h2 id="二、classname定位"><a href="#二、classname定位" class="headerlink" title="二、classname定位"></a><strong>二、classname定位</strong></h2><p>classname定位是根据元素类型来进行定位，但是实际情况中很多元素的classname都是相同的，如上例中登录页面中的用户名和密码都是clasName属性值都是：<em><strong>*“android.widget.EditText”*</strong></em> 因此只能定位第一个元素也就是用户名，而密码输入框就需要使用其他方式来定位，这样其实很鸡肋.一般情况下如果有id就不必使用classname定位。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from Capability import *</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.EditText&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.EditText&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.Button&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-<h2 id="三、相对定位"><a href="#三、相对定位" class="headerlink" title="三、相对定位"></a><strong>三、相对定位</strong></h2><p>相对定位是先找到该元素的有对应属性的父元素节点，然后基于父元素进行元素定位。</p>
-<h5 id="测试案例"><a href="#测试案例" class="headerlink" title="测试案例"></a>测试案例</h5><p>不使用id元素定位方式，在新用户注册界面点击添加头像按钮。</p>
-<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rom Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">root_element=driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_parentlayout&#x27;)</span><br><span class="line">root_element.find_element_by_class_name(&#x27;android.widget.ImageView&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、xpath定位"><a href="#四、xpath定位" class="headerlink" title="四、xpath定位"></a><strong>四、xpath定位</strong></h2><p>xpath定位是一种路径定位方式，主要是依赖于元素绝对路径或者相关属性来定位，但是绝对路径xpath执行效率比较低（特别是元素路径比较深的时候），一般使用比较少。通常使用xpath相对路径和属性定位。</p>
-<p>xpath路径表达式</p>
-<table>
-<thead>
-<tr>
-<th>表达式</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>/</td>
-<td>从根节点选取。</td>
-</tr>
-<tr>
-<td>//</td>
-<td>从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。</td>
-</tr>
-<tr>
-<td>nodename</td>
-<td>选取此节点的所有子节点。</td>
-</tr>
-<tr>
-<td>.</td>
-<td>选取当前节点。</td>
-</tr>
-<tr>
-<td>..</td>
-<td>选取当前节点的父节点。</td>
-</tr>
-<tr>
-<td>@</td>
-<td>选取属性。</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>通配符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>*</td>
-<td>匹配任何元素节点。</td>
-</tr>
-<tr>
-<td>@*</td>
-<td>匹配任何属性节点。</td>
-</tr>
-<tr>
-<td>node()</td>
-<td>匹配任何类型的节点。</td>
-</tr>
-</tbody></table>
-<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><p>使用xpath定位元素来进行登录操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line">driver.find_element_by_xpath(&#x27;//android.widget.EditText[@text=&quot;请输入用户名&quot;]&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_xpath(&#x27;//*[@class=&quot;android.widget.EditText&quot;and @index=&quot;3&quot;]&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_xpath(&#x27;//android.widget.Button&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-<h2 id="五、List定位"><a href="#五、List定位" class="headerlink" title="五、List定位"></a><strong>五、List定位</strong></h2><p>前面我们提到相同的classname属性值元素无法区分定位，现在将使用List定位来解决这个问题。List定位首先是使用find_elements_by_XX 获取一组相同的class属性的元素，然后使用数组下标来区分标记不同元素进行相关操作。</p>
-<h5 id="测试案例1"><a href="#测试案例1" class="headerlink" title="测试案例1"></a>测试案例1</h5><p>在新用户注册界面点击添加头像按钮后，选择指定的图片保存作为头像。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_userheader&#x27;).click()</span><br><span class="line"></span><br><span class="line">images=driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/item_image&#x27;)</span><br><span class="line">images[2].click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/save&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="list定位综合案例——用户注册"><a href="#list定位综合案例——用户注册" class="headerlink" title="list定位综合案例——用户注册"></a><strong>list定位综合案例——用户注册</strong></h3><h5 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a>测试场景</h5><ol>
-<li><p>进入注册界面设置头像</p>
-</li>
-<li><p>输入注册信息：用户名、密码、邮箱</p>
-</li>
-<li><p>完善院校和专业信息 （院校：上海-同济大学 专业：经济学类-统计学-经济统计学）</p>
-</li>
-<li><p>完成注册</p>
-</li>
-</ol>
-<h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><p>注意：运行前记得将noRest设置为：desired_caps[‘noReset’]=’False’ 以免之前的注册残留信息干扰。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">#进入注册界面选择并设置头像</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_userheader&#x27;).click()</span><br><span class="line"></span><br><span class="line">images=driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/item_image&#x27;)</span><br><span class="line"></span><br><span class="line">images[2].click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/save&#x27;).click()</span><br><span class="line"></span><br><span class="line">#注册信息填写</span><br><span class="line">username=&#x27;Test&#x27;+&#x27;tt&#x27;+str(random.randint(1000,9000))</span><br><span class="line">print(&#x27;username: %s&#x27; %username)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_username_edittext&#x27;).send_keys(username)</span><br><span class="line"></span><br><span class="line">password=&#x27;appium&#x27;+str(random.randint(1000,9000))</span><br><span class="line">print(&#x27;password: %s&#x27; %password)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_password_edittext&#x27;).send_keys(password)</span><br><span class="line"></span><br><span class="line">email=&#x27;pwd&#x27;+str(random.randint(1000,9000))+&#x27;@163.com&#x27;</span><br><span class="line">print(&#x27;email: %s&#x27; %email)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_email_edittext&#x27;).send_keys(email)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_register_btn&#x27;).click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#院校选择</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/perfectinfomation_edit_school_name&#x27;).click()</span><br><span class="line">#选择省份</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/more_forum_title&#x27;)[1].click()</span><br><span class="line">#选择具体院校--同济大学</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/university_search_item_name&#x27;)[1].click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#专业选择</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_perfectinfomation_major&#x27;).click()</span><br><span class="line">#选择经济学类-统计学-经济统计学</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_subject_title&#x27;)[1].click()</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_group_title&#x27;)[2].click()</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_search_item_name&#x27;)[1].click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#点击“进入考研帮”按钮</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_perfectinfomation_goBtn&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-<h2 id="六、UIAutomator定位简介"><a href="#六、UIAutomator定位简介" class="headerlink" title="六、UIAutomator定位简介"></a><strong>六、UIAutomator定位简介</strong></h2><p>UIAutomator元素定位是 Android 系统原生支持的定位方式，虽然与 xpath 类似，但比它更加好用，且支持元素全部属性定位.定位原理是通过android 自带的android uiautomator的类库去查找元素。使用法  find_element_by_android_uiautomator() 可以运用UiAutomator元素定位。</p>
-<h3 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h3><p>· id定位</p>
-<p>· text定位</p>
-<p>· class name定位</p>
-<h3 id="id定位"><a href="#id定位" class="headerlink" title="id定位"></a>id定位</h3><p>id定位是根据元素的resource-id属性来进行定位，使用 UiSelector().resourceId()方法即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator(&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_email_edittext&quot;)&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator\</span><br><span class="line">    (&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_password_edittext&quot;)&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator\</span><br><span class="line">    (&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_login_btn&quot;)&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>在自动化过程中，元素出现受网络环境，设备性能等多种因素影响。因此元素加载的时间可能不一致，从而会导致元素无法定位超时报错，但是实际上元素是正常加载了的，只是出现时间晚一点而已。那么如何解决这个问题呢？</p>
-<h2 id="七、元素等待作用"><a href="#七、元素等待作用" class="headerlink" title="七、元素等待作用"></a><strong>七、元素等待作用</strong></h2><p>设置元素等待可以更加灵活的制定等待定位元素的时间，从而增强脚本的健壮性，提高执行效率。</p>
-<p>元素等待类型分为强制等待、隐式等待、显示等待</p>
-<h4 id="强制等待"><a href="#强制等待" class="headerlink" title="强制等待"></a><strong>强制等待</strong></h4><p>设置固定的等待时间，使用sleep()方法即可实现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">#强制等待5秒</span><br><span class="line">sleep(5)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a><strong>隐式等待</strong></h4><p>隐式等待是针对全部元素设置的等待时间</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.implicitly_wait(20)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="显式等待"><a href="#显式等待" class="headerlink" title="显式等待"></a><strong>显式等待</strong></h4><p>显式等待是针对某个元素来设置的等待时间。</p>
-<p>方法WebDriverWait格式参数如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line"></span><br><span class="line">WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)</span><br><span class="line">driver : WebDriver</span><br><span class="line">timeout : 最长超时时间，默认以秒为单位</span><br><span class="line">poll_frequency : 休眠时间的间隔时间，默认为0.5秒</span><br><span class="line">ignored_exceptions : 超时后的异常信息，默认情况下抛NoSuchElementException异常。</span><br></pre></td></tr></table></figure>
-
-<p>WebDriverWait()一般和until()或until_not()方法配合使用，另外，lambda提供了一个运行时动态创建函数的方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line">WebDriverWait(driver,10).until(lambda x:x.find_element_by_id(&quot;elementID&quot;))</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="八、截图方法"><a href="#八、截图方法" class="headerlink" title="八、截图方法"></a><strong>八、截图方法</strong></h2><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a><strong>方法1</strong></h4><p>save_screenshot() 该方法直接保存当前屏幕截图到当前脚本所在文件位置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.save_screenshot(&#x27;login.png&#x27;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a><strong>方法2</strong></h4><p>get_screenshot_as_file(self, filename)</p>
-<p>将截图保留到指定文件路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get_screenshot_as_file(&#x27;./images/login.png&#x27;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="测试场景-1"><a href="#测试场景-1" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h4><p>在考研帮App登录页面输入用户名和密码之后截图，分别保存到当前文件和指定的文件路径。</p>
-<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).clear()</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.save_screenshot(&#x27;login.png&#x27;)</span><br><span class="line">driver.get_screenshot_as_file(&#x27;./images/login.png&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="九、滑动效果"><a href="#九、滑动效果" class="headerlink" title="九、滑动效果"></a><strong>九、滑动效果</strong></h2><p>在app应用日常使用过程中，会经常用到在屏幕滑动操作。如刷朋友圈上下滑操作、浏览图片左右滑动操作等。在自动化脚本该如何实现这些操作呢？</p>
-<p>在Appium中模拟用户滑动操作需要使用swipe方法，该方法定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def swipe(self, start_x, start_y, end_x, end_y, duration=None):</span><br><span class="line">       &quot;&quot;&quot;Swipe from one point to another point, for an optional duration.</span><br><span class="line"></span><br><span class="line">       :Args:</span><br><span class="line">        - start_x - x-coordinate at which to start</span><br><span class="line">        - start_y - y-coordinate at which to start</span><br><span class="line">        - end_x - x-coordinate at which to stop</span><br><span class="line">        - end_y - y-coordinate at which to stop</span><br><span class="line">        - duration - (optional) time to take the swipe, in ms.</span><br><span class="line"></span><br><span class="line">       :Usage:</span><br><span class="line">           driver.swipe(100, 100, 100, 400)</span><br></pre></td></tr></table></figure>
-
-<p>滑动解析</p>
-<p>swipe()方法的参数说明：<br>start_x：起始横坐标<br>start_y：起始纵坐标<br>end_x：结束时横坐标<br>end_y：结束时纵坐标<br>duration：滑动持续时间，单位毫秒，默认None（一般设置500-1000毫秒比较合适）</p>
-<p>滑动主要分为：</p>
-<ol>
-<li> 水平滑动</li>
-<li> 垂直滑动</li>
-<li>任意方向滑动</li>
-</ol>
-<p>滑动轨迹图如下：</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml15268\wps1.jpg" alt="img"> </p>
-<p>实践应用</p>
-<h4 id="测试场景-2"><a href="#测试场景-2" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h4><p>· 安装启动考研帮，手动向水平左滑动首页引导页面。</p>
-<p>· 点击“立即体验”进入登录页面。</p>
-<h4 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><p>注意：运行前记得将capablity里面的check_skipBtn()先注释掉，否则直接跳过了无法滑动引导页面。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">#获取屏幕尺寸</span><br><span class="line">def get_size():</span><br><span class="line">    x=driver.get_window_size()[&#x27;width&#x27;]</span><br><span class="line">    y=driver.get_window_size()[&#x27;height&#x27;]</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">#显示屏幕尺寸（width,height）</span><br><span class="line">l=get_size()</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">#向左滑动</span><br><span class="line">def swipeLeft():</span><br><span class="line">    l=get_size()</span><br><span class="line">    x1=int(l[0]*0.9)</span><br><span class="line">    y1=int(l[1]*0.5)</span><br><span class="line">    x2=int(l[0]*0.1)</span><br><span class="line">    driver.swipe(x1,y1,x2,y1,1000)</span><br><span class="line"></span><br><span class="line">#向左滑动2次</span><br><span class="line">for i in range(2):</span><br><span class="line">    swipeLeft()</span><br><span class="line">    sleep(0.5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_splash_guidfinish&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/02/Appium%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/#more">Read More</a>
+        </p>
       
       
       
@@ -784,116 +353,29 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
-<li>Node.js</li>
-<li>Appium</li>
-<li>Appium-desktop</li>
-<li>Appium-doctor</li>
-<li>Appium-Python-Client</li>
-<li>Python</li>
-<li>JDK</li>
-<li>Andriod SDK</li>
-</ul>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入如下命令：</span><br><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">v12.18.3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">6.14.6</span><br></pre></td></tr></table></figure>
-
-
-
-<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><ul>
-<li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
-<li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
-</ul>
-<h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a target="_blank" rel="noopener" href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<h3 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a>镜像设置</h3><p>执行以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p> 执行完成命令看到如下提示则表示设置完成</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow  and an import issue introduced in 2.1.0</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line"></span><br><span class="line">\+ cnpm@5.2.0</span><br><span class="line"></span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a>appium 安装</h4><p>使用如下命令来执行安装：</p>
-<p>安装最新版本</p>
-<p>cnpm install -g appium</p>
-<p>安装指定版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install appium@1.7.2 -g </span><br></pre></td></tr></table></figure>
-
-<p>看到如下命令时则表示下载安装完成。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">All packages installed (565 packages installed from npm registry, used 57s, speed 835.67kB/s, json 477(6.16MB), tarball 40.58MB)</span><br><span class="line"></span><br><span class="line">[appium@1.8.0] link C:\Users\admin\AppData\Roaming\npm\appium@ -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\appium\build\lib\main.js</span><br></pre></td></tr></table></figure>
-
-<p>npm的包安装分为本地安装（local）、全局安装（global）两种，一般我们推荐使用全局安装。</p>
-<h4 id="appium配置"><a href="#appium配置" class="headerlink" title="appium配置"></a>appium配置</h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<p>执行以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium </span><br></pre></td></tr></table></figure>
-
-<p>执行完之后可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a>appium运行</h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">1.7.2</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">执行以下命令 </span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a>退出appium</h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h2 id="安装Appium-desktop"><a href="#安装Appium-desktop" class="headerlink" title="安装Appium-desktop"></a>安装Appium-desktop</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<p>appium-desktop是我们初学者最容易上手的工具，后面课程首先会基于这个工具来讲解！然后再基于appium 命令来讲。</p>
-<h4 id="python环境安装配置"><a href="#python环境安装配置" class="headerlink" title="python环境安装配置"></a>python环境安装配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安装成功之后，执行以下命令 </span><br><span class="line">C:Users admin&gt;python --version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python  3.5.0</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="安装Appium-Python-Client"><a href="#安装Appium-Python-Client" class="headerlink" title="安装Appium-Python-Client"></a>安装Appium-Python-Client</h2><p>通过命令pip install Appium-Python-Client 进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<p>输入命令“from appium import webdriver” 回车，如果控制台没有报错，则说明安装成功。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;python</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">\&gt;&gt;&gt; &lt;u&gt;from appium import webdriver&lt;/u&gt;&lt;!--此处是输入的命令--&gt;</span><br><span class="line"></span><br><span class="line">如果出现如下报错，则说明安装失败</span><br><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name  “webdriver”</span><br></pre></td></tr></table></figure>
-
-<p>说明：</p>
-<p>装Appium-Python-Client安装后的路径一般为：{Python 安装路径}\Lib\site-packages\appium</p>
-<h2 id="JDK安装配置"><a href="#JDK安装配置" class="headerlink" title="JDK安装配置"></a>JDK安装配置</h2><p>jdk下载地址:</p>
-<p><a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
-<p>jdk环境变量配置</p>
-<p><a target="_blank" rel="noopener" href="http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html">http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html</a></p>
-<p>安装配置完成后，打开命令提示符窗口，然后输入如下面命令有对应提示说明安装配置成功。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;java -version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">java version &quot;1.8.0_05&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_05-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Andriod-sdk-安装"><a href="#Andriod-sdk-安装" class="headerlink" title="Andriod sdk 安装"></a>Andriod sdk 安装</h2><p>下载地址： <a target="_blank" rel="noopener" href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
-<p>根据自己的PC平台下载对应版本即可。</p>
-<p>安装完成后需要配置环境变量：ANDROID_HOME。</p>
-<h2 id="安装-appium-doctor"><a href="#安装-appium-doctor" class="headerlink" title="安装 appium-doctor"></a>安装 appium-doctor</h2><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br><span class="line"></span><br><span class="line">输入以下命令，如下提示说明整体环境配置成功</span><br><span class="line">C:\Users\admin&gt;appium-doctor</span><br><span class="line"></span><br><span class="line">info AppiumDoctor Appium Doctor v.1.4.3</span><br><span class="line">info AppiumDoctor ### Diagnostic starting ###</span><br><span class="line">info AppiumDoctor  ✔ The Node.js binary was found at: D:\program files\nodejs\node.exe</span><br><span class="line">info AppiumDoctor  ✔ Node version is 6.11.3</span><br><span class="line">info AppiumDoctor  ✔ ANDROID_HOME is set to: E:\Andriod_sdk</span><br><span class="line">info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk1.8.0_05</span><br><span class="line">info AppiumDoctor  ✔ adb exists at: E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">info AppiumDoctor  ✔ android exists at: E:\Andriod_sdk\tools\android.bat</span><br><span class="line">info AppiumDoctor  ✔ emulator exists at: E:\Andriod_sdk\tools\emulator.exe</span><br><span class="line">info AppiumDoctor  ✔ Bin directory of %JAVA_HOME% is set</span><br><span class="line">info AppiumDoctor ### Diagnostic completed, no fix needed. ###</span><br><span class="line">info AppiumDoctor</span><br><span class="line">info AppiumDoctor Everything looks good, bye!</span><br><span class="line">info AppiumDoctor</span><br></pre></td></tr></table></figure>
-
-
-
-<p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h4><p><a target="_blank" rel="noopener" href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
+<li><p>Node.js</p>
+</li>
+<li><p>Appium</p>
+</li>
+<li><p>Appium-desktop</p>
+</li>
+<li><p>Appium-doctor</p>
+</li>
+<li><p>Appium-Python-Client</p>
+</li>
+<li><p>Python</p>
+</li>
+<li><p>JDK</p>
+</li>
+<li><p>Andriod SDK</p>
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/01/Appium%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/#more">Read More</a>
+        </p>
       
       
       
