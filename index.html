@@ -82,20 +82,31 @@
 
       <div class="outer">
         <section id="main">
-  <article id="post-Appium的数据配置与日志收集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-Appium数据配置与日志操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/09/04/Appium%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%93%8D%E4%BD%9C/">Appium数据配置与日志操作</a>
+    </h1>
+  
+
+
+      </header>
     
     <div class="article-meta">
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-09-04T07:22:47.093Z" itemprop="datePublished">2021年09月04日</time>
+  <time class="dt-published" datetime="2021-09-04T13:30:01.000Z" itemprop="datePublished">2021年09月04日</time>
 </span>
       
       
       
-<a href="/2021/09/04/Appium%E7%9A%84%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/#comments" class="article-comment-link">
+<a href="/2021/09/04/Appium%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%93%8D%E4%BD%9C/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -105,7 +116,276 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Appium的数据配置与日志收集"><a href="#Appium的数据配置与日志收集" class="headerlink" title="Appium的数据配置与日志收集"></a><strong>Appium的数据配置与日志收集</strong></h1><p>问题：</p>
+<p>在我们配置Capability时，各个参数都是在代码里面写死的，比如：desired_caps[‘platformVersion’]=’7.1.2’ 一旦设备和测试的app发生改变则需要去代码里面一个个修改，要么同时根据不同设备不同App来维护多套代码，这样显示是不符合规范而且是低效的！违背了自动化的初衷，那么如何改进这样的现状呢？</p>
+<p>针对这种可能频繁变动的部分，可以将数据和代码分离。将数据单独抽离出来放在配置文件里面， 代码直接从配置文件去读取数据，这样能够减少代码冗余，提高效率。PS：类似的Web前端的html标签和css分离。配置数据该如何管理？这里我们推荐使用****yaml****来管理配置数据。</p>
+<h1 id="一、yaml概述"><a href="#一、yaml概述" class="headerlink" title="一、yaml概述"></a><strong>一、yaml概述</strong></h1><h2 id="1-yaml简介"><a href="#1-yaml简介" class="headerlink" title="1 yaml简介"></a><strong>1 yaml简介</strong></h2><p>正如YAML所表示的YAML Ain’t Markup Language，YAML 是一种简洁的非标记语言。YAML以数据为中心，使用空白，缩进，分行组织数据，从而使得表示更加简洁易读。</p>
+<p>由于实现简单，解析成本很低，YAML特别适合在脚本语言中使用。列一下现有的语言实现：Ruby，Java，Perl，Python，PHP，JavaScript等。</p>
+<p>YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。比如同一段数据Josn和Yaml的表示分别如下：</p>
+<p><strong>Json</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: &#x27;Tom Smith&#x27;,age: 37,spouse: &#123; name: &#x27;Jane Smith&#x27;, age: 25 &#125;,children: [ &#123; name: &#x27;Jimmy Smith&#x27;, age: 15 &#125;,&#123; name: &#x27;Jenny Smith&#x27;, age: 12 &#125; ] &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line"></span><br><span class="line">age: 37</span><br><span class="line"></span><br><span class="line">spouse:</span><br><span class="line"></span><br><span class="line">  name: Jane Smith</span><br><span class="line"></span><br><span class="line">  age: 25</span><br><span class="line"></span><br><span class="line">children:</span><br><span class="line"></span><br><span class="line"> name: Jimmy Smith</span><br><span class="line"></span><br><span class="line">  age: 15</span><br><span class="line"></span><br><span class="line"> name: Jenny Smith</span><br><span class="line"></span><br><span class="line">  age: 12</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-语法特点【注意】"><a href="#2-语法特点【注意】" class="headerlink" title="2 语法特点【注意】"></a><strong>2 语法特点【注意】</strong></h2><p>· 大小写敏感</p>
+<p>· 使用缩进表示层级关系</p>
+<p>· 缩进时不允许使用Tab键，只允许使用空格。</p>
+<p>· 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</p>
+<h2 id="3-yaml下载安装"><a href="#3-yaml下载安装" class="headerlink" title="3 yaml下载安装"></a><strong>3 yaml下载安装</strong></h2><p>官网：<a target="_blank" rel="noopener" href="http://pyyaml.org/wiki/PyYAML">http://pyyaml.org/wiki/PyYAML</a></p>
+<p>· 下载安装：cmd 输入pip install pyyaml或者pip3 install pyyaml</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1630762433194.png" alt="1630762433194"> </p>
+<p>· 安装完成后在python引入yaml检测是否安装成功。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1630762452872.png" alt="1630762452872"> </p>
+<h1 id="二、yaml数据类型详解"><a href="#二、yaml数据类型详解" class="headerlink" title="二、yaml数据类型详解"></a>二、yaml数据类型详解</h1><h2 id="1-支持数据类型"><a href="#1-支持数据类型" class="headerlink" title="1.支持数据类型"></a>1.支持数据类型</h2><p><strong>1）.纯量</strong>（scalars）：单个的、不可再分的值</p>
+<p><strong>2）.</strong> <strong>数组</strong>：一组按次序排列的值，又称为序列（sequence） / 列表（list）</p>
+<p><strong>3）.</strong> <strong>对象</strong>：键值对的集合，又称为映射（mapping）/ 哈希（hashes） / 字典（dictionary）</p>
+<h2 id="2-纯量"><a href="#2-纯量" class="headerlink" title="2. 纯量"></a><strong>2. 纯量</strong></h2><p>数据最小的单位，不可以再分割。类似于Python中单个变量</p>
+<p>flag</p>
+<h2 id="3-list数组"><a href="#3-list数组" class="headerlink" title="3. list数组"></a><strong>3. list数组</strong></h2><p>与Python的list结构类似，数组元素使用“-”开头，也可以根据缩进进行数组嵌套。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- Jack</span><br><span class="line"></span><br><span class="line">\- Harry</span><br><span class="line"></span><br><span class="line">\- Sunny</span><br></pre></td></tr></table></figure>
+
+<p># 也可以写成一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Jack,Harry,Sunny]</span><br></pre></td></tr></table></figure>
+
+<p>对应到python的list写法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;Jack&#x27;,&#x27;Harry&#x27;,&#x27;Sunny&#x27;]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-对象"><a href="#4-对象" class="headerlink" title="4. 对象"></a><strong>4.</strong> 对象</h2><p>对象的一组键值对，使用冒号结构表示。类似Python中的字典数据结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line"></span><br><span class="line">platformVersion: 7.1.2</span><br></pre></td></tr></table></figure>
+
+<p># <strong>Yaml</strong>也允许另一种写法，将所有键值对写成一个行内对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;platformName: Android,platformVersion: 7.1.2&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：冒号后面一定要有空格！对应到python字典的写法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;platformName&#x27;: &#x27;Android&#x27;, &#x27;platformVersion&#x27;: &#x27;6.0.1&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-数据嵌套"><a href="#5-数据嵌套" class="headerlink" title="5.数据嵌套"></a>5.数据嵌套</h2><p>yaml数据嵌套表示可以将上面的各类数据根据实际场景进行组合嵌套。</p>
+<p>数据场景：</p>
+<p>Tom Smith 37岁，他有一个妻子叫 Jane Smith，35岁。 另外他有2个孩子，一个叫Jimmy Smith，15岁；另外一个叫Jenny Smith ，12岁。</p>
+<p>yaml语法表示如下：</p>
+<p><strong>familyInfo.yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line">age: 37</span><br><span class="line">spouse:</span><br><span class="line">    name: Jane Smith</span><br><span class="line">    age: 35</span><br><span class="line">children:</span><br><span class="line"> - name: Jimmy Smith</span><br><span class="line">   age: 15</span><br><span class="line"> - name: Jenny Smith</span><br><span class="line">   age: 12</span><br></pre></td></tr></table></figure>
+
+<p>转化为Python的写法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;name&#x27;:&#x27;Tom Smith&#x27;,&#x27;age&#x27;:37,&#x27;spouse&#x27;:&#123;&#x27;name&#x27;:&#x27;Jane Smith&#x27;,&#x27;age&#x27;:25&#125;,&#x27;childern&#x27;:[&#123;&#x27;name&#x27;:&#x27;Jimmy Smith&#x27;,&#x27;age&#x27;:15&#125;,&#123;&#x27;name&#x27;:&#x27;Jenny Smith&#x27;,&#x27;age&#x27;:12&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="三、yaml数据操作"><a href="#三、yaml数据操作" class="headerlink" title="三、yaml数据操作"></a>三、yaml数据操作</h1><h2 id="1-数据读取"><a href="#1-数据读取" class="headerlink" title="1. 数据读取"></a><strong>1.</strong> <strong>数据读取</strong></h2><h3 id="1-测试场景"><a href="#1-测试场景" class="headerlink" title="1) 测试场景"></a>1) 测试场景</h3><p>· 读取配置中的所有信息</p>
+<p>· 读取yaml数据表中Tom Smith的姓名、年龄、信息</p>
+<p>· 单独读取配偶的姓名和年龄信息</p>
+<p>· 分别读取两个孩子的姓名、年龄信息</p>
+<h3 id="2-load方法"><a href="#2-load方法" class="headerlink" title="2) load方法"></a>2) load方法</h3><p>load(stream, Loader=Loader) 解析文件流中的第一个YAML文档并生成相应的Python对象。</p>
+<h3 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3) 代码实现"></a><strong>3) 代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import yaml&lt;!--须在设置里面添加pyaml--&gt;</span><br><span class="line">file=open(&#x27;runtest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line">print(data[&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;spouse&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;age&#x27;])</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-数据修改"><a href="#2-数据修改" class="headerlink" title="2. 数据修改"></a><strong>2.</strong> <strong>数据修改</strong></h2><p>如果想改变某个数据，可以使用如下方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line">file=open(&#x27;runTest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line">data[&#x27;name&#x27;]=&#x27;Test123&#x27;</span><br><span class="line">print(data[&#x27;name&#x27;])</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：此处只是变量类型的数据变更，不会真正修改到yaml配置表中的数据。</p>
+<h2 id="3-数据转化"><a href="#3-数据转化" class="headerlink" title="3. 数据转化"></a><strong>3.</strong> <strong>数据转化</strong></h2><p>方法：dump()可以将Python对象序列化成YAML流。如果stream为None，则返回生成的字符串。</p>
+<h3 id="1-测试场景-1"><a href="#1-测试场景-1" class="headerlink" title="1) 测试场景"></a>1) <strong>测试场景</strong></h3><p>将下面python数据类型转化为yaml数据类型</p>
+<h3 id="2-代码实践"><a href="#2-代码实践" class="headerlink" title="2) 代码实践"></a>2) <strong>代码实践</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">city=[&#x27;changsha&#x27;,&#x27;wuhan&#x27;,&#x27;beijing&#x27;]</span><br><span class="line">person=&#123;&#x27;tom&#x27;:&#x27;18&#x27;&#125;</span><br><span class="line"></span><br><span class="line">#python data</span><br><span class="line">print(city)</span><br><span class="line">print(person)</span><br><span class="line">#yaml data</span><br><span class="line">print(yaml.dump(city))</span><br><span class="line">print(yaml.dump(person))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;changsha&#x27;, &#x27;wuhan&#x27;, &#x27;beijing&#x27;]</span><br><span class="line"></span><br><span class="line">&#123;&#x27;tom&#x27;: &#x27;18&#x27;&#125;</span><br><span class="line"></span><br><span class="line">\- changsha</span><br><span class="line"></span><br><span class="line">\- wuhan</span><br><span class="line"></span><br><span class="line">\- beijing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tom: &#x27;18&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-Capability配置数据分离"><a href="#4-Capability配置数据分离" class="headerlink" title="4. Capability配置数据分离"></a><strong>4.</strong> Capability配置数据分离</h2><h3 id="1-测试场景-2"><a href="#1-测试场景-2" class="headerlink" title="1) 测试场景"></a><strong>1) 测试场景</strong></h3><p>将capability的各项参数值与代码进行分离。</p>
+<h3 id="2-场景分析"><a href="#2-场景分析" class="headerlink" title="2) 场景分析"></a><strong>2)</strong> <strong>场景分析</strong></h3><p>我们可以把之前capability中各项写死的配置信息来抽离出来，存放在一个yaml配置文件中，使用 对象数据类型来存储数据；然后调用load()方法读取数据，从而实现数据和代码的分离。</p>
+<h3 id="3-代码实现-1"><a href="#3-代码实现-1" class="headerlink" title="3) 代码实现"></a><strong>3)</strong> <strong>代码实现</strong></h3><ol>
+<li>参数配置表：<strong>desired_caps.yaml</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line">platformVersion: 7.1.2</span><br><span class="line">deviceName: 127.0.0.1:62025</span><br><span class="line">app: D\kaoyan3.1.0.apk</span><br><span class="line">noReset: False</span><br><span class="line">appPackage: com.tal.kaoyan&lt;!--#此次测试了考研帮--&gt;</span><br><span class="line">appActivity: com.tal.kaoyan.ui.activity.SplashActivity</span><br><span class="line">ip: 127.0.0.1</span><br><span class="line">port: 4723</span><br></pre></td></tr></table></figure>
+
+<p>Python脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>报错分析</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaml.scanner.ScannerError: mapping values are not allowed here</span><br></pre></td></tr></table></figure>
+
+<p>该报错说明map对象数据类型写法错误，一般为“：”后面没有留空格。如：platformName:Android</p>
+<p> <strong>问题思考</strong></p>
+<p>在自动化脚本运行过程中，IDE控制台一般都会输出运行日志。但是如果测试项目是在liunx服务器上面运行，没有IDE控制台输出log，那么我们该如何采集日志？</p>
+<h1 id="四、日志概述"><a href="#四、日志概述" class="headerlink" title="四、日志概述"></a>四、日志概述</h1><h2 id="1-日志作用"><a href="#1-日志作用" class="headerlink" title="1 日志作用"></a><strong>1 日志作用</strong></h2><p>不管是在项目开发还是测试过程中，项目运行一旦出现问题日志信息就非常重要了。日志是定位问题的重要手段，就像侦探人员要根据现场留下的线索来推断案情。</p>
+<h2 id="2-日志级别"><a href="#2-日志级别" class="headerlink" title="2 日志级别"></a><strong>2 日志级别</strong></h2><p>脚本运行会有很多的情况，比如调试信息、报错异常信息等。日志要根据这些不同的情况来继续分级管理，不然对于排查问题的筛选会有比较大的干扰。 。日志一般定位的级别如下：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>何时使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEBUG</td>
+<td>调试信息，也是最详细的日志信息。</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>证明事情按预期工作。</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td>表明发生了一些意外，或者不久的将来会发生问题（如‘磁盘满了’）。软件还是在正常工作。</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>由于更严重的问题，软件已不能执行一些功能了。</td>
+</tr>
+<tr>
+<td>CRITICAL</td>
+<td>严重错误，表明软件已不能继续运行了。</td>
+</tr>
+</tbody></table>
+<p>首先我们日志需要按照info、debug、error等级别来进行区分的。当然这个级别可以自己去设置。在一般的情况下我们普通的输出我们直接用info类型，调试的时候用debug类型，如果预计有错误时那么我们就需要用error类型的日志，一般情况去info级别最为合适。</p>
+<h2 id="3-日志格式"><a href="#3-日志格式" class="headerlink" title="3 日志格式"></a><strong>3 日志格式</strong></h2><p>日志格式化是为了提高日志的可阅读性，比如：<strong>时间+模块+行数+日志</strong>具体信息的内容格式。如果日志信息杂乱无章的全部输出来，这样也不利于定位问题。</p>
+<h2 id="4-日志位置"><a href="#4-日志位置" class="headerlink" title="4 日志位置"></a><strong>4 日志位置</strong></h2><p>一个项目中会有很多的日志采集点，而日志采集点必须结合业务属性来设置。比如在登录代码执行前可以插入“准备登录..”日志信息,如果登录完成之后，再设置登录的提示日志就会给人造成误解，无法判断到底是登录之前的问题还是登录之后的问题，因此日志采集点的位置很重要。</p>
+<h1 id="五、logging模块"><a href="#五、logging模块" class="headerlink" title="五、logging模块"></a><strong>五、logging模块</strong></h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a><strong>1 简介</strong></h2><p>Python的logging模块提供了通用的日志系统，这个模块提供不同的日志级别，并可以采用不同的方式记录日志，比如文件，HTTP GET/POST，SMTP，Socket等，甚至可以自己实现方式记录日志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#导入logging模块</span><br><span class="line">import logging</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-logging构成"><a href="#2-logging构成" class="headerlink" title="2 logging构成"></a><strong>2 logging构成</strong></h2><p>logging模块包括<strong>logger，Handler，Filter，Formatter</strong>四个部分。</p>
+<p>· Logger 记录器，用于设置日志采集。</p>
+<p>· Handler 处理器，将日志记录发送至合适的路径。</p>
+<p>· Filter 过滤器，提供了更好的粒度控制，它可以决定输出哪些日志记录。</p>
+<p>· Formatter 格式化器，指明了最终输出中日志的格式。</p>
+<h2 id="3-Logger-记录器"><a href="#3-Logger-记录器" class="headerlink" title="3 Logger 记录器"></a><strong>3 Logger 记录器</strong></h2><p>Logger是一个树形层级结构，在使用接口debug，info，warn，error，critical；使用之前必须创建Logger实例，即创建一个记录器，如果没有显式的进行创建，则默认创建一个root logger，并应用默认的日志级别(WARN)，Handler和Formatter。</p>
+<p><strong>方法:</strong></p>
+<p>basicConfig(参数) 为日志记录系统做基本配置。</p>
+<p><strong>部分参数</strong></p>
+<p>filename :指定日志文件名称</p>
+<p>filemode:指定打开文件的模式，如果指定了filename（如果文件模式未指定，则默认为’a）</p>
+<p><strong>文件读写模式</strong>:</p>
+<p>w 以写方式打开，</p>
+<p>W 文件若存在，首先要清空，然后（重新）创建</p>
+<p>a 以追加模式打开 (从 EOF 开始, 必要时创建新文件)</p>
+<p>r+ 以读写模式打开</p>
+<p>w+ 以读写模式打开 (参见 w )</p>
+<p>a+ 以读写模式打开 (参见 a )</p>
+<p>format:为处理程序使用指定的格式字符串。</p>
+<p>datefmt: 使用指定的日期/时间格式。样式如果指定了格式字符串，则使用它来指定 格式字符串的类型.</p>
+<p>level:将根记录器级别设置为指定级别。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line">logging.basicConfig(level=logging.INFO)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Handler-处理器"><a href="#4-Handler-处理器" class="headerlink" title="4 Handler 处理器"></a><strong>4 Handler 处理器</strong></h2><p>Handler 处理器，将日志记录发送至合适的路径,Handler处理器类型有很多种，比较常用的有三个：</p>
+<h3 id="1-StreamHandler"><a href="#1-StreamHandler" class="headerlink" title="1).StreamHandler"></a><strong>1).StreamHandler</strong></h3><p>将日志记录输出发送到诸如sys.stdout，sys.stderr或任何类似文件流的对象。</p>
+<h3 id="2-FileHandler"><a href="#2-FileHandler" class="headerlink" title="2).FileHandler"></a><strong>2).FileHandler</strong></h3><p>将日志记录输出发送到磁盘文件。 它继承了StreamHandler的输出功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG)</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-NullHandler"><a href="#3-NullHandler" class="headerlink" title="3).NullHandler"></a><strong>3).NullHandler</strong></h3><p>不做任何格式化或输出。 它本质上是一个开发人员使用的“无操作”处理程序。</p>
+<h2 id="5-Formatter"><a href="#5-Formatter" class="headerlink" title="5 Formatter"></a><strong>5 Formatter</strong></h2><p>使用Formatter对象设置日志信息最后的规则、结构和内容，默认的时间格式为%Y-%m-%d %H:%M:%S。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%(levelno)s</td>
+<td>打印日志级别的数值</td>
+</tr>
+<tr>
+<td>%(levelname)s</td>
+<td>打印日志级别名称</td>
+</tr>
+<tr>
+<td>%(pathname)s</td>
+<td>打印当前执行程序的路径</td>
+</tr>
+<tr>
+<td>%(filename)s</td>
+<td>打印当前执行程序名称</td>
+</tr>
+<tr>
+<td>%(funcName)s</td>
+<td>打印日志的当前函数</td>
+</tr>
+<tr>
+<td>%(lineno)d</td>
+<td>打印日志的当前行号</td>
+</tr>
+<tr>
+<td>%(asctime)s</td>
+<td>打印日志的时间</td>
+</tr>
+<tr>
+<td>%(thread)d</td>
+<td>打印线程id</td>
+</tr>
+<tr>
+<td>%(threadName)s</td>
+<td>打印线程名称</td>
+</tr>
+<tr>
+<td>%(process)d</td>
+<td>打印进程ID</td>
+</tr>
+<tr>
+<td>%(message)s</td>
+<td>打印日志信息</td>
+</tr>
+</tbody></table>
+<p>使用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG,</span><br><span class="line">format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&#x27;)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<p>2021-09-02 11:50:20,094   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,359   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,360   .py[line:6] INFO hello tom<br>2021-09-02 11:50:41,360   .py[line:7] WARNING warning info<br>2021-09-02 11:50:41,360   .py[line:8] ERROR error info<br>2021-09-02 11:50:41,360 </p>
+<h1 id="六、Logging实践操作"><a href="#六、Logging实践操作" class="headerlink" title="六、Logging实践操作"></a><strong>六、Logging实践操作</strong></h1><h2 id="1测试场景"><a href="#1测试场景" class="headerlink" title="1测试场景"></a><strong>1测试场景</strong></h2><p>将前面所学的启动考研帮App的脚本增加log采集功能，设置指定的日志格式输出，并将日志保存到指定文件。</p>
+<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a><strong>2 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO,filename=&#x27;runlog.log&#x27;,</span><br><span class="line">                    format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d]%(levelname)s%(message)s&#x27;)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">logging.info(&#x27;start app...&#x27;)</span><br><span class="line">driver=webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;,desired_caps)</span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    logging.info(&#x27;check cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no cancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&#x27;check skipBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_cancelBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-问题思考"><a href="#3-问题思考" class="headerlink" title="3 问题思考"></a><strong>3 问题思考</strong></h2><p>前面我们已经实现了在代码中增添log，log也按照预期的采集到了，看似一切完美无瑕。但是该log配置的作用域也只是控制当前的脚本 。 然而一个自动化项目中通常有很多模块脚本，难道我们需要每一个脚本都这样配置吗？</p>
+<h2 id="4解决思路"><a href="#4解决思路" class="headerlink" title="4解决思路"></a><strong>4解决思路</strong></h2><p>将这些日志配置的参数抽离出来，各个模块需要使用则直接引用即可。</p>
+<h2 id="5日志格式配置"><a href="#5日志格式配置" class="headerlink" title="5日志格式配置"></a><strong>5日志格式配置</strong></h2><p>将log输出格式，输出路径等参数抽离出来作为一个配置表，如下所示：</p>
+<p><strong>log.conf</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys=root,infoLogger</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=DEBUG</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[logger_infoLogger]</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line">qualname=infoLogger</span><br><span class="line">propagate=0</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form02</span><br><span class="line">args=(sys.stdout,)</span><br><span class="line"></span><br><span class="line">[handler_fileHandler]</span><br><span class="line">class=FileHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form01</span><br><span class="line">args=(&#x27;runlog.log&#x27;, &#x27;a&#x27;)</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys=form01,form02</span><br><span class="line"></span><br><span class="line">[formatter_form01]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br><span class="line">[formatter_form02]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在需要调用的模块增加如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br></pre></td></tr></table></figure>
+
+<p>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileConfig(fname, defaults=None, disable_existing_loggers=True)</span><br></pre></td></tr></table></figure>
+
+<p>该放在作用是从ConfigParser格式的文件中读取日志配置，同时如果当前脚本有配置log参数，则覆盖当前log配置选项。</p>
+<h2 id="6-代码实现"><a href="#6-代码实现" class="headerlink" title="6 代码实现"></a><strong>6 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line">stream=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(stream)</span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br><span class="line"></span><br><span class="line">def check_updateBtn():</span><br><span class="line">    logging.info(&quot;check_pdateBtn&quot;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;update element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;skipBtn element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
         
         
           <blockquote id="copyright">
@@ -220,22 +500,11 @@
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/09/03/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/">App自动化测试概述</a>
-    </h1>
-  
-
-
-      </header>
-    
     <div class="article-meta">
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-09-03T05:37:19.000Z" itemprop="datePublished">2021年09月03日</time>
+  <time class="dt-published" datetime="2021-09-03T13:42:00.092Z" itemprop="datePublished">2021年09月03日</time>
 </span>
       
       
@@ -250,165 +519,18 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="一、应用背景"><a href="#一、应用背景" class="headerlink" title="一、应用背景"></a><strong>一、应用背景</strong></h2><p>随着移动互联网和智能设备越来越普及，移动App已经渗透到了我们的生活方方面面，比如出行、饮食、旅行、社交、金融、短视频等。</p>
+        <p>title: App自动化测试概述<br>date: 2021-09-03 13:37:19<br>tags:</p>
+<h2 id="一、应用背景"><a href="#一、应用背景" class="headerlink" title="一、应用背景"></a><strong>一、应用背景</strong></h2><p>随着移动互联网和智能设备越来越普及，移动App已经渗透到了我们的生活方方面面，比如出行、饮食、旅行、社交、金融、短视频等。</p>
 <p>用户对App产品的质量和用户体验要求越来越高。因此很多互联网企业也因此开始对移动端产品质量越来越重视。但是App产品不断迭代更新，给测试人员也增加了测试工作量，特别是大量繁琐的回归测试。</p>
-<p>自动化测试是应对产品不断迭代更新的辅助测试手段（主要是针对回归测试），最终目的是为了保证产品质量。</p>
-<h2 id="二、移动端操作系统与app类型"><a href="#二、移动端操作系统与app类型" class="headerlink" title="二、移动端操作系统与app类型"></a><strong>二、移动端操作系统与app类型</strong></h2><h3 id="主流"><a href="#主流" class="headerlink" title="主流"></a><strong>主流</strong></h3><p>Andriod、iOS</p>
-<h3 id="非主流"><a href="#非主流" class="headerlink" title="非主流"></a><strong>非主流</strong></h3><p>Winphone、黑莓、塞班、ubuntu、Asha、Tizen、Jolla、Firefox OS、鸿蒙os</p>
-<h3 id="非智能机"><a href="#非智能机" class="headerlink" title="非智能机"></a><strong>非智能机</strong></h3><p>MTK平台、S40平台</p>
-<h3 id="Andriod"><a href="#Andriod" class="headerlink" title="Andriod"></a><strong>Andriod</strong></h3><p>Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps1.png" alt="img"> </p>
-<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a><strong>iOS</strong></h3><p>iOS是由苹果公司开发的移动操作系统 。苹果公司最早于2007年1月9日的Macworld大会上公布这个系统，最初是设计给iPhone使用的，后来陆续套用到iPod touch、iPad以及Apple TV等产品上。iOS与苹果的Mac OS X操作系统一样，属于类Unix的商业操作系统。</p>
-<h2 id="三、app测试框架介绍"><a href="#三、app测试框架介绍" class="headerlink" title="三、app测试框架介绍"></a><strong>三、app测试框架介绍</strong></h2><h3 id="1-Andriod："><a href="#1-Andriod：" class="headerlink" title="1. Andriod："></a><strong>1. Andriod：</strong></h3><h4 id="Monkey"><a href="#Monkey" class="headerlink" title="Monkey"></a><strong>Monkey</strong></h4><p>​    Monkey是一个程序，运行在您的模拟器或设备上，并生成伪随机的用户事件流，如点击，触摸或手势，以及一些系统级事件。 您可以使用Monkey以随机但可重复的方式对您正在开发的应用程序进行压力测试。</p>
-<h4 id="MonkeyRunner"><a href="#MonkeyRunner" class="headerlink" title="MonkeyRunner"></a><strong>MonkeyRunner</strong></h4><p>​    MonkeyRunner工具是使用Jython(使用Java编程语言实现的Python)写出来的，它提供了多个API，通过monkeyrunner API 可以写一个Python的程序来模拟操作控制Android设备app,测试其稳定性并通过截屏可以方便地记录出现的问题。</p>
-<h4 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a><strong>Instrumentation</strong></h4><p>​    Instrumentaion 是Android自带的一个测试框架，是很多其它测试框架的基础，可以在同进程中加载被测组件。它有很多丰富的高层封装，使用者可以使用基于instrumentation的其他框架，避免过多二次开发量。但Instrumentation不支持跨应用,导致基于instrumentation的框架都继承了这个缺点。</p>
-<h4 id="Robotium-基于Instrumentation"><a href="#Robotium-基于Instrumentation" class="headerlink" title="Robotium(基于Instrumentation)"></a><strong>Robotium(基于Instrumentation)</strong></h4><p>​    Robotium是基于Instrumentation框架开发的一个更强的框架. 对常用的操作进行了易用性的封装. 用于开发功能性、系统和验收测试场景。它运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。</p>
-<h4 id="Robolectric"><a href="#Robolectric" class="headerlink" title="Robolectric"></a><strong>Robolectric</strong></h4><p>​    支持单元测试；Robolectric允许用户做大部分真实设备上可以做的事情，且可以在常规的JVM持续集成环境中运行，不需要通过模拟器，因此可以摆脱模拟器启动慢的问题。</p>
-<h4 id="UIAutomator"><a href="#UIAutomator" class="headerlink" title="UIAutomator"></a><strong>UIAutomator</strong></h4><p>​    Android 4.3发布的时候包含了一种新的测试工具–uiautomator，uiautomator是用来做UI测试的。也就是普通的手工测试，点击每个控件元素 看看输出的结果是否符合预期。比如 登陆界面 分别输入正确和错误的用户名密码然后点击登陆按钮看看是否能否登陆以及是否有错误提示等。</p>
-<h4 id="Selendroid"><a href="#Selendroid" class="headerlink" title="Selendroid"></a><strong>Selendroid</strong></h4><p>​    Selendroid 是一个基于Instrumentation的一个框架. 完全兼容Webdriver协议。 Selendroid 可以在模拟器和实际设备上使用，也可以集成网格节点作为缩放和并行测试。</p>
-<h4 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a><strong>Espresso</strong></h4><p>​    Espresso是Google的开源自动化测试框架。相对于Robotium和UIAutomator，它的特点是规模更小、更简洁，API更加精确，编写测试代码简单，容易快速上手。因为是基于Instrumentation的，所以不能跨App。</p>
-<h4 id="Calabash"><a href="#Calabash" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​    Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
-<h4 id="Appium"><a href="#Appium" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​    Appium是一个开源的、跨平台的自动化测试工具，支持IOS、Android和FirefoxOS平台。 通过Appium，开发者无需重新编译app或者做任何调整，就可以测试移动应用，可以使测试代码访问后端API和数据库。</p>
-<p>​    它是通过驱动苹果的UIAutomation和Android的UiAutomator框架来实现的双平台支持，同时绑定了Selenium WebDriver用于老的Android平台测试。开发者可以使用WebDriver兼容的任何语言编写测试脚本，如Java， OC， JS， PHP，Python， Ruby， C#，Clojure 和Perl语言。</p>
-<h4 id="Macaca"><a href="#Macaca" class="headerlink" title="Macaca"></a><strong>Macaca</strong></h4><p>​    Macaca 是一套面向用户端软件的测试解决方案，提供了自动化驱动，环境配套，周边工具，集成方案，旨在解决终端上的测试、自动化、性能等方面的问题。</p>
-<h4 id="Cafe"><a href="#Cafe" class="headerlink" title="Cafe"></a><strong>Cafe</strong></h4><p>​    基于hook录制体系</p>
-<p>​    遍历测试</p>
-<p>​    跨app测试</p>
-<p>​    pc agent设计</p>
-<p>​    使用android漏洞提权</p>
-<h3 id="2-iOS"><a href="#2-iOS" class="headerlink" title="2. iOS"></a>2. <strong>iOS</strong></h3><h4 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a><strong>XCTest</strong></h4><p>​        XCTest是苹果在iOS 7和Xcode5引入的一个简单而强大的测试框架，它的测试编写起来非常简单，并且遵循xUnit风格。XCTest的优点是与Xcode深度集成，有专门的Test导航栏，但因为受限于官方测试API，因此功能不是很丰富。</p>
-<h4 id="UIAutomation"><a href="#UIAutomation" class="headerlink" title="UIAutomation"></a><strong>UIAutomation</strong></h4><p>​        UIAutomation是苹果提供的UI自动化测试框架，使用Javascript编写。基于UIAutomation有扩展型的工具框架和驱动型的框架。</p>
-<p>​        扩展型框架以JavaScript扩展库方法提供了很多好用js工具，注入式的框架通常会提供一些Lib或者是Framework，要求测试人员在待测应用的代码工程中导入这些内容，框架可以通过他们完成对app的驱动。</p>
-<p>​        驱动型UI Automation 在自动化测试底层使用了UI Automation库，通过TCP通信的方式驱动UI Automation来完成自动化测试，通过这种方式，编辑脚本的语言不再局限于JavaScript。</p>
-<h4 id="Appium-1"><a href="#Appium-1" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​        它是通过驱动苹果的UIAutomation来执行自动化</p>
-<h4 id="Frank"><a href="#Frank" class="headerlink" title="Frank"></a><strong>Frank</strong></h4><p>​        Frank是iOS平台一款非常受欢迎的app测试框架，它使用Cucumber语言来编写测试用例， Frank包含一个强大的“app inspector”–Symbiote，可以用它来获得运行中app的详细信息，便于开发者将来进行测试回顾。</p>
-<p>​        优点： 测试场景是在Cucumber的帮助下，用可理解的英语句子写的。</p>
-<p>强大的Symbiote实时检查工具。 活跃的社区支持。 不断扩大中的库。</p>
-<p>​        缺点： 对手势的支持有限。 在设备上运行测试有点难。 修改配置文件需要在实际设备上运行。 记录功能不可用。</p>
-<h4 id="KIF"><a href="#KIF" class="headerlink" title="KIF"></a><strong>KIF</strong></h4><p>​        KIF是Keep It Functional项目的缩写，是一款iOS app功能性测试框架，使用Objective-C语言编写，对苹果开发者来说非常容易上手，更是一款开发者广为推荐的测试工具。KIF tester使用私有API来了解App中的视图层级。但缺点是运行较慢。</p>
-<h4 id="Calabash-1"><a href="#Calabash-1" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​        Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
-<h4 id="Subliminal"><a href="#Subliminal" class="headerlink" title="Subliminal"></a><strong>Subliminal</strong></h4><p>​        Subliminal是另一款与XCTest集成的框架。与KIF不同的是，它基于UIAutomation编写，旨在对开发者隐藏UIAutomation中一些复杂的细节。</p>
-<h4 id="Kiwi"><a href="#Kiwi" class="headerlink" title="Kiwi"></a><strong>Kiwi</strong></h4><p>​        Kiwi是对XCTest的一个完整替代，使用xSpec风格编写测试。 Kiwi带有自己的一套工具集，包括expectations、mocks、stubs，甚至还支持异步测试。它是一个适用于iOS 开发的Behavior Driven Development（BDD）库，优点在于其简洁的接口和可用性，易于设置和使用，非常适合新手开发者。Kiwi使用Objective-C语言编写，易于IOS开发人员上手。</p>
-<h4 id="Appecker"><a href="#Appecker" class="headerlink" title="Appecker"></a><strong>Appecker</strong></h4><p>​        Appecker是一款用于iOS系列系统的自动化测试框架，是腾讯的一个开源项目。Appecker采用Objective C为测试用例的开发语言, 完整支持iOS上的UI功能测试、单元测试并且可以良好地支持自动化运行。</p>
-<h2 id="四、Android-app类型"><a href="#四、Android-app类型" class="headerlink" title="四、Android app类型"></a>四、<strong>Android</strong> <strong>app类型</strong></h2><h3 id="1-原生应用程序：（Native-App）"><a href="#1-原生应用程序：（Native-App）" class="headerlink" title="1. 原生应用程序：（Native App）"></a>1. <strong>原生应用程序：（Native App）</strong></h3><p>原生APP是什么？原生APP就是利用Android、iOS平台官方的开发语言、开发类库、工具进行开发。比如安卓的java语言，iOS的object-c 语言。在应用性能上和交互体验上应该是最好的。</p>
-<p>优点：</p>
-<p>1、可访问手机所有功能、可实现功能最齐全；</p>
-<p>2、运行速度快、性能高，绝佳的用户体验；</p>
-<p>3、支持大量图形和动画。不卡，反应快。</p>
-<p>4、比较快捷地使用设备端提供的接口，处理速度上有优势。</p>
-<p>缺点：</p>
-<p>\1. 在过去主要是成本高、周期长，Android和iOS都需要单独开发。</p>
-<p>\2. 更新版本需要重新下载安装包。</p>
-<h3 id="2-混合应用程序（Hybrid-App）"><a href="#2-混合应用程序（Hybrid-App）" class="headerlink" title="2. 混合应用程序（Hybrid App）"></a>2. <strong>混合应用程序（Hybrid App）</strong></h3><p>即利用了原生APP的开发技术还应用了HTML5开发技术，是原生和HTML5技术的混合应用。混合比例不限。</p>
-<p>优点：</p>
-<p>1、开发周期短；</p>
-<p>2、功能更新发布快；</p>
-<p>缺点：</p>
-<p>1、用户体验不如本地应用；</p>
-<p>2、性能稍慢（需要连接网络）；</p>
-<h3 id="3-Web版APP-（Web-App）"><a href="#3-Web版APP-（Web-App）" class="headerlink" title="3. Web版APP （Web App）"></a>3. <strong>Web版APP （Web App）</strong></h3><p>本质就是浏览器功能的叠加，用普通Web开发语言开发的，通过浏览器运行。</p>
-<p>优势：</p>
-<p>1、支持范围广；</p>
-<p>2、开发成本低、周期短。</p>
-<p>缺点：</p>
-<p>1、对联网要求高，离线不能做任何操作；</p>
-<p>2、功能有限；</p>
-<p>3、运行速度慢，页面不能承载太多东西；</p>
-<p>4、图片和动画支持性不高；</p>
-<p>5、如果用户使用更多的新型浏览器，那么就会出现运行问题。</p>
-<h3 id="4-Web-App、Hybrid-App、Native-App-技术特性"><a href="#4-Web-App、Hybrid-App、Native-App-技术特性" class="headerlink" title="4. Web App、Hybrid App、Native App 技术特性"></a>4. <strong>Web App、Hybrid App、Native App 技术特性</strong></h3><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps2.jpg" alt="img"> </p>
-<h3 id="5-手游app与手机App"><a href="#5-手游app与手机App" class="headerlink" title="5. 手游app与手机App"></a>5. <strong>手游app与手机App</strong></h3><p>手游一般使用引擎开发，现在著名的有cocos2d和unity3d。两者都是使用引擎自带的语言进行开发，主流的分别是c++和c#，虽然在开发过程中也有按钮等控件的概念，但当运行时由引擎渲染后就变成了一副简单的图片：</p>
-<p>手机App一般使用Android SDK开发，使用Java编写。通过Android提供的服务，我们可以获取App当前窗口的视图信息，进而查找和操作按钮等控件，以完成自动化测试，如Uiautomator。这个过程是标准化的，从技术上来说没有任何难度，因此各个公司各个App自动化测试的方法都大同小异。</p>
-<h2 id="五、Android-SDK介绍"><a href="#五、Android-SDK介绍" class="headerlink" title="五、Android    SDK介绍"></a>五、<strong>Android</strong>    <strong>SDK介绍</strong></h2><p>SDK：（software development kit）软件开发工具包。被软件开发工程师用于为特定的软件包、软件框架、硬件平台、操作系统等建立应用软件的开发工具的集合。</p>
-<p>因此，Android SDK 指的是Android专属的软件开发工具包。</p>
-<h2 id="六、Android-SDK环境搭建"><a href="#六、Android-SDK环境搭建" class="headerlink" title="六、Android SDK环境搭建"></a>六、<strong>Android SDK环境搭建</strong></h2><h4 id="1-配置jdk环境"><a href="#1-配置jdk环境" class="headerlink" title="1.配置jdk环境"></a><strong>1.配置jdk环境</strong></h4><p>因为安卓用Java语言开发，所以安装安卓环境——首先需要安装配置好jdk环境(<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html">https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html</a>)</p>
-<p>推荐使用 jdk 8以上的版本</p>
-<h4 id="2-SDK下载"><a href="#2-SDK下载" class="headerlink" title="2.SDK下载"></a><strong>2.SDK下载</strong></h4><p>Android SDK包下载</p>
-<p>· 官网下载：<a target="_blank" rel="noopener" href="https://android-sdk.en.softonic.com/download">https://android-sdk.en.softonic.com/download</a></p>
-<p>· 网盘下载： <a target="_blank" rel="noopener" href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
-<p>安装后启动 <em><strong>*SDK Manager.exe*</strong></em> 程序就可以看到Android SDK Mannerger的主界面。</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps3.jpg" alt="img"> </p>
-<h3 id="Tools目录："><a href="#Tools目录：" class="headerlink" title="Tools目录："></a><strong>Tools目录：</strong></h3><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps4.jpg" alt="img"> </p>
-<p><strong>Android SDK Tools</strong>（必须，只需下载一个版本，一般选最新版本）：基础工具包，版本号带rc字样的是预览版。</p>
-<p><strong>Android SDK Platform-tools必须</strong>，只需下载一个版本，一般选最新版本）：从android2.3开始划出此目录，存放公用开发工具，比如adb、sqlite3等，被划分到了这里。</p>
-<p><strong>Android SDK Build-tools</strong>（必须，可以安装多个版本）：Android项目构建工具。</p>
-<p><strong>Android xxx（API xx）</strong>目录（可选的各平台开发工具）：</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps5.jpg" alt="img"> </p>
-<p>· Documentation for AndroidSdk（可选）：安卓开发者官网的一些离线文档，不过下载下来打开也很慢，后面会提供另外一个离线版。</p>
-<p><strong>·</strong> <strong>SDK Platform</strong> (必须）：对应平台的开发工具，需要在哪个版本的平台下开发就下载哪个。</p>
-<p>· Samples for SDK（可选)，此项在高版本tools中已不提供，需要在IDE里通过Import Sample引入，当然也可以下载离线版）：内置的安卓示例程序，推荐安装。</p>
-<p>· Sources for Android SDK（可选）：安卓API的源代码，推荐安装。</p>
-<p>· ARM /Intel xxxx Image（可选）：各个以Image结尾的东西是支持相应平台的模拟器，我们就把它想象成一个刷机包吧。（使用真机调试或使用其它模拟器的话不需要安装）</p>
-<p><strong>Extras</strong>目录(可选的扩展）：</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps6.jpg" alt="img"> </p>
-<p>· Android Support Repository（可选）：主要是方便在gradle中使用Android Support Libraries，因为Google并没有把这些库发布到maven center或者jcenter去，而是使用了Google自己的maven仓库。</p>
-<p>· Intel x86 Emulator Accelerator(HAXM installer)（可选）：windows平台的Intel x86模拟器加速工具，配合Intel x86 atom/atom_64 System Image使用可加快模拟器的运行速度。</p>
-<h2 id="Android-SDK文件目录"><a href="#Android-SDK文件目录" class="headerlink" title="Android SDK文件目录"></a><strong>Android SDK文件目录</strong></h2><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps7.jpg" alt="img"> </p>
-<h4 id="add-ons"><a href="#add-ons" class="headerlink" title="add-ons"></a><strong>add-ons</strong></h4><p>这里面保存着附加库，第三方公司为android 平台开发的附加功能系统。比如GoogleMaps，当然你如果安装了OphoneSDK，这里也会有一些类库在里面。</p>
-<h4 id="docs"><a href="#docs" class="headerlink" title="docs"></a><strong>docs</strong></h4><p>这里面是Android SDKAPI参考文档，所有的API都可以在这里查到。</p>
-<h4 id="extras"><a href="#extras" class="headerlink" title="extras"></a><strong>extras</strong></h4><p>该文件夹下存放了Android support v4，v7，v13，v17包； 还有google提供额USB驱动、Intel提供的硬件加速等附加工具包， 和market_licensing作为AndroidMarket版权保护组件，一般发布付费应用到电子市场可以用它来反盗版。</p>
-<h4 id="platforms"><a href="#platforms" class="headerlink" title="platforms"></a><strong>platforms</strong></h4><p>是每个平台的SDK真正的文件，存放了不同版本的android系统。里面会根据APILevel划分的SDK版本。</p>
-<h4 id="samples"><a href="#samples" class="headerlink" title="samples"></a><strong>samples</strong></h4><p>是Android SDK自带的默认示例工程，里面的apidemos强烈推荐初学者运行学 习，对于SQLite数据库操作可以查看NotePad这个例子，对于游戏开发Snake、LunarLander都是不错的例子，对于Android主 题开发Home则是androidm5时代的主题设计原理。</p>
-<h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a><strong>环境变量设置</strong></h4><p>· 系统变量里面添加变量名 ANDROID_HOME 路径为实际存放SDk的路径</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps8.jpg" alt="img"> </p>
-<p>· 其他几个路径配置到系统环境Path中如下图所示：</p>
-<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml23072\wps9.jpg" alt="img"> </p>
-<h3 id="配置检测"><a href="#配置检测" class="headerlink" title="配置检测"></a><strong>配置检测</strong></h3><p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
-<p>adb命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;adb</span><br><span class="line">Android Debug Bridge version 1.0.39</span><br><span class="line">Revision 3db08f2c6889-android</span><br><span class="line">Installed as E:\Andriod_sdk\platform-tools\adb.exe</span><br></pre></td></tr></table></figure>
-
-<p>global options:</p>
-<p> -a     listen <em><strong>*on*</strong></em> <em><strong>*all*</strong></em> network interfaces, <em><strong>*not*</strong></em> just localhost</p>
-<p> -d     <em><strong>*use*</strong></em> USB device (error <em><strong>*if*</strong></em> multiple devices connected)</p>
-<p> -e     <em><strong>*use*</strong></em> TCP/IP device (error <em><strong>*if*</strong></em> multiple TCP/IP devices available)</p>
-<p> -s SERIAL</p>
-<p>   <em><strong>*use*</strong></em> device <em><strong>*with*</strong></em> given serial number (overrides $ANDROID_SERIAL)</p>
-<p> -p PRODUCT</p>
-<p>   name <em><strong>*or*</strong></em> path (‘angler’/‘out/target/product/angler’);</p>
-<p>   <em><strong>*default*</strong></em> $ANDROID_PRODUCT_OUT</p>
-<p> -H     name <em><strong>*of*</strong></em> adb server host [<em><strong>*default*</strong></em>=localhost]</p>
-<p> -P     <em><strong>*port*</strong></em> <em><strong>*of*</strong></em> adb server [<em><strong>*default*</strong></em>=5037]</p>
-<p> -L SOCKET  listen <em><strong>*on*</strong></em> given socket <em><strong>*for*</strong></em> adb server [<em><strong>*default*</strong></em>=tcp:localhost:5037]</p>
-<p>aapt命令</p>
-<p>C:\Users\Shuqing&gt;aapt</p>
-<p>Android Asset Packaging Tool</p>
-<p>Usage:</p>
-<p> aapt l[ist] [-v] [-a] file.{zip,jar,apk}</p>
-<p>  List contents of Zip-compatible archive.</p>
-<p> aapt d[ump] [–values] [–include-meta-data] WHAT file.{apk} [asset [asset …]]</p>
-<p>  strings      Print the contents of the resource table string pool <em><strong>*in*</strong></em> the APK.</p>
-<p>  badging      Print the label <em><strong>*and*</strong></em> icon <em><strong>*for*</strong></em> the app declared <em><strong>*in*</strong></em> APK.</p>
-<p>  permissions    Print the permissions <em><strong>*from*</strong></em> the APK.</p>
-<p>  resources     Print the resource table <em><strong>*from*</strong></em> the APK.</p>
-<p>  configurations  Print the configurations <em><strong>*in*</strong></em> the APK.</p>
-<p>  xmltree      Print the compiled xmls <em><strong>*in*</strong></em> the given assets.</p>
-<p>  xmlstrings    Print the strings of the given compiled xml assets.</p>
-<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a><strong>参考资料：</strong></h4><p>· <a href="#m2">http://www.cnblogs.com/kangjianwei101/p/5621238.html#m2</a></p>
-<p>· <a target="_blank" rel="noopener" href="http://blog.csdn.net/aiynmimi/article/details/51028499">http://blog.csdn.net/aiynmimi/article/details/51028499</a></p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
+<p>自动化测试是应对产品不断迭代更新的辅助测试手段（主要是针对回归测试），最终目的是为了保证产品质量。
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/03/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/#more">Read More</a>
+        </p>
       
       
       
@@ -807,7 +929,7 @@
       <ul>
         
           <li>
-            <a href="/2021/09/04/Appium%E7%9A%84%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/">(no title)</a>
+            <a href="/2021/09/04/Appium%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%93%8D%E4%BD%9C/">Appium数据配置与日志操作</a>
           </li>
         
           <li>
@@ -815,7 +937,7 @@
           </li>
         
           <li>
-            <a href="/2021/09/03/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/">App自动化测试概述</a>
+            <a href="/2021/09/03/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/">(no title)</a>
           </li>
         
           <li>
