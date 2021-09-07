@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>monkey自定义脚本实践 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-monkey自定义脚本实践" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      monkey自定义脚本实践
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-07T12:10:46.000Z" itemprop="datePublished">2021年09月07日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="一-自定义脚本的稳定性测试"><a href="#一-自定义脚本的稳定性测试" class="headerlink" title="一.自定义脚本的稳定性测试"></a><strong>一.自定义脚本的稳定性测试</strong></h4><p>常规Monkey测试执行的是随机的事件流，但如果只是想让Monkey测试某个特定场景这时候就需要用到自定义脚本了，Monkey支持执行用户自定义脚本的测试，用户只需要按照Monkey脚本的规范编写好脚本，存放到手机上，启动Monkey通过-f 参数调用脚本即可。</p>
+<span id="more"></span>
+
+<h4 id="二-测试案例"><a href="#二-测试案例" class="headerlink" title="二.测试案例"></a><strong>二.测试案例</strong></h4><p>启动考研帮app3.1.0，然后跳过升级提示和引导页面，进入到登录界面并输入用户名密码进行登录。</p>
+<h4 id="三-需求分析"><a href="#三-需求分析" class="headerlink" title="三.需求分析"></a><strong>三.需求分析</strong></h4><ul>
+<li>从用户角度来思考步骤该怎样进行？</li>
+<li> 要操作的元素该如何定位？</li>
+<li>怎样将操作步骤转化为测试脚本？</li>
+</ul>
+<h5 id="获取元素坐标点位置"><a href="#获取元素坐标点位置" class="headerlink" title="获取元素坐标点位置"></a><strong>获取元素坐标点位置</strong></h5><p>Monkey脚本只能通过坐标的方式来定位点击和移动事件的屏幕位置，这里就需要提前获取坐标信息。获取坐标信息的方法很多，最简单的方法就是打开手机中的开发人员选项，打开“显示指针位置”。随后，在屏幕上的每次操作，在导航栏上都会显示坐标信息。</p>
+<h5 id="Monkey脚本API简介"><a href="#Monkey脚本API简介" class="headerlink" title="Monkey脚本API简介"></a><strong>Monkey脚本API简介</strong></h5><ul>
+<li>LaunchActivity(pkg_name, cl_name)：启动应用的Activity。参数：包名和启动的Activity。</li>
+<li>Tap(x, y, tapDuration)： 模拟一次手指单击事件。参数：x,y为控件坐标，tapDuration为点击的持续时间，此参数可省略。</li>
+<li>UserWait(sleepTime)： 休眠一段时间</li>
+<li>DispatchPress(keyName)： 按键。参数： keycode。 RotateScreen(rotationDegree, persist)： 旋转屏幕。 参数：rotationDegree为旋转角度， e.g. 1代表90度；persist表示旋转之后是否固定，0表示旋转后恢复，非0则表示固定不变。</li>
+<li>DispatchString(input)： 输入字符串。</li>
+<li>DispatchFlip(true/false)： 打开或者关闭软键盘。</li>
+<li>PressAndHold(x, y, pressDuration)： 模拟长按事件。</li>
+<li>Drag(xStart, yStart, xEnd, yEnd, stepCount)： 用于模拟一个拖拽操作。</li>
+<li>PinchZoom(x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End, stepCount)： 模拟缩放手势。</li>
+<li>LongPress()： 长按2秒。</li>
+<li>DeviceWakeUp()： 唤醒屏幕。</li>
+<li>PowerLog(power_log_type, test_case_status)： 模拟电池电量信息。</li>
+<li>WriteLog()： 将电池信息写入sd卡。</li>
+<li>RunCmd(cmd)： 运行shell命令。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFlags)： 向指定位置，发送单个手势。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFilags)： 发送按键消息。</li>
+<li>LaunchInstrumentation(test_name,runner_name)： 运行一个instrumentation测试用例。</li>
+<li>DispatchTrackball： 模拟发送轨迹球事件。</li>
+<li>ProfileWait： 等待5秒。</li>
+<li>StartCaptureFramerate()： 获取帧率。</li>
+<li>EndCaptureFramerate(input)： 结束获取帧率。</li>
+</ul>
+<h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type = raw events  </span><br><span class="line">count = 1  </span><br><span class="line">speed = 1.0  </span><br><span class="line">//下面为monkey命令  </span><br><span class="line">start data &gt;&gt;   </span><br><span class="line">具体的monkey脚本内容  </span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#头文件信息</span><br><span class="line"></span><br><span class="line">type = raw events </span><br><span class="line"></span><br><span class="line">count = 1</span><br><span class="line"></span><br><span class="line">speed = 1.0</span><br><span class="line"></span><br><span class="line">#启动测试</span><br><span class="line">start data &gt;&gt;</span><br><span class="line"></span><br><span class="line">LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(624,900,1000) #点击取消升级</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(806,64,1000) #点击跳过</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(217,378,1000) #点击用户名输入框</span><br><span class="line">DispatchString(账户)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(197,461,1000) #点击密码输入框</span><br><span class="line">DispatchString(密码)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(343,637,1000) #点击登录按钮</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push C:\Users\admin\Desktop\kyb1.txt /sdcard</span><br><span class="line"></span><br><span class="line">adb shell monkey -f /sdcard/kyb1.txt -v 1</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1</span><br><span class="line">:Monkey: seed=1524592021303 count=1</span><br><span class="line">:IncludeCategory: android.intent.category.LAUNCHER</span><br><span class="line">:IncludeCategory: android.intent.category.MONKEY</span><br><span class="line">Replaying 0 events with speed 1.0</span><br><span class="line">:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.tal.kaoyan/.ui.activity.SplashActivity;end</span><br><span class="line">    // Allowing start of Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.tal.kaoyan/.ui.activity.SplashActivity &#125; in package com.tal.kaoyan</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)</span><br><span class="line">    // Allowing start of Intent &#123; act=com.android.systemui.recent.action.TOGGLE_RECENTS cmp=com.android.systemui/.recent.RecentsActivity &#125; in package com.android.systemui</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(267.0,1233.0)</span><br><span class="line">Events injected: 5</span><br><span class="line">:Sending rotation degree=0, persist=false</span><br><span class="line">:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0</span><br><span class="line">## Network stats: elapsed time=7201ms (0ms mobile, 0ms wifi, 7201ms not connected)</span><br><span class="line">// Monkey finished</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NumberFormatException: Invalid int: &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五.参考资料"></a><strong>五.参考资料</strong></h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mgzc-1508873480/p/7911373.html">https://www.cnblogs.com/mgzc-1508873480/p/7911373.html</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="toc-text">一.自定义脚本的稳定性测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E6%B5%8B%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="toc-text">二.测试案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">三.需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E5%9D%90%E6%A0%87%E7%82%B9%E4%BD%8D%E7%BD%AE"><span class="toc-text">获取元素坐标点位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Monkey%E8%84%9A%E6%9C%ACAPI%E7%AE%80%E4%BB%8B"><span class="toc-text">Monkey脚本API简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Monkey%E8%84%9A%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">Monkey脚本格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="toc-text">编写脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-text">执行脚本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">四.注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">五.参考资料</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/07/monkey自定义脚本实践/">http://example.com/2021/09/07/monkey自定义脚本实践/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Appium简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">monkey 日志管理</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/">monkey自定义脚本实践</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">monkey 日志管理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">15</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>

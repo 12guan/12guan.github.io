@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>接口测试基础 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-接口测试基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      接口测试基础
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-06T16:47:18.000Z" itemprop="datePublished">2021年09月07日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、接口测试的概述"><a href="#一、接口测试的概述" class="headerlink" title="一、接口测试的概述"></a><strong>一、接口测试的概述</strong></h1><h2 id="1-什么是接口？"><a href="#1-什么是接口？" class="headerlink" title="1. 什么是接口？"></a><strong>1.</strong> <strong>什么是接口？</strong></h2><p>API（Application Programming Interface,应用程序编程接口）是一些预先定义的<strong>函</strong> <strong>数</strong>，目的是提供应用程序与 开发人员基于某<strong>软件或硬件</strong>得以访问一组例程的能力，而又无 需访问源码，或理解内部工作机制的细节。 <span id="more"></span></p>
+<p><strong>举例说明：</strong> </p>
+<p>笔记本电脑上提供了各种物理硬件接口，比如 USB 接口，耳机接口、麦克风接口、电 源接口等…. 这些不 同的接口有不同的功能：比如通过 USB 接口插入 U 盘就可以拷贝电 脑数据，插入耳机接口可以听音乐，我 们无需关心这些接口的工作原理，只需通过这些接 口满足我们的使用需求即可。 </p>
+<p>在中国天气网网上查询某个城市天气，主要输入城市名称，即可获取到对应的天气。查 询背后的本质也是 调用了网站后台接口来获取数据，这里的接口是 Web 服务软件接口。 </p>
+<p>用户不需要关注数据在网站后台是怎 么查询的，只需要返回一个结果即可。 </p>
+<h2 id="2-什么是接口测试？"><a href="#2-什么是接口测试？" class="headerlink" title="2. 什么是接口测试？"></a><strong>2.</strong> <strong>什么是接口测试？</strong></h2><p>接口测试是对系统或组件之间的接口进行测试，主要是校验数据的交换，传递和控制管 理过程，以及相互逻辑依赖 关系。其中接口协议分为 HTTP,WebService,Dubbo,Thrift,Socket 等类型。</p>
+<h2 id="3-为什么要做接口测试？"><a href="#3-为什么要做接口测试？" class="headerlink" title="3. 为什么要做接口测试？"></a><strong>3.</strong> <strong>为什么要做接口测试？</strong></h2><p>接口测试实施在多系统的平台架构下，有着极为高效的成本收益比（当然，单元测试收 益更高，但实施单元测试的 成本投入更大，技术要求更高）。 </p>
+<p>接口测试天生为高复杂性的平台带来高效的缺陷检测和质量监督能力，平台复杂，系统 越庞大，接口测试的效果越 明显。 </p>
+<h3 id="接口测试优势主要体现在如下三个方面："><a href="#接口测试优势主要体现在如下三个方面：" class="headerlink" title="接口测试优势主要体现在如下三个方面："></a><strong>接口测试优势主要体现在如下三个方面：</strong></h3><h4 id="1、节省了测试成本"><a href="#1、节省了测试成本" class="headerlink" title="1、节省了测试成本"></a><strong>1、节省了测试成本</strong></h4><p>根据数据模型推算，底层的一个程序 BUG 可能引发 UI 层的 8 个左右 BUG，而且 底层的 BUG 更容易引起全网的死 机；接口测试能够提供系统复杂度上升情况下的低成本 高效率的解决方案。 </p>
+<h4 id="2、接口测试门槛相对较低"><a href="#2、接口测试门槛相对较低" class="headerlink" title="2、接口测试门槛相对较低"></a><strong>2、接口测试门槛相对较低</strong></h4><p>接口测试不同于单元测试，接口测试是站在用户的角度对系统接口进行全面高效持续的 检测。 </p>
+<h4 id="3、效益更高"><a href="#3、效益更高" class="headerlink" title="3、效益更高"></a><strong>3、效益更高</strong></h4><p>将接口测试实现为自动化和持续集成，当系统复杂度和体积越大，接口测试的成本就越 低,相对应的，效益产出就 越高。 </p>
+<h4 id="4-怎么样去做接口测试？"><a href="#4-怎么样去做接口测试？" class="headerlink" title="4. 怎么样去做接口测试？"></a><strong>4.</strong> <strong>怎么样去做接口测试？</strong></h4><p><strong>基本的接口功能自动化测试流程如下：</strong> </p>
+<p>需求分析 -&gt; 用例设计 -&gt; 脚本开发 -&gt; 测试执行 -&gt; 结果分析</p>
+<h1 id="二、HTTP-协议基础"><a href="#二、HTTP-协议基础" class="headerlink" title="二、HTTP 协议基础"></a>二、HTTP <strong>协议基础</strong></h1><h3 id="1-http协议的简介"><a href="#1-http协议的简介" class="headerlink" title="1.http协议的简介"></a><strong>1.http协议的简介</strong></h3><p><strong>1) http</strong> <strong>协议简介</strong> </p>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的 一种网络协议。所有的 WWW 文件都必须遵守这个标准。设计 HTTP 最初的目的是为了 提供一种发布和接收 HTML 页面的方法。 </p>
+<p>HTTP 协议在网络 OSI 模型中属于应用层协议，应用层协议除了 HTTP 还有：FTP， SMTP，DNS，RIP，Telnet 等。 </p>
+<p>HTTP 协议工作于<strong>客户端—服务端</strong>架构上。浏览器作为 HTTP 客户端通过 <strong>URL</strong> 向 HTTP 服务端（即 Web 服务器） 发送请求。 </p>
+<p><strong>2)</strong> <strong>什么是超文本？</strong> </p>
+<p>超文本英文名称叫做 Hypertext，我们在浏览器里面看到的网页就是超文本解析而成的， </p>
+<p>其网页源代码是一系 列 HTML 代码，里面包含了一系列标签，如 img 显示图片，p 指定显 示段落等，浏览器解析这些标签后便形成了我们平常看到的网页，而这网页的源代码 HTML 就可以称作超文本。 </p>
+<p>例如我们在 Chrome 浏览器里面打开如百度页面，右键点击”查看源代码”，这些源代 码都是超文本。</p>
+<p><strong>3)</strong> <strong>什么是 URL？</strong></p>
+<p>我们在浏览器的地址栏里输入的网站地址叫做 <strong>URL</strong> (Uniform Resource Locator，统 一资源定位符)。就像每家每 户都有一个门牌地址一样，每个网页也都有一个 Internet 地 址（如：<a target="_blank" rel="noopener" href="http://www.baidu.com)./">http://www.baidu.com）。</a> </p>
+<p>当你在浏览器的 地址框中输入一个 URL 或是单击一个超级链接时，URL 就确定了要浏 览的地址。浏览器通过超文本传输协议(HTTP)， 将 Web 服务器上站点的网页代码提取出 来，并翻译成漂亮的网页。 </p>
+<p><strong>4) http</strong> <strong>功能</strong> </p>
+<p>HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是用于从服务器传输 超文本到本地浏览器的传输协议。 </p>
+<p>它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本 文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。 </p>
+<p><strong>5) http</strong> <strong>的特点</strong> </p>
+<p><strong>无连接：</strong>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到 客户的应答后， 即断开连接。采用这种方式可以节省传输时间。 </p>
+<p><strong>媒体独立：</strong>这意味着，只要客户端和服务器知道如何处理的数据内容，任何类型的数据都可 以通过 HTTP 发送。客户端以及服务器指定使用适合的 MIME-type 来传输。</p>
+<p><strong>无状态：</strong>HTTP 协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。如果服务 器不需要先前信 息，那么它的应答就比较快。但是缺少状态意味着如果后续处理需要前面 的信息，则它必须重传，这样可 能导致每次连接传送的数据量增大，此时可以设置缓存。 </p>
+<p><strong>6). http</strong> <strong>与</strong> <strong>https</strong> <strong>的区别？</strong> </p>
+<p>现在在浏览很多网站时，通过浏览器地址栏可以看到有的网站是 https 开头 (<a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a> ）, 但是 有的是 http 开头（如： </p>
+<p><a target="_blank" rel="noopener" href="http://www.weather.com.cn/">http://www.weather.com.cn</a> ）这两种有什么区别呢？难道加了 s 就是复数吗？ </p>
+<p>HTTPS 的全称是 Hyper Text Transfer Protocol over Secure Socket Layer，是以 安全为目标的 HTTP 通道，简单讲是 HTTP 的安全版，即 HTTP 下加入 SSL 层（Secure Sockets Layer 安全套接层），简称为 HTTPS。 </p>
+<p><strong>S</strong> <strong>其实是 Security 单词的首字母。</strong> </p>
+<p><strong>HTTPS 的安全基础是 SSL，因此通过它传输的内容都是经过 SSL 加密的，它的主要作用</strong> </p>
+<p><strong>可以分为两种：</strong> </p>
+<ol>
+<li><p>是建立一个信息安全通道，来保证数据传输的安全。 </p>
+</li>
+<li><p>确认网站的真实性，凡是使用了 https 的网站，都可以通过点击浏览器地址栏的锁头标 志来查看网站认证之 后的真实信息，也可以通过 CA 机构颁发的安全签章来查询。</p>
+</li>
+</ol>
+<p>现在越来越多的网站和 APP 都已经向 HTTPS 方向发展。例如：谷歌从 2017 年 1 月推出的 Chrome 56 开始， 对未进行 HTTPS 加密的网址链接亮出风险提示，即在地址栏的显著位置提醒用户“此 网页不安全”。 </p>
+<p><strong>7).http</strong> <strong>与</strong> <strong>TCP/IP</strong> <strong>的特点：</strong> </p>
+<p>TCP/IP 协议是传输层协议，主要解决数据如何在网络中传输，而 HTTP 是应用层协 议，主要解决如何包装数据。</p>
+<p> 关于 TCP/IP 和 HTTP 协议的关系，网络有一段比较容易理解的介绍：“我们在传输 数据时，可以只使用（传输层） TCP/IP 协议，但是那样的话，如果没有应用层，便无法 识别数据内容，如果想要使传输的数据有意义，则必须使用到应用层协议，应用层协议有很 </p>
+<p>多，比如 HTTP、FTP、TELNET 等，也可以自己定义应用层协议。 </p>
+<p>WEB 使用 HTTP 协议作应用层协议，以封装 HTTP 文本信息，然后使用 TCP/IP 做 传输层协议将它发到网络上。</p>
+<h3 id="2-http的请求"><a href="#2-http的请求" class="headerlink" title="2.http的请求"></a><strong>2.http的请求</strong></h3><p>我们在浏览器输入百度首页的地址：<a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a> 输入之后浏览器会给 我们打开百度首页。 </p>
+<p>实际上这 个过程是浏览器向网站所在的服务器发送了一个 Request，即请求，网站服 务器接收到这个 Request 之后进行处 理和解析，然后返回对应的一个 Response，即响 应，然后传回给浏览器，Response 里面就包含了页面的源代码 等内容，浏览器再对其进行解析便将网页呈现了出来。 </p>
+<img src="https://pic.imgdb.cn/item/61377d5644eaada7395198df.png">
+
+<p>列如，使用火狐浏览器，打开百度，查看页面的请求过程。 </p>
+<p>需要详细步骤，点击这边： </p>
+<p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/428894531624967852.html">https://zhidao.baidu.com/question/428894531624967852.html</a></p>
+<img src="https://pic.imgdb.cn/item/61377da244eaada7395254e7.png">
+
+<p><strong>1)</strong> <strong>请求的四部分</strong> </p>
+<p>•Request Method: 请求方式 </p>
+<p>•Request URL: 请求链接 </p>
+<p>•Request Headers: 请求头 </p>
+<p>•Request Body: 请求体 </p>
+<p><strong>2)</strong> <strong>请求方式—抓用户名和密码</strong> </p>
+<p><strong>请求方式，请求方式常见的有两种类型，GET 和 POST。</strong> </p>
+<p>GET 用于信息获取，而且应该是安全的和幂等的(幂等的的意思就是一个操作不会修改 状态信息，并且每次操作的时候都返回同样的结果。) 从发送请求的角度，GET 请求相当 于我们在数据库中做了查询的操作， 这样的操作不影响数据库本身的数据。 </p>
+<p>POST 表示可能会修改服务器上资源的请求，也相当于在数据库中做了修改的操作， 会影响数据库本身的数据（比如：注册了账户，发了帖子，做了评论，得到了积分等。这种 情况下，资源状态被改变了）。 </p>
+<p><strong>案例：</strong> </p>
+<p><strong>Get 请求：</strong> </p>
+<p>在浏览器地址栏输入：<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=appium">https://www.baidu.com/s?wd=appium</a> 并回车，这个其实就是在百度搜 索 appium 这个关键词。</p>
+<p>URL 中 包含了请求的参数信息，这里参数 wd 就是要搜寻的关键字。</p>
+<img src="https://pic.imgdb.cn/item/61377e2244eaada73953981b.png">
+
+<p><strong>POST 请求：</strong> </p>
+<p>一般来说，网站登录验证的时候，需要提交用户名密码，这里包含了敏感信息，使用 GET 方式请求的话密码就会 暴露在 URL 里面，造成密码泄露，所以这里最好以 POST 方 式发送。文件的上传时，由于文件内容比较大，也会 选用 POST 方式。比如百度账户登 录， </p>
+<p>列如：使用火狐浏览器抓用户名和密码 </p>
+<img src="https://pic.imgdb.cn/item/61377e6044eaada7395434c2.png">
+
+<p>当然你也可以是用 fiddler 来抓包</p>
+<img src="https://pic.imgdb.cn/item/61377e8044eaada73954888a.png">
+
+<p><strong>3) 请求网址(URL)</strong></p>
+<p>Request URL </p>
+<p>就是请求的网址，即统一资源定位符，用 URL 可以唯一确定我们想请 </p>
+<p>求的资源。比如： <a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a> </p>
+<p><strong>4) 请求头（Request Headers）</strong></p>
+<p>请求头，用来说明服务器要使用的附加信息，比较重要的信息有 Cookie、Referer、 </p>
+<ul>
+<li><p><strong>User-Agent</strong> 等，下面将一些 常用的头信息说明如下： </p>
+</li>
+<li><p><strong>Accept</strong>，请求报头域，用于指定客户端可接受哪些类型的信息。 </p>
+</li>
+<li><p><strong>Accept-Language</strong>，指定客户端可接受的语言类型。 </p>
+</li>
+<li><p> <strong>Accept-Encoding</strong>，指定客户端可接受的内容编码。 </p>
+</li>
+<li><p><strong>Host</strong>,用于指定请求资源的主机 IP 和端口号，其内容为请求 URL 的原始服务器或网关 的位置。从 HTTP 1.1 版本开始，Request 必须包含此内容。 </p>
+</li>
+<li><p> <strong>Cookie</strong>，也常用复数形式 Cookies，是网站为了辨别用户进行 Session 跟踪而储存在 用户本地的数据。</p>
+</li>
+<li><p><strong>Cookies</strong> 的主要功能就是维持当前访问会话。 </p>
+</li>
+<li><p><strong>Referer</strong>,此内容用来标识这个请求是从哪个页面发过来的，服务器可以拿到这一信息并做 相应的处理，如 做来源统计、做防盗链处理等。 </p>
+</li>
+<li><p><strong>User-Agent</strong>，简称 UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统 及版本、浏览器 及版本等信息。 </p>
+</li>
+<li><p><strong>Content-Type</strong>，即 Internet Media Type，互联网媒体类型，也叫做 MIME 类型，在 HTTP 协议消息头 中，使用它来表示具体请求中的媒体类型信息。例如 </p>
+</li>
+<li><p><strong>application/x-www-form-urlencoded</strong>表示表单数 据， text/html 代表 HTML 格式， image/gif 代表 GIF 图片，application/json </p>
+</li>
+</ul>
+<p><strong>5)</strong> <strong>请求体</strong> </p>
+<p>即请求体，一般用于 POST 请求中，主要定义向服务器提交的数据类型，而对于 GET 请求 Request Body 则为 空。 </p>
+<p>比如在登录之前我们填写了用户名和密码信息，提交时就这些内容就会以 Form Data 的形式提交给服务器，此时注意 Request Headers 中指定了 Content-Type 为 application/x-www-form-urlencoded。</p>
+<p>只有设 置 Content-Type 为 application/x-www-form-urlencoded 才会以 Form Data 形式提交，另外我们也可以 将 Content-Type 设置为 application/json 来 提交 Json 数据，或者设置为 multipart/form-data 来上传文件。 </p>
+<p>常用 Content-Type 和 POST 提交数据方式的关系： </p>
+<p><strong>Content-Type</strong> :提交数据方式</p>
+<p>application/x-www-form-urlencoded :Form 表单提交 </p>
+<p>multipart/form-data :表单文件上传提交 </p>
+<p>application/json :序列化 Json 数据提交 </p>
+<p>text/xml :XML 数据提交 </p>
+<h3 id="3-http-的响应"><a href="#3-http-的响应" class="headerlink" title="3.http 的响应"></a>3.http 的响应</h3><p>1).响应的三部分</p>
+<p>上述内容讲述的 http 协议的请求，接着描述 http 协议的响应。 </p>
+<p><strong>Response，即响应，由服务端返回给客户端。Response 可以划分为三部分:</strong> </p>
+<p>•Response Status Code </p>
+<p>• Response Headers </p>
+<p>• Response Body </p>
+<p><strong>Response Status Code</strong></p>
+<p>响应状态码，此状态码表示了服务器的响应状态，如 200 则代表服务器正常响应，404 则代表页面未找到，500 则 代表服务器内部发生错误。常用响应状态码如下： </p>
+<p>可以参考完整的 http 协议的响应状态码： </p>
+<p><strong><a target="_blank" rel="noopener" href="https://tool.oschina.net/commons?type=5">https://tool.oschina.net/commons?type=5</a></strong> </p>
+<p><strong>2.</strong> <strong>响应头</strong> </p>
+<p>响应头，其中包含了服务器对请求的应答信息，如 Content-Type、Server、Set-Cookie 等，下面将一些常用的头信息说明如下： </p>
+<p><strong>Date</strong>，标识 Response 产生的时间。 </p>
+<p><strong>Last-Modified</strong>，指定资源的最后修改时间。 </p>
+<p><strong>Content-Encoding，</strong>指定 Response 内容的编码。 </p>
+<p><strong>Server</strong>，包含了服务器的信息，名称，版本号等。 </p>
+<p><strong>Content-Type</strong>，文档类型，指定了返回的数据类型是什么，如text/html 则代表返回 HTML 文档， application/x-javascript 则代表返回 JavaScript 文件，image/jpeg 则 代表返回了图片。 </p>
+<p><strong>Set-Cookie</strong>，设置 Cookie，Response Headers 中的 Set-Cookie 即告诉浏览器需要 将此内容放在 Cookies 中，下次请求携带 Cookies 内容。 </p>
+<p><strong>Expires</strong>,指定 Response 的过期时间，使用它可以控制代理服务器或浏览器将内容更 新到缓存中，如果再 次访问时，直接从缓存中加载，降低服务器负载，缩短加载时间。</p>
+<p><strong>3.</strong> <strong>响应体</strong> </p>
+<p>即响应体，响应的正文数据都是在响应体中，如请求一个网页，它的响应体就是网页的 HTML 代码，请求一张图 片，它的响应体就是图片的二进制数据。一般在接口的响应内容 大多都是 Json 数据内容. </p>
+<img src="https://pic.imgdb.cn/item/61377ed644eaada73955689e.png">
+
+<h1 id="三、JSON-数据格式"><a href="#三、JSON-数据格式" class="headerlink" title="**三、JSON **数据格式"></a>**三、JSON **数据格式</h1><p><strong>1. Json</strong> <strong>简介</strong> </p>
+<p>JSON（JavaScript Object Notation，即 JavaScript 对象表示法）是一种轻量级的 数据交换格式。它独立于语言 和平台，JSON 解析器和 JSON 库支持不同的编程语言。</p>
+<p>JSON 具有自我描述性，很容易理解。目前大多数接口返 回的数据格式为 JSON,因此进行 接口测试必须掌握 JSON。 </p>
+<p><strong>2. Json</strong> <strong>语法特点</strong> </p>
+<p>记住下面四点： </p>
+<p>1 数据在键/值对中 </p>
+<p>2 数据由逗号分隔 </p>
+<p>3 {花括号}保存对象 </p>
+<p>4 [方括号]保存数组 </p>
+<p>JSON 数据的书写格式是：key:value 键值对。比如： “name”:”Tom” </p>
+<p>解释：name 是 key，Tom 是 value </p>
+<p><strong>JSON 值可以是：</strong> </p>
+<p>a. 数字（整数或浮点数） </p>
+<p>b. 字符串（在双引号中） </p>
+<p>c. 逻辑值（true 或 false） </p>
+<p>d. 数组（在方括号中） </p>
+<p>e. 对象（在花括号中） </p>
+<p><strong>案列代码：</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*1.json 的值是数字*/ </span><br><span class="line">&quot;age&quot;:18</span><br><span class="line">/*2.json 的值为字符串*/ </span><br><span class="line">&quot;name&quot;:&quot;Tom&quot;</span><br><span class="line">/*3.json 的值为逻辑值*/ </span><br><span class="line">&quot;result&quot;:true </span><br><span class="line">/*4.json 的值为数组*/ </span><br><span class="line">&quot;city&quot;:[&quot;长沙&quot;,&quot;上海&quot;,&quot;北京&quot;] </span><br><span class="line">/*5.json 的值为对象 JSON 对象在花括号中书写： 对象可以包含多个键/值对： </span><br><span class="line">* */ </span><br><span class="line">&#123; &quot;firstName&quot;:&quot;John&quot; , &quot;lastName&quot;:&quot;Doe&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:在接口测试过程中，一般都是返回 JSON 对象类型。</strong> </p>
+<p>比如在数组中含多个对象： </p>
+<p>{</p>
+<p>“employees”: [ </p>
+<p>{ “firstName”:”John” , “lastName”:”Doe” }, </p>
+<p>{ “firstName”:”Anna” , “lastName”:”Smith” }, </p>
+<p>{ “firstName”:”Peter” , “lastName”:”Jones” } </p>
+<p>]</p>
+<p>} </p>
+<p>在上面的例子中，对象 “employees” 是包含三个对象的数组。每个对象代表一条关于 某人（有姓和名）的记录。</p>
+<p><strong>3. Json</strong> <strong>数据解析</strong> </p>
+<p>Python3 中可以使用 json 模块来对 JSON 数据进行编解码，它包含了两个方法： </p>
+<p>json.dumps(): 将 python 数据转化为 Json 数据 </p>
+<p>json.loads(): 将 json 数据类型转为 Python 数据类型 </p>
+<p>JSON 库官方文档 <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/json.htm">https://docs.python.org/3/library/json.htm</a> </p>
+<p><strong>案列</strong> <strong>1：将</strong> <strong>python</strong> <strong>数据转化为</strong> <strong>Json</strong> <strong>数据</strong> </p>
+<p>准备代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import json #</span><br><span class="line">1 准备字典 </span><br><span class="line">data=&#123;&#x27;id&#x27;:1,&#x27;name&#x27;:&#x27;zhangsan&#x27;,&#x27;password&#x27;:&#x27;66666&#x27;&#125;</span><br><span class="line"></span><br><span class="line">2 检测类型 --dict </span><br><span class="line">print(type(data)) </span><br><span class="line"></span><br><span class="line">3 通过 json.dumps()方法来转换 </span><br><span class="line">json_str=json.dumps(data) </span><br><span class="line"></span><br><span class="line">4.检测类型为 str </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">5.输出的格式就是一个 json 格式 </span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
+
+<p>输出效果：</p>
+<img src="https://pic.imgdb.cn/item/6137828e44eaada7395e3a4a.png">
+
+<p><strong>案例</strong> <strong>2：将</strong> <strong>json</strong> <strong>数据类型转为</strong> <strong>Python</strong> <strong>数据类型</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">#1 准备 json 数据--字符串 </span><br><span class="line">json_str=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2 把字符串转 dict </span><br><span class="line">data=json.loads(json_str) </span><br><span class="line"></span><br><span class="line">#3 字符串 </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">#4.dict </span><br><span class="line">print(type(data)) </span><br><span class="line">print(data) </span><br><span class="line">print(data[&#x27;id&#x27;]) </span><br><span class="line">print(data[&#x27;name&#x27;]) </span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<img src="https://pic.imgdb.cn/item/613782e644eaada7395efffa.png">
+
+<h3 id="4-Json-文件处理"><a href="#4-Json-文件处理" class="headerlink" title="4. Json 文件处理"></a><strong>4. Json</strong> <strong>文件处理</strong></h3><p><strong>案例</strong> <strong>1：使用</strong> <strong>Python</strong> <strong>从</strong> <strong>json</strong> <strong>中读取文件</strong> </p>
+<p>准备条件</p>
+<p>1—json 文件： </p>
+<p>2—Python 代码 </p>
+<p>代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Json 代码： </span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&quot;employees&quot;: [ </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; &#125; </span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>Python 代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data) </span><br></pre></td></tr></table></figure>
+
+<p>代码路径截图：放同一个文件夹里面</p>
+<img src="https://pic.imgdb.cn/item/6137836044eaada73960107c.png">
+
+<p><strong>案例</strong> <strong>2：使用</strong> <strong>Python</strong> <strong>写入数据到</strong> <strong>json</strong> <strong>文件中</strong> </p>
+<p>import json </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#1.准备一个字符串 </span><br><span class="line"></span><br><span class="line">data=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2.写入 json 文件 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;w&#x27;) as f: </span><br><span class="line"></span><br><span class="line">json.dump(data, f) </span><br><span class="line"></span><br><span class="line">#3.可以查看 json 文件或者读取出来 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="toc-text">一、接口测试的概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8E%A5%E5%8F%A3%EF%BC%9F"><span class="toc-text">1. 什么是接口？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%EF%BC%9F"><span class="toc-text">2. 什么是接口测试？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%EF%BC%9F"><span class="toc-text">3. 为什么要做接口测试？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%BC%98%E5%8A%BF%E4%B8%BB%E8%A6%81%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%B8%8B%E4%B8%89%E4%B8%AA%E6%96%B9%E9%9D%A2%EF%BC%9A"><span class="toc-text">接口测试优势主要体现在如下三个方面：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E8%8A%82%E7%9C%81%E4%BA%86%E6%B5%8B%E8%AF%95%E6%88%90%E6%9C%AC"><span class="toc-text">1、节省了测试成本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E9%97%A8%E6%A7%9B%E7%9B%B8%E5%AF%B9%E8%BE%83%E4%BD%8E"><span class="toc-text">2、接口测试门槛相对较低</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%95%88%E7%9B%8A%E6%9B%B4%E9%AB%98"><span class="toc-text">3、效益更高</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%80%8E%E4%B9%88%E6%A0%B7%E5%8E%BB%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%EF%BC%9F"><span class="toc-text">4. 怎么样去做接口测试？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81HTTP-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80"><span class="toc-text">二、HTTP 协议基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-http%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="toc-text">1.http协议的简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-http%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">2.http的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-http-%E7%9A%84%E5%93%8D%E5%BA%94"><span class="toc-text">3.http 的响应</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81JSON-%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="toc-text">**三、JSON **数据格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Json-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">4. Json 文件处理</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/07/接口测试基础/">http://example.com/2021/09/07/接口测试基础/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/09/07/Package%E4%B8%8EActivity%E7%9A%84%E8%AE%A4%E8%AF%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Package与Activity的认识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">Appium的元素定位入门</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/">monkey自定义脚本实践</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">monkey 日志管理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">15</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>

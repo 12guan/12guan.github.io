@@ -136,6 +136,8 @@
 <h3 id="非主流"><a href="#非主流" class="headerlink" title="非主流"></a><strong>非主流</strong></h3><p>Winphone、黑莓、塞班、ubuntu、Asha、Tizen、Jolla、Firefox OS、鸿蒙os</p>
 <h3 id="非智能机"><a href="#非智能机" class="headerlink" title="非智能机"></a><strong>非智能机</strong></h3><p>MTK平台、S40平台</p>
 <h3 id="Andriod"><a href="#Andriod" class="headerlink" title="Andriod"></a><strong>Andriod</strong></h3><p>Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。</p>
+<img src="https://pic.imgdb.cn/item/61376beb44eaada73926a6b3.jpg">
+
 <h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a><strong>iOS</strong></h3><p>iOS是由苹果公司开发的移动操作系统 。苹果公司最早于2007年1月9日的Macworld大会上公布这个系统，最初是设计给iPhone使用的，后来陆续套用到iPod touch、iPad以及Apple TV等产品上。iOS与苹果的Mac OS X操作系统一样，属于类Unix的商业操作系统。</p>
 <h2 id="三、app测试框架介绍"><a href="#三、app测试框架介绍" class="headerlink" title="三、app测试框架介绍"></a><strong>三、app测试框架介绍</strong></h2><h3 id="1-Andriod："><a href="#1-Andriod：" class="headerlink" title="1. Andriod："></a><strong>1. Andriod：</strong></h3><h4 id="Monkey"><a href="#Monkey" class="headerlink" title="Monkey"></a><strong>Monkey</strong></h4><p>​    Monkey是一个程序，运行在您的模拟器或设备上，并生成伪随机的用户事件流，如点击，触摸或手势，以及一些系统级事件。 您可以使用Monkey以随机但可重复的方式对您正在开发的应用程序进行压力测试。</p>
 <h4 id="MonkeyRunner"><a href="#MonkeyRunner" class="headerlink" title="MonkeyRunner"></a><strong>MonkeyRunner</strong></h4><p>​    MonkeyRunner工具是使用Jython(使用Java编程语言实现的Python)写出来的，它提供了多个API，通过monkeyrunner API 可以写一个Python的程序来模拟操作控制Android设备app,测试其稳定性并通过截屏可以方便地记录出现的问题。</p>
@@ -198,7 +200,9 @@
 <p>3、运行速度慢，页面不能承载太多东西；</p>
 <p>4、图片和动画支持性不高；</p>
 <p>5、如果用户使用更多的新型浏览器，那么就会出现运行问题。</p>
-<h3 id="4-手游app与手机App"><a href="#4-手游app与手机App" class="headerlink" title="4. 手游app与手机App"></a>4. <strong>手游app与手机App</strong></h3><p>手游一般使用引擎开发，现在著名的有cocos2d和unity3d。两者都是使用引擎自带的语言进行开发，主流的分别是c++和c#，虽然在开发过程中也有按钮等控件的概念，但当运行时由引擎渲染后就变成了一副简单的图片：</p>
+<h3 id="4-Web-App、Hybrid-App、Native-App-技术特性"><a href="#4-Web-App、Hybrid-App、Native-App-技术特性" class="headerlink" title="4.Web App、Hybrid App、Native App 技术特性"></a><strong>4.Web App、Hybrid App、Native App 技术特性</strong></h3><img src="https://pic.imgdb.cn/item/61376c7044eaada73928096f.jpg">
+
+<h3 id="5-手游app与手机App"><a href="#5-手游app与手机App" class="headerlink" title="5. 手游app与手机App"></a>5. <strong>手游app与手机App</strong></h3><p>手游一般使用引擎开发，现在著名的有cocos2d和unity3d。两者都是使用引擎自带的语言进行开发，主流的分别是c++和c#，虽然在开发过程中也有按钮等控件的概念，但当运行时由引擎渲染后就变成了一副简单的图片：</p>
 <p>手机App一般使用Android SDK开发，使用Java编写。通过Android提供的服务，我们可以获取App当前窗口的视图信息，进而查找和操作按钮等控件，以完成自动化测试，如Uiautomator。这个过程是标准化的，从技术上来说没有任何难度，因此各个公司各个App自动化测试的方法都大同小异。</p>
 <h2 id="五、Android-SDK介绍"><a href="#五、Android-SDK介绍" class="headerlink" title="五、Android    SDK介绍"></a>五、<strong>Android</strong>    <strong>SDK介绍</strong></h2><p>SDK：（software development kit）软件开发工具包。被软件开发工程师用于为特定的软件包、软件框架、硬件平台、操作系统等建立应用软件的开发工具的集合。</p>
 <p>因此，Android SDK 指的是Android专属的软件开发工具包。</p>
@@ -208,25 +212,52 @@
 <p>· 官网下载：<a target="_blank" rel="noopener" href="https://android-sdk.en.softonic.com/download">https://android-sdk.en.softonic.com/download</a></p>
 <p>· 网盘下载： <a target="_blank" rel="noopener" href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
 <p>安装后启动 SDK Manager.exe程序就可以看到Android SDK Mannerger的主界面。</p>
-<h4 id="Tools目录："><a href="#Tools目录：" class="headerlink" title="Tools目录："></a><strong>Tools目录：</strong></h4><p><strong>Android SDK Tools</strong>（必须，只需下载一个版本，一般选最新版本）：基础工具包，版本号带rc字样的是预览版。</p>
+<img src="https://pic.imgdb.cn/item/61376cde44eaada739294c74.jpg">
+
+<h4 id="Tools目录："><a href="#Tools目录：" class="headerlink" title="Tools目录："></a><strong>Tools目录：</strong></h4><img src="https://pic.imgdb.cn/item/61376cf544eaada739298e69.jpg">
+
+<p><strong>Android SDK Tools</strong>（必须，只需下载一个版本，一般选最新版本）：基础工具包，版本号带rc字样的是预览版。</p>
 <p><strong>Android SDK Platform-tools必须</strong>，只需下载一个版本，一般选最新版本）：从android2.3开始划出此目录，存放公用开发工具，比如adb、sqlite3等，被划分到了这里。</p>
 <p><strong>Android SDK Build-tools</strong>（必须，可以安装多个版本）：Android项目构建工具。</p>
 <p><strong>Android xxx（API xx）</strong>目录（可选的各平台开发工具）</p>
-<p>· Documentation for AndroidSdk（可选）：安卓开发者官网的一些离线文档，不过下载下来打开也很慢，后面会提供另外一个离线版。</p>
-<p><strong>·</strong> <strong>SDK Platform</strong> (必须）：对应平台的开发工具，需要在哪个版本的平台下开发就下载哪个。</p>
-<p>· Samples for SDK（可选)，此项在高版本tools中已不提供，需要在IDE里通过Import Sample引入，当然也可以下载离线版）：内置的安卓示例程序，推荐安装。</p>
-<p>· Sources for Android SDK（可选）：安卓API的源代码，推荐安装。</p>
-<p>· ARM /Intel xxxx Image（可选）：各个以Image结尾的东西是支持相应平台的模拟器，我们就把它想象成一个刷机包吧。（使用真机调试或使用其它模拟器的话不需要安装）</p>
+<img src="https://pic.imgdb.cn/item/61376d0d44eaada73929d3b5.jpg">
+
+<ul>
+<li><p> Documentation for AndroidSdk（可选）：安卓开发者官网的一些离线文档，不过下载下来打开也很慢，后面会提供另外一个离线版。</p>
+</li>
+<li><p>SDK Platform** (必须）：对应平台的开发工具，需要在哪个版本的平台下开发就下载哪个。</p>
+</li>
+<li><p>Samples for SDK（可选)，此项在高版本tools中已不提供，需要在IDE里通过Import Sample引入，当然也可以下载离线版）：内置的安卓示例程序，推荐安装。</p>
+</li>
+<li><p>Sources for Android SDK（可选）：安卓API的源代码，推荐安装。</p>
+</li>
+<li><p> ARM /Intel xxxx Image（可选）：各个以Image结尾的东西是支持相应平台的模拟器，我们就把它想象成一个刷机包吧。（使用真机调试或使用其它模拟器的话不需要安装）</p>
+</li>
+</ul>
 <p><strong>Extras</strong>目录(可选的扩展）</p>
-<p>· Android Support Repository（可选）：主要是方便在gradle中使用Android Support Libraries，因为Google并没有把这些库发布到maven center或者jcenter去，而是使用了Google自己的maven仓库。</p>
-<p>· Intel x86 Emulator Accelerator(HAXM installer)（可选）：windows平台的Intel x86模拟器加速工具，配合Intel x86 atom/atom_64 System Image使用可加快模拟器的运行速度。</p>
-<h3 id="3-Android-SDK文件目录"><a href="#3-Android-SDK文件目录" class="headerlink" title="3.Android SDK文件目录"></a><strong>3.Android SDK文件目录</strong></h3><h4 id="add-ons"><a href="#add-ons" class="headerlink" title="add-ons"></a><strong>add-ons</strong></h4><p>这里面保存着附加库，第三方公司为android 平台开发的附加功能系统。比如GoogleMaps，当然你如果安装了OphoneSDK，这里也会有一些类库在里面。</p>
+<img src="https://pic.imgdb.cn/item/61376d1f44eaada7392a0bf1.jpg">
+
+<ul>
+<li><p>Android Support Repository（可选）：主要是方便在gradle中使用Android Support Libraries，因为Google并没有把这些库发布到maven center或者jcenter去，而是使用了Google自己的maven仓库。</p>
+</li>
+<li><p> Intel x86 Emulator Accelerator(HAXM installer)（可选）：windows平台的Intel x86模拟器加速工具，配合Intel x86 atom/atom_64 System Image使用可加快模拟器的运行速度。</p>
+</li>
+</ul>
+<h3 id="3-Android-SDK文件目录"><a href="#3-Android-SDK文件目录" class="headerlink" title="3.Android SDK文件目录"></a><strong>3.Android SDK文件目录</strong></h3><img src="https://pic.imgdb.cn/item/61376d3944eaada7392a5721.jpg">
+
+<h4 id="add-ons"><a href="#add-ons" class="headerlink" title="add-ons"></a><strong>add-ons</strong></h4><p>这里面保存着附加库，第三方公司为android 平台开发的附加功能系统。比如GoogleMaps，当然你如果安装了OphoneSDK，这里也会有一些类库在里面。</p>
 <h4 id="docs"><a href="#docs" class="headerlink" title="docs"></a><strong>docs</strong></h4><p>这里面是Android SDKAPI参考文档，所有的API都可以在这里查到。</p>
 <h4 id="extras"><a href="#extras" class="headerlink" title="extras"></a><strong>extras</strong></h4><p>该文件夹下存放了Android support v4，v7，v13，v17包； 还有google提供额USB驱动、Intel提供的硬件加速等附加工具包， 和market_licensing作为AndroidMarket版权保护组件，一般发布付费应用到电子市场可以用它来反盗版。</p>
 <h4 id="platforms"><a href="#platforms" class="headerlink" title="platforms"></a><strong>platforms</strong></h4><p>是每个平台的SDK真正的文件，存放了不同版本的android系统。里面会根据APILevel划分的SDK版本。</p>
 <h4 id="samples"><a href="#samples" class="headerlink" title="samples"></a><strong>samples</strong></h4><p>是Android SDK自带的默认示例工程，里面的apidemos强烈推荐初学者运行学 习，对于SQLite数据库操作可以查看NotePad这个例子，对于游戏开发Snake、LunarLander都是不错的例子，对于Android主 题开发Home则是androidm5时代的主题设计原理。</p>
-<h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a><strong>环境变量设置</strong></h4><p>· 系统变量里面添加变量名 ANDROID_HOME 路径为实际存放SDk的路径</p>
-<p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
+<h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a><strong>环境变量设置</strong></h4><ul>
+<li><p> 系统变量里面添加变量名 ANDROID_HOME 路径为实际存放SDk的路径</p>
+</li>
+<li><img src="https://pic.imgdb.cn/item/61376d6744eaada7392ad601.jpg"></li>
+<li><p>其他几个路径配置到系统环境Path中如下图所示：</p>
+<img src="https://pic.imgdb.cn/item/61376db144eaada7392b9aab.jpg"></li>
+</ul>
+<h2 id="七-配置检测"><a href="#七-配置检测" class="headerlink" title="七.配置检测"></a><strong>七.配置检测</strong></h2><p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
 <p>adb命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;adb</span><br><span class="line">Android Debug Bridge version 1.0.39</span><br><span class="line">Revision 3db08f2c6889-android</span><br><span class="line">Installed as E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">global options:</span><br><span class="line"> -a         listen on all network interfaces, not just localhost</span><br><span class="line"> -d         use USB device (error if multiple devices connected)</span><br><span class="line"> -e         use TCP/IP device (error if multiple TCP/IP devices available)</span><br><span class="line"> -s SERIAL</span><br><span class="line">     use device with given serial number (overrides $ANDROID_SERIAL)</span><br><span class="line"> -p PRODUCT</span><br><span class="line">     name or path (&#x27;angler&#x27;/&#x27;out/target/product/angler&#x27;);</span><br><span class="line">     default $ANDROID_PRODUCT_OUT</span><br><span class="line"> -H         name of adb server host [default=localhost]</span><br><span class="line"> -P         port of adb server [default=5037]</span><br><span class="line"> -L SOCKET  listen on given socket for adb server [default=tcp:localhost:5037]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -244,7 +275,7 @@
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BA%94%E7%94%A8%E8%83%8C%E6%99%AF"><span class="toc-text">一、应用背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8Eapp%E7%B1%BB%E5%9E%8B"><span class="toc-text">二、移动端操作系统与app类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81"><span class="toc-text">主流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E4%B8%BB%E6%B5%81"><span class="toc-text">非主流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%99%BA%E8%83%BD%E6%9C%BA"><span class="toc-text">非智能机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Andriod"><span class="toc-text">Andriod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS"><span class="toc-text">iOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81app%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="toc-text">三、app测试框架介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Andriod%EF%BC%9A"><span class="toc-text">1. Andriod：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Monkey"><span class="toc-text">Monkey</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MonkeyRunner"><span class="toc-text">MonkeyRunner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Instrumentation"><span class="toc-text">Instrumentation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Robotium-%E5%9F%BA%E4%BA%8EInstrumentation"><span class="toc-text">Robotium(基于Instrumentation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Robolectric"><span class="toc-text">Robolectric</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIAutomator"><span class="toc-text">UIAutomator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Selendroid"><span class="toc-text">Selendroid</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Espresso"><span class="toc-text">Espresso</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calabash"><span class="toc-text">Calabash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appium"><span class="toc-text">Appium</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Macaca"><span class="toc-text">Macaca</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cafe"><span class="toc-text">Cafe</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-iOS"><span class="toc-text">2. iOS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XCTest"><span class="toc-text">XCTest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIAutomation"><span class="toc-text">UIAutomation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appium-1"><span class="toc-text">Appium</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Frank"><span class="toc-text">Frank</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KIF"><span class="toc-text">KIF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calabash-1"><span class="toc-text">Calabash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Subliminal"><span class="toc-text">Subliminal</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kiwi"><span class="toc-text">Kiwi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appecker"><span class="toc-text">Appecker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Android-app%E7%B1%BB%E5%9E%8B"><span class="toc-text">四、Android app类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%EF%BC%9A%EF%BC%88Native-App%EF%BC%89"><span class="toc-text">1. 原生应用程序：（Native App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B7%B7%E5%90%88%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%EF%BC%88Hybrid-App%EF%BC%89"><span class="toc-text">2. 混合应用程序（Hybrid App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Web%E7%89%88APP-%EF%BC%88Web-App%EF%BC%89"><span class="toc-text">3. Web版APP （Web App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%89%8B%E6%B8%B8app%E4%B8%8E%E6%89%8B%E6%9C%BAApp"><span class="toc-text">4. 手游app与手机App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81Android-SDK%E4%BB%8B%E7%BB%8D"><span class="toc-text">五、Android    SDK介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81Android-SDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">六、Android SDK环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83"><span class="toc-text">1.配置jdk环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SDK%E4%B8%8B%E8%BD%BD"><span class="toc-text">2.SDK下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tools%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="toc-text">Tools目录：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Android-SDK%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="toc-text">3.Android SDK文件目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#add-ons"><span class="toc-text">add-ons</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docs"><span class="toc-text">docs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extras"><span class="toc-text">extras</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#platforms"><span class="toc-text">platforms</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#samples"><span class="toc-text">samples</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">环境变量设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-text">参考资料：</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BA%94%E7%94%A8%E8%83%8C%E6%99%AF"><span class="toc-text">一、应用背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8Eapp%E7%B1%BB%E5%9E%8B"><span class="toc-text">二、移动端操作系统与app类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81"><span class="toc-text">主流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E4%B8%BB%E6%B5%81"><span class="toc-text">非主流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%99%BA%E8%83%BD%E6%9C%BA"><span class="toc-text">非智能机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Andriod"><span class="toc-text">Andriod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS"><span class="toc-text">iOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81app%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="toc-text">三、app测试框架介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Andriod%EF%BC%9A"><span class="toc-text">1. Andriod：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Monkey"><span class="toc-text">Monkey</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MonkeyRunner"><span class="toc-text">MonkeyRunner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Instrumentation"><span class="toc-text">Instrumentation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Robotium-%E5%9F%BA%E4%BA%8EInstrumentation"><span class="toc-text">Robotium(基于Instrumentation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Robolectric"><span class="toc-text">Robolectric</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIAutomator"><span class="toc-text">UIAutomator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Selendroid"><span class="toc-text">Selendroid</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Espresso"><span class="toc-text">Espresso</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calabash"><span class="toc-text">Calabash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appium"><span class="toc-text">Appium</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Macaca"><span class="toc-text">Macaca</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cafe"><span class="toc-text">Cafe</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-iOS"><span class="toc-text">2. iOS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XCTest"><span class="toc-text">XCTest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIAutomation"><span class="toc-text">UIAutomation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appium-1"><span class="toc-text">Appium</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Frank"><span class="toc-text">Frank</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KIF"><span class="toc-text">KIF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calabash-1"><span class="toc-text">Calabash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Subliminal"><span class="toc-text">Subliminal</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kiwi"><span class="toc-text">Kiwi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Appecker"><span class="toc-text">Appecker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Android-app%E7%B1%BB%E5%9E%8B"><span class="toc-text">四、Android app类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%EF%BC%9A%EF%BC%88Native-App%EF%BC%89"><span class="toc-text">1. 原生应用程序：（Native App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B7%B7%E5%90%88%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%EF%BC%88Hybrid-App%EF%BC%89"><span class="toc-text">2. 混合应用程序（Hybrid App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Web%E7%89%88APP-%EF%BC%88Web-App%EF%BC%89"><span class="toc-text">3. Web版APP （Web App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Web-App%E3%80%81Hybrid-App%E3%80%81Native-App-%E6%8A%80%E6%9C%AF%E7%89%B9%E6%80%A7"><span class="toc-text">4.Web App、Hybrid App、Native App 技术特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%89%8B%E6%B8%B8app%E4%B8%8E%E6%89%8B%E6%9C%BAApp"><span class="toc-text">5. 手游app与手机App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81Android-SDK%E4%BB%8B%E7%BB%8D"><span class="toc-text">五、Android    SDK介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81Android-SDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">六、Android SDK环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83"><span class="toc-text">1.配置jdk环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SDK%E4%B8%8B%E8%BD%BD"><span class="toc-text">2.SDK下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tools%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="toc-text">Tools目录：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Android-SDK%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="toc-text">3.Android SDK文件目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#add-ons"><span class="toc-text">add-ons</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docs"><span class="toc-text">docs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extras"><span class="toc-text">extras</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#platforms"><span class="toc-text">platforms</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#samples"><span class="toc-text">samples</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">环境变量设置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E9%85%8D%E7%BD%AE%E6%A3%80%E6%B5%8B"><span class="toc-text">七.配置检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-text">参考资料：</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
 
@@ -320,23 +351,23 @@
       <ul>
         
           <li>
-            <a href="/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/">Appium的元素定位入门</a>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
           </li>
         
           <li>
-            <a href="/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/">Appium基础-安装、配置、启动</a>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
           </li>
         
           <li>
-            <a href="/2021/09/05/monkey/">monkey</a>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
           </li>
         
           <li>
-            <a href="/2021/09/05/adb%E5%91%BD%E4%BB%A4/">adb命令</a>
+            <a href="/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/">monkey自定义脚本实践</a>
           </li>
         
           <li>
-            <a href="/2021/09/04/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/">App自动化测试概述</a>
+            <a href="/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">monkey 日志管理</a>
           </li>
         
       </ul>
@@ -354,7 +385,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">15</span></li></ul>
     </div>
   </div>
 
