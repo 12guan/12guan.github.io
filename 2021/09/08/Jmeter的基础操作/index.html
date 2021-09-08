@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Jmeter的基础操作 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Jmeter的基础操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Jmeter的基础操作
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-08T13:31:57.000Z" itemprop="datePublished">2021年09月08日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、JMeter-的介绍"><a href="#一、JMeter-的介绍" class="headerlink" title="一、JMeter 的介绍"></a><strong>一、JMeter 的介绍</strong></h1><h2 id="1-JMeter-是什么？"><a href="#1-JMeter-是什么？" class="headerlink" title="1. JMeter 是什么？"></a><strong>1. JMeter</strong> <strong>是什么？</strong></h2><p>JMeter 也称为“Apache JMeter”，它是一个开源的，100%基于 Java 的应用程序， 带有图形界面。 它旨在分析和衡量 Web 应用程序和各种服务的性能和负载功能行为。<span id="more"></span> </p>
+<p>JMeter 主要用于测试 Web 应用程序或 FTP 应用程序，但目前，它适用于功能测试， JDBC 数据库连接，Web 服务，通用 TCP 连接和 OS 本机进程。  您可以执行各种测试活动，如性能，负载，压力，回归和功能测试，以便针对您的 Web 服务器获得准确的性能指标。 </p>
+<p>JMeter 不是一个浏览器，它不像任何浏览器那样呈现 html 页面，而是在协议级别上 </p>
+<p>运行。 </p>
+<p><strong>以下是 JMeter 支持的协议列表:</strong> </p>
+<p>Web Services - SOAP / XML-RPCWeb - HTTP, </p>
+<p>HTTPS sites ‘web 1.0’ web 2.0 (ajax, flex 和 flex-ws-amf) </p>
+<p>通过 JDBC 驱动程序的数据库目录 - LDAP </p>
+<p>通过 JMS 面向消息传递的服务 </p>
+<p>服务——POP3, IMAP, SMTP </p>
+<h2 id="2-JMeter-的特性"><a href="#2-JMeter-的特性" class="headerlink" title="2. JMeter 的特性"></a><strong>2. JMeter</strong> <strong>的特性</strong></h2><p>**开源应用程序:**JMeter 是一个免费的开源应用程序，可以帮助用户或开发人员使用源代码开 发其他应用程序。 </p>
+<p>**支持各种测试方法:**JMeter 支持各种测试方法，如负载测试，分布式测试和功能测试等。 </p>
+<ul>
+<li>Web: HTTP, HTTPS, SOAP </li>
+<li>数据库: JDBC, LDAP, JMS </li>
+<li>Mail: POP3 </li>
+</ul>
+<p>**支持多协议:**JMeter 支持 HTTP，JDBC，LDAP，SOAP，JMS 和 FTP 等协议。 </p>
+<p>**模拟:**JMeter 可以使用虚拟用户或唯一用户模拟多个用户，以便对正在测试的 Web 应用程  序产生大量负载。 </p>
+<p>**测试结果可视化:**测试结果可以以不同的格式查看，如图形，表格，树型和报告等。 </p>
+<h2 id="3-JMeter-的工作流程"><a href="#3-JMeter-的工作流程" class="headerlink" title="3. JMeter 的工作流程"></a><strong>3. JMeter</strong> <strong>的工作流程</strong></h2><p>JMeter 通过模拟一组用户将请求发送到目标服务器。 随后，收集数据以通过各种格式 计算目标服务器的统计和显示性能度量。 </p>
+<p>如下图所示：</p>
+<p> <img src="https://pic.imgdb.cn/item/6138d2ac44eaada7398aa85b.png"></p>
+<h2 id="4-JMeter-的安装"><a href="#4-JMeter-的安装" class="headerlink" title="4. JMeter 的安装"></a><strong>4. JMeter</strong> <strong>的安装</strong></h2><p>注意：安装 Jmeter 需要安装配置好对应的 java 环境  </p>
+<p><img src="https://pic.imgdb.cn/item/6138d2cf44eaada7398afbc5.png"></p>
+<p>JMeter 下载、安装教程参考： </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39706570/article/details/91447382">https://blog.csdn.net/qq_39706570/article/details/91447382</a> </p>
+<h2 id="5-构建-JMeter-的测试计划"><a href="#5-构建-JMeter-的测试计划" class="headerlink" title="5. 构建 JMeter 的测试计划"></a><strong>5.</strong> <strong>构建</strong> <strong>JMeter</strong> <strong>的测试计划</strong></h2><p>可以将测试计划可视化为用于运行测试的 JMeter 脚本。测试计划由测试元素组成，例 </p>
+<p>如线程组，逻辑控制器，样本生成控制器，监听器，定时器，断言和配置元素。 -))</p>
+<p>每个测试计划中至少应有一个线程组。 我们可以根据要求添加或删除元素。 </p>
+<p>让我们按照以下简单步骤开始构建测试计划: </p>
+<h3 id="1）-启动-JMeter-窗口"><a href="#1）-启动-JMeter-窗口" class="headerlink" title="1）. 启动 JMeter 窗口"></a><strong>1）. 启动 JMeter 窗口</strong></h3><p>双击文件夹里面 bin 目录里面的 Jmeter.bat，出现如下画面 </p>
+<p><img src="https://pic.imgdb.cn/item/6138d2f244eaada7398b4a55.png"></p>
+<p>默认的 JMeter 界面包含一个测试计划节点，其中保留了真实的测试计划。 </p>
+<p><strong>测试计划(Test plan)：</strong>节点包含测试计划的名称和用户定义的变量。当您在测试计划的多 个部分中有重复值时，可使用用户定义变量，它提供了灵活性。 </p>
+<p>提示：汉化一下：  </p>
+<p><img src="https://pic.imgdb.cn/item/6138d30e44eaada7398b883b.png"></p>
+<h3 id="2）-添加、删除测试计划元素"><a href="#2）-添加、删除测试计划元素" class="headerlink" title="2）. 添加、删除测试计划元素"></a><strong>2）.</strong> <strong>添加、删除测试计划元素</strong></h3><ol>
+<li>为 JMeter 创建测试计划后，下一步是向 JMeter 测试计划添加和删除元素。 </li>
+<li>选择测试计划节点，然后右键单击所选项目。 </li>
+<li>鼠标悬停在“Add”选项上，然后将显示元素列表。 </li>
+<li>鼠标悬停在所需的列表元素上，然后单击选择所需的选项 </li>
+</ol>
+<p><strong>下图显示了如何在测试计划中添加线程组元素</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138d3dd44eaada7398d5cb8.png"></p>
+<p>要删除元素，请选择所需的元素。 </p>
+<p>右键单击元素，然后选择“Remove”选项。  </p>
+<p><strong>下图显示了如何删除测试计划中的线程组元素:</strong> <img src="https://pic.imgdb.cn/item/6138d40a44eaada7398dc358.png" style="zoom:67%;" /></p>
+<h3 id="3）-加载并且保存测试计划元素"><a href="#3）-加载并且保存测试计划元素" class="headerlink" title="3）. 加载并且保存测试计划元素"></a><strong>3）.</strong> <strong>加载并且保存测试计划元素</strong></h3><ol>
+<li><p>要将元素加载到 JMeter 测试计划树，请选择并右键单击要添加已加载元素的任何树元 素。 </p>
+</li>
+<li><p>选择“Merge”选项。 </p>
+</li>
+<li><p>选择保存元素的.jmx 文件。 </p>
+</li>
+<li><p>元素将合并到 JMeter 测试计划树中。 </p>
+<img src="https://pic.imgdb.cn/item/6138d43144eaada7398e1867.png" style="zoom:67%;" /> </li>
+</ol>
+<p>要保存树元素，请右键单击元素。 </p>
+<p>选择“Save Selection As”选项。将文件保存在所需位置。</p>
+<img src="https://pic.imgdb.cn/item/6138d45744eaada7398e6cf4.png" style="zoom: 80%;" />  
+
+<h3 id="4）-配置树元素"><a href="#4）-配置树元素" class="headerlink" title="4）. 配置树元素"></a><strong>4）.</strong> <strong>配置树元素</strong></h3><p>可以使用 JMeter 右侧框架上的控件配置测试计划中的元素。 这些控件允许您配置所 </p>
+<p>选元素的行为。 例如，可以通过以下方式配置线程组: </p>
+<ol>
+<li>元素的名称。 </li>
+<li>线程数(正在测试的用户数)。 </li>
+<li>加速时间(希望允许线程组从 0 到 3 个用户的时间)。 </li>
+<li>循环计数(应该循环测试的次数)。 <img src="https://pic.imgdb.cn/item/6138d50944eaada739900145.png"></li>
+</ol>
+<h3 id="5-保存-JMeter-测试计划"><a href="#5-保存-JMeter-测试计划" class="headerlink" title="5). 保存 JMeter 测试计划"></a><strong>5).</strong> <strong>保存</strong> <strong>JMeter</strong> <strong>测试计划</strong></h3><p>到目前为止，我们已经完成了创建测试计划，添加元素和配置树。现在，您可以通过从 </p>
+<p>文件菜单中选择“Save” 或“Save Test Plan As”来保存整个测试计划。 </p>
+ <img src="https://pic.imgdb.cn/item/6138d5e844eaada739920525.png" style="zoom:67%;" />
+
+<h3 id="6-运行-Jmeter-测试计划"><a href="#6-运行-Jmeter-测试计划" class="headerlink" title="6). 运行 Jmeter 测试计划"></a><strong>6).</strong> <strong>运行</strong> <strong>Jmeter</strong> <strong>测试计划</strong></h3><p>可以通过单击菜单项中的“Start(Ctrl + r)”来运行测试计划，也可以单击绿色播放按 </p>
+<p>钮。下图显示了如何运行测试计划。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138d61644eaada73992719c.png"></p>
+<h3 id="7-停止-JMeter-测试计划"><a href="#7-停止-JMeter-测试计划" class="headerlink" title="7). 停止 JMeter 测试计划"></a><strong>7).</strong> <strong>停止</strong> <strong>JMeter</strong> <strong>测试计划</strong></h3><p>可以使用 Stop(Control +’.’)停止测试计划 - 如果可能，它会立即停止线程。您还 </p>
+<p>可以使用 Shutdown(Control +’，’) - 它请求线程在任何正在进行的任务结束时停止 </p>
+<h3 id="8-检查-JMeter-测试计划执行日志"><a href="#8-检查-JMeter-测试计划执行日志" class="headerlink" title="8). 检查 JMeter 测试计划执行日志"></a><strong>8).</strong> <strong>检查</strong> <strong>JMeter</strong> <strong>测试计划执行日志</strong></h3><p>JMeter 将测试运行详细信息，警告和错误存储到 jmeter.log 文件中。您可以通过单击菜单 栏正下方部分右侧的惊叹号来访问 JMeter 日志。下图显示了如何访问 JMeter 日志： <img src="https://pic.imgdb.cn/item/6138d62d44eaada73992a78c.png"></p>
+<h1 id="二、JMeter的测试计划-认识组件"><a href="#二、JMeter的测试计划-认识组件" class="headerlink" title="二、JMeter的测试计划(认识组件)"></a><strong>二、JMeter的测试计划(认识组件)</strong></h1><h2 id="1-JMeter-测试计划元素"><a href="#1-JMeter-测试计划元素" class="headerlink" title="1. JMeter 测试计划元素"></a><strong>1. JMeter</strong> <strong>测试计划元素</strong></h2><p>JMeter 包含各种相互关联但为不同目的而设计的元素。在开始使用 JMeter 之前，最 </p>
+<p>好先了解一下 JMeter 的一些主要元素，并详细说明。 </p>
+<p><strong>注意:测试计划包含至少一个线程组。</strong> </p>
+<p>以下是 JMeter 的主要的几个组件 </p>
+<ol>
+<li><p>测试计划(Test Plan) </p>
+</li>
+<li><p>线程组(Thread Group) </p>
+</li>
+<li><p>控制器(Controllers) </p>
+</li>
+<li><p>监听器(Listeners) </p>
+</li>
+<li><p>计时器(Timers) </p>
+</li>
+<li><p>配置元素(Configuration Elements)  </p>
+</li>
+<li><p>预处理器元素(Pre-Processor Elements) </p>
+</li>
+<li><p>后处理器元素(Post-Processor Elements) </p>
+</li>
+</ol>
+<p><strong>每个组件与 JMeter 特定模块之间的关系</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138d64844eaada73992e9e7.png"></p>
+<h2 id="2-JMeter-测试计划"><a href="#2-JMeter-测试计划" class="headerlink" title="2. JMeter 测试计划"></a><strong>2. JMeter</strong> <strong>测试计划</strong></h2><p>可以将测试计划可视化为用于运行测试的 JMeter 脚本。 </p>
+<p>测试计划由测试元素组成，例如线程组，逻辑控制器，样本生成控制器，监听器，定时 </p>
+<p>器，断言和配置元素。 </p>
+<p>下图给出了测试计划的目录级别。</p>
+  <img src="https://pic.imgdb.cn/item/6138d6bd44eaada73993eca5.png" style="zoom: 50%;" />
+
+<p>运行整个测试计划之前，应保存测试计划。JMeter 文件或测试计划以.JMX 扩展文件的 </p>
+<p>形式保存。JMX 是一种基于开放测试的格式，它使测试计划能够在文本编辑器中启动。您 还可以将测试计划的一部分保存为不同的选择。 </p>
+<p>例如，如果要使用侦听器保存 HTTP 请求采样器，可以将其保存为测试片段，以便它也 </p>
+<p>可以在其他测试场景中使用。 </p>
+<h2 id="3-JMeter-的线程组"><a href="#3-JMeter-的线程组" class="headerlink" title="3. JMeter 的线程组"></a><strong>3. JMeter</strong> <strong>的线程组</strong></h2><p>线程组顾名思义，线程组表示 JMeter 在测试期间将使用的线程组。 线程组元素是任 </p>
+<p>何测试计划的起点。 线程组提供的控件允许:  </p>
+<ol>
+<li><p>设置线程数。 </p>
+</li>
+<li><p>设置加速期。 </p>
+</li>
+<li><p>设置执行测试的次数。 </p>
+</li>
+</ol>
+<p>前面已在“添加/删除测试元素”部分中说明了在测试计划中添加线程组的步骤。下图 </p>
+<p>显示了线程组的控制面板部分。</p>
+ <img src="https://pic.imgdb.cn/item/6138d74344eaada739951bca.png" style="zoom: 50%;" />
+
+<p>线程组控制面板包括: </p>
+<ol>
+<li><p>线程组名称。 </p>
+</li>
+<li><p>线程数(您正在测试的用户数)。 </p>
+</li>
+<li><p>加速时间(您希望允许线程组从 0 到 3 个用户的时间)。 </p>
+</li>
+<li><p>循环计数(应该循环测试的次数)。 </p>
+</li>
+<li><p>调度程序复选框(“线程组”面板底部的复选框用于启用/禁用额外字段，您可以在其 </p>
+</li>
+</ol>
+<p>中输入测试持续时间，启动延迟，运行的开始和结束时间)。  </p>
+<h2 id="4-JMeter-的控制器"><a href="#4-JMeter-的控制器" class="headerlink" title="4. JMeter 的控制器"></a><strong>4. JMeter</strong> <strong>的控制器</strong></h2><p>控制器可分为两大类: </p>
+<ul>
+<li>采样器 </li>
+<li>逻辑控制器 </li>
+</ul>
+<h3 id="1-采样器"><a href="#1-采样器" class="headerlink" title="1) 采样器"></a><strong>1)</strong> <strong>采样器</strong></h3><p>采样器是允许 JMeter 将特定类型的请求发送到服务器的组件。它模拟用户对目标服务 </p>
+<p>器的页面的请求。 </p>
+<p>采样器是必须将组件添加到测试计划中的，因为它只能让 JMeter 知道需要将哪种类型 </p>
+<p>的请求发送到服务器。 请求可以是 HTTP，HTTP(s)，FTP，TCP，SMTP，SOAP 等。 </p>
+<p><strong>下面给出了 JMeter 采样器服务的请求列表:</strong> </p>
+<ol>
+<li> FTP 请求 </li>
+<li>HTTP 请求(也可用于 SOAP 或 REST Web 服务) </li>
+<li> JDBC 请求 </li>
+<li> Java 对象请求 </li>
+<li>JMS 请求 </li>
+<li>JUnit 测试请求 </li>
+<li>操作系统进程请求 </li>
+<li>TCP 请求  </li>
+</ol>
+<p><strong>JMeter 采样器只能通过下图所示的方法添加到线程组中</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138d7b544eaada7399614c7.png"></p>
+<p><strong>2)</strong> <strong>取样器</strong> </p>
+<p>逻辑控制器可帮助您控制线程中采样器处理顺序的流程。 它还可以更改来自其子元素 </p>
+<p>的请求的顺序。 </p>
+<p><strong>以下是 JMeter 中所有逻辑控制器的列表：</strong> </p>
+<ol start="3">
+<li><p>运行时控制器 </p>
+</li>
+<li><p>IF 控制器事务控制器 </p>
+</li>
+<li><p>录制控制器 </p>
+</li>
+<li><p>简单控制器 </p>
+</li>
+<li><p>while 控制器 </p>
+</li>
+<li><p>Switch 控制器 </p>
+</li>
+<li><p>ForEach 控制器 </p>
+</li>
+<li><p>模块控制器 </p>
+</li>
+<li><p>包括控制器循环控制器 </p>
+</li>
+<li><p>仅一次控制器  </p>
+</li>
+<li><p>交错控制器 </p>
+</li>
+<li><p>随机控制器 </p>
+</li>
+<li><p>随机顺序控制器 </p>
+</li>
+<li><p>吞吐量控制器 </p>
+</li>
+</ol>
+<h2 id="5-JMeter-的监听器"><a href="#5-JMeter-的监听器" class="headerlink" title="5. JMeter 的监听器"></a><strong>5. JMeter</strong> <strong>的监听器</strong></h2><p>性能测试就是以各种形式分析服务器响应，然后将其呈现给客户端。 </p>
+<p>当 JMeter 的采样器组件被执行时，监听器提供 JMeter 收集的关于那些测试用例的数据的 图形表示。 </p>
+<p>它便于用户在某些日志文件中以表格，图形，树或简单文本的形式查看采样器结果。 </p>
+<p>监听器可以在测试的任何地方进行调整，直接包括在测试计划下。 </p>
+<p>JMeter 提供了大约 15 个监听器，但主要使用的是表，树和图形。 </p>
+<p>以下是 JMeter 中所有监听器的列表： </p>
+<ul>
+<li>图表结果 </li>
+<li>样条曲线可视化器 </li>
+<li>断言结果 </li>
+<li>简单的数据编写者 </li>
+<li>监控结果 </li>
+<li>分布图(alpha) </li>
+<li>聚合图 </li>
+<li>梅勒展示台 </li>
+<li>BeanShell 监听器 </li>
+<li>总结报告 </li>
+<li>示例结果保存配置 </li>
+<li>图表完整结果 </li>
+<li>查看结果树  </li>
+<li>汇总报告 </li>
+<li>查看表格中的结果 </li>
+</ul>
+<p>下图显示如何在 Jmeter 中添加监听器： </p>
+<p><img src="https://pic.imgdb.cn/item/6138d82444eaada739970586.png"></p>
+<h2 id="6-JMeter-的计时器"><a href="#6-JMeter-的计时器" class="headerlink" title="6. JMeter 的计时器"></a><strong>6. JMeter</strong> <strong>的计时器</strong></h2><p>当您在网站或应用程序上执行任何操作时，它们自然会有暂停和延迟。 这 </p>
+<p>些可以使用计时器(Timers)进行模拟。 </p>
+<p>JMeter 发送请求时不会在每个采样器/请求之间应用延迟。 如果在服务器上执 </p>
+<p>行负载/压力测试没有指定延迟，它将会超载。 这可能不完全是我们想要的。可 </p>
+<p>以添加一个计时器元素，该元素允许您定义在每个请求到达时间等待的终止。 </p>
+<p>下面给出了 JMeter 提供的所有计时器元素的列表： </p>
+<p>同步定时器 </p>
+<p>JSR223 时间 </p>
+<p>BeanShell 时间 </p>
+<p>高斯随机定时器  </p>
+<p>统一随机定时器 </p>
+<p>恒定吞吐量计时器 </p>
+<p>BSF 时间 </p>
+<p>泊松随机时间 </p>
+<p>下图显示了一个固定定时器控制面板： <img src="https://pic.imgdb.cn/item/6138d86144eaada739979303.png" style="zoom: 50%;" /></p>
+<h2 id="7-JMeter-的配置元素"><a href="#7-JMeter-的配置元素" class="headerlink" title="7. JMeter 的配置元素"></a><strong>7. JMeter</strong> <strong>的配置元素</strong></h2><p>配置元素的工作与采样器的工作类似。但是，它不发送请求，但它允许修改采样器发出 </p>
+<p>的请求。</p>
+<p>这是一个简单的元素，您可以在其中收集所有采样器的关联配置值，如 webserver 的 </p>
+<p>主机名或数据库 URL 等。 </p>
+<p>配置元素只能从放置元素的分支内部访问。</p>
+  <img src="https://pic.imgdb.cn/item/6138d8aa44eaada739982fd1.png" style="zoom:50%;" />
+
+<h2 id="8-JMeter-预处理元素"><a href="#8-JMeter-预处理元素" class="headerlink" title="8. JMeter 预处理元素"></a><strong>8. JMeter</strong> <strong>预处理元素</strong></h2><p>预处理器元素在采样器发出请求之前执行，如果预处理器附加到采样器元 </p>
+<p>素，那么它将在该采样器元素运行之前执行。 </p>
+<p>预处理器元素用于在运行之前修改样本请求的设置，或更新未从响应文本中提取 </p>
+<p>的变量。 </p>
+<p>以下是 JMeter 提供的所有预处理器元素的列表: </p>
+<ol>
+<li><p>JDBC 预处理器 </p>
+</li>
+<li><p>JSR223 预处理器 </p>
+</li>
+<li><p>RegEx 用户参数 </p>
+</li>
+<li><p>BeanShell 预处理器 </p>
+</li>
+<li><p>BSF 预处理器 </p>
+</li>
+<li><p>HTML 链接解析器  </p>
+</li>
+<li><p>HTTP URL 重写修饰符 </p>
+</li>
+<li><p>HTTP 用户参数修饰符 </p>
+</li>
+<li><p>用户参数 </p>
+</li>
+</ol>
+<p>下图显示了如何将预处理器元素添加到测试计划中</p>
+<p> <img src="https://pic.imgdb.cn/item/6138d8db44eaada739989c83.png"></p>
+<h2 id="9-JMeter-的后处理元素"><a href="#9-JMeter-的后处理元素" class="headerlink" title="9. JMeter 的后处理元素"></a><strong>9. JMeter</strong> <strong>的后处理元素</strong></h2><p>在发出采样器请求之后执行后处理器元素。 如果后处理器连接到 Sampler 元素，那么 </p>
+<p>它将在该 sampler 元素运行之后执行。 </p>
+<p>后处理器最常用于处理响应数据，例如，为了将来目的而提取特定值。 </p>
+<p>下面给出了 JMeter 提供的所有后处理器元素的列表： </p>
+<ol>
+<li><p>CSS/JQuery 抽取器 </p>
+</li>
+<li><p>BeanShell 后处理器  </p>
+</li>
+<li><p>JSR223 后处理器 </p>
+</li>
+<li><p>JDBC 后处理器 </p>
+</li>
+<li><p>调试后处理器 </p>
+</li>
+<li><p>正则表达式提取器 </p>
+</li>
+<li><p>XPath 抽取器 </p>
+</li>
+<li><p>结果状态操作处理程序 </p>
+</li>
+<li><p>BSF 后处理器 </p>
+</li>
+</ol>
+<p>下图显示了如何将后处理器元素添加到测试计划中 -</p>
+<p><img src="https://pic.imgdb.cn/item/6138d93e44eaada739998f71.png"></p>
+<h2 id="10-JMeter-的函数"><a href="#10-JMeter-的函数" class="headerlink" title="10.JMeter 的函数"></a><strong>10.JMeter</strong> <strong>的函数</strong></h2><p>JMeter 函数可以称为特殊值，可以填充测试树中任何 Sampler 或其他元素的字段。 </p>
+<p>JMeter 中函数的语法:  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__functionName(var1,var2,var3)&#125; , </span><br></pre></td></tr></table></figure>
+
+<p>这里__ functionName 匹配函数的名称，圆括号围绕发送给函数的参数。 </p>
+<p>如果函数参数包含逗号，那么请务必使用“\”对其进行转义，否则 JMeter 会将其 </p>
+<p>视为参数分隔符。 </p>
+<p>例如: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__time(EEE\, d MMM yyyy)&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="函数列表"><a href="#函数列表" class="headerlink" title="函数列表"></a><strong>函数列表</strong></h3><table>
+<thead>
+<tr>
+<th><strong>函数类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>名称</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>信息</td>
+<td>threadNum</td>
+<td>获取线程号</td>
+</tr>
+<tr>
+<td>信息</td>
+<td>samplerName</td>
+<td>获取采样器名称(标签)。</td>
+</tr>
+<tr>
+<td>信息</td>
+<td>log</td>
+<td>记录(或显示)消息(并返回值)。</td>
+</tr>
+<tr>
+<td>信息</td>
+<td>machineName</td>
+<td>获取本地计算机名称。</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>StringFromFile</td>
+<td>从文件中读取一行。</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>FileToString</td>
+<td>读取整个文件。</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>CSVRead</td>
+<td>从 CSV 分隔文件中读取。</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>XPath</td>
+<td>使用 XPath 表达式从文件中读取。</td>
+</tr>
+<tr>
+<td>计算</td>
+<td>Counter</td>
+<td>生成递增数字。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>函数类型</strong></th>
+<th align="left"><strong>名称</strong></th>
+<th><strong>注解</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算</td>
+<td align="left">intSum</td>
+<td>相加 int 数字。</td>
+</tr>
+<tr>
+<td>计算</td>
+<td align="left">longSum</td>
+<td>相加 long 数字。</td>
+</tr>
+<tr>
+<td>计算</td>
+<td align="left">Random</td>
+<td>生成一个随机数。</td>
+</tr>
+<tr>
+<td>计算</td>
+<td align="left">RandomString</td>
+<td>生成随机字符串。</td>
+</tr>
+<tr>
+<td>脚本</td>
+<td align="left">BeanShell</td>
+<td>运行 BeanShell 脚本。</td>
+</tr>
+<tr>
+<td>脚本</td>
+<td align="left">javaScript</td>
+<td>运行 javaScript 脚本。</td>
+</tr>
+<tr>
+<td>脚本</td>
+<td align="left">jexl, jexl2</td>
+<td>评估 Commons Jexl 表达式。</td>
+</tr>
+<tr>
+<td>属性</td>
+<td align="left">Property</td>
+<td>读取 property 文件。</td>
+</tr>
+<tr>
+<td>属性</td>
+<td align="left">P</td>
+<td>读取一个属性(速记方法)。</td>
+</tr>
+<tr>
+<td>变量</td>
+<td align="left">Split</td>
+<td>将字符串拆分为变量。</td>
+</tr>
+<tr>
+<td>变量</td>
+<td align="left">eval</td>
+<td>评估变量表达式。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td align="left">regexFunction</td>
+<td>使用正则表达式解析先前的响应。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>函数类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>注解</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串</td>
+<td>escapeOroRegexpChars</td>
+<td>引用 ORO 正则表达式使用的元字符。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>Char</td>
+<td>从数字列表生成 Unicode char 值。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>Unescape</td>
+<td>包含 Java 转义的进程字符串(例如\n＆\t)。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>unescapeHtml</td>
+<td>解码 HTML 编码的字符串。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>escapeHtml</td>
+<td>使用 HTML 编码对字符串进行编码。</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>TestPlanName</td>
+<td>返回当前测试计划的名称。</td>
+</tr>
+</tbody></table>
+<p><strong>注意：JMeter 函数和变量始终区分大小写。</strong> </p>
+<p>让我们考虑一个 Log Function 的例子来理解 JMeter 中函数的使用。 </p>
+<p>JMeter 日志函数的语法： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__log(&quot;message&quot;)&#125; </span><br></pre></td></tr></table></figure>
+
+<p>首先，我们将使用 HTTP 请求采样器创建一个简单的测试计划。 </p>
+<h3 id="创建-JMeter-测试计划"><a href="#创建-JMeter-测试计划" class="headerlink" title="创建 JMeter 测试计划"></a><strong>创建</strong> <strong>JMeter</strong> <strong>测试计划</strong></h3><ul>
+<li>进入到 JMeter/bin 文件夹并双击 jmeter.bat 文件以启动 JMeter 界面。 </li>
+<li>选择测试计划节点，然后右键单击所选项目。 </li>
+<li>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </li>
+<li>选择<strong>“Threads (Users)”</strong> &gt; <strong>“Thread Grou”</strong>。 </li>
+<li>将此线程组重命名为 <strong>Thread Group 1</strong>。 </li>
+</ul>
+<h3 id="添加采样器"><a href="#添加采样器" class="headerlink" title="添加采样器"></a><strong>添加采样器</strong></h3><p>我们必须在线程组中添加一个 HTTP 请求采样器。 </p>
+<ul>
+<li>选择<strong>“Thread Group”</strong>，然后右键单击所选项。 </li>
+<li>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </li>
+<li>选择 <strong>Sampler</strong> &gt; <strong>HTTP</strong> <strong>请求</strong>选项。 </li>
+<li>它将添加一个空的 HTTP 请求采样器。  <img src="https://pic.imgdb.cn/item/6138dde744eaada739a5e75b.png"></li>
+</ul>
+<p>将 HTTP Request Sampler 的字段配置为 - </p>
+<ul>
+<li><p>Name - HTTP 请求采样器 1。 </p>
+</li>
+<li><p>Server 名称或 IP - 在示例中，Web 服务器名称将为 - <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> </p>
+</li>
+<li><p>Protocol - 此字段保持不变。 </p>
+</li>
+<li><p>Path - 我们将其写为“/”(斜杠)。 它表示我们想要服务器的根页面 </p>
+<p><img src="https://pic.imgdb.cn/item/6138de1944eaada739a655ec.png"></p>
+</li>
+</ul>
+<p>现在，复制整个<strong>线程组 1</strong> 并将其粘贴在测试计划中三次。 </p>
+<p>将其他线程组分别重命名为线程组 2 和线程组 3。 </p>
+<p>将其他采样器分别重命名为 HTTP 请求采样器 2 和 HTTP 请求采样器 3。  </p>
+<p><img src="https://pic.imgdb.cn/item/6138de3944eaada739a6bb41.png"></p>
+<h3 id="添加监听器"><a href="#添加监听器" class="headerlink" title="添加监听器"></a><strong>添加监听器</strong></h3><ul>
+<li>选择<strong>“Test Plan”</strong>节点，然后右键单击所选项目。 </li>
+<li>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </li>
+<li>选择 <strong>Listener</strong> -&gt; <strong>Summary Report</strong>。</li>
+</ul>
+<p> <img src="https://pic.imgdb.cn/item/6138de5244eaada739a72af3.png"></p>
+<h3 id="保存并执行测试计划"><a href="#保存并执行测试计划" class="headerlink" title="保存并执行测试计划"></a><strong>保存并执行测试计划</strong></h3><p>单击文件 -&gt; 将测试计划另存为。 </p>
+<p>将整个测试计划保存为 Function_test.jmx。 </p>
+<p>然后单击“Run” -&gt; “Start” 以执行测试计划。  </p>
+<h3 id="验证输出"><a href="#验证输出" class="headerlink" title="验证输出"></a><strong>验证输出</strong></h3><p><img src="https://pic.imgdb.cn/item/6138deca44eaada739a8f1fe.png"></p>
+<p>因此，已经成功执行了测试计划。 现在，我们将使用 log 函数作为第一个 HTTP </p>
+<p>Request Sampler 的名称。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138df1344eaada739a9af5e.png"></p>
+<p>您可以看到日志功能已打印<strong>“Hello World”</strong>而不是完整的采样器名称。 让我们来 </p>
+<p>看看一个时间函数的例子，将再次使用它作为第二个 HTTP 采样器的名称。 </p>
+<p>时间函数的语法： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__time(dd MM YYYY HH mm ss)&#125;  </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/6138df3444eaada739a9ff04.png"></p>
+<p>单击 <strong>Run</strong> &gt; <strong>Start</strong> 以执行测试计划。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138df4544eaada739aa2774.png"></p>
+<p>可以看到时间函数已打印确切的时间和日期，而不是完整的采样器名称。 </p>
+<h1 id="三、JMeter的实战"><a href="#三、JMeter的实战" class="headerlink" title="三、JMeter的实战"></a><strong>三、JMeter的实战</strong></h1><h2 id="1-JMeter-数据库测试计划"><a href="#1-JMeter-数据库测试计划" class="headerlink" title="1. JMeter 数据库测试计划"></a><strong>1. JMeter</strong> <strong>数据库测试计划</strong></h2><p><strong>准备表数据</strong> </p>
+<p>为了我们的测试目的，这里将创建一个数据库。 </p>
+<ul>
+<li><p>创建名为 <strong>testdb</strong> 的数据库。 </p>
+</li>
+<li><p>创建表 - tb_user。 </p>
+</li>
+<li><p>将记录插入到 tb_user 表中。  </p>
+<img src="https://pic.imgdb.cn/item/6138df7444eaada739aa9d8e.png" style="zoom:50%;" /></li>
+</ul>
+<p><strong>注意:</strong></p>
+<p><strong>您需要将相应的 JDBC 驱动程序复制到 jmeter 的文件夹里面“lib”目录中</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138dfc044eaada739ab6f3a.png">就是这个 </p>
+<p><strong>下方链接：如何去下载 JDBC 的驱动包</strong> </p>
+<p><strong><a target="_blank" rel="noopener" href="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j">https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j</a></strong> </p>
+<p><strong>ava-5.1.47.zip</strong> </p>
+<p><strong>重启 JMeter</strong> </p>
+<p><strong>创建</strong> <strong>Jmeter</strong> <strong>测试计划</strong> </p>
+<ul>
+<li><p>进入到安装的 apache-jmeter-4.0\bin文件夹，双击 jmeter.bat文件以启动 JMeter </p>
+</li>
+<li><p>界面。 </p>
+</li>
+<li><p>选择测试计划节点，然后右键单击所选项目。 </p>
+</li>
+<li><p>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </p>
+</li>
+<li><p>选择“**线程(用户)**” -&gt; <strong>“Thread Group”</strong>。 </p>
+</li>
+<li><p>将此线程组重命名为:<strong>JDBC Users</strong>。 </p>
+</li>
+<li><p>线程组的默认属性保持不变。  </p>
+<p><img src="https://pic.imgdb.cn/item/6138e01c44eaada739ac4726.png"></p>
+</li>
+</ul>
+<p><strong>创建</strong> <strong>JDBC</strong> <strong>请求</strong> </p>
+<ul>
+<li><p>右键单击 JDBC users 元素。 </p>
+</li>
+<li><p>鼠标悬停在<strong>“Add”</strong> 选项上，然后将显示元素列表。 </p>
+</li>
+<li><p>选择 <strong>Config Element</strong> -&gt; <strong>JDBC Connection Configuration</strong> 。</p>
+<p><img src="https://pic.imgdb.cn/item/6138e05f44eaada739acd599.png"> </p>
+</li>
+</ul>
+<p>需要设置一些重要的字段，这些字段将决定数据库和 JMeter 之间的正确连接。 这些 </p>
+<p>字段包括 </p>
+<ul>
+<li><p>绑定到池的变量名称 - 它唯一地标识配置。 JDBC Sampler 将进一步使用此名称来标识 </p>
+</li>
+<li><p>要使用的配置。这里将其命名为test。</p>
+</li>
+<li><p>数据库 URL： jdbc:mysql://localhost:3306/数据库名 </p>
+</li>
+<li><p>JDBC 驱动程序类： com.mysql.jdbc.Driver </p>
+</li>
+<li><p>用户名 ：数据库用户名（一般 root） </p>
+</li>
+<li><p>密码 : root 用户的密码。 </p>
+</li>
+<li><p>其他字段保持不变。  </p>
+<img src="https://pic.imgdb.cn/item/6138e0c044eaada739ada6be.png" style="zoom:50%;" /></li>
+<li><p>右键单击 JDBC users 元素。 </p>
+</li>
+<li><p>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </p>
+</li>
+<li><p>选择 <strong>Sampler</strong> -&gt; <strong>JDBC request</strong>。 </p>
+</li>
+<li><p>选择此新元素以查看其控制面板。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138e0e344eaada739adf044.png"></p>
+</li>
+</ul>
+<p>需要设置一些重要的字段。 JDBC 请求控制面板包括 </p>
+<ul>
+<li><p>名字 - JDBC Request。 </p>
+</li>
+<li><p>输入池名称 - 测试(与配置元素中的相同)。 </p>
+</li>
+<li><p>查询类型 - 选择语句。 </p>
+</li>
+<li><p>查询 - 输入 SQL 查询字符串字段。 </p>
+<p> <img src="https://pic.imgdb.cn/item/6138e10d44eaada739ae4270.png"></p>
+</li>
+</ul>
+<p><strong>创建监听器</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138e12144eaada739ae69be.png"></p>
+<p><strong>验证输出</strong> </p>
+<p>执行看监听器的结果 </p>
+<p><img src="https://pic.imgdb.cn/item/6138e14044eaada739aea27a.png"></p>
+<h2 id="2-JMeter-web-测试计划"><a href="#2-JMeter-web-测试计划" class="headerlink" title="2. JMeter web 测试计划"></a><strong>2. JMeter web</strong> <strong>测试计划</strong></h2><p>现在我们学习如何去创建测试网页的基本的测试计划。  </p>
+<p>本次演示的目标网址：<a target="_blank" rel="noopener" href="https://svnbucket.com/">https://svnbucket.com/</a> </p>
+<h3 id="1-创建测试计划"><a href="#1-创建测试计划" class="headerlink" title="1) 创建测试计划"></a><strong>1) 创建测试计划</strong></h3><ul>
+<li><p>单击<strong>“Test Plan”</strong>节点。 </p>
+</li>
+<li><p>将测试计划重命名为 <em>Demo Test</em>。 </p>
+</li>
+<li><p>选择 Demo Test 节点并右键单击所选项目。 </p>
+</li>
+<li><p>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </p>
+</li>
+<li><p>选择 <strong>Threads (Users)</strong> -&gt; <strong>Thread Group</strong>。 </p>
+</li>
+<li><p>将此线程组重命名为 <strong>Users</strong>。 </p>
+</li>
+<li><p>对于此测试，Users 元素表示访问网站主页的用户数。</p>
+</li>
+</ul>
+<p> <img src="https://pic.imgdb.cn/item/6138e15a44eaada739aed3e2.png"></p>
+<h3 id="2-添加采样器"><a href="#2-添加采样器" class="headerlink" title="2) 添加采样器"></a><strong>2)</strong> 添加采样器</h3><ul>
+<li>我们必须在 <strong>Users</strong> 元素(线程组)中添加一个采样器。 </li>
+<li>选择 Users 元素(线程组)，然后右键单击所选项。 </li>
+<li>鼠标悬停在“Add”选项上，然后将显示元素列表。 </li>
+<li>选择 <strong>Sampler</strong> -&gt; <strong>HTTP request</strong> 选项。 </li>
+<li>它将添加一个空的 HTTP 请求采样器。 </li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6138e17244eaada739af02ff.png"></p>
+<p>现在，配置 <strong>HTTP Request Sampler</strong> 的字段。它包括:  </p>
+<ul>
+<li>名称 - 访问易百网站主页(<a target="_blank" rel="noopener" href="https://svnbucket.com/">https://svnbucket.com</a> )。 </li>
+<li>服务器名称或 IP - 在这个示例中，Web 服务器名称是: svnbucket.com </li>
+<li>协议 - 此字段保持不变。 路径 - 将其写为/(斜杠)。 它表示想要服务器的根页面。 </li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6138e18a44eaada739af3202.png"></p>
+<h3 id="3-添加监听器"><a href="#3-添加监听器" class="headerlink" title="3) 添加监听器"></a><strong>3) 添加监听器</strong></h3><ul>
+<li>选择 <strong>Users</strong> 元素。 </li>
+<li>鼠标悬停在<strong>“Add”</strong>选项上，然后将显示元素列表。 </li>
+<li>选择 <strong>Listener</strong> -&gt; <strong>View Results Tree</strong> 选项。 </li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6138e2e044eaada739b1e3bf.png"></p>
+<h3 id="4-验证输出"><a href="#4-验证输出" class="headerlink" title="4) 验证输出"></a><strong>4) 验证输出</strong></h3><p>因为，我们将 Users 元素(线程组)的设置保留为单线程(一个用户)并循环 1 次(仅运行 1 </p>
+<p>次)。 因此，在 <strong>View Result Tree Listener</strong> 中将结果作为单个用户请求获取。  </p>
+<p>此测试计划仅适用于一个请求。 但是 JMeter 能够发送相同的请求，就好像许多用户正在 发送它一样。 要测试具有多个用户的 Web 服务器，需要更改 Users 元素(线程组)设置。 </p>
+<p><strong>“View Result Tree”</strong> 面板的第一个选项卡是<strong>“Sampler result”</strong>。 </p>
+<p>它显示了 JMeter 数据以及 Web 服务器返回的数据。 </p>
+<p><strong>“ Sampler result ”</strong> 选 项 卡 显 示 Web 服 务 器 发 送 的 所 有 响 应 标 头 。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138e30144eaada739b221f2.png"></p>
+<p>“Sampler result”面板的第二个选项卡是“请求”，它显示作为请求的一部分发送到 Web </p>
+<p>服务器的所有数据。 </p>
+<p> <img src="https://pic.imgdb.cn/item/6138e33044eaada739b289fd.png"></p>
+<p><strong>“Sampler result”</strong>面板的最后一个选项卡是<strong>响应数据</strong>。 它以文本格式显示从服务器接收 的数据。</p>
+<p> <img src="https://pic.imgdb.cn/item/6138e36a44eaada739b2f98e.png"></p>
+<h2 id="3-JMeter-服务器代理方式"><a href="#3-JMeter-服务器代理方式" class="headerlink" title="3. JMeter 服务器代理方式"></a>3. JMeter 服务器代理方式</h2><h4 id="1-在-pc-端，通过服务器代理方式录制脚本步骤："><a href="#1-在-pc-端，通过服务器代理方式录制脚本步骤：" class="headerlink" title="(1) 在 pc 端，通过服务器代理方式录制脚本步骤："></a>(1) 在 pc 端，通过服务器代理方式录制脚本步骤：</h4><p><strong>准备：IE 浏览器：</strong> </p>
+<p>1：工具—Internet 选项 </p>
+<p>2：连接—-局域网设置 </p>
+<p>3：勾选为 lan 代理……  </p>
+<p>4：设置地址：localhost      端口：8080（用完记得关闭） </p>
+<p><strong>JMeter 中操作:</strong> </p>
+<p>1：添加线程组 </p>
+<p>2：选择线程组—》逻辑控制器—》录制控制器 </p>
+<p>3：右击 testplan—》非测试元件—-》http 代理服务器 </p>
+<p>4：进入 http 代理服务器设置： </p>
+<p>  A:端口号与你的浏览器局域网设置当中为 LAN….设置的端口一致（前提 </p>
+<p>是端口不能被占用）</p>
+<p><img src="https://pic.imgdb.cn/item/6138e3af44eaada739b37dad.png"></p>
+<p>B:选择目标控制器，要求与你新建的录制控制器结构顺序一致，选择分租 为——每一个组放一个控制器。</p>
+<p> <img src="https://pic.imgdb.cn/item/6138e3b044eaada739b37dba.png"></p>
+<p>C:最后配置好了之后，点击启动，如果报错，常见的问题就是一个端口占用问题， </p>
+<p>继续回去设置端口。出现以下界面，则配置 ok.  </p>
+<p><img src="https://pic.imgdb.cn/item/6138e3b044eaada739b37dc8.png"></p>
+<h2 id="4-启动禅道，观察-JMeter-里面的录制控制器。"><a href="#4-启动禅道，观察-JMeter-里面的录制控制器。" class="headerlink" title="4:启动禅道，观察 JMeter 里面的录制控制器。"></a><strong>4:启动禅道，观察 JMeter 里面的录制控制器。</strong></h2><img src="https://pic.imgdb.cn/item/6138e3b044eaada739b37ddf.png" style="zoom: 67%;" />
+
+<h2 id="5：清除记录"><a href="#5：清除记录" class="headerlink" title="5：清除记录"></a><strong>5：清除记录</strong></h2><p><img src="https://pic.imgdb.cn/item/6138e3b044eaada739b37deb.png"></p>
+<h4 id="2-在移动端，通过服务器代理方式录制脚本"><a href="#2-在移动端，通过服务器代理方式录制脚本" class="headerlink" title="(2) 在移动端，通过服务器代理方式录制脚本"></a>(2) 在移动端，通过服务器代理方式录制脚本</h4><p>实现的效果： </p>
+<p>通过 JMter 一个连接，然后你在手机操作你的 APP，JMter 它会有记录 </p>
+<p>它的准备工作： </p>
+<p>手机+电脑+必须同一个 wifi 情况下（手机开热点是不行的） </p>
+<p>步骤：</p>
+<p>设备连接到同一个网络 </p>
+<p>在本地查看一下你的 ip 地址（命令：ipconfig） </p>
+<p><img src="https://pic.imgdb.cn/item/6138e40e44eaada739b42b12.png"></p>
+<p><strong>一般安卓手机(如何设置手机的代理模式)</strong> </p>
+<p>进入手机设置—进入 wifi 设置 长按住（点击后面叹号）你已经连接上那个 wifi,会弹出一个界面，点击该界面中的代 </p>
+<p>理（有些能够直接看到高级设置同理）然后设置为手动，会提示你输入主机名：要求与你本 地 ip 在同一个默认网关的 ip。 </p>
+<p>还有端口号：必须与你 JMeter 端口号一致。 </p>
+<p>启动服务，然后自己可以在手机上去模拟用户对 app 的操作,然后再到 JMeter 中的录 </p>
+<p>制控制器去观察结果。 </p>
+<p>最后一步，请用完了，记得关闭服务。  </p>
+<p><strong>手动配置主机名：</strong> </p>
+<p>作用：常用与移动 App 测试当中，用来模拟用户的一个操作，如果仅凭肉眼来观察， </p>
+<p>它是没有一个可靠的步骤和记录的。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81JMeter-%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、JMeter 的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JMeter-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">1. JMeter 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-JMeter-%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">2. JMeter 的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-JMeter-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">3. JMeter 的工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-JMeter-%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-text">4. JMeter 的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9E%84%E5%BB%BA-JMeter-%E7%9A%84%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">5. 构建 JMeter 的测试计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%89-%E5%90%AF%E5%8A%A8-JMeter-%E7%AA%97%E5%8F%A3"><span class="toc-text">1）. 启动 JMeter 窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%BC%89-%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92%E5%85%83%E7%B4%A0"><span class="toc-text">2）. 添加、删除测试计划元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%BC%89-%E5%8A%A0%E8%BD%BD%E5%B9%B6%E4%B8%94%E4%BF%9D%E5%AD%98%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92%E5%85%83%E7%B4%A0"><span class="toc-text">3）. 加载并且保存测试计划元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%BC%89-%E9%85%8D%E7%BD%AE%E6%A0%91%E5%85%83%E7%B4%A0"><span class="toc-text">4）. 配置树元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%9D%E5%AD%98-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">5). 保存 JMeter 测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C-Jmeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">6). 运行 Jmeter 测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%81%9C%E6%AD%A2-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">7). 停止 JMeter 测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%A3%80%E6%9F%A5-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92%E6%89%A7%E8%A1%8C%E6%97%A5%E5%BF%97"><span class="toc-text">8). 检查 JMeter 测试计划执行日志</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81JMeter%E7%9A%84%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92-%E8%AE%A4%E8%AF%86%E7%BB%84%E4%BB%B6"><span class="toc-text">二、JMeter的测试计划(认识组件)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92%E5%85%83%E7%B4%A0"><span class="toc-text">1. JMeter 测试计划元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">2. JMeter 测试计划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-JMeter-%E7%9A%84%E7%BA%BF%E7%A8%8B%E7%BB%84"><span class="toc-text">3. JMeter 的线程组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-JMeter-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">4. JMeter 的控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%87%87%E6%A0%B7%E5%99%A8"><span class="toc-text">1) 采样器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-JMeter-%E7%9A%84%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">5. JMeter 的监听器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-JMeter-%E7%9A%84%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-text">6. JMeter 的计时器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-JMeter-%E7%9A%84%E9%85%8D%E7%BD%AE%E5%85%83%E7%B4%A0"><span class="toc-text">7. JMeter 的配置元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-JMeter-%E9%A2%84%E5%A4%84%E7%90%86%E5%85%83%E7%B4%A0"><span class="toc-text">8. JMeter 预处理元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-JMeter-%E7%9A%84%E5%90%8E%E5%A4%84%E7%90%86%E5%85%83%E7%B4%A0"><span class="toc-text">9. JMeter 的后处理元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-JMeter-%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">10.JMeter 的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8"><span class="toc-text">函数列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-JMeter-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">创建 JMeter 测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%87%87%E6%A0%B7%E5%99%A8"><span class="toc-text">添加采样器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">添加监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E5%B9%B6%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">保存并执行测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%BE%93%E5%87%BA"><span class="toc-text">验证输出</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81JMeter%E7%9A%84%E5%AE%9E%E6%88%98"><span class="toc-text">三、JMeter的实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JMeter-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">1. JMeter 数据库测试计划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-JMeter-web-%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">2. JMeter web 测试计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E8%AE%A1%E5%88%92"><span class="toc-text">1) 创建测试计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B7%BB%E5%8A%A0%E9%87%87%E6%A0%B7%E5%99%A8"><span class="toc-text">2) 添加采样器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">3) 添加监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E8%BE%93%E5%87%BA"><span class="toc-text">4) 验证输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-JMeter-%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-text">3. JMeter 服务器代理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9C%A8-pc-%E7%AB%AF%EF%BC%8C%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F%E5%BD%95%E5%88%B6%E8%84%9A%E6%9C%AC%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">(1) 在 pc 端，通过服务器代理方式录制脚本步骤：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%90%AF%E5%8A%A8%E7%A6%85%E9%81%93%EF%BC%8C%E8%A7%82%E5%AF%9F-JMeter-%E9%87%8C%E9%9D%A2%E7%9A%84%E5%BD%95%E5%88%B6%E6%8E%A7%E5%88%B6%E5%99%A8%E3%80%82"><span class="toc-text">4:启动禅道，观察 JMeter 里面的录制控制器。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%EF%BC%9A%E6%B8%85%E9%99%A4%E8%AE%B0%E5%BD%95"><span class="toc-text">5：清除记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%8C%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F%E5%BD%95%E5%88%B6%E8%84%9A%E6%9C%AC"><span class="toc-text">(2) 在移动端，通过服务器代理方式录制脚本</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/08/Jmeter的基础操作/">http://example.com/2021/09/08/Jmeter的基础操作/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">接口测试之postman工具</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">Jmeter的基础操作</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/">monkey自定义脚本实践</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
