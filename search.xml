@@ -1,6 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Appium基础-安装、配置、启动</title>
+    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
+<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
+<ul>
+<li><a href="http://appium.io/">Appium官网</a></li>
+<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
+<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
+<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
+<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
+</ul>
+<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
+<li>可以跨平台同时支持android、ios</li>
+<li> 支持多种语言，java、python、php、Ruby等等</li>
+<li>不用为复杂的环境发愁</li>
+<li> 如果你有selenium经验，直接上手。</li>
+</ul>
+<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
+<ul>
+<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
+</li>
+<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
+</li>
+<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
+<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
+</ul>
+<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
+<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
+<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
+<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
+<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
+<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
+<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
+<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
+<ol>
+<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
+</li>
+<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
+<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
+
+<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
+</ol>
+<p> 注意：</p>
+<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
+<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
+<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
+<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
+<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
+
+<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
+<table>
+<thead>
+<tr>
+<th>Language/Framework</th>
+<th align="left">Github Repo and Installation Instructions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ruby</td>
+<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
+</tr>
+<tr>
+<td>Java</td>
+<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
+</tr>
+<tr>
+<td>JavaScript (Node.js)</td>
+<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
+</tr>
+<tr>
+<td>Objective C</td>
+<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
+</tr>
+<tr>
+<td>C# (.NET)</td>
+<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
+</tr>
+<tr>
+<td>RobotFramework</td>
+<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
+</tr>
+</tbody></table>
+<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
+<p>Appium</p>
+<p>Appium-desktop</p>
+<p>Appium-doctor</p>
+<p>Appium-Python-Clien</p>
+<p>Python</p>
+<p>JDK</p>
+<p>Andriod SDK</p>
+<p>环境开始搭建的时候，尽量保持版本一致。</p>
+<p>在软件目录里面</p>
+<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
+
+<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
+<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
+<p>这步server安装不上，跳过安装 appium-desktop</p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>执行完成命令看到如下提示则表示设置完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
+
+<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
+<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
+<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
+<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
+<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
+
+<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
+<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
+
+<p>输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
+
+<p>回车，如果控制台没有报错，则说明安装成功。 </p>
+<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
+<p>如果出现如下报错，则说明安装失败</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
+
+<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
+<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
+<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
+<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
+
+<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
+<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
+<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
+<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
+<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
+<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
+<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
+<p><strong>Session</strong></p>
+<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
+<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
+<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
+
+<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
+  </entry>
+  <entry>
     <title>Appium基础操作</title>
     <url>/2021/09/02/Appium%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>优化：把启动app的脚本封装在一个模块，接下来的每次试验直接调用即可。</p>
@@ -179,176 +349,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">#获取屏幕尺寸</span><br><span class="line">def get_size():</span><br><span class="line">    x=driver.get_window_size()[&#x27;width&#x27;]</span><br><span class="line">    y=driver.get_window_size()[&#x27;height&#x27;]</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">#显示屏幕尺寸（width,height）</span><br><span class="line">l=get_size()</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">#向左滑动</span><br><span class="line">def swipeLeft():</span><br><span class="line">    l=get_size()</span><br><span class="line">    x1=int(l[0]*0.9)</span><br><span class="line">    y1=int(l[1]*0.5)</span><br><span class="line">    x2=int(l[0]*0.1)</span><br><span class="line">    driver.swipe(x1,y1,x2,y1,1000)</span><br><span class="line"></span><br><span class="line">#向左滑动2次</span><br><span class="line">for i in range(2):</span><br><span class="line">    swipeLeft()</span><br><span class="line">    sleep(0.5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_splash_guidfinish&#x27;).click()</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-  </entry>
-  <entry>
-    <title>Appium基础-安装、配置、启动</title>
-    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
-<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
-<ul>
-<li><a href="http://appium.io/">Appium官网</a></li>
-<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
-<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
-<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
-<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
-</ul>
-<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
-<li>可以跨平台同时支持android、ios</li>
-<li> 支持多种语言，java、python、php、Ruby等等</li>
-<li>不用为复杂的环境发愁</li>
-<li> 如果你有selenium经验，直接上手。</li>
-</ul>
-<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
-<ul>
-<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
-</li>
-<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
-</li>
-<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
-<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
-</ul>
-<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
-<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
-<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
-<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
-<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
-<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
-<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
-<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
-<ol>
-<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
-</li>
-<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
-<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
-
-<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
-</ol>
-<p> 注意：</p>
-<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
-<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
-<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
-<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
-<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
-
-<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
-<table>
-<thead>
-<tr>
-<th>Language/Framework</th>
-<th align="left">Github Repo and Installation Instructions</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ruby</td>
-<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
-</tr>
-<tr>
-<td>Python</td>
-<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
-</tr>
-<tr>
-<td>Java</td>
-<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
-</tr>
-<tr>
-<td>JavaScript (Node.js)</td>
-<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
-</tr>
-<tr>
-<td>Objective C</td>
-<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
-</tr>
-<tr>
-<td>C# (.NET)</td>
-<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
-</tr>
-<tr>
-<td>RobotFramework</td>
-<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
-</tr>
-</tbody></table>
-<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
-<p>Appium</p>
-<p>Appium-desktop</p>
-<p>Appium-doctor</p>
-<p>Appium-Python-Clien</p>
-<p>Python</p>
-<p>JDK</p>
-<p>Andriod SDK</p>
-<p>环境开始搭建的时候，尽量保持版本一致。</p>
-<p>在软件目录里面</p>
-<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
-
-<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<p>这步server安装不上，跳过安装 appium-desktop</p>
-<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>执行完成命令看到如下提示则表示设置完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
-
-<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
-
-<p>输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
-
-<p>回车，如果控制台没有报错，则说明安装成功。 </p>
-<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
-<p>如果出现如下报错，则说明安装失败</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
-
-<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
-<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
-<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
-<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
-
-<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
-<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
-<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
-<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
-<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
-<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
-<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
-<p><strong>Session</strong></p>
-<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
-<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
-<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
-
-<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
   </entry>
   <entry>
     <title>Appium环境的搭建</title>
@@ -2605,6 +2605,221 @@
 ]]></content>
   </entry>
   <entry>
+    <title>接口测试基础</title>
+    <url>/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="一、接口测试的概述"><a href="#一、接口测试的概述" class="headerlink" title="一、接口测试的概述"></a><strong>一、接口测试的概述</strong></h1><h2 id="1-什么是接口？"><a href="#1-什么是接口？" class="headerlink" title="1. 什么是接口？"></a><strong>1.</strong> <strong>什么是接口？</strong></h2><p>API（Application Programming Interface,应用程序编程接口）是一些预先定义的<strong>函</strong> <strong>数</strong>，目的是提供应用程序与 开发人员基于某<strong>软件或硬件</strong>得以访问一组例程的能力，而又无 需访问源码，或理解内部工作机制的细节。 <span id="more"></span></p>
+<p><strong>举例说明：</strong> </p>
+<p>笔记本电脑上提供了各种物理硬件接口，比如 USB 接口，耳机接口、麦克风接口、电 源接口等…. 这些不 同的接口有不同的功能：比如通过 USB 接口插入 U 盘就可以拷贝电 脑数据，插入耳机接口可以听音乐，我 们无需关心这些接口的工作原理，只需通过这些接 口满足我们的使用需求即可。 </p>
+<p>在中国天气网网上查询某个城市天气，主要输入城市名称，即可获取到对应的天气。查 询背后的本质也是 调用了网站后台接口来获取数据，这里的接口是 Web 服务软件接口。 </p>
+<p>用户不需要关注数据在网站后台是怎 么查询的，只需要返回一个结果即可。 </p>
+<h2 id="2-什么是接口测试？"><a href="#2-什么是接口测试？" class="headerlink" title="2. 什么是接口测试？"></a><strong>2.</strong> <strong>什么是接口测试？</strong></h2><p>接口测试是对系统或组件之间的接口进行测试，主要是校验数据的交换，传递和控制管 理过程，以及相互逻辑依赖 关系。其中接口协议分为 HTTP,WebService,Dubbo,Thrift,Socket 等类型。</p>
+<h2 id="3-为什么要做接口测试？"><a href="#3-为什么要做接口测试？" class="headerlink" title="3. 为什么要做接口测试？"></a><strong>3.</strong> <strong>为什么要做接口测试？</strong></h2><p>接口测试实施在多系统的平台架构下，有着极为高效的成本收益比（当然，单元测试收 益更高，但实施单元测试的 成本投入更大，技术要求更高）。 </p>
+<p>接口测试天生为高复杂性的平台带来高效的缺陷检测和质量监督能力，平台复杂，系统 越庞大，接口测试的效果越 明显。 </p>
+<h3 id="接口测试优势主要体现在如下三个方面："><a href="#接口测试优势主要体现在如下三个方面：" class="headerlink" title="接口测试优势主要体现在如下三个方面："></a><strong>接口测试优势主要体现在如下三个方面：</strong></h3><h4 id="1、节省了测试成本"><a href="#1、节省了测试成本" class="headerlink" title="1、节省了测试成本"></a><strong>1、节省了测试成本</strong></h4><p>根据数据模型推算，底层的一个程序 BUG 可能引发 UI 层的 8 个左右 BUG，而且 底层的 BUG 更容易引起全网的死 机；接口测试能够提供系统复杂度上升情况下的低成本 高效率的解决方案。 </p>
+<h4 id="2、接口测试门槛相对较低"><a href="#2、接口测试门槛相对较低" class="headerlink" title="2、接口测试门槛相对较低"></a><strong>2、接口测试门槛相对较低</strong></h4><p>接口测试不同于单元测试，接口测试是站在用户的角度对系统接口进行全面高效持续的 检测。 </p>
+<h4 id="3、效益更高"><a href="#3、效益更高" class="headerlink" title="3、效益更高"></a><strong>3、效益更高</strong></h4><p>将接口测试实现为自动化和持续集成，当系统复杂度和体积越大，接口测试的成本就越 低,相对应的，效益产出就 越高。 </p>
+<h4 id="4-怎么样去做接口测试？"><a href="#4-怎么样去做接口测试？" class="headerlink" title="4. 怎么样去做接口测试？"></a><strong>4.</strong> <strong>怎么样去做接口测试？</strong></h4><p><strong>基本的接口功能自动化测试流程如下：</strong> </p>
+<p>需求分析 -&gt; 用例设计 -&gt; 脚本开发 -&gt; 测试执行 -&gt; 结果分析</p>
+<h1 id="二、HTTP-协议基础"><a href="#二、HTTP-协议基础" class="headerlink" title="二、HTTP 协议基础"></a>二、HTTP <strong>协议基础</strong></h1><h3 id="1-http协议的简介"><a href="#1-http协议的简介" class="headerlink" title="1.http协议的简介"></a><strong>1.http协议的简介</strong></h3><p><strong>1) http</strong> <strong>协议简介</strong> </p>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的 一种网络协议。所有的 WWW 文件都必须遵守这个标准。设计 HTTP 最初的目的是为了 提供一种发布和接收 HTML 页面的方法。 </p>
+<p>HTTP 协议在网络 OSI 模型中属于应用层协议，应用层协议除了 HTTP 还有：FTP， SMTP，DNS，RIP，Telnet 等。 </p>
+<p>HTTP 协议工作于<strong>客户端—服务端</strong>架构上。浏览器作为 HTTP 客户端通过 <strong>URL</strong> 向 HTTP 服务端（即 Web 服务器） 发送请求。 </p>
+<p><strong>2)</strong> <strong>什么是超文本？</strong> </p>
+<p>超文本英文名称叫做 Hypertext，我们在浏览器里面看到的网页就是超文本解析而成的， </p>
+<p>其网页源代码是一系 列 HTML 代码，里面包含了一系列标签，如 img 显示图片，p 指定显 示段落等，浏览器解析这些标签后便形成了我们平常看到的网页，而这网页的源代码 HTML 就可以称作超文本。 </p>
+<p>例如我们在 Chrome 浏览器里面打开如百度页面，右键点击”查看源代码”，这些源代 码都是超文本。</p>
+<p><strong>3)</strong> <strong>什么是 URL？</strong></p>
+<p>我们在浏览器的地址栏里输入的网站地址叫做 <strong>URL</strong> (Uniform Resource Locator，统 一资源定位符)。就像每家每 户都有一个门牌地址一样，每个网页也都有一个 Internet 地 址（如：<a href="http://www.baidu.com)./">http://www.baidu.com）。</a> </p>
+<p>当你在浏览器的 地址框中输入一个 URL 或是单击一个超级链接时，URL 就确定了要浏 览的地址。浏览器通过超文本传输协议(HTTP)， 将 Web 服务器上站点的网页代码提取出 来，并翻译成漂亮的网页。 </p>
+<p><strong>4) http</strong> <strong>功能</strong> </p>
+<p>HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是用于从服务器传输 超文本到本地浏览器的传输协议。 </p>
+<p>它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本 文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。 </p>
+<p><strong>5) http</strong> <strong>的特点</strong> </p>
+<p><strong>无连接：</strong>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到 客户的应答后， 即断开连接。采用这种方式可以节省传输时间。 </p>
+<p><strong>媒体独立：</strong>这意味着，只要客户端和服务器知道如何处理的数据内容，任何类型的数据都可 以通过 HTTP 发送。客户端以及服务器指定使用适合的 MIME-type 来传输。</p>
+<p><strong>无状态：</strong>HTTP 协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。如果服务 器不需要先前信 息，那么它的应答就比较快。但是缺少状态意味着如果后续处理需要前面 的信息，则它必须重传，这样可 能导致每次连接传送的数据量增大，此时可以设置缓存。 </p>
+<p><strong>6). http</strong> <strong>与</strong> <strong>https</strong> <strong>的区别？</strong> </p>
+<p>现在在浏览很多网站时，通过浏览器地址栏可以看到有的网站是 https 开头 (<a href="https://www.baidu.com/">https://www.baidu.com/</a> ）, 但是 有的是 http 开头（如： </p>
+<p><a href="http://www.weather.com.cn/">http://www.weather.com.cn</a> ）这两种有什么区别呢？难道加了 s 就是复数吗？ </p>
+<p>HTTPS 的全称是 Hyper Text Transfer Protocol over Secure Socket Layer，是以 安全为目标的 HTTP 通道，简单讲是 HTTP 的安全版，即 HTTP 下加入 SSL 层（Secure Sockets Layer 安全套接层），简称为 HTTPS。 </p>
+<p><strong>S</strong> <strong>其实是 Security 单词的首字母。</strong> </p>
+<p><strong>HTTPS 的安全基础是 SSL，因此通过它传输的内容都是经过 SSL 加密的，它的主要作用</strong> </p>
+<p><strong>可以分为两种：</strong> </p>
+<ol>
+<li><p>是建立一个信息安全通道，来保证数据传输的安全。 </p>
+</li>
+<li><p>确认网站的真实性，凡是使用了 https 的网站，都可以通过点击浏览器地址栏的锁头标 志来查看网站认证之 后的真实信息，也可以通过 CA 机构颁发的安全签章来查询。</p>
+</li>
+</ol>
+<p>现在越来越多的网站和 APP 都已经向 HTTPS 方向发展。例如：谷歌从 2017 年 1 月推出的 Chrome 56 开始， 对未进行 HTTPS 加密的网址链接亮出风险提示，即在地址栏的显著位置提醒用户“此 网页不安全”。 </p>
+<p><strong>7).http</strong> <strong>与</strong> <strong>TCP/IP</strong> <strong>的特点：</strong> </p>
+<p>TCP/IP 协议是传输层协议，主要解决数据如何在网络中传输，而 HTTP 是应用层协 议，主要解决如何包装数据。</p>
+<p> 关于 TCP/IP 和 HTTP 协议的关系，网络有一段比较容易理解的介绍：“我们在传输 数据时，可以只使用（传输层） TCP/IP 协议，但是那样的话，如果没有应用层，便无法 识别数据内容，如果想要使传输的数据有意义，则必须使用到应用层协议，应用层协议有很 </p>
+<p>多，比如 HTTP、FTP、TELNET 等，也可以自己定义应用层协议。 </p>
+<p>WEB 使用 HTTP 协议作应用层协议，以封装 HTTP 文本信息，然后使用 TCP/IP 做 传输层协议将它发到网络上。</p>
+<h3 id="2-http的请求"><a href="#2-http的请求" class="headerlink" title="2.http的请求"></a><strong>2.http的请求</strong></h3><p>我们在浏览器输入百度首页的地址：<a href="https://www.baidu.com/">https://www.baidu.com/</a> 输入之后浏览器会给 我们打开百度首页。 </p>
+<p>实际上这 个过程是浏览器向网站所在的服务器发送了一个 Request，即请求，网站服 务器接收到这个 Request 之后进行处 理和解析，然后返回对应的一个 Response，即响 应，然后传回给浏览器，Response 里面就包含了页面的源代码 等内容，浏览器再对其进行解析便将网页呈现了出来。 </p>
+<img src="https://pic.imgdb.cn/item/61377d5644eaada7395198df.png">
+
+<p>列如，使用火狐浏览器，打开百度，查看页面的请求过程。 </p>
+<p>需要详细步骤，点击这边： </p>
+<p><a href="https://zhidao.baidu.com/question/428894531624967852.html">https://zhidao.baidu.com/question/428894531624967852.html</a></p>
+<img src="https://pic.imgdb.cn/item/61377da244eaada7395254e7.png">
+
+<p><strong>1)</strong> <strong>请求的四部分</strong> </p>
+<p>•Request Method: 请求方式 </p>
+<p>•Request URL: 请求链接 </p>
+<p>•Request Headers: 请求头 </p>
+<p>•Request Body: 请求体 </p>
+<p><strong>2)</strong> <strong>请求方式—抓用户名和密码</strong> </p>
+<p><strong>请求方式，请求方式常见的有两种类型，GET 和 POST。</strong> </p>
+<p>GET 用于信息获取，而且应该是安全的和幂等的(幂等的的意思就是一个操作不会修改 状态信息，并且每次操作的时候都返回同样的结果。) 从发送请求的角度，GET 请求相当 于我们在数据库中做了查询的操作， 这样的操作不影响数据库本身的数据。 </p>
+<p>POST 表示可能会修改服务器上资源的请求，也相当于在数据库中做了修改的操作， 会影响数据库本身的数据（比如：注册了账户，发了帖子，做了评论，得到了积分等。这种 情况下，资源状态被改变了）。 </p>
+<p><strong>案例：</strong> </p>
+<p><strong>Get 请求：</strong> </p>
+<p>在浏览器地址栏输入：<a href="https://www.baidu.com/s?wd=appium">https://www.baidu.com/s?wd=appium</a> 并回车，这个其实就是在百度搜 索 appium 这个关键词。</p>
+<p>URL 中 包含了请求的参数信息，这里参数 wd 就是要搜寻的关键字。</p>
+<img src="https://pic.imgdb.cn/item/61377e2244eaada73953981b.png">
+
+<p><strong>POST 请求：</strong> </p>
+<p>一般来说，网站登录验证的时候，需要提交用户名密码，这里包含了敏感信息，使用 GET 方式请求的话密码就会 暴露在 URL 里面，造成密码泄露，所以这里最好以 POST 方 式发送。文件的上传时，由于文件内容比较大，也会 选用 POST 方式。比如百度账户登 录， </p>
+<p>列如：使用火狐浏览器抓用户名和密码 </p>
+<img src="https://pic.imgdb.cn/item/61377e6044eaada7395434c2.png">
+
+<p>当然你也可以是用 fiddler 来抓包</p>
+<img src="https://pic.imgdb.cn/item/61377e8044eaada73954888a.png">
+
+<p><strong>3) 请求网址(URL)</strong></p>
+<p>Request URL </p>
+<p>就是请求的网址，即统一资源定位符，用 URL 可以唯一确定我们想请 </p>
+<p>求的资源。比如： <a href="https://www.baidu.com/">https://www.baidu.com/</a> </p>
+<p><strong>4) 请求头（Request Headers）</strong></p>
+<p>请求头，用来说明服务器要使用的附加信息，比较重要的信息有 Cookie、Referer、 </p>
+<ul>
+<li><p><strong>User-Agent</strong> 等，下面将一些 常用的头信息说明如下： </p>
+</li>
+<li><p><strong>Accept</strong>，请求报头域，用于指定客户端可接受哪些类型的信息。 </p>
+</li>
+<li><p><strong>Accept-Language</strong>，指定客户端可接受的语言类型。 </p>
+</li>
+<li><p> <strong>Accept-Encoding</strong>，指定客户端可接受的内容编码。 </p>
+</li>
+<li><p><strong>Host</strong>,用于指定请求资源的主机 IP 和端口号，其内容为请求 URL 的原始服务器或网关 的位置。从 HTTP 1.1 版本开始，Request 必须包含此内容。 </p>
+</li>
+<li><p> <strong>Cookie</strong>，也常用复数形式 Cookies，是网站为了辨别用户进行 Session 跟踪而储存在 用户本地的数据。</p>
+</li>
+<li><p><strong>Cookies</strong> 的主要功能就是维持当前访问会话。 </p>
+</li>
+<li><p><strong>Referer</strong>,此内容用来标识这个请求是从哪个页面发过来的，服务器可以拿到这一信息并做 相应的处理，如 做来源统计、做防盗链处理等。 </p>
+</li>
+<li><p><strong>User-Agent</strong>，简称 UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统 及版本、浏览器 及版本等信息。 </p>
+</li>
+<li><p><strong>Content-Type</strong>，即 Internet Media Type，互联网媒体类型，也叫做 MIME 类型，在 HTTP 协议消息头 中，使用它来表示具体请求中的媒体类型信息。例如 </p>
+</li>
+<li><p><strong>application/x-www-form-urlencoded</strong>表示表单数 据， text/html 代表 HTML 格式， image/gif 代表 GIF 图片，application/json </p>
+</li>
+</ul>
+<p><strong>5)</strong> <strong>请求体</strong> </p>
+<p>即请求体，一般用于 POST 请求中，主要定义向服务器提交的数据类型，而对于 GET 请求 Request Body 则为 空。 </p>
+<p>比如在登录之前我们填写了用户名和密码信息，提交时就这些内容就会以 Form Data 的形式提交给服务器，此时注意 Request Headers 中指定了 Content-Type 为 application/x-www-form-urlencoded。</p>
+<p>只有设 置 Content-Type 为 application/x-www-form-urlencoded 才会以 Form Data 形式提交，另外我们也可以 将 Content-Type 设置为 application/json 来 提交 Json 数据，或者设置为 multipart/form-data 来上传文件。 </p>
+<p>常用 Content-Type 和 POST 提交数据方式的关系： </p>
+<p><strong>Content-Type</strong> :提交数据方式</p>
+<p>application/x-www-form-urlencoded :Form 表单提交 </p>
+<p>multipart/form-data :表单文件上传提交 </p>
+<p>application/json :序列化 Json 数据提交 </p>
+<p>text/xml :XML 数据提交 </p>
+<h3 id="3-http-的响应"><a href="#3-http-的响应" class="headerlink" title="3.http 的响应"></a>3.http 的响应</h3><p>1).响应的三部分</p>
+<p>上述内容讲述的 http 协议的请求，接着描述 http 协议的响应。 </p>
+<p><strong>Response，即响应，由服务端返回给客户端。Response 可以划分为三部分:</strong> </p>
+<p>•Response Status Code </p>
+<p>• Response Headers </p>
+<p>• Response Body </p>
+<p><strong>Response Status Code</strong></p>
+<p>响应状态码，此状态码表示了服务器的响应状态，如 200 则代表服务器正常响应，404 则代表页面未找到，500 则 代表服务器内部发生错误。常用响应状态码如下： </p>
+<p>可以参考完整的 http 协议的响应状态码： </p>
+<p><strong><a href="https://tool.oschina.net/commons?type=5">https://tool.oschina.net/commons?type=5</a></strong> </p>
+<p><strong>2.</strong> <strong>响应头</strong> </p>
+<p>响应头，其中包含了服务器对请求的应答信息，如 Content-Type、Server、Set-Cookie 等，下面将一些常用的头信息说明如下： </p>
+<p><strong>Date</strong>，标识 Response 产生的时间。 </p>
+<p><strong>Last-Modified</strong>，指定资源的最后修改时间。 </p>
+<p><strong>Content-Encoding，</strong>指定 Response 内容的编码。 </p>
+<p><strong>Server</strong>，包含了服务器的信息，名称，版本号等。 </p>
+<p><strong>Content-Type</strong>，文档类型，指定了返回的数据类型是什么，如text/html 则代表返回 HTML 文档， application/x-javascript 则代表返回 JavaScript 文件，image/jpeg 则 代表返回了图片。 </p>
+<p><strong>Set-Cookie</strong>，设置 Cookie，Response Headers 中的 Set-Cookie 即告诉浏览器需要 将此内容放在 Cookies 中，下次请求携带 Cookies 内容。 </p>
+<p><strong>Expires</strong>,指定 Response 的过期时间，使用它可以控制代理服务器或浏览器将内容更 新到缓存中，如果再 次访问时，直接从缓存中加载，降低服务器负载，缩短加载时间。</p>
+<p><strong>3.</strong> <strong>响应体</strong> </p>
+<p>即响应体，响应的正文数据都是在响应体中，如请求一个网页，它的响应体就是网页的 HTML 代码，请求一张图 片，它的响应体就是图片的二进制数据。一般在接口的响应内容 大多都是 Json 数据内容. </p>
+<img src="https://pic.imgdb.cn/item/61377ed644eaada73955689e.png">
+
+<h1 id="三、JSON-数据格式"><a href="#三、JSON-数据格式" class="headerlink" title="**三、JSON **数据格式"></a>**三、JSON **数据格式</h1><p><strong>1. Json</strong> <strong>简介</strong> </p>
+<p>JSON（JavaScript Object Notation，即 JavaScript 对象表示法）是一种轻量级的 数据交换格式。它独立于语言 和平台，JSON 解析器和 JSON 库支持不同的编程语言。</p>
+<p>JSON 具有自我描述性，很容易理解。目前大多数接口返 回的数据格式为 JSON,因此进行 接口测试必须掌握 JSON。 </p>
+<p><strong>2. Json</strong> <strong>语法特点</strong> </p>
+<p>记住下面四点： </p>
+<p>1 数据在键/值对中 </p>
+<p>2 数据由逗号分隔 </p>
+<p>3 {花括号}保存对象 </p>
+<p>4 [方括号]保存数组 </p>
+<p>JSON 数据的书写格式是：key:value 键值对。比如： “name”:”Tom” </p>
+<p>解释：name 是 key，Tom 是 value </p>
+<p><strong>JSON 值可以是：</strong> </p>
+<p>a. 数字（整数或浮点数） </p>
+<p>b. 字符串（在双引号中） </p>
+<p>c. 逻辑值（true 或 false） </p>
+<p>d. 数组（在方括号中） </p>
+<p>e. 对象（在花括号中） </p>
+<p><strong>案列代码：</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/*1.json 的值是数字*/ </span><br><span class="line">&quot;age&quot;:18</span><br><span class="line">/*2.json 的值为字符串*/ </span><br><span class="line">&quot;name&quot;:&quot;Tom&quot;</span><br><span class="line">/*3.json 的值为逻辑值*/ </span><br><span class="line">&quot;result&quot;:true </span><br><span class="line">/*4.json 的值为数组*/ </span><br><span class="line">&quot;city&quot;:[&quot;长沙&quot;,&quot;上海&quot;,&quot;北京&quot;] </span><br><span class="line">/*5.json 的值为对象 JSON 对象在花括号中书写： 对象可以包含多个键/值对： </span><br><span class="line">* */ </span><br><span class="line">&#123; &quot;firstName&quot;:&quot;John&quot; , &quot;lastName&quot;:&quot;Doe&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:在接口测试过程中，一般都是返回 JSON 对象类型。</strong> </p>
+<p>比如在数组中含多个对象： </p>
+<p>{</p>
+<p>“employees”: [ </p>
+<p>{ “firstName”:”John” , “lastName”:”Doe” }, </p>
+<p>{ “firstName”:”Anna” , “lastName”:”Smith” }, </p>
+<p>{ “firstName”:”Peter” , “lastName”:”Jones” } </p>
+<p>]</p>
+<p>} </p>
+<p>在上面的例子中，对象 “employees” 是包含三个对象的数组。每个对象代表一条关于 某人（有姓和名）的记录。</p>
+<p><strong>3. Json</strong> <strong>数据解析</strong> </p>
+<p>Python3 中可以使用 json 模块来对 JSON 数据进行编解码，它包含了两个方法： </p>
+<p>json.dumps(): 将 python 数据转化为 Json 数据 </p>
+<p>json.loads(): 将 json 数据类型转为 Python 数据类型 </p>
+<p>JSON 库官方文档 <a href="https://docs.python.org/3/library/json.htm">https://docs.python.org/3/library/json.htm</a> </p>
+<p><strong>案列</strong> <strong>1：将</strong> <strong>python</strong> <strong>数据转化为</strong> <strong>Json</strong> <strong>数据</strong> </p>
+<p>准备代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json #</span><br><span class="line">1 准备字典 </span><br><span class="line">data=&#123;&#x27;id&#x27;:1,&#x27;name&#x27;:&#x27;zhangsan&#x27;,&#x27;password&#x27;:&#x27;66666&#x27;&#125;</span><br><span class="line"></span><br><span class="line">2 检测类型 --dict </span><br><span class="line">print(type(data)) </span><br><span class="line"></span><br><span class="line">3 通过 json.dumps()方法来转换 </span><br><span class="line">json_str=json.dumps(data) </span><br><span class="line"></span><br><span class="line">4.检测类型为 str </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">5.输出的格式就是一个 json 格式 </span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
+
+<p>输出效果：</p>
+<img src="https://pic.imgdb.cn/item/6137828e44eaada7395e3a4a.png">
+
+<p><strong>案例</strong> <strong>2：将</strong> <strong>json</strong> <strong>数据类型转为</strong> <strong>Python</strong> <strong>数据类型</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">#1 准备 json 数据--字符串 </span><br><span class="line">json_str=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2 把字符串转 dict </span><br><span class="line">data=json.loads(json_str) </span><br><span class="line"></span><br><span class="line">#3 字符串 </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">#4.dict </span><br><span class="line">print(type(data)) </span><br><span class="line">print(data) </span><br><span class="line">print(data[&#x27;id&#x27;]) </span><br><span class="line">print(data[&#x27;name&#x27;]) </span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<img src="https://pic.imgdb.cn/item/613782e644eaada7395efffa.png">
+
+<h3 id="4-Json-文件处理"><a href="#4-Json-文件处理" class="headerlink" title="4. Json 文件处理"></a><strong>4. Json</strong> <strong>文件处理</strong></h3><p><strong>案例</strong> <strong>1：使用</strong> <strong>Python</strong> <strong>从</strong> <strong>json</strong> <strong>中读取文件</strong> </p>
+<p>准备条件</p>
+<p>1—json 文件： </p>
+<p>2—Python 代码 </p>
+<p>代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Json 代码： </span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&quot;employees&quot;: [ </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; &#125; </span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>Python 代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data) </span><br></pre></td></tr></table></figure>
+
+<p>代码路径截图：放同一个文件夹里面</p>
+<img src="https://pic.imgdb.cn/item/6137836044eaada73960107c.png">
+
+<p><strong>案例</strong> <strong>2：使用</strong> <strong>Python</strong> <strong>写入数据到</strong> <strong>json</strong> <strong>文件中</strong> </p>
+<p>import json </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#1.准备一个字符串 </span><br><span class="line"></span><br><span class="line">data=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2.写入 json 文件 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;w&#x27;) as f: </span><br><span class="line"></span><br><span class="line">json.dump(data, f) </span><br><span class="line"></span><br><span class="line">#3.可以查看 json 文件或者读取出来 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>接口测试之postman工具</title>
     <url>/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/</url>
     <content><![CDATA[<h1 id="一、postman-的概述"><a href="#一、postman-的概述" class="headerlink" title="一、postman 的概述"></a>一、postman <strong>的概述</strong></h1><h2 id="1-为什么使用-postman？"><a href="#1-为什么使用-postman？" class="headerlink" title="1. 为什么使用 postman？"></a><strong>1.</strong> <strong>为什么使用</strong> postman？</h2><p>一般简单的接口测试我们可以直接在浏览器里面进行调试，但是涉及到一些权限设置的 就无法操作了，因此我们需 要接口测试的相关工具；Postman 是一个接口测试和 http 请 求的工具。<span id="more"></span> </p>
@@ -2895,221 +3110,6 @@
 <h4 id="4-断言的结果"><a href="#4-断言的结果" class="headerlink" title="(4) 断言的结果"></a><strong>(4)</strong> <strong>断言的结果</strong></h4><p><img src="https://pic.imgdb.cn/item/6138b8cc44eaada7395344ce.png"></p>
 <p>Postman 测试脚本的官方文档： </p>
 <p><a href="https://learning.postman.com/docs/writing-scripts/intro-to-scripts/">https://learning.postman.com/docs/writing-scripts/intro-to-scripts/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>接口测试基础</title>
-    <url>/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="一、接口测试的概述"><a href="#一、接口测试的概述" class="headerlink" title="一、接口测试的概述"></a><strong>一、接口测试的概述</strong></h1><h2 id="1-什么是接口？"><a href="#1-什么是接口？" class="headerlink" title="1. 什么是接口？"></a><strong>1.</strong> <strong>什么是接口？</strong></h2><p>API（Application Programming Interface,应用程序编程接口）是一些预先定义的<strong>函</strong> <strong>数</strong>，目的是提供应用程序与 开发人员基于某<strong>软件或硬件</strong>得以访问一组例程的能力，而又无 需访问源码，或理解内部工作机制的细节。 <span id="more"></span></p>
-<p><strong>举例说明：</strong> </p>
-<p>笔记本电脑上提供了各种物理硬件接口，比如 USB 接口，耳机接口、麦克风接口、电 源接口等…. 这些不 同的接口有不同的功能：比如通过 USB 接口插入 U 盘就可以拷贝电 脑数据，插入耳机接口可以听音乐，我 们无需关心这些接口的工作原理，只需通过这些接 口满足我们的使用需求即可。 </p>
-<p>在中国天气网网上查询某个城市天气，主要输入城市名称，即可获取到对应的天气。查 询背后的本质也是 调用了网站后台接口来获取数据，这里的接口是 Web 服务软件接口。 </p>
-<p>用户不需要关注数据在网站后台是怎 么查询的，只需要返回一个结果即可。 </p>
-<h2 id="2-什么是接口测试？"><a href="#2-什么是接口测试？" class="headerlink" title="2. 什么是接口测试？"></a><strong>2.</strong> <strong>什么是接口测试？</strong></h2><p>接口测试是对系统或组件之间的接口进行测试，主要是校验数据的交换，传递和控制管 理过程，以及相互逻辑依赖 关系。其中接口协议分为 HTTP,WebService,Dubbo,Thrift,Socket 等类型。</p>
-<h2 id="3-为什么要做接口测试？"><a href="#3-为什么要做接口测试？" class="headerlink" title="3. 为什么要做接口测试？"></a><strong>3.</strong> <strong>为什么要做接口测试？</strong></h2><p>接口测试实施在多系统的平台架构下，有着极为高效的成本收益比（当然，单元测试收 益更高，但实施单元测试的 成本投入更大，技术要求更高）。 </p>
-<p>接口测试天生为高复杂性的平台带来高效的缺陷检测和质量监督能力，平台复杂，系统 越庞大，接口测试的效果越 明显。 </p>
-<h3 id="接口测试优势主要体现在如下三个方面："><a href="#接口测试优势主要体现在如下三个方面：" class="headerlink" title="接口测试优势主要体现在如下三个方面："></a><strong>接口测试优势主要体现在如下三个方面：</strong></h3><h4 id="1、节省了测试成本"><a href="#1、节省了测试成本" class="headerlink" title="1、节省了测试成本"></a><strong>1、节省了测试成本</strong></h4><p>根据数据模型推算，底层的一个程序 BUG 可能引发 UI 层的 8 个左右 BUG，而且 底层的 BUG 更容易引起全网的死 机；接口测试能够提供系统复杂度上升情况下的低成本 高效率的解决方案。 </p>
-<h4 id="2、接口测试门槛相对较低"><a href="#2、接口测试门槛相对较低" class="headerlink" title="2、接口测试门槛相对较低"></a><strong>2、接口测试门槛相对较低</strong></h4><p>接口测试不同于单元测试，接口测试是站在用户的角度对系统接口进行全面高效持续的 检测。 </p>
-<h4 id="3、效益更高"><a href="#3、效益更高" class="headerlink" title="3、效益更高"></a><strong>3、效益更高</strong></h4><p>将接口测试实现为自动化和持续集成，当系统复杂度和体积越大，接口测试的成本就越 低,相对应的，效益产出就 越高。 </p>
-<h4 id="4-怎么样去做接口测试？"><a href="#4-怎么样去做接口测试？" class="headerlink" title="4. 怎么样去做接口测试？"></a><strong>4.</strong> <strong>怎么样去做接口测试？</strong></h4><p><strong>基本的接口功能自动化测试流程如下：</strong> </p>
-<p>需求分析 -&gt; 用例设计 -&gt; 脚本开发 -&gt; 测试执行 -&gt; 结果分析</p>
-<h1 id="二、HTTP-协议基础"><a href="#二、HTTP-协议基础" class="headerlink" title="二、HTTP 协议基础"></a>二、HTTP <strong>协议基础</strong></h1><h3 id="1-http协议的简介"><a href="#1-http协议的简介" class="headerlink" title="1.http协议的简介"></a><strong>1.http协议的简介</strong></h3><p><strong>1) http</strong> <strong>协议简介</strong> </p>
-<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的 一种网络协议。所有的 WWW 文件都必须遵守这个标准。设计 HTTP 最初的目的是为了 提供一种发布和接收 HTML 页面的方法。 </p>
-<p>HTTP 协议在网络 OSI 模型中属于应用层协议，应用层协议除了 HTTP 还有：FTP， SMTP，DNS，RIP，Telnet 等。 </p>
-<p>HTTP 协议工作于<strong>客户端—服务端</strong>架构上。浏览器作为 HTTP 客户端通过 <strong>URL</strong> 向 HTTP 服务端（即 Web 服务器） 发送请求。 </p>
-<p><strong>2)</strong> <strong>什么是超文本？</strong> </p>
-<p>超文本英文名称叫做 Hypertext，我们在浏览器里面看到的网页就是超文本解析而成的， </p>
-<p>其网页源代码是一系 列 HTML 代码，里面包含了一系列标签，如 img 显示图片，p 指定显 示段落等，浏览器解析这些标签后便形成了我们平常看到的网页，而这网页的源代码 HTML 就可以称作超文本。 </p>
-<p>例如我们在 Chrome 浏览器里面打开如百度页面，右键点击”查看源代码”，这些源代 码都是超文本。</p>
-<p><strong>3)</strong> <strong>什么是 URL？</strong></p>
-<p>我们在浏览器的地址栏里输入的网站地址叫做 <strong>URL</strong> (Uniform Resource Locator，统 一资源定位符)。就像每家每 户都有一个门牌地址一样，每个网页也都有一个 Internet 地 址（如：<a href="http://www.baidu.com)./">http://www.baidu.com）。</a> </p>
-<p>当你在浏览器的 地址框中输入一个 URL 或是单击一个超级链接时，URL 就确定了要浏 览的地址。浏览器通过超文本传输协议(HTTP)， 将 Web 服务器上站点的网页代码提取出 来，并翻译成漂亮的网页。 </p>
-<p><strong>4) http</strong> <strong>功能</strong> </p>
-<p>HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是用于从服务器传输 超文本到本地浏览器的传输协议。 </p>
-<p>它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本 文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。 </p>
-<p><strong>5) http</strong> <strong>的特点</strong> </p>
-<p><strong>无连接：</strong>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到 客户的应答后， 即断开连接。采用这种方式可以节省传输时间。 </p>
-<p><strong>媒体独立：</strong>这意味着，只要客户端和服务器知道如何处理的数据内容，任何类型的数据都可 以通过 HTTP 发送。客户端以及服务器指定使用适合的 MIME-type 来传输。</p>
-<p><strong>无状态：</strong>HTTP 协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。如果服务 器不需要先前信 息，那么它的应答就比较快。但是缺少状态意味着如果后续处理需要前面 的信息，则它必须重传，这样可 能导致每次连接传送的数据量增大，此时可以设置缓存。 </p>
-<p><strong>6). http</strong> <strong>与</strong> <strong>https</strong> <strong>的区别？</strong> </p>
-<p>现在在浏览很多网站时，通过浏览器地址栏可以看到有的网站是 https 开头 (<a href="https://www.baidu.com/">https://www.baidu.com/</a> ）, 但是 有的是 http 开头（如： </p>
-<p><a href="http://www.weather.com.cn/">http://www.weather.com.cn</a> ）这两种有什么区别呢？难道加了 s 就是复数吗？ </p>
-<p>HTTPS 的全称是 Hyper Text Transfer Protocol over Secure Socket Layer，是以 安全为目标的 HTTP 通道，简单讲是 HTTP 的安全版，即 HTTP 下加入 SSL 层（Secure Sockets Layer 安全套接层），简称为 HTTPS。 </p>
-<p><strong>S</strong> <strong>其实是 Security 单词的首字母。</strong> </p>
-<p><strong>HTTPS 的安全基础是 SSL，因此通过它传输的内容都是经过 SSL 加密的，它的主要作用</strong> </p>
-<p><strong>可以分为两种：</strong> </p>
-<ol>
-<li><p>是建立一个信息安全通道，来保证数据传输的安全。 </p>
-</li>
-<li><p>确认网站的真实性，凡是使用了 https 的网站，都可以通过点击浏览器地址栏的锁头标 志来查看网站认证之 后的真实信息，也可以通过 CA 机构颁发的安全签章来查询。</p>
-</li>
-</ol>
-<p>现在越来越多的网站和 APP 都已经向 HTTPS 方向发展。例如：谷歌从 2017 年 1 月推出的 Chrome 56 开始， 对未进行 HTTPS 加密的网址链接亮出风险提示，即在地址栏的显著位置提醒用户“此 网页不安全”。 </p>
-<p><strong>7).http</strong> <strong>与</strong> <strong>TCP/IP</strong> <strong>的特点：</strong> </p>
-<p>TCP/IP 协议是传输层协议，主要解决数据如何在网络中传输，而 HTTP 是应用层协 议，主要解决如何包装数据。</p>
-<p> 关于 TCP/IP 和 HTTP 协议的关系，网络有一段比较容易理解的介绍：“我们在传输 数据时，可以只使用（传输层） TCP/IP 协议，但是那样的话，如果没有应用层，便无法 识别数据内容，如果想要使传输的数据有意义，则必须使用到应用层协议，应用层协议有很 </p>
-<p>多，比如 HTTP、FTP、TELNET 等，也可以自己定义应用层协议。 </p>
-<p>WEB 使用 HTTP 协议作应用层协议，以封装 HTTP 文本信息，然后使用 TCP/IP 做 传输层协议将它发到网络上。</p>
-<h3 id="2-http的请求"><a href="#2-http的请求" class="headerlink" title="2.http的请求"></a><strong>2.http的请求</strong></h3><p>我们在浏览器输入百度首页的地址：<a href="https://www.baidu.com/">https://www.baidu.com/</a> 输入之后浏览器会给 我们打开百度首页。 </p>
-<p>实际上这 个过程是浏览器向网站所在的服务器发送了一个 Request，即请求，网站服 务器接收到这个 Request 之后进行处 理和解析，然后返回对应的一个 Response，即响 应，然后传回给浏览器，Response 里面就包含了页面的源代码 等内容，浏览器再对其进行解析便将网页呈现了出来。 </p>
-<img src="https://pic.imgdb.cn/item/61377d5644eaada7395198df.png">
-
-<p>列如，使用火狐浏览器，打开百度，查看页面的请求过程。 </p>
-<p>需要详细步骤，点击这边： </p>
-<p><a href="https://zhidao.baidu.com/question/428894531624967852.html">https://zhidao.baidu.com/question/428894531624967852.html</a></p>
-<img src="https://pic.imgdb.cn/item/61377da244eaada7395254e7.png">
-
-<p><strong>1)</strong> <strong>请求的四部分</strong> </p>
-<p>•Request Method: 请求方式 </p>
-<p>•Request URL: 请求链接 </p>
-<p>•Request Headers: 请求头 </p>
-<p>•Request Body: 请求体 </p>
-<p><strong>2)</strong> <strong>请求方式—抓用户名和密码</strong> </p>
-<p><strong>请求方式，请求方式常见的有两种类型，GET 和 POST。</strong> </p>
-<p>GET 用于信息获取，而且应该是安全的和幂等的(幂等的的意思就是一个操作不会修改 状态信息，并且每次操作的时候都返回同样的结果。) 从发送请求的角度，GET 请求相当 于我们在数据库中做了查询的操作， 这样的操作不影响数据库本身的数据。 </p>
-<p>POST 表示可能会修改服务器上资源的请求，也相当于在数据库中做了修改的操作， 会影响数据库本身的数据（比如：注册了账户，发了帖子，做了评论，得到了积分等。这种 情况下，资源状态被改变了）。 </p>
-<p><strong>案例：</strong> </p>
-<p><strong>Get 请求：</strong> </p>
-<p>在浏览器地址栏输入：<a href="https://www.baidu.com/s?wd=appium">https://www.baidu.com/s?wd=appium</a> 并回车，这个其实就是在百度搜 索 appium 这个关键词。</p>
-<p>URL 中 包含了请求的参数信息，这里参数 wd 就是要搜寻的关键字。</p>
-<img src="https://pic.imgdb.cn/item/61377e2244eaada73953981b.png">
-
-<p><strong>POST 请求：</strong> </p>
-<p>一般来说，网站登录验证的时候，需要提交用户名密码，这里包含了敏感信息，使用 GET 方式请求的话密码就会 暴露在 URL 里面，造成密码泄露，所以这里最好以 POST 方 式发送。文件的上传时，由于文件内容比较大，也会 选用 POST 方式。比如百度账户登 录， </p>
-<p>列如：使用火狐浏览器抓用户名和密码 </p>
-<img src="https://pic.imgdb.cn/item/61377e6044eaada7395434c2.png">
-
-<p>当然你也可以是用 fiddler 来抓包</p>
-<img src="https://pic.imgdb.cn/item/61377e8044eaada73954888a.png">
-
-<p><strong>3) 请求网址(URL)</strong></p>
-<p>Request URL </p>
-<p>就是请求的网址，即统一资源定位符，用 URL 可以唯一确定我们想请 </p>
-<p>求的资源。比如： <a href="https://www.baidu.com/">https://www.baidu.com/</a> </p>
-<p><strong>4) 请求头（Request Headers）</strong></p>
-<p>请求头，用来说明服务器要使用的附加信息，比较重要的信息有 Cookie、Referer、 </p>
-<ul>
-<li><p><strong>User-Agent</strong> 等，下面将一些 常用的头信息说明如下： </p>
-</li>
-<li><p><strong>Accept</strong>，请求报头域，用于指定客户端可接受哪些类型的信息。 </p>
-</li>
-<li><p><strong>Accept-Language</strong>，指定客户端可接受的语言类型。 </p>
-</li>
-<li><p> <strong>Accept-Encoding</strong>，指定客户端可接受的内容编码。 </p>
-</li>
-<li><p><strong>Host</strong>,用于指定请求资源的主机 IP 和端口号，其内容为请求 URL 的原始服务器或网关 的位置。从 HTTP 1.1 版本开始，Request 必须包含此内容。 </p>
-</li>
-<li><p> <strong>Cookie</strong>，也常用复数形式 Cookies，是网站为了辨别用户进行 Session 跟踪而储存在 用户本地的数据。</p>
-</li>
-<li><p><strong>Cookies</strong> 的主要功能就是维持当前访问会话。 </p>
-</li>
-<li><p><strong>Referer</strong>,此内容用来标识这个请求是从哪个页面发过来的，服务器可以拿到这一信息并做 相应的处理，如 做来源统计、做防盗链处理等。 </p>
-</li>
-<li><p><strong>User-Agent</strong>，简称 UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统 及版本、浏览器 及版本等信息。 </p>
-</li>
-<li><p><strong>Content-Type</strong>，即 Internet Media Type，互联网媒体类型，也叫做 MIME 类型，在 HTTP 协议消息头 中，使用它来表示具体请求中的媒体类型信息。例如 </p>
-</li>
-<li><p><strong>application/x-www-form-urlencoded</strong>表示表单数 据， text/html 代表 HTML 格式， image/gif 代表 GIF 图片，application/json </p>
-</li>
-</ul>
-<p><strong>5)</strong> <strong>请求体</strong> </p>
-<p>即请求体，一般用于 POST 请求中，主要定义向服务器提交的数据类型，而对于 GET 请求 Request Body 则为 空。 </p>
-<p>比如在登录之前我们填写了用户名和密码信息，提交时就这些内容就会以 Form Data 的形式提交给服务器，此时注意 Request Headers 中指定了 Content-Type 为 application/x-www-form-urlencoded。</p>
-<p>只有设 置 Content-Type 为 application/x-www-form-urlencoded 才会以 Form Data 形式提交，另外我们也可以 将 Content-Type 设置为 application/json 来 提交 Json 数据，或者设置为 multipart/form-data 来上传文件。 </p>
-<p>常用 Content-Type 和 POST 提交数据方式的关系： </p>
-<p><strong>Content-Type</strong> :提交数据方式</p>
-<p>application/x-www-form-urlencoded :Form 表单提交 </p>
-<p>multipart/form-data :表单文件上传提交 </p>
-<p>application/json :序列化 Json 数据提交 </p>
-<p>text/xml :XML 数据提交 </p>
-<h3 id="3-http-的响应"><a href="#3-http-的响应" class="headerlink" title="3.http 的响应"></a>3.http 的响应</h3><p>1).响应的三部分</p>
-<p>上述内容讲述的 http 协议的请求，接着描述 http 协议的响应。 </p>
-<p><strong>Response，即响应，由服务端返回给客户端。Response 可以划分为三部分:</strong> </p>
-<p>•Response Status Code </p>
-<p>• Response Headers </p>
-<p>• Response Body </p>
-<p><strong>Response Status Code</strong></p>
-<p>响应状态码，此状态码表示了服务器的响应状态，如 200 则代表服务器正常响应，404 则代表页面未找到，500 则 代表服务器内部发生错误。常用响应状态码如下： </p>
-<p>可以参考完整的 http 协议的响应状态码： </p>
-<p><strong><a href="https://tool.oschina.net/commons?type=5">https://tool.oschina.net/commons?type=5</a></strong> </p>
-<p><strong>2.</strong> <strong>响应头</strong> </p>
-<p>响应头，其中包含了服务器对请求的应答信息，如 Content-Type、Server、Set-Cookie 等，下面将一些常用的头信息说明如下： </p>
-<p><strong>Date</strong>，标识 Response 产生的时间。 </p>
-<p><strong>Last-Modified</strong>，指定资源的最后修改时间。 </p>
-<p><strong>Content-Encoding，</strong>指定 Response 内容的编码。 </p>
-<p><strong>Server</strong>，包含了服务器的信息，名称，版本号等。 </p>
-<p><strong>Content-Type</strong>，文档类型，指定了返回的数据类型是什么，如text/html 则代表返回 HTML 文档， application/x-javascript 则代表返回 JavaScript 文件，image/jpeg 则 代表返回了图片。 </p>
-<p><strong>Set-Cookie</strong>，设置 Cookie，Response Headers 中的 Set-Cookie 即告诉浏览器需要 将此内容放在 Cookies 中，下次请求携带 Cookies 内容。 </p>
-<p><strong>Expires</strong>,指定 Response 的过期时间，使用它可以控制代理服务器或浏览器将内容更 新到缓存中，如果再 次访问时，直接从缓存中加载，降低服务器负载，缩短加载时间。</p>
-<p><strong>3.</strong> <strong>响应体</strong> </p>
-<p>即响应体，响应的正文数据都是在响应体中，如请求一个网页，它的响应体就是网页的 HTML 代码，请求一张图 片，它的响应体就是图片的二进制数据。一般在接口的响应内容 大多都是 Json 数据内容. </p>
-<img src="https://pic.imgdb.cn/item/61377ed644eaada73955689e.png">
-
-<h1 id="三、JSON-数据格式"><a href="#三、JSON-数据格式" class="headerlink" title="**三、JSON **数据格式"></a>**三、JSON **数据格式</h1><p><strong>1. Json</strong> <strong>简介</strong> </p>
-<p>JSON（JavaScript Object Notation，即 JavaScript 对象表示法）是一种轻量级的 数据交换格式。它独立于语言 和平台，JSON 解析器和 JSON 库支持不同的编程语言。</p>
-<p>JSON 具有自我描述性，很容易理解。目前大多数接口返 回的数据格式为 JSON,因此进行 接口测试必须掌握 JSON。 </p>
-<p><strong>2. Json</strong> <strong>语法特点</strong> </p>
-<p>记住下面四点： </p>
-<p>1 数据在键/值对中 </p>
-<p>2 数据由逗号分隔 </p>
-<p>3 {花括号}保存对象 </p>
-<p>4 [方括号]保存数组 </p>
-<p>JSON 数据的书写格式是：key:value 键值对。比如： “name”:”Tom” </p>
-<p>解释：name 是 key，Tom 是 value </p>
-<p><strong>JSON 值可以是：</strong> </p>
-<p>a. 数字（整数或浮点数） </p>
-<p>b. 字符串（在双引号中） </p>
-<p>c. 逻辑值（true 或 false） </p>
-<p>d. 数组（在方括号中） </p>
-<p>e. 对象（在花括号中） </p>
-<p><strong>案列代码：</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/*1.json 的值是数字*/ </span><br><span class="line">&quot;age&quot;:18</span><br><span class="line">/*2.json 的值为字符串*/ </span><br><span class="line">&quot;name&quot;:&quot;Tom&quot;</span><br><span class="line">/*3.json 的值为逻辑值*/ </span><br><span class="line">&quot;result&quot;:true </span><br><span class="line">/*4.json 的值为数组*/ </span><br><span class="line">&quot;city&quot;:[&quot;长沙&quot;,&quot;上海&quot;,&quot;北京&quot;] </span><br><span class="line">/*5.json 的值为对象 JSON 对象在花括号中书写： 对象可以包含多个键/值对： </span><br><span class="line">* */ </span><br><span class="line">&#123; &quot;firstName&quot;:&quot;John&quot; , &quot;lastName&quot;:&quot;Doe&quot; &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意:在接口测试过程中，一般都是返回 JSON 对象类型。</strong> </p>
-<p>比如在数组中含多个对象： </p>
-<p>{</p>
-<p>“employees”: [ </p>
-<p>{ “firstName”:”John” , “lastName”:”Doe” }, </p>
-<p>{ “firstName”:”Anna” , “lastName”:”Smith” }, </p>
-<p>{ “firstName”:”Peter” , “lastName”:”Jones” } </p>
-<p>]</p>
-<p>} </p>
-<p>在上面的例子中，对象 “employees” 是包含三个对象的数组。每个对象代表一条关于 某人（有姓和名）的记录。</p>
-<p><strong>3. Json</strong> <strong>数据解析</strong> </p>
-<p>Python3 中可以使用 json 模块来对 JSON 数据进行编解码，它包含了两个方法： </p>
-<p>json.dumps(): 将 python 数据转化为 Json 数据 </p>
-<p>json.loads(): 将 json 数据类型转为 Python 数据类型 </p>
-<p>JSON 库官方文档 <a href="https://docs.python.org/3/library/json.htm">https://docs.python.org/3/library/json.htm</a> </p>
-<p><strong>案列</strong> <strong>1：将</strong> <strong>python</strong> <strong>数据转化为</strong> <strong>Json</strong> <strong>数据</strong> </p>
-<p>准备代码： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json #</span><br><span class="line">1 准备字典 </span><br><span class="line">data=&#123;&#x27;id&#x27;:1,&#x27;name&#x27;:&#x27;zhangsan&#x27;,&#x27;password&#x27;:&#x27;66666&#x27;&#125;</span><br><span class="line"></span><br><span class="line">2 检测类型 --dict </span><br><span class="line">print(type(data)) </span><br><span class="line"></span><br><span class="line">3 通过 json.dumps()方法来转换 </span><br><span class="line">json_str=json.dumps(data) </span><br><span class="line"></span><br><span class="line">4.检测类型为 str </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">5.输出的格式就是一个 json 格式 </span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
-
-<p>输出效果：</p>
-<img src="https://pic.imgdb.cn/item/6137828e44eaada7395e3a4a.png">
-
-<p><strong>案例</strong> <strong>2：将</strong> <strong>json</strong> <strong>数据类型转为</strong> <strong>Python</strong> <strong>数据类型</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">#1 准备 json 数据--字符串 </span><br><span class="line">json_str=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2 把字符串转 dict </span><br><span class="line">data=json.loads(json_str) </span><br><span class="line"></span><br><span class="line">#3 字符串 </span><br><span class="line">print(type(json_str)) </span><br><span class="line"></span><br><span class="line">#4.dict </span><br><span class="line">print(type(data)) </span><br><span class="line">print(data) </span><br><span class="line">print(data[&#x27;id&#x27;]) </span><br><span class="line">print(data[&#x27;name&#x27;]) </span><br></pre></td></tr></table></figure>
-
-<p><strong>运行结果：</strong></p>
-<img src="https://pic.imgdb.cn/item/613782e644eaada7395efffa.png">
-
-<h3 id="4-Json-文件处理"><a href="#4-Json-文件处理" class="headerlink" title="4. Json 文件处理"></a><strong>4. Json</strong> <strong>文件处理</strong></h3><p><strong>案例</strong> <strong>1：使用</strong> <strong>Python</strong> <strong>从</strong> <strong>json</strong> <strong>中读取文件</strong> </p>
-<p>准备条件</p>
-<p>1—json 文件： </p>
-<p>2—Python 代码 </p>
-<p>代码： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Json 代码： </span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&quot;employees&quot;: [ </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; &#125;, </span><br><span class="line"></span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; &#125; </span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>Python 代码： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data) </span><br></pre></td></tr></table></figure>
-
-<p>代码路径截图：放同一个文件夹里面</p>
-<img src="https://pic.imgdb.cn/item/6137836044eaada73960107c.png">
-
-<p><strong>案例</strong> <strong>2：使用</strong> <strong>Python</strong> <strong>写入数据到</strong> <strong>json</strong> <strong>文件中</strong> </p>
-<p>import json </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#1.准备一个字符串 </span><br><span class="line"></span><br><span class="line">data=&#x27;&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;zhangsan&quot;,&quot;password&quot;:&quot;66666&quot;&#125;&#x27; </span><br><span class="line"></span><br><span class="line">#2.写入 json 文件 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;w&#x27;) as f: </span><br><span class="line"></span><br><span class="line">json.dump(data, f) </span><br><span class="line"></span><br><span class="line">#3.可以查看 json 文件或者读取出来 </span><br><span class="line"></span><br><span class="line">with open(&#x27;data.json&#x27;, &#x27;r&#x27;) as f: </span><br><span class="line"></span><br><span class="line">data = json.load(f) </span><br><span class="line"></span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
-
 ]]></content>
   </entry>
 </search>
