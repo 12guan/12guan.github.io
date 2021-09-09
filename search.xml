@@ -452,90 +452,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Appium的元素定位入门</title>
-    <url>/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<p>与Web自动化测试一样，app自动化测试过程中最重要一个环节就是元素定位，只有准确定位到了元素才能进行相关元素的操作，如输入、点击、拖拽、滑动等。</p>
-<p>appium提供了许多元素定位的方法，如id定位、name定位、class定位、层级定位等等.<span id="more"></span></p>
-<h2 id="一、元素定位方式"><a href="#一、元素定位方式" class="headerlink" title="一、元素定位方式"></a><strong>一、元素定位方式</strong></h2><ol>
-<li><p>id</p>
-</li>
-<li><p>name</p>
-</li>
-<li><p>class</p>
-</li>
-<li><p>List定位</p>
-</li>
-<li><p>相对定位</p>
-</li>
-<li><p>Xpath定位</p>
-</li>
-<li><p>H5页面元素定位</p>
-</li>
-<li><p>Uiautomator定位</p>
-</li>
-</ol>
-<h2 id="二、id定位"><a href="#二、id定位" class="headerlink" title="二、id定位"></a><strong>二、id定位</strong></h2><p>Appium中可以使用 **find_element_by_id()**方法来进行id定位。</p>
-<h3 id="1-测试场景"><a href="#1-测试场景" class="headerlink" title="1) 测试场景"></a><strong>1)</strong> <strong>测试场景</strong></h3><ol>
-<li><p>安装考研帮kaoyan3.1.0.apk</p>
-</li>
-<li><p>点击升级页面取消按钮</p>
-</li>
-<li><p>点击引导页面的跳过按钮</p>
-</li>
-</ol>
-<h3 id="2-脚本实现"><a href="#2-脚本实现" class="headerlink" title="2) 脚本实现"></a><strong>2)</strong> <strong>脚本实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;5.1.1&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;android:id/button2&#x27;).click()</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;).click()</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="三、思考"><a href="#三、思考" class="headerlink" title="三、思考"></a><strong>三、思考</strong></h2><ul>
-<li>如果安装的版本最新的包，或者升级到了最新的版本，则启动后没有升级弹窗元素该如何处理？</li>
-<li> 跳过引导页面首次启动和非首次启动场景该如何处理？</li>
-</ul>
-<h3 id="方案探索1——if条件判断"><a href="#方案探索1——if条件判断" class="headerlink" title="方案探索1——if条件判断"></a><strong>方案探索1——if条件判断</strong></h3><p>你可能想到用if来做条件判断？判断元素是否存在，存在则点击，不存在则跳过。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line">cancelBtn=driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">skipBtn=driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line"></span><br><span class="line">if cancelBtn:</span><br><span class="line">    cancelBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">if skipBtn:</span><br><span class="line">    skipBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no skipBtn&#x27;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>定位不到元素：</p>
-<p>报异常：</p>
-<p>selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.</p>
-<h3 id="方案探索2——异常捕捉"><a href="#方案探索2——异常捕捉" class="headerlink" title="方案探索2——异常捕捉"></a>方案探索2——异常捕捉</h3><p>既然上面的if语句判断无法生效，但是我们发现一个突破口，那就是捕捉NoSuchElementException异常。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="四、id定位综合实践——自动登录"><a href="#四、id定位综合实践——自动登录" class="headerlink" title="四、id定位综合实践——自动登录"></a><strong>四、id定位综合实践——自动登录</strong></h2><h3 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h3><ol>
-<li><p>启动App，进入到登录界面</p>
-</li>
-<li><p>在登录页面输入用户名“xxxxxx”，密码‘xxxxxx’ 然后点击登录。</p>
-</li>
-</ol>
-<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a><strong>需求分析</strong></h3><ol>
-<li><p>可以把启动后检测升级弹窗和引导页面的模块抽离作为独立的模块被其他模块调用，提高代码复用率。</p>
-</li>
-<li><p>获取用户名密码输入框和登录按钮的元素id属性,另外要考虑启动时App之前是否登录过账号，已经登录过和未登录场景流程不一样。</p>
-</li>
-<li><p>注意：send_keys()传入中文时需要在capability中配置如下内容：</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desired_caps[&#x27;unicodeKeyboard&#x27;]=&quot;True&quot;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;resetKeyboard&#x27;]=&quot;True&quot;</span><br></pre></td></tr></table></figure>
-
-<p>设置之后会有Appium的输入法守护来执行输入操作</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">#check_updateBtn()</span><br><span class="line"></span><br><span class="line">check_skipBtn()</span><br><span class="line"></span><br><span class="line">def login():</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).clear()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line"></span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;)</span><br><span class="line">except NoSuchElementException:</span><br><span class="line">    login()</span><br><span class="line">else:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;).click()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_usercenter_username&#x27;).click()</span><br><span class="line">    login()</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>注意：</p>
-<p>使用Appium做了输入操作之后，如果出现输入法无法唤起，可以在系统设置——语言和输入法——将当前输入法替换为系统输入法或者其他输入法。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Appium简介</title>
     <url>/2021/09/07/Appium%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<h1 id="一-Appium简介"><a href="#一-Appium简介" class="headerlink" title="一.Appium简介"></a><strong>一.Appium简介</strong></h1><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
@@ -653,6 +569,90 @@
 <img src="https://pic.imgdb.cn/item/61376b1844eaada739247a92.jpg">
 
 <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h4><p><a href="https://github.com/appium/appium-desktop">https://github.com/appium/appium-desktop</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Appium的元素定位入门</title>
+    <url>/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>与Web自动化测试一样，app自动化测试过程中最重要一个环节就是元素定位，只有准确定位到了元素才能进行相关元素的操作，如输入、点击、拖拽、滑动等。</p>
+<p>appium提供了许多元素定位的方法，如id定位、name定位、class定位、层级定位等等.<span id="more"></span></p>
+<h2 id="一、元素定位方式"><a href="#一、元素定位方式" class="headerlink" title="一、元素定位方式"></a><strong>一、元素定位方式</strong></h2><ol>
+<li><p>id</p>
+</li>
+<li><p>name</p>
+</li>
+<li><p>class</p>
+</li>
+<li><p>List定位</p>
+</li>
+<li><p>相对定位</p>
+</li>
+<li><p>Xpath定位</p>
+</li>
+<li><p>H5页面元素定位</p>
+</li>
+<li><p>Uiautomator定位</p>
+</li>
+</ol>
+<h2 id="二、id定位"><a href="#二、id定位" class="headerlink" title="二、id定位"></a><strong>二、id定位</strong></h2><p>Appium中可以使用 **find_element_by_id()**方法来进行id定位。</p>
+<h3 id="1-测试场景"><a href="#1-测试场景" class="headerlink" title="1) 测试场景"></a><strong>1)</strong> <strong>测试场景</strong></h3><ol>
+<li><p>安装考研帮kaoyan3.1.0.apk</p>
+</li>
+<li><p>点击升级页面取消按钮</p>
+</li>
+<li><p>点击引导页面的跳过按钮</p>
+</li>
+</ol>
+<h3 id="2-脚本实现"><a href="#2-脚本实现" class="headerlink" title="2) 脚本实现"></a><strong>2)</strong> <strong>脚本实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;5.1.1&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;android:id/button2&#x27;).click()</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;).click()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、思考"><a href="#三、思考" class="headerlink" title="三、思考"></a><strong>三、思考</strong></h2><ul>
+<li>如果安装的版本最新的包，或者升级到了最新的版本，则启动后没有升级弹窗元素该如何处理？</li>
+<li> 跳过引导页面首次启动和非首次启动场景该如何处理？</li>
+</ul>
+<h3 id="方案探索1——if条件判断"><a href="#方案探索1——if条件判断" class="headerlink" title="方案探索1——if条件判断"></a><strong>方案探索1——if条件判断</strong></h3><p>你可能想到用if来做条件判断？判断元素是否存在，存在则点击，不存在则跳过。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line">cancelBtn=driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">skipBtn=driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line"></span><br><span class="line">if cancelBtn:</span><br><span class="line">    cancelBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">if skipBtn:</span><br><span class="line">    skipBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no skipBtn&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定位不到元素：</p>
+<p>报异常：</p>
+<p>selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.</p>
+<h3 id="方案探索2——异常捕捉"><a href="#方案探索2——异常捕捉" class="headerlink" title="方案探索2——异常捕捉"></a>方案探索2——异常捕捉</h3><p>既然上面的if语句判断无法生效，但是我们发现一个突破口，那就是捕捉NoSuchElementException异常。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="四、id定位综合实践——自动登录"><a href="#四、id定位综合实践——自动登录" class="headerlink" title="四、id定位综合实践——自动登录"></a><strong>四、id定位综合实践——自动登录</strong></h2><h3 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h3><ol>
+<li><p>启动App，进入到登录界面</p>
+</li>
+<li><p>在登录页面输入用户名“xxxxxx”，密码‘xxxxxx’ 然后点击登录。</p>
+</li>
+</ol>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a><strong>需求分析</strong></h3><ol>
+<li><p>可以把启动后检测升级弹窗和引导页面的模块抽离作为独立的模块被其他模块调用，提高代码复用率。</p>
+</li>
+<li><p>获取用户名密码输入框和登录按钮的元素id属性,另外要考虑启动时App之前是否登录过账号，已经登录过和未登录场景流程不一样。</p>
+</li>
+<li><p>注意：send_keys()传入中文时需要在capability中配置如下内容：</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desired_caps[&#x27;unicodeKeyboard&#x27;]=&quot;True&quot;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;resetKeyboard&#x27;]=&quot;True&quot;</span><br></pre></td></tr></table></figure>
+
+<p>设置之后会有Appium的输入法守护来执行输入操作</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">#check_updateBtn()</span><br><span class="line"></span><br><span class="line">check_skipBtn()</span><br><span class="line"></span><br><span class="line">def login():</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).clear()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line"></span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;)</span><br><span class="line">except NoSuchElementException:</span><br><span class="line">    login()</span><br><span class="line">else:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;).click()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_usercenter_username&#x27;).click()</span><br><span class="line">    login()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>使用Appium做了输入操作之后，如果出现输入法无法唤起，可以在系统设置——语言和输入法——将当前输入法替换为系统输入法或者其他输入法。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1588,6 +1588,150 @@
 ]]></content>
   </entry>
   <entry>
+    <title>App自动化测试概述</title>
+    <url>/2021/09/04/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h2 id="一、应用背景"><a href="#一、应用背景" class="headerlink" title="一、应用背景"></a><strong>一、应用背景</strong></h2><p>随着移动互联网和智能设备越来越普及，移动App已经渗透到了我们的生活方方面面，比如出行、饮食、旅行、社交、金融、短视频等。</p>
+<p>用户对App产品的质量和用户体验要求越来越高。因此很多互联网企业也因此开始对移动端产品质量越来越重视。但是App产品不断迭代更新，给测试人员也增加了测试工作量，特别是大量繁琐的回归测试。</p>
+<p>自动化测试是应对产品不断迭代更新的辅助测试手段（主要是针对回归测试），最终目的是为了保证产品质量。 <span id="more"></span></p>
+<h2 id="二、移动端操作系统与app类型"><a href="#二、移动端操作系统与app类型" class="headerlink" title="二、移动端操作系统与app类型"></a><strong>二、移动端操作系统与app类型</strong></h2><h3 id="主流"><a href="#主流" class="headerlink" title="主流"></a><strong>主流</strong></h3><p>Andriod、iOS</p>
+<h3 id="非主流"><a href="#非主流" class="headerlink" title="非主流"></a><strong>非主流</strong></h3><p>Winphone、黑莓、塞班、ubuntu、Asha、Tizen、Jolla、Firefox OS、鸿蒙os</p>
+<h3 id="非智能机"><a href="#非智能机" class="headerlink" title="非智能机"></a><strong>非智能机</strong></h3><p>MTK平台、S40平台</p>
+<h3 id="Andriod"><a href="#Andriod" class="headerlink" title="Andriod"></a><strong>Andriod</strong></h3><p>Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。</p>
+<img src="https://pic.imgdb.cn/item/61376beb44eaada73926a6b3.jpg">
+
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a><strong>iOS</strong></h3><p>iOS是由苹果公司开发的移动操作系统 。苹果公司最早于2007年1月9日的Macworld大会上公布这个系统，最初是设计给iPhone使用的，后来陆续套用到iPod touch、iPad以及Apple TV等产品上。iOS与苹果的Mac OS X操作系统一样，属于类Unix的商业操作系统。</p>
+<h2 id="三、app测试框架介绍"><a href="#三、app测试框架介绍" class="headerlink" title="三、app测试框架介绍"></a><strong>三、app测试框架介绍</strong></h2><h3 id="1-Andriod："><a href="#1-Andriod：" class="headerlink" title="1. Andriod："></a><strong>1. Andriod：</strong></h3><h4 id="Monkey"><a href="#Monkey" class="headerlink" title="Monkey"></a><strong>Monkey</strong></h4><p>​    Monkey是一个程序，运行在您的模拟器或设备上，并生成伪随机的用户事件流，如点击，触摸或手势，以及一些系统级事件。 您可以使用Monkey以随机但可重复的方式对您正在开发的应用程序进行压力测试。</p>
+<h4 id="MonkeyRunner"><a href="#MonkeyRunner" class="headerlink" title="MonkeyRunner"></a><strong>MonkeyRunner</strong></h4><p>​    MonkeyRunner工具是使用Jython(使用Java编程语言实现的Python)写出来的，它提供了多个API，通过monkeyrunner API 可以写一个Python的程序来模拟操作控制Android设备app,测试其稳定性并通过截屏可以方便地记录出现的问题。</p>
+<h4 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a><strong>Instrumentation</strong></h4><p>​    Instrumentaion 是Android自带的一个测试框架，是很多其它测试框架的基础，可以在同进程中加载被测组件。它有很多丰富的高层封装，使用者可以使用基于instrumentation的其他框架，避免过多二次开发量。但Instrumentation不支持跨应用,导致基于instrumentation的框架都继承了这个缺点。</p>
+<h4 id="Robotium-基于Instrumentation"><a href="#Robotium-基于Instrumentation" class="headerlink" title="Robotium(基于Instrumentation)"></a><strong>Robotium(基于Instrumentation)</strong></h4><p>​    Robotium是基于Instrumentation框架开发的一个更强的框架. 对常用的操作进行了易用性的封装. 用于开发功能性、系统和验收测试场景。它运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。</p>
+<h4 id="Robolectric"><a href="#Robolectric" class="headerlink" title="Robolectric"></a><strong>Robolectric</strong></h4><p>​    支持单元测试；Robolectric允许用户做大部分真实设备上可以做的事情，且可以在常规的JVM持续集成环境中运行，不需要通过模拟器，因此可以摆脱模拟器启动慢的问题。</p>
+<h4 id="UIAutomator"><a href="#UIAutomator" class="headerlink" title="UIAutomator"></a><strong>UIAutomator</strong></h4><p>​    Android 4.3发布的时候包含了一种新的测试工具–uiautomator，uiautomator是用来做UI测试的。也就是普通的手工测试，点击每个控件元素 看看输出的结果是否符合预期。比如 登陆界面 分别输入正确和错误的用户名密码然后点击登陆按钮看看是否能否登陆以及是否有错误提示等。</p>
+<h4 id="Selendroid"><a href="#Selendroid" class="headerlink" title="Selendroid"></a><strong>Selendroid</strong></h4><p>​    Selendroid 是一个基于Instrumentation的一个框架. 完全兼容Webdriver协议。 Selendroid 可以在模拟器和实际设备上使用，也可以集成网格节点作为缩放和并行测试。</p>
+<h4 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a><strong>Espresso</strong></h4><p>​    Espresso是Google的开源自动化测试框架。相对于Robotium和UIAutomator，它的特点是规模更小、更简洁，API更加精确，编写测试代码简单，容易快速上手。因为是基于Instrumentation的，所以不能跨App。</p>
+<h4 id="Calabash"><a href="#Calabash" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​    Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
+<h4 id="Appium"><a href="#Appium" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​    Appium是一个开源的、跨平台的自动化测试工具，支持IOS、Android和FirefoxOS平台。 通过Appium，开发者无需重新编译app或者做任何调整，就可以测试移动应用，可以使测试代码访问后端API和数据库。</p>
+<p>​    它是通过驱动苹果的UIAutomation和Android的UiAutomator框架来实现的双平台支持，同时绑定了Selenium WebDriver用于老的Android平台测试。开发者可以使用WebDriver兼容的任何语言编写测试脚本，如Java， OC， JS， PHP，Python， Ruby， C#，Clojure 和Perl语言。</p>
+<h4 id="Macaca"><a href="#Macaca" class="headerlink" title="Macaca"></a><strong>Macaca</strong></h4><p>​    Macaca 是一套面向用户端软件的测试解决方案，提供了自动化驱动，环境配套，周边工具，集成方案，旨在解决终端上的测试、自动化、性能等方面的问题。</p>
+<h4 id="Cafe"><a href="#Cafe" class="headerlink" title="Cafe"></a><strong>Cafe</strong></h4><p>​    基于hook录制体系</p>
+<p>​    遍历测试</p>
+<p>​    跨app测试</p>
+<p>​    pc agent设计</p>
+<p>​    使用android漏洞提权</p>
+<h3 id="2-iOS"><a href="#2-iOS" class="headerlink" title="2. iOS"></a>2. <strong>iOS</strong></h3><h4 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a><strong>XCTest</strong></h4><p>​        XCTest是苹果在iOS 7和Xcode5引入的一个简单而强大的测试框架，它的测试编写起来非常简单，并且遵循xUnit风格。XCTest的优点是与Xcode深度集成，有专门的Test导航栏，但因为受限于官方测试API，因此功能不是很丰富。</p>
+<h4 id="UIAutomation"><a href="#UIAutomation" class="headerlink" title="UIAutomation"></a><strong>UIAutomation</strong></h4><p>​        UIAutomation是苹果提供的UI自动化测试框架，使用Javascript编写。基于UIAutomation有扩展型的工具框架和驱动型的框架。</p>
+<p>​        扩展型框架以JavaScript扩展库方法提供了很多好用js工具，注入式的框架通常会提供一些Lib或者是Framework，要求测试人员在待测应用的代码工程中导入这些内容，框架可以通过他们完成对app的驱动。</p>
+<p>​        驱动型UI Automation 在自动化测试底层使用了UI Automation库，通过TCP通信的方式驱动UI Automation来完成自动化测试，通过这种方式，编辑脚本的语言不再局限于JavaScript。</p>
+<h4 id="Appium-1"><a href="#Appium-1" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​        它是通过驱动苹果的UIAutomation来执行自动化</p>
+<h4 id="Frank"><a href="#Frank" class="headerlink" title="Frank"></a><strong>Frank</strong></h4><p>​        Frank是iOS平台一款非常受欢迎的app测试框架，它使用Cucumber语言来编写测试用例， Frank包含一个强大的“app inspector”–Symbiote，可以用它来获得运行中app的详细信息，便于开发者将来进行测试回顾。</p>
+<p>​        优点： 测试场景是在Cucumber的帮助下，用可理解的英语句子写的。</p>
+<p>强大的Symbiote实时检查工具。 活跃的社区支持。 不断扩大中的库。</p>
+<p>​        缺点： 对手势的支持有限。 在设备上运行测试有点难。 修改配置文件需要在实际设备上运行。 记录功能不可用。</p>
+<h4 id="KIF"><a href="#KIF" class="headerlink" title="KIF"></a><strong>KIF</strong></h4><p>​        KIF是Keep It Functional项目的缩写，是一款iOS app功能性测试框架，使用Objective-C语言编写，对苹果开发者来说非常容易上手，更是一款开发者广为推荐的测试工具。KIF tester使用私有API来了解App中的视图层级。但缺点是运行较慢。</p>
+<h4 id="Calabash-1"><a href="#Calabash-1" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​        Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
+<h4 id="Subliminal"><a href="#Subliminal" class="headerlink" title="Subliminal"></a><strong>Subliminal</strong></h4><p>​        Subliminal是另一款与XCTest集成的框架。与KIF不同的是，它基于UIAutomation编写，旨在对开发者隐藏UIAutomation中一些复杂的细节。</p>
+<h4 id="Kiwi"><a href="#Kiwi" class="headerlink" title="Kiwi"></a><strong>Kiwi</strong></h4><p>​        Kiwi是对XCTest的一个完整替代，使用xSpec风格编写测试。 Kiwi带有自己的一套工具集，包括expectations、mocks、stubs，甚至还支持异步测试。它是一个适用于iOS 开发的Behavior Driven Development（BDD）库，优点在于其简洁的接口和可用性，易于设置和使用，非常适合新手开发者。Kiwi使用Objective-C语言编写，易于IOS开发人员上手。</p>
+<h4 id="Appecker"><a href="#Appecker" class="headerlink" title="Appecker"></a><strong>Appecker</strong></h4><p>​        Appecker是一款用于iOS系列系统的自动化测试框架，是腾讯的一个开源项目。Appecker采用Objective C为测试用例的开发语言, 完整支持iOS上的UI功能测试、单元测试并且可以良好地支持自动化运行。</p>
+<h2 id="四、Android-app类型"><a href="#四、Android-app类型" class="headerlink" title="四、Android app类型"></a>四、<strong>Android</strong> <strong>app类型</strong></h2><h3 id="1-原生应用程序：（Native-App）"><a href="#1-原生应用程序：（Native-App）" class="headerlink" title="1. 原生应用程序：（Native App）"></a>1. <strong>原生应用程序：（Native App）</strong></h3><p>原生APP是什么？原生APP就是利用Android、iOS平台官方的开发语言、开发类库、工具进行开发。比如安卓的java语言，iOS的object-c 语言。在应用性能上和交互体验上应该是最好的。</p>
+<p>优点：</p>
+<p>1、可访问手机所有功能、可实现功能最齐全；</p>
+<p>2、运行速度快、性能高，绝佳的用户体验；</p>
+<p>3、支持大量图形和动画。不卡，反应快。</p>
+<p>4、比较快捷地使用设备端提供的接口，处理速度上有优势。</p>
+<p>缺点：</p>
+<ol>
+<li><p>在过去主要是成本高、周期长，Android和iOS都需要单独开发。</p>
+</li>
+<li><p>更新版本需要重新下载安装包。</p>
+</li>
+</ol>
+<h3 id="2-混合应用程序（Hybrid-App）"><a href="#2-混合应用程序（Hybrid-App）" class="headerlink" title="2. 混合应用程序（Hybrid App）"></a>2. <strong>混合应用程序（Hybrid App）</strong></h3><p>即利用了原生APP的开发技术还应用了HTML5开发技术，是原生和HTML5技术的混合应用。混合比例不限。</p>
+<p>优点：</p>
+<p>1、开发周期短；</p>
+<p>2、功能更新发布快；</p>
+<p>缺点：</p>
+<p>1、用户体验不如本地应用；</p>
+<p>2、性能稍慢（需要连接网络）；</p>
+<h3 id="3-Web版APP-（Web-App）"><a href="#3-Web版APP-（Web-App）" class="headerlink" title="3. Web版APP （Web App）"></a>3. <strong>Web版APP （Web App）</strong></h3><p>本质就是浏览器功能的叠加，用普通Web开发语言开发的，通过浏览器运行。</p>
+<p>优势：</p>
+<p>1、支持范围广；</p>
+<p>2、开发成本低、周期短。</p>
+<p>缺点：</p>
+<p>1、对联网要求高，离线不能做任何操作；</p>
+<p>2、功能有限；</p>
+<p>3、运行速度慢，页面不能承载太多东西；</p>
+<p>4、图片和动画支持性不高；</p>
+<p>5、如果用户使用更多的新型浏览器，那么就会出现运行问题。</p>
+<h3 id="4-Web-App、Hybrid-App、Native-App-技术特性"><a href="#4-Web-App、Hybrid-App、Native-App-技术特性" class="headerlink" title="4.Web App、Hybrid App、Native App 技术特性"></a><strong>4.Web App、Hybrid App、Native App 技术特性</strong></h3><img src="https://pic.imgdb.cn/item/61376c7044eaada73928096f.jpg">
+
+<h3 id="5-手游app与手机App"><a href="#5-手游app与手机App" class="headerlink" title="5. 手游app与手机App"></a>5. <strong>手游app与手机App</strong></h3><p>手游一般使用引擎开发，现在著名的有cocos2d和unity3d。两者都是使用引擎自带的语言进行开发，主流的分别是c++和c#，虽然在开发过程中也有按钮等控件的概念，但当运行时由引擎渲染后就变成了一副简单的图片：</p>
+<p>手机App一般使用Android SDK开发，使用Java编写。通过Android提供的服务，我们可以获取App当前窗口的视图信息，进而查找和操作按钮等控件，以完成自动化测试，如Uiautomator。这个过程是标准化的，从技术上来说没有任何难度，因此各个公司各个App自动化测试的方法都大同小异。</p>
+<h2 id="五、Android-SDK介绍"><a href="#五、Android-SDK介绍" class="headerlink" title="五、Android    SDK介绍"></a>五、<strong>Android</strong>    <strong>SDK介绍</strong></h2><p>SDK：（software development kit）软件开发工具包。被软件开发工程师用于为特定的软件包、软件框架、硬件平台、操作系统等建立应用软件的开发工具的集合。</p>
+<p>因此，Android SDK 指的是Android专属的软件开发工具包。</p>
+<h2 id="六、Android-SDK环境搭建"><a href="#六、Android-SDK环境搭建" class="headerlink" title="六、Android SDK环境搭建"></a>六、<strong>Android SDK环境搭建</strong></h2><h3 id="1-配置jdk环境"><a href="#1-配置jdk环境" class="headerlink" title="1.配置jdk环境"></a><strong>1.配置jdk环境</strong></h3><p>因为安卓用Java语言开发，所以安装安卓环境——首先需要安装配置好jdk环境(<a href="https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html">https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html</a>)</p>
+<p>推荐使用 jdk 8以上的版本</p>
+<h3 id="2-SDK下载"><a href="#2-SDK下载" class="headerlink" title="2.SDK下载"></a><strong>2.SDK下载</strong></h3><p>Android SDK包下载</p>
+<p>· 官网下载：<a href="https://android-sdk.en.softonic.com/download">https://android-sdk.en.softonic.com/download</a></p>
+<p>· 网盘下载： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
+<p>安装后启动 SDK Manager.exe程序就可以看到Android SDK Mannerger的主界面。</p>
+<img src="https://pic.imgdb.cn/item/61376cde44eaada739294c74.jpg">
+
+<h4 id="Tools目录："><a href="#Tools目录：" class="headerlink" title="Tools目录："></a><strong>Tools目录：</strong></h4><img src="https://pic.imgdb.cn/item/61376cf544eaada739298e69.jpg">
+
+<p><strong>Android SDK Tools</strong>（必须，只需下载一个版本，一般选最新版本）：基础工具包，版本号带rc字样的是预览版。</p>
+<p><strong>Android SDK Platform-tools必须</strong>，只需下载一个版本，一般选最新版本）：从android2.3开始划出此目录，存放公用开发工具，比如adb、sqlite3等，被划分到了这里。</p>
+<p><strong>Android SDK Build-tools</strong>（必须，可以安装多个版本）：Android项目构建工具。</p>
+<p><strong>Android xxx（API xx）</strong>目录（可选的各平台开发工具）</p>
+<img src="https://pic.imgdb.cn/item/61376d0d44eaada73929d3b5.jpg">
+
+<ul>
+<li><p> Documentation for AndroidSdk（可选）：安卓开发者官网的一些离线文档，不过下载下来打开也很慢，后面会提供另外一个离线版。</p>
+</li>
+<li><p>SDK Platform** (必须）：对应平台的开发工具，需要在哪个版本的平台下开发就下载哪个。</p>
+</li>
+<li><p>Samples for SDK（可选)，此项在高版本tools中已不提供，需要在IDE里通过Import Sample引入，当然也可以下载离线版）：内置的安卓示例程序，推荐安装。</p>
+</li>
+<li><p>Sources for Android SDK（可选）：安卓API的源代码，推荐安装。</p>
+</li>
+<li><p> ARM /Intel xxxx Image（可选）：各个以Image结尾的东西是支持相应平台的模拟器，我们就把它想象成一个刷机包吧。（使用真机调试或使用其它模拟器的话不需要安装）</p>
+</li>
+</ul>
+<p><strong>Extras</strong>目录(可选的扩展）</p>
+<img src="https://pic.imgdb.cn/item/61376d1f44eaada7392a0bf1.jpg">
+
+<ul>
+<li><p>Android Support Repository（可选）：主要是方便在gradle中使用Android Support Libraries，因为Google并没有把这些库发布到maven center或者jcenter去，而是使用了Google自己的maven仓库。</p>
+</li>
+<li><p> Intel x86 Emulator Accelerator(HAXM installer)（可选）：windows平台的Intel x86模拟器加速工具，配合Intel x86 atom/atom_64 System Image使用可加快模拟器的运行速度。</p>
+</li>
+</ul>
+<h3 id="3-Android-SDK文件目录"><a href="#3-Android-SDK文件目录" class="headerlink" title="3.Android SDK文件目录"></a><strong>3.Android SDK文件目录</strong></h3><img src="https://pic.imgdb.cn/item/61376d3944eaada7392a5721.jpg">
+
+<h4 id="add-ons"><a href="#add-ons" class="headerlink" title="add-ons"></a><strong>add-ons</strong></h4><p>这里面保存着附加库，第三方公司为android 平台开发的附加功能系统。比如GoogleMaps，当然你如果安装了OphoneSDK，这里也会有一些类库在里面。</p>
+<h4 id="docs"><a href="#docs" class="headerlink" title="docs"></a><strong>docs</strong></h4><p>这里面是Android SDKAPI参考文档，所有的API都可以在这里查到。</p>
+<h4 id="extras"><a href="#extras" class="headerlink" title="extras"></a><strong>extras</strong></h4><p>该文件夹下存放了Android support v4，v7，v13，v17包； 还有google提供额USB驱动、Intel提供的硬件加速等附加工具包， 和market_licensing作为AndroidMarket版权保护组件，一般发布付费应用到电子市场可以用它来反盗版。</p>
+<h4 id="platforms"><a href="#platforms" class="headerlink" title="platforms"></a><strong>platforms</strong></h4><p>是每个平台的SDK真正的文件，存放了不同版本的android系统。里面会根据APILevel划分的SDK版本。</p>
+<h4 id="samples"><a href="#samples" class="headerlink" title="samples"></a><strong>samples</strong></h4><p>是Android SDK自带的默认示例工程，里面的apidemos强烈推荐初学者运行学 习，对于SQLite数据库操作可以查看NotePad这个例子，对于游戏开发Snake、LunarLander都是不错的例子，对于Android主 题开发Home则是androidm5时代的主题设计原理。</p>
+<h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a><strong>环境变量设置</strong></h4><ul>
+<li><p> 系统变量里面添加变量名 ANDROID_HOME 路径为实际存放SDk的路径</p>
+</li>
+<li><img src="https://pic.imgdb.cn/item/61376d6744eaada7392ad601.jpg"></li>
+<li><p>其他几个路径配置到系统环境Path中如下图所示：</p>
+<img src="https://pic.imgdb.cn/item/61376db144eaada7392b9aab.jpg"></li>
+</ul>
+<h2 id="七-配置检测"><a href="#七-配置检测" class="headerlink" title="七.配置检测"></a><strong>七.配置检测</strong></h2><p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
+<p>adb命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;adb</span><br><span class="line">Android Debug Bridge version 1.0.39</span><br><span class="line">Revision 3db08f2c6889-android</span><br><span class="line">Installed as E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">global options:</span><br><span class="line"> -a         listen on all network interfaces, not just localhost</span><br><span class="line"> -d         use USB device (error if multiple devices connected)</span><br><span class="line"> -e         use TCP/IP device (error if multiple TCP/IP devices available)</span><br><span class="line"> -s SERIAL</span><br><span class="line">     use device with given serial number (overrides $ANDROID_SERIAL)</span><br><span class="line"> -p PRODUCT</span><br><span class="line">     name or path (&#x27;angler&#x27;/&#x27;out/target/product/angler&#x27;);</span><br><span class="line">     default $ANDROID_PRODUCT_OUT</span><br><span class="line"> -H         name of adb server host [default=localhost]</span><br><span class="line"> -P         port of adb server [default=5037]</span><br><span class="line"> -L SOCKET  listen on given socket for adb server [default=tcp:localhost:5037]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> aapt命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;aapt</span><br><span class="line">Android Asset Packaging Tool</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"> aapt l[ist] [-v] [-a] file.&#123;zip,jar,apk&#125;</span><br><span class="line">   List contents of Zip-compatible archive.</span><br><span class="line"></span><br><span class="line"> aapt d[ump] [--values] [--include-meta-data] WHAT file.&#123;apk&#125; [asset [asset ...]]</span><br><span class="line">   strings          Print the contents of the resource table string pool in the APK.</span><br><span class="line">   badging          Print the label and icon for the app declared in APK.</span><br><span class="line">   permissions      Print the permissions from the APK.</span><br><span class="line">   resources        Print the resource table from the APK.</span><br><span class="line">   configurations   Print the configurations in the APK.</span><br><span class="line">   xmltree          Print the compiled xmls in the given assets.</span><br><span class="line">   xmlstrings       Print the strings of the given compiled xml assets.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a><strong>参考资料：</strong></h4><p>· <a href="#m2">http://www.cnblogs.com/kangjianwei101/p/5621238.html#m2</a></p>
+<p>· <a href="http://blog.csdn.net/aiynmimi/article/details/51028499">http://blog.csdn.net/aiynmimi/article/details/51028499</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Jmeter的基础操作</title>
     <url>/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h1 id="一、JMeter-的介绍"><a href="#一、JMeter-的介绍" class="headerlink" title="一、JMeter 的介绍"></a><strong>一、JMeter 的介绍</strong></h1><h2 id="1-JMeter-是什么？"><a href="#1-JMeter-是什么？" class="headerlink" title="1. JMeter 是什么？"></a><strong>1. JMeter</strong> <strong>是什么？</strong></h2><p>JMeter 也称为“Apache JMeter”，它是一个开源的，100%基于 Java 的应用程序， 带有图形界面。 它旨在分析和衡量 Web 应用程序和各种服务的性能和负载功能行为。<span id="more"></span> </p>
@@ -2298,150 +2442,6 @@
 <p><strong>手动配置主机名：</strong> </p>
 <p>作用：常用与移动 App 测试当中，用来模拟用户的一个操作，如果仅凭肉眼来观察， </p>
 <p>它是没有一个可靠的步骤和记录的。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>App自动化测试概述</title>
-    <url>/2021/09/04/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<h2 id="一、应用背景"><a href="#一、应用背景" class="headerlink" title="一、应用背景"></a><strong>一、应用背景</strong></h2><p>随着移动互联网和智能设备越来越普及，移动App已经渗透到了我们的生活方方面面，比如出行、饮食、旅行、社交、金融、短视频等。</p>
-<p>用户对App产品的质量和用户体验要求越来越高。因此很多互联网企业也因此开始对移动端产品质量越来越重视。但是App产品不断迭代更新，给测试人员也增加了测试工作量，特别是大量繁琐的回归测试。</p>
-<p>自动化测试是应对产品不断迭代更新的辅助测试手段（主要是针对回归测试），最终目的是为了保证产品质量。 <span id="more"></span></p>
-<h2 id="二、移动端操作系统与app类型"><a href="#二、移动端操作系统与app类型" class="headerlink" title="二、移动端操作系统与app类型"></a><strong>二、移动端操作系统与app类型</strong></h2><h3 id="主流"><a href="#主流" class="headerlink" title="主流"></a><strong>主流</strong></h3><p>Andriod、iOS</p>
-<h3 id="非主流"><a href="#非主流" class="headerlink" title="非主流"></a><strong>非主流</strong></h3><p>Winphone、黑莓、塞班、ubuntu、Asha、Tizen、Jolla、Firefox OS、鸿蒙os</p>
-<h3 id="非智能机"><a href="#非智能机" class="headerlink" title="非智能机"></a><strong>非智能机</strong></h3><p>MTK平台、S40平台</p>
-<h3 id="Andriod"><a href="#Andriod" class="headerlink" title="Andriod"></a><strong>Andriod</strong></h3><p>Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。</p>
-<img src="https://pic.imgdb.cn/item/61376beb44eaada73926a6b3.jpg">
-
-<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a><strong>iOS</strong></h3><p>iOS是由苹果公司开发的移动操作系统 。苹果公司最早于2007年1月9日的Macworld大会上公布这个系统，最初是设计给iPhone使用的，后来陆续套用到iPod touch、iPad以及Apple TV等产品上。iOS与苹果的Mac OS X操作系统一样，属于类Unix的商业操作系统。</p>
-<h2 id="三、app测试框架介绍"><a href="#三、app测试框架介绍" class="headerlink" title="三、app测试框架介绍"></a><strong>三、app测试框架介绍</strong></h2><h3 id="1-Andriod："><a href="#1-Andriod：" class="headerlink" title="1. Andriod："></a><strong>1. Andriod：</strong></h3><h4 id="Monkey"><a href="#Monkey" class="headerlink" title="Monkey"></a><strong>Monkey</strong></h4><p>​    Monkey是一个程序，运行在您的模拟器或设备上，并生成伪随机的用户事件流，如点击，触摸或手势，以及一些系统级事件。 您可以使用Monkey以随机但可重复的方式对您正在开发的应用程序进行压力测试。</p>
-<h4 id="MonkeyRunner"><a href="#MonkeyRunner" class="headerlink" title="MonkeyRunner"></a><strong>MonkeyRunner</strong></h4><p>​    MonkeyRunner工具是使用Jython(使用Java编程语言实现的Python)写出来的，它提供了多个API，通过monkeyrunner API 可以写一个Python的程序来模拟操作控制Android设备app,测试其稳定性并通过截屏可以方便地记录出现的问题。</p>
-<h4 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a><strong>Instrumentation</strong></h4><p>​    Instrumentaion 是Android自带的一个测试框架，是很多其它测试框架的基础，可以在同进程中加载被测组件。它有很多丰富的高层封装，使用者可以使用基于instrumentation的其他框架，避免过多二次开发量。但Instrumentation不支持跨应用,导致基于instrumentation的框架都继承了这个缺点。</p>
-<h4 id="Robotium-基于Instrumentation"><a href="#Robotium-基于Instrumentation" class="headerlink" title="Robotium(基于Instrumentation)"></a><strong>Robotium(基于Instrumentation)</strong></h4><p>​    Robotium是基于Instrumentation框架开发的一个更强的框架. 对常用的操作进行了易用性的封装. 用于开发功能性、系统和验收测试场景。它运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。</p>
-<h4 id="Robolectric"><a href="#Robolectric" class="headerlink" title="Robolectric"></a><strong>Robolectric</strong></h4><p>​    支持单元测试；Robolectric允许用户做大部分真实设备上可以做的事情，且可以在常规的JVM持续集成环境中运行，不需要通过模拟器，因此可以摆脱模拟器启动慢的问题。</p>
-<h4 id="UIAutomator"><a href="#UIAutomator" class="headerlink" title="UIAutomator"></a><strong>UIAutomator</strong></h4><p>​    Android 4.3发布的时候包含了一种新的测试工具–uiautomator，uiautomator是用来做UI测试的。也就是普通的手工测试，点击每个控件元素 看看输出的结果是否符合预期。比如 登陆界面 分别输入正确和错误的用户名密码然后点击登陆按钮看看是否能否登陆以及是否有错误提示等。</p>
-<h4 id="Selendroid"><a href="#Selendroid" class="headerlink" title="Selendroid"></a><strong>Selendroid</strong></h4><p>​    Selendroid 是一个基于Instrumentation的一个框架. 完全兼容Webdriver协议。 Selendroid 可以在模拟器和实际设备上使用，也可以集成网格节点作为缩放和并行测试。</p>
-<h4 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a><strong>Espresso</strong></h4><p>​    Espresso是Google的开源自动化测试框架。相对于Robotium和UIAutomator，它的特点是规模更小、更简洁，API更加精确，编写测试代码简单，容易快速上手。因为是基于Instrumentation的，所以不能跨App。</p>
-<h4 id="Calabash"><a href="#Calabash" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​    Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
-<h4 id="Appium"><a href="#Appium" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​    Appium是一个开源的、跨平台的自动化测试工具，支持IOS、Android和FirefoxOS平台。 通过Appium，开发者无需重新编译app或者做任何调整，就可以测试移动应用，可以使测试代码访问后端API和数据库。</p>
-<p>​    它是通过驱动苹果的UIAutomation和Android的UiAutomator框架来实现的双平台支持，同时绑定了Selenium WebDriver用于老的Android平台测试。开发者可以使用WebDriver兼容的任何语言编写测试脚本，如Java， OC， JS， PHP，Python， Ruby， C#，Clojure 和Perl语言。</p>
-<h4 id="Macaca"><a href="#Macaca" class="headerlink" title="Macaca"></a><strong>Macaca</strong></h4><p>​    Macaca 是一套面向用户端软件的测试解决方案，提供了自动化驱动，环境配套，周边工具，集成方案，旨在解决终端上的测试、自动化、性能等方面的问题。</p>
-<h4 id="Cafe"><a href="#Cafe" class="headerlink" title="Cafe"></a><strong>Cafe</strong></h4><p>​    基于hook录制体系</p>
-<p>​    遍历测试</p>
-<p>​    跨app测试</p>
-<p>​    pc agent设计</p>
-<p>​    使用android漏洞提权</p>
-<h3 id="2-iOS"><a href="#2-iOS" class="headerlink" title="2. iOS"></a>2. <strong>iOS</strong></h3><h4 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a><strong>XCTest</strong></h4><p>​        XCTest是苹果在iOS 7和Xcode5引入的一个简单而强大的测试框架，它的测试编写起来非常简单，并且遵循xUnit风格。XCTest的优点是与Xcode深度集成，有专门的Test导航栏，但因为受限于官方测试API，因此功能不是很丰富。</p>
-<h4 id="UIAutomation"><a href="#UIAutomation" class="headerlink" title="UIAutomation"></a><strong>UIAutomation</strong></h4><p>​        UIAutomation是苹果提供的UI自动化测试框架，使用Javascript编写。基于UIAutomation有扩展型的工具框架和驱动型的框架。</p>
-<p>​        扩展型框架以JavaScript扩展库方法提供了很多好用js工具，注入式的框架通常会提供一些Lib或者是Framework，要求测试人员在待测应用的代码工程中导入这些内容，框架可以通过他们完成对app的驱动。</p>
-<p>​        驱动型UI Automation 在自动化测试底层使用了UI Automation库，通过TCP通信的方式驱动UI Automation来完成自动化测试，通过这种方式，编辑脚本的语言不再局限于JavaScript。</p>
-<h4 id="Appium-1"><a href="#Appium-1" class="headerlink" title="Appium"></a><strong>Appium</strong></h4><p>​        它是通过驱动苹果的UIAutomation来执行自动化</p>
-<h4 id="Frank"><a href="#Frank" class="headerlink" title="Frank"></a><strong>Frank</strong></h4><p>​        Frank是iOS平台一款非常受欢迎的app测试框架，它使用Cucumber语言来编写测试用例， Frank包含一个强大的“app inspector”–Symbiote，可以用它来获得运行中app的详细信息，便于开发者将来进行测试回顾。</p>
-<p>​        优点： 测试场景是在Cucumber的帮助下，用可理解的英语句子写的。</p>
-<p>强大的Symbiote实时检查工具。 活跃的社区支持。 不断扩大中的库。</p>
-<p>​        缺点： 对手势的支持有限。 在设备上运行测试有点难。 修改配置文件需要在实际设备上运行。 记录功能不可用。</p>
-<h4 id="KIF"><a href="#KIF" class="headerlink" title="KIF"></a><strong>KIF</strong></h4><p>​        KIF是Keep It Functional项目的缩写，是一款iOS app功能性测试框架，使用Objective-C语言编写，对苹果开发者来说非常容易上手，更是一款开发者广为推荐的测试工具。KIF tester使用私有API来了解App中的视图层级。但缺点是运行较慢。</p>
-<h4 id="Calabash-1"><a href="#Calabash-1" class="headerlink" title="Calabash"></a><strong>Calabash</strong></h4><p>​        Calabash是一个适用于iOS和Android开发者的跨平台app测试框架，可用来测试屏幕截图、手势和实际功能代码。</p>
-<h4 id="Subliminal"><a href="#Subliminal" class="headerlink" title="Subliminal"></a><strong>Subliminal</strong></h4><p>​        Subliminal是另一款与XCTest集成的框架。与KIF不同的是，它基于UIAutomation编写，旨在对开发者隐藏UIAutomation中一些复杂的细节。</p>
-<h4 id="Kiwi"><a href="#Kiwi" class="headerlink" title="Kiwi"></a><strong>Kiwi</strong></h4><p>​        Kiwi是对XCTest的一个完整替代，使用xSpec风格编写测试。 Kiwi带有自己的一套工具集，包括expectations、mocks、stubs，甚至还支持异步测试。它是一个适用于iOS 开发的Behavior Driven Development（BDD）库，优点在于其简洁的接口和可用性，易于设置和使用，非常适合新手开发者。Kiwi使用Objective-C语言编写，易于IOS开发人员上手。</p>
-<h4 id="Appecker"><a href="#Appecker" class="headerlink" title="Appecker"></a><strong>Appecker</strong></h4><p>​        Appecker是一款用于iOS系列系统的自动化测试框架，是腾讯的一个开源项目。Appecker采用Objective C为测试用例的开发语言, 完整支持iOS上的UI功能测试、单元测试并且可以良好地支持自动化运行。</p>
-<h2 id="四、Android-app类型"><a href="#四、Android-app类型" class="headerlink" title="四、Android app类型"></a>四、<strong>Android</strong> <strong>app类型</strong></h2><h3 id="1-原生应用程序：（Native-App）"><a href="#1-原生应用程序：（Native-App）" class="headerlink" title="1. 原生应用程序：（Native App）"></a>1. <strong>原生应用程序：（Native App）</strong></h3><p>原生APP是什么？原生APP就是利用Android、iOS平台官方的开发语言、开发类库、工具进行开发。比如安卓的java语言，iOS的object-c 语言。在应用性能上和交互体验上应该是最好的。</p>
-<p>优点：</p>
-<p>1、可访问手机所有功能、可实现功能最齐全；</p>
-<p>2、运行速度快、性能高，绝佳的用户体验；</p>
-<p>3、支持大量图形和动画。不卡，反应快。</p>
-<p>4、比较快捷地使用设备端提供的接口，处理速度上有优势。</p>
-<p>缺点：</p>
-<ol>
-<li><p>在过去主要是成本高、周期长，Android和iOS都需要单独开发。</p>
-</li>
-<li><p>更新版本需要重新下载安装包。</p>
-</li>
-</ol>
-<h3 id="2-混合应用程序（Hybrid-App）"><a href="#2-混合应用程序（Hybrid-App）" class="headerlink" title="2. 混合应用程序（Hybrid App）"></a>2. <strong>混合应用程序（Hybrid App）</strong></h3><p>即利用了原生APP的开发技术还应用了HTML5开发技术，是原生和HTML5技术的混合应用。混合比例不限。</p>
-<p>优点：</p>
-<p>1、开发周期短；</p>
-<p>2、功能更新发布快；</p>
-<p>缺点：</p>
-<p>1、用户体验不如本地应用；</p>
-<p>2、性能稍慢（需要连接网络）；</p>
-<h3 id="3-Web版APP-（Web-App）"><a href="#3-Web版APP-（Web-App）" class="headerlink" title="3. Web版APP （Web App）"></a>3. <strong>Web版APP （Web App）</strong></h3><p>本质就是浏览器功能的叠加，用普通Web开发语言开发的，通过浏览器运行。</p>
-<p>优势：</p>
-<p>1、支持范围广；</p>
-<p>2、开发成本低、周期短。</p>
-<p>缺点：</p>
-<p>1、对联网要求高，离线不能做任何操作；</p>
-<p>2、功能有限；</p>
-<p>3、运行速度慢，页面不能承载太多东西；</p>
-<p>4、图片和动画支持性不高；</p>
-<p>5、如果用户使用更多的新型浏览器，那么就会出现运行问题。</p>
-<h3 id="4-Web-App、Hybrid-App、Native-App-技术特性"><a href="#4-Web-App、Hybrid-App、Native-App-技术特性" class="headerlink" title="4.Web App、Hybrid App、Native App 技术特性"></a><strong>4.Web App、Hybrid App、Native App 技术特性</strong></h3><img src="https://pic.imgdb.cn/item/61376c7044eaada73928096f.jpg">
-
-<h3 id="5-手游app与手机App"><a href="#5-手游app与手机App" class="headerlink" title="5. 手游app与手机App"></a>5. <strong>手游app与手机App</strong></h3><p>手游一般使用引擎开发，现在著名的有cocos2d和unity3d。两者都是使用引擎自带的语言进行开发，主流的分别是c++和c#，虽然在开发过程中也有按钮等控件的概念，但当运行时由引擎渲染后就变成了一副简单的图片：</p>
-<p>手机App一般使用Android SDK开发，使用Java编写。通过Android提供的服务，我们可以获取App当前窗口的视图信息，进而查找和操作按钮等控件，以完成自动化测试，如Uiautomator。这个过程是标准化的，从技术上来说没有任何难度，因此各个公司各个App自动化测试的方法都大同小异。</p>
-<h2 id="五、Android-SDK介绍"><a href="#五、Android-SDK介绍" class="headerlink" title="五、Android    SDK介绍"></a>五、<strong>Android</strong>    <strong>SDK介绍</strong></h2><p>SDK：（software development kit）软件开发工具包。被软件开发工程师用于为特定的软件包、软件框架、硬件平台、操作系统等建立应用软件的开发工具的集合。</p>
-<p>因此，Android SDK 指的是Android专属的软件开发工具包。</p>
-<h2 id="六、Android-SDK环境搭建"><a href="#六、Android-SDK环境搭建" class="headerlink" title="六、Android SDK环境搭建"></a>六、<strong>Android SDK环境搭建</strong></h2><h3 id="1-配置jdk环境"><a href="#1-配置jdk环境" class="headerlink" title="1.配置jdk环境"></a><strong>1.配置jdk环境</strong></h3><p>因为安卓用Java语言开发，所以安装安卓环境——首先需要安装配置好jdk环境(<a href="https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html">https://jingyan.baidu.com/article/3c343ff70bc6ea0d377963df.html</a>)</p>
-<p>推荐使用 jdk 8以上的版本</p>
-<h3 id="2-SDK下载"><a href="#2-SDK下载" class="headerlink" title="2.SDK下载"></a><strong>2.SDK下载</strong></h3><p>Android SDK包下载</p>
-<p>· 官网下载：<a href="https://android-sdk.en.softonic.com/download">https://android-sdk.en.softonic.com/download</a></p>
-<p>· 网盘下载： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
-<p>安装后启动 SDK Manager.exe程序就可以看到Android SDK Mannerger的主界面。</p>
-<img src="https://pic.imgdb.cn/item/61376cde44eaada739294c74.jpg">
-
-<h4 id="Tools目录："><a href="#Tools目录：" class="headerlink" title="Tools目录："></a><strong>Tools目录：</strong></h4><img src="https://pic.imgdb.cn/item/61376cf544eaada739298e69.jpg">
-
-<p><strong>Android SDK Tools</strong>（必须，只需下载一个版本，一般选最新版本）：基础工具包，版本号带rc字样的是预览版。</p>
-<p><strong>Android SDK Platform-tools必须</strong>，只需下载一个版本，一般选最新版本）：从android2.3开始划出此目录，存放公用开发工具，比如adb、sqlite3等，被划分到了这里。</p>
-<p><strong>Android SDK Build-tools</strong>（必须，可以安装多个版本）：Android项目构建工具。</p>
-<p><strong>Android xxx（API xx）</strong>目录（可选的各平台开发工具）</p>
-<img src="https://pic.imgdb.cn/item/61376d0d44eaada73929d3b5.jpg">
-
-<ul>
-<li><p> Documentation for AndroidSdk（可选）：安卓开发者官网的一些离线文档，不过下载下来打开也很慢，后面会提供另外一个离线版。</p>
-</li>
-<li><p>SDK Platform** (必须）：对应平台的开发工具，需要在哪个版本的平台下开发就下载哪个。</p>
-</li>
-<li><p>Samples for SDK（可选)，此项在高版本tools中已不提供，需要在IDE里通过Import Sample引入，当然也可以下载离线版）：内置的安卓示例程序，推荐安装。</p>
-</li>
-<li><p>Sources for Android SDK（可选）：安卓API的源代码，推荐安装。</p>
-</li>
-<li><p> ARM /Intel xxxx Image（可选）：各个以Image结尾的东西是支持相应平台的模拟器，我们就把它想象成一个刷机包吧。（使用真机调试或使用其它模拟器的话不需要安装）</p>
-</li>
-</ul>
-<p><strong>Extras</strong>目录(可选的扩展）</p>
-<img src="https://pic.imgdb.cn/item/61376d1f44eaada7392a0bf1.jpg">
-
-<ul>
-<li><p>Android Support Repository（可选）：主要是方便在gradle中使用Android Support Libraries，因为Google并没有把这些库发布到maven center或者jcenter去，而是使用了Google自己的maven仓库。</p>
-</li>
-<li><p> Intel x86 Emulator Accelerator(HAXM installer)（可选）：windows平台的Intel x86模拟器加速工具，配合Intel x86 atom/atom_64 System Image使用可加快模拟器的运行速度。</p>
-</li>
-</ul>
-<h3 id="3-Android-SDK文件目录"><a href="#3-Android-SDK文件目录" class="headerlink" title="3.Android SDK文件目录"></a><strong>3.Android SDK文件目录</strong></h3><img src="https://pic.imgdb.cn/item/61376d3944eaada7392a5721.jpg">
-
-<h4 id="add-ons"><a href="#add-ons" class="headerlink" title="add-ons"></a><strong>add-ons</strong></h4><p>这里面保存着附加库，第三方公司为android 平台开发的附加功能系统。比如GoogleMaps，当然你如果安装了OphoneSDK，这里也会有一些类库在里面。</p>
-<h4 id="docs"><a href="#docs" class="headerlink" title="docs"></a><strong>docs</strong></h4><p>这里面是Android SDKAPI参考文档，所有的API都可以在这里查到。</p>
-<h4 id="extras"><a href="#extras" class="headerlink" title="extras"></a><strong>extras</strong></h4><p>该文件夹下存放了Android support v4，v7，v13，v17包； 还有google提供额USB驱动、Intel提供的硬件加速等附加工具包， 和market_licensing作为AndroidMarket版权保护组件，一般发布付费应用到电子市场可以用它来反盗版。</p>
-<h4 id="platforms"><a href="#platforms" class="headerlink" title="platforms"></a><strong>platforms</strong></h4><p>是每个平台的SDK真正的文件，存放了不同版本的android系统。里面会根据APILevel划分的SDK版本。</p>
-<h4 id="samples"><a href="#samples" class="headerlink" title="samples"></a><strong>samples</strong></h4><p>是Android SDK自带的默认示例工程，里面的apidemos强烈推荐初学者运行学 习，对于SQLite数据库操作可以查看NotePad这个例子，对于游戏开发Snake、LunarLander都是不错的例子，对于Android主 题开发Home则是androidm5时代的主题设计原理。</p>
-<h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a><strong>环境变量设置</strong></h4><ul>
-<li><p> 系统变量里面添加变量名 ANDROID_HOME 路径为实际存放SDk的路径</p>
-</li>
-<li><img src="https://pic.imgdb.cn/item/61376d6744eaada7392ad601.jpg"></li>
-<li><p>其他几个路径配置到系统环境Path中如下图所示：</p>
-<img src="https://pic.imgdb.cn/item/61376db144eaada7392b9aab.jpg"></li>
-</ul>
-<h2 id="七-配置检测"><a href="#七-配置检测" class="headerlink" title="七.配置检测"></a><strong>七.配置检测</strong></h2><p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
-<p>adb命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;adb</span><br><span class="line">Android Debug Bridge version 1.0.39</span><br><span class="line">Revision 3db08f2c6889-android</span><br><span class="line">Installed as E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">global options:</span><br><span class="line"> -a         listen on all network interfaces, not just localhost</span><br><span class="line"> -d         use USB device (error if multiple devices connected)</span><br><span class="line"> -e         use TCP/IP device (error if multiple TCP/IP devices available)</span><br><span class="line"> -s SERIAL</span><br><span class="line">     use device with given serial number (overrides $ANDROID_SERIAL)</span><br><span class="line"> -p PRODUCT</span><br><span class="line">     name or path (&#x27;angler&#x27;/&#x27;out/target/product/angler&#x27;);</span><br><span class="line">     default $ANDROID_PRODUCT_OUT</span><br><span class="line"> -H         name of adb server host [default=localhost]</span><br><span class="line"> -P         port of adb server [default=5037]</span><br><span class="line"> -L SOCKET  listen on given socket for adb server [default=tcp:localhost:5037]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p> aapt命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;aapt</span><br><span class="line">Android Asset Packaging Tool</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"> aapt l[ist] [-v] [-a] file.&#123;zip,jar,apk&#125;</span><br><span class="line">   List contents of Zip-compatible archive.</span><br><span class="line"></span><br><span class="line"> aapt d[ump] [--values] [--include-meta-data] WHAT file.&#123;apk&#125; [asset [asset ...]]</span><br><span class="line">   strings          Print the contents of the resource table string pool in the APK.</span><br><span class="line">   badging          Print the label and icon for the app declared in APK.</span><br><span class="line">   permissions      Print the permissions from the APK.</span><br><span class="line">   resources        Print the resource table from the APK.</span><br><span class="line">   configurations   Print the configurations in the APK.</span><br><span class="line">   xmltree          Print the compiled xmls in the given assets.</span><br><span class="line">   xmlstrings       Print the strings of the given compiled xml assets.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a><strong>参考资料：</strong></h4><p>· <a href="#m2">http://www.cnblogs.com/kangjianwei101/p/5621238.html#m2</a></p>
-<p>· <a href="http://blog.csdn.net/aiynmimi/article/details/51028499">http://blog.csdn.net/aiynmimi/article/details/51028499</a></p>
 ]]></content>
   </entry>
   <entry>
