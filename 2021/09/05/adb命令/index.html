@@ -33,10 +33,6 @@
 
   
   
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -389,13 +385,6 @@
         
             <div id="toc-article">
                 
-  <div class="widget-wrap" id="toc-wrap">
-    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
-    <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Android-%E8%B0%83%E8%AF%95%E6%A1%A5"><span class="toc-text">一、Android 调试桥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81adb-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">二、adb 的工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81adb%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">三、adb常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Badb%E7%89%88%E6%9C%AC"><span class="toc-text">查看adb版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="toc-text">连接夜神模拟器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF"><span class="toc-text">查看设备信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adb-shell"><span class="toc-text">adb shell</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Adb%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83"><span class="toc-text">Adb相关命令参考</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E5%A6%82%E4%BD%95%E6%8A%8A%E7%94%B5%E8%84%91%E4%B8%8A%E7%9A%84%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9%E4%BC%A0%E5%88%B0%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%87%8C%E9%9D%A2%EF%BC%9F"><span class="toc-text">1、如何把电脑上的文件或文件夹传到模拟器里面？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E5%A6%82%E4%BD%95%E6%8A%8A%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%87%8C%E9%9D%A2%E7%9A%84%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9%E4%BC%A0%E5%88%B0%E7%94%B5%E8%84%91%E4%B8%8A%EF%BC%9F"><span class="toc-text">2、如何把模拟器里面的文件或文件夹传到电脑上？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85APK"><span class="toc-text">3、安装APK</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E3%80%81%E5%8D%B8%E8%BD%BDAPK"><span class="toc-text">4、卸载APK</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%E3%80%81PM%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-text">5、PM包命令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%EF%BC%89%E8%8E%B7%E5%8F%96%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%89%80%E6%9C%89%E5%8C%85%E5%90%8D"><span class="toc-text">1）获取模拟器所有包名</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%EF%BC%89%E8%8E%B7%E5%8F%96%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%89%80%E6%9C%89%E5%8C%85%E5%90%8D%E5%B9%B6%E4%B8%94%E5%8C%85%E6%8B%ACAPK%E8%B7%AF%E5%BE%84"><span class="toc-text">2）获取模拟器所有包名并且包括APK路径</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3%EF%BC%89%E8%8E%B7%E5%8F%96%E5%8C%85%E5%90%8D%E5%AF%B9%E5%BA%94%E7%9A%84APK%E8%B7%AF%E5%BE%84"><span class="toc-text">3）获取包名对应的APK路径</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4%EF%BC%89%E6%B8%85%E7%90%86%E5%BA%94%E7%94%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">4）清理应用数据</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6%E3%80%81%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8"><span class="toc-text">6、启动应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7%E3%80%81%E5%85%B3%E9%97%AD%E5%BA%94%E7%94%A8"><span class="toc-text">7、关闭应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8%E3%80%81%E6%A8%A1%E6%8B%9F%E8%BE%93%E5%85%A5"><span class="toc-text">8、模拟输入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#9%E3%80%81%E6%A8%A1%E6%8B%9F%E6%8C%89%E9%94%AE"><span class="toc-text">9、模拟按键</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10%E3%80%81%E6%A8%A1%E6%8B%9F%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB"><span class="toc-text">10、模拟鼠标点击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#11%E3%80%81%E6%A8%A1%E6%8B%9F%E9%BC%A0%E6%A0%87%E6%BB%91%E5%8A%A8"><span class="toc-text">11、模拟鼠标滑动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#12%E3%80%81%E6%88%AA%E5%B1%8F"><span class="toc-text">12、截屏</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#13%E3%80%81%E8%AE%BE%E7%BD%AE%E6%89%8B%E6%9C%BAIMEI-IMSI-%E6%89%8B%E6%9C%BA%E5%8F%B7-SIM%E5%8D%A1%E5%BA%8F%E5%88%97%E5%8F%B7"><span class="toc-text">13、设置手机IMEI&#x2F;IMSI&#x2F;手机号&#x2F;SIM卡序列号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#14%E3%80%81nox-adb-shell%E8%BF%9B%E5%8E%BB%E7%84%B6%E5%90%8E%E6%89%A7%E8%A1%8C%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%91%BD%E4%BB%A4%E4%BF%AE%E6%94%B9%E7%BB%8F%E7%BA%AC%E5%BA%A6"><span class="toc-text">14、nox_adb shell进去然后执行下面的命令修改经纬度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#15%E3%80%81%E4%BF%AE%E6%94%B9mac%E5%9C%B0%E5%9D%80"><span class="toc-text">15、修改mac地址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#16%E3%80%81adb-logcat"><span class="toc-text">16、adb logcat</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#17%E3%80%81adb-start-kill-server"><span class="toc-text">17、adb start&#x2F;kill-server</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#18%E3%80%81adb-shell-am"><span class="toc-text">18、adb shell am</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#19%E3%80%81adb-shell-dumpsys"><span class="toc-text">19、adb shell dumpsys</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#20-%E5%A4%8D%E5%88%B6"><span class="toc-text">20.复制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#21-%E5%88%A0%E9%99%A4"><span class="toc-text">21.删除</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#22-%E5%A4%87%E4%BB%BD"><span class="toc-text">22.备份</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#23-%E8%BF%98%E5%8E%9F"><span class="toc-text">23.还原</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
-    </div>
-  </div>
-
 
             </div>
         
@@ -602,17 +591,6 @@
 
 
 
-
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-  </script>
-  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>
