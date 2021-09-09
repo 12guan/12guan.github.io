@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Appium案例整合 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Appium案例整合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Appium案例整合
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-09T09:23:37.000Z" itemprop="datePublished">2021年09月09日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、Pageobject-unittest"><a href="#一、Pageobject-unittest" class="headerlink" title="一、Pageobject+unittest"></a>一、<strong>Pageobject+unittest</strong></h1><p>在前面我们都是基于线性模型来编写测试脚本，而且元素定位方式和属性值都是写死的。在业务场景简单的情况下这样写无可厚非，但是一旦遇到产品需求变更，业务逻辑比较复杂需要维护的时候就非常麻烦了，那么该如何应对这种情况呢？<span id="more"></span></p>
+<h2 id="1-场景案例"><a href="#1-场景案例" class="headerlink" title="1. 场景案例"></a><strong>1. 场景案例</strong></h2><p>前面我们所学，测试考研帮App登录场景，按照线性模型来构造出脚本如下： </p>
+<p>考研帮登录测试场景脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;./log/log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stream=open(&#x27;./yaml/desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(stream)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br><span class="line"></span><br><span class="line">def check_updateBtn():</span><br><span class="line">    logging.info(&quot;check_updateBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;update element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;skipBtn element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br><span class="line"></span><br><span class="line">logging.info(&#x27;start login...&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br><span class="line">logging.info(&#x27;login finished&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-案例分析"><a href="#1-案例分析" class="headerlink" title="1) 案例分析"></a>1) <strong>案例分析</strong></h3><p>上面的脚本看似都比较完善，有了log采集，参数配置、启动时页面元素自动检测。但是也存在一些不足之处：</p>
+<ul>
+<li>公共模块和业务模块混合在一起显得代码冗余等</li>
+<li>测试场景单一（如果要实现如下测试场景该怎么办？）</li>
+<li>元素定位属性和代码混杂在一起</li>
+</ul>
+<p>以上这些都是需要优化的地方。</p>
+<table>
+<thead>
+<tr>
+<th><strong>测试场景</strong></th>
+<th><strong>操作步骤</strong></th>
+<th><strong>预期结果</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多账号登录</td>
+<td>不同的用户名密码来进行登录</td>
+<td>能够正常登录</td>
+</tr>
+<tr>
+<td>异常登录</td>
+<td>用户名或者密码错误、或者为空进行登录，</td>
+<td>登录失败，同时界面要给出相应的提示</td>
+</tr>
+<tr>
+<td>注册</td>
+<td>点击注册，然后进行注册信息填写</td>
+<td>能够注册成功</td>
+</tr>
+</tbody></table>
+<h3 id="2-重构优化思路"><a href="#2-重构优化思路" class="headerlink" title="2) 重构优化思路"></a><strong>2) 重构优化思路</strong></h3><ul>
+<li>将一些公共的内容（如：check_updateBtn，check_skipBtn,capability）抽离出来。</li>
+<li>元素定位方法和元素属性值与业务代码分离</li>
+<li>登录功能模块封装为一个独立的模块</li>
+<li>使用unittest进行用例综合管理</li>
+</ul>
+<h3 id="3-Page-Object"><a href="#3-Page-Object" class="headerlink" title="3) Page Object"></a><strong>3) Page Object</strong></h3><p><strong>Page Object是Selenium自动化测试项目开发实践的最佳设计模式之一，通过对界面元素的封装减少冗余代码，同时在后期维护中，若元素定位发生变化，只需要调整页面元素封装的代码，提高测试用例的可维护性。</strong></p>
+<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a><strong>2. 代码实现</strong></h2><p><strong>封装App启动配置信息</strong> </p>
+<p><strong>desired_caps.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line">import logging.config</span><br><span class="line">from appium import webdriver</span><br><span class="line"></span><br><span class="line">#把app启动封装到一个类里面</span><br><span class="line"></span><br><span class="line">CON_LOG = &#x27;../log/log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging = logging.getLogger()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def appium_desired():</span><br><span class="line"></span><br><span class="line">    stream = open(&#x27;../yaml/desired_caps.yaml&#x27;, &#x27;r&#x27;)</span><br><span class="line">    data = yaml.load(stream)</span><br><span class="line"></span><br><span class="line">    desired_caps=&#123;&#125;</span><br><span class="line">    desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">    desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">    desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;unicodeKeyboard&#x27;]=data[&#x27;unicodeKeyboard&#x27;]</span><br><span class="line">    desired_caps[&#x27;resetKeyboard&#x27;]=data[&#x27;resetKeyboard&#x27;]</span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">    desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">    logging.info(&#x27;start run app...&#x27;)</span><br><span class="line">    driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br><span class="line"></span><br><span class="line">    driver.implicitly_wait(8)</span><br><span class="line">    return driver</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    appium_desired()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>记得在原来的yaml配置表desired_caps.yaml补充如下内容：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unicodeKeyboard: True </span><br><span class="line">resetKeyboard: True</span><br></pre></td></tr></table></figure>
+
+<p><strong>封装基类</strong>:</p>
+<p><strong>BaseView.py</strong></p>
+<ol>
+<li>初始化——获取driver</li>
+<li>写一个获取所有元素的函数</li>
+</ol>
+<p><strong>#封装对应基类</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#封装对应基类</span><br><span class="line">class BaseView(object):</span><br><span class="line">    def __init__(self,driver):</span><br><span class="line">        self.driver=driver</span><br><span class="line"></span><br><span class="line">    def find_element(self,*loc):</span><br><span class="line">        return self.driver.find_element(*loc)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>封装通用公共类 common_fun.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">from Base_View import *</span><br><span class="line">from desired_caps import *</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line"></span><br><span class="line">class Common(BaseView):</span><br><span class="line">    cancelBtn=(By.ID,&#x27;android:id/button2&#x27;)</span><br><span class="line">    skipBtn=(By.ID,&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line"></span><br><span class="line">    def check_cancelBtn(self):</span><br><span class="line">        logging.info(&#x27;==========check_cancelBtn=========&#x27;)</span><br><span class="line">        try:</span><br><span class="line">            cancelBtn = self.driver.find_element(*self.cancelBtn)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            logging.info(&#x27;no cancelBtn&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            cancelBtn.click()</span><br><span class="line"></span><br><span class="line">    def check_skipBtn(self):</span><br><span class="line">        logging.info(&#x27;=========check skipBtn=============&#x27;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            skipBtn = self.driver.find_element(*self.skipBtn)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            logging.info(&#x27;no skipBtn&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            skipBtn.click()</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    driver=appium_desired()</span><br><span class="line">    com=Common(driver)</span><br><span class="line">    com.check_cancelBtn()</span><br><span class="line">    com.check_skipBtn()</span><br></pre></td></tr></table></figure>
+
+<p><strong>封装登录操作</strong></p>
+<p><strong>loginView.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">from common_fun import *</span><br><span class="line">from  desired_caps import *</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line"></span><br><span class="line">class LoginView(Common):</span><br><span class="line"></span><br><span class="line">    username_type=(By.ID,&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;)</span><br><span class="line">    password_type=(By.ID,&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;)</span><br><span class="line">    loginBtn=(By.ID,&#x27;com.tal.kaoyan:id/login_login_btn&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def login_action(self,username,password):</span><br><span class="line">        self.check_cancelBtn()</span><br><span class="line">        self.check_skipBtn()</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;===============login===============&#x27;)</span><br><span class="line">        logging.info(&#x27;input username:%s&#x27;%username)</span><br><span class="line">        self.driver.find_element(*self.username_type).send_keys(username)</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;input password:%s&#x27;%password)</span><br><span class="line">        self.driver.find_element(*self.password_type).send_keys(password)</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;click loginBtn.&#x27;)</span><br><span class="line">        self.driver.find_element(*self.loginBtn).click()</span><br><span class="line">        logging.info(&#x27;login finished &#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    driver=appium_desired()</span><br><span class="line">    l=LoginView(driver)</span><br><span class="line">    l.login_action(&#x27;xx&#x27;,&#x27;aa&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-unittest用例封装"><a href="#3-unittest用例封装" class="headerlink" title="3. unittest用例封装"></a>3. unittest用例封装</h2><p><strong>测试场景：使用如下账号进行分别登录测试</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>用户名</strong></th>
+<th><strong>密码</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>xxxx</strong></td>
+<td><strong>aaaa</strong></td>
+</tr>
+<tr>
+<td><strong>666</strong></td>
+<td><strong>222</strong></td>
+</tr>
+</tbody></table>
+<p><strong>1.封装用例启动、结束时的配置：</strong></p>
+<p><strong>myunit.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">from appium_Test4.page_object.desired_caps import appium_desired</span><br><span class="line">import logging</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line">#unitTest创建与销毁</span><br><span class="line">class StartEnd(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        logging.info(&#x27;=====setUp====&#x27;)</span><br><span class="line">        self.driver=appium_desired()</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        logging.info(&#x27;====tearDown====&#x27;)</span><br><span class="line">        sleep(5)</span><br><span class="line">        self.driver.close_app()</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 用例封装</strong></p>
+<p><strong>test_login.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from  appium_Test4.unitTest.myunit import StartEnd</span><br><span class="line">from appium_Test4.page_object.loginView import LoginView</span><br><span class="line">import unittest</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">class TestLogin(StartEnd):</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def test_login_xx(self):</span><br><span class="line">        logging.info(&#x27;=========test_login_xx============&#x27;)</span><br><span class="line">        l=LoginView(self.driver)</span><br><span class="line">        l.login_action(&#x27;xxxx&#x27;,&#x27;aaaa&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def test_login_error(self):</span><br><span class="line">        logging.info(&#x27;=======test_login_error=========&#x27;)</span><br><span class="line">        l=LoginView(self.driver)</span><br><span class="line">        l.login_action(&#x27;666&#x27;,&#x27;222&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<p>项目代码结构：</p>
+<p><img src="https://pic.imgdb.cn/item/6139d59344eaada739043265.jpg"></p>
+<h1 id="二、自动化测试框架综合案例"><a href="#二、自动化测试框架综合案例" class="headerlink" title="二、自动化测试框架综合案例"></a><strong>二、自动化测试框架综合案例</strong></h1><h2 id="1-框架功能"><a href="#1-框架功能" class="headerlink" title="1. 框架功能"></a><strong>1. 框架功能</strong></h2><p><strong>1) 业务功能的封装</strong></p>
+<p><strong>2) 测试用例封装</strong></p>
+<p><strong>3) 测试包管理</strong></p>
+<p><strong>4) 截图处理</strong></p>
+<p><strong>5) 断言处理</strong></p>
+<p><strong>6) 日志获取</strong></p>
+<p><strong>7) 测试报告生成</strong></p>
+<p><strong>8) 配置参数</strong></p>
+<h2 id="2-测试案例"><a href="#2-测试案例" class="headerlink" title="2. 测试案例"></a><strong>2. 测试案例</strong></h2><h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a><strong>测试环境</strong></h4><ul>
+<li>ppium-desktop 1.5.0</li>
+<li>考研帮App Android版3.1.0</li>
+<li>夜神模拟器 Android 7.1.2</li>
+<li>Win 10 64位</li>
+</ul>
+<h4 id="覆盖用例"><a href="#覆盖用例" class="headerlink" title="覆盖用例"></a><strong>覆盖用例</strong></h4><p><strong>1.登录场景</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>用户名</strong></th>
+<th><strong>密码</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>cccc</strong></td>
+<td><strong>cccc</strong></td>
+</tr>
+<tr>
+<td><strong>666</strong></td>
+<td><strong>222</strong></td>
+</tr>
+</tbody></table>
+<h2 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3. 代码实现"></a><strong>3. 代码实现</strong></h2><h3 id="1-driver配置封装"><a href="#1-driver配置封装" class="headerlink" title="1) driver配置封装"></a><strong>1) driver配置封装</strong></h3><p><strong>kyb_caps.yaml</strong> 配置表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line">platformVersion: 7.1.2</span><br><span class="line">deviceName: 127.0.0.1:62025</span><br><span class="line">appname: kaoyan3.1.0.apk</span><br><span class="line">noReset: False</span><br><span class="line">unicodeKeyboard: True</span><br><span class="line">resetKeyboard: True</span><br><span class="line">appPackage: com.tal.kaoyan</span><br><span class="line">appActivity: com.tal.kaoyan.ui.activity.SplashActivity</span><br><span class="line">ip: 127.0.0.1</span><br><span class="line">port: 4723</span><br></pre></td></tr></table></figure>
+
+<p><strong>desired_caps.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;../config/log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br><span class="line"></span><br><span class="line">def appium_desired():</span><br><span class="line">    with open(&#x27;../config/kyb_caps.yaml&#x27;,&#x27;r&#x27;,encoding=&#x27;utf-8&#x27;) as file:</span><br><span class="line">        data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">    desired_caps=&#123;&#125;</span><br><span class="line">    desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line">    desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">    desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">    base_dir = os.path.dirname(os.path.dirname(__file__))</span><br><span class="line">    app_path = os.path.join(base_dir, &#x27;app&#x27;, data[&#x27;appname&#x27;])</span><br><span class="line">    desired_caps[&#x27;app&#x27;]=app_path</span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">    desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line">    desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    desired_caps[&#x27;unicodeKeyboard&#x27;]=data[&#x27;unicodeKeyboard&#x27;]</span><br><span class="line">    desired_caps[&#x27;resetKeyboard&#x27;]=data[&#x27;resetKeyboard&#x27;]</span><br><span class="line"></span><br><span class="line">    logging.info(&#x27;start app...&#x27;)</span><br><span class="line">    driver=webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;,desired_caps)</span><br><span class="line">    driver.implicitly_wait(8)</span><br><span class="line">    return driver</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    appium_desired()</span><br></pre></td></tr></table></figure>
+
+<p><strong>相对路径符号含义</strong></p>
+<p><strong>1. “.”表示当前目录</strong></p>
+<p><strong>2. “..” 表示当前目录的上一级目录。</strong></p>
+<p><strong>3. “./”表示当前目录下的某个文件或文件夹，视后面跟着的名字而定</strong></p>
+<p><strong>4. “../”表示当前目录上一级目录的文件或文件夹，视后面跟着的名字而定。</strong></p>
+<h3 id="2-基类封装"><a href="#2-基类封装" class="headerlink" title="2) 基类封装"></a><strong>2) 基类封装</strong></h3><p><strong>baseView.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class BaseView(object):</span><br><span class="line">    def __init__(self,driver):</span><br><span class="line">        self.driver=driver</span><br><span class="line"></span><br><span class="line">    def find_element(self,*loc):</span><br><span class="line">        return self.driver.find_element(*loc)</span><br><span class="line"></span><br><span class="line">    def find_elements(self,*loc):</span><br><span class="line">        return self.driver.find_elements(*loc)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-common公共模块封装"><a href="#3-common公共模块封装" class="headerlink" title="3) common公共模块封装"></a><strong>3) common公共模块封装</strong></h3><p><strong>公共方法封装 :</strong></p>
+<p><strong>common_fun.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">from baseView.baseView import BaseView</span><br><span class="line">from common.desired_caps import appium_desired</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line">import time,os</span><br><span class="line">import csv</span><br><span class="line"></span><br><span class="line">class Common(BaseView):</span><br><span class="line">    cancelBtn=(By.ID,&#x27;android:id/button2&#x27;)</span><br><span class="line">    skipBtn=(By.ID,&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    wemedia_cacel=(By.ID,&#x27;com.tal.kaoyan:id/view_wemedia_cacel&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def check_cancelBtn(self):</span><br><span class="line">        logging.info(&#x27;==========check_cancelBtn=========&#x27;)</span><br><span class="line">        try:</span><br><span class="line">            cancelBtn = self.driver.find_element(*self.cancelBtn)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            logging.info(&#x27;no cancelBtn&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            cancelBtn.click()</span><br><span class="line"></span><br><span class="line">    def check_skipBtn(self):</span><br><span class="line">        logging.info(&#x27;=========check skipBtn=============&#x27;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            skipBtn = self.driver.find_element(*self.skipBtn)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            logging.info(&#x27;no skipBtn&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            skipBtn.click()</span><br><span class="line">   </span><br><span class="line">    def getTime(self):</span><br><span class="line">        self.now=time.strftime(&quot;%Y-%m-%d %H_%M_%S&quot;)</span><br><span class="line">        return self.now</span><br><span class="line"></span><br><span class="line">    def getScreenShot(self,module):</span><br><span class="line">        time=self.getTime()</span><br><span class="line">        image_file=os.path.dirname(os.path.dirname(__file__))+&#x27;/screenshots/%s_%s.png&#x27; %(module,time)</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;get %s screenshot&#x27; %module)</span><br><span class="line">        self.driver.get_screenshot_as_file(image_file)</span><br><span class="line"></span><br><span class="line">    def check_market_ad(self):</span><br><span class="line">        logging.info(&#x27;====check_market_ad====&#x27;)</span><br><span class="line">        try:</span><br><span class="line">            element=self.driver.find_element(*self.wemedia_cacel)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            pass</span><br><span class="line">        else:</span><br><span class="line">            logging.info(&#x27;close market ad&#x27;)</span><br><span class="line">            element.click()</span><br><span class="line"></span><br><span class="line">    def get_csv_data(self,csv_file,line):</span><br><span class="line">        logging.info(&#x27;=====get_csv_data======&#x27;)</span><br><span class="line">        with open(csv_file,&#x27;r&#x27;,encoding=&#x27;utf-8-sig&#x27;) as file:</span><br><span class="line">            reader=csv.reader(file)</span><br><span class="line">            for index,row in enumerate(reader,1):</span><br><span class="line">                if index==line:</span><br><span class="line">                    return row</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    driver = appium_desired()</span><br><span class="line">    c=Common(driver)</span><br><span class="line">    c.check_cancelBtn()</span><br><span class="line">    # # c.check_skipBtn()</span><br><span class="line">    # c.swipeLef()</span><br><span class="line">    # c.swipeLef()</span><br><span class="line">    # c.getScreenShot(&quot;startApp&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-业务模块封装"><a href="#4-业务模块封装" class="headerlink" title="4) 业务模块封装"></a><strong>4) 业务模块封装</strong></h3><h4 id="1-登录页面业务逻辑模块"><a href="#1-登录页面业务逻辑模块" class="headerlink" title="1. 登录页面业务逻辑模块"></a><strong>1. 登录页面业务逻辑模块</strong></h4><p><strong>loginView.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">from common.common_fun import Common,NoSuchElementException</span><br><span class="line">from common.desired_caps import appium_desired</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line"></span><br><span class="line">class LoginView(Common):</span><br><span class="line">    username_type=(By.ID,&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;)</span><br><span class="line">    password_type=(By.ID,&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;)</span><br><span class="line">    loginBtn=(By.ID,&#x27;com.tal.kaoyan:id/login_login_btn&#x27;)</span><br><span class="line"></span><br><span class="line">    tip_commit=(By.ID,&#x27;com.tal.kaoyan:id/tip_commit&#x27;)</span><br><span class="line"></span><br><span class="line">    button_mysefl=(By.ID,&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;)</span><br><span class="line">    username=(By.ID,&#x27;com.tal.kaoyan:id/activity_usercenter_username&#x27;)</span><br><span class="line"></span><br><span class="line">    RightButton=(By.ID,&#x27;com.tal.kaoyan:id/myapptitle_RightButton_textview&#x27;)</span><br><span class="line">    logoutBtn=(By.ID,&#x27;com.tal.kaoyan:id/setting_logout_text&#x27;)</span><br><span class="line"></span><br><span class="line">   def login_action(self,username,password):</span><br><span class="line">        self.check_cancelBtn()</span><br><span class="line">        self.check_skipBtn()</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;============login_action==============&#x27;)</span><br><span class="line">        logging.info(&#x27;username is:%s&#x27; %username)</span><br><span class="line">        self.driver.find_element(*self.username_type).send_keys(username)</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;password is:%s&#x27;%password)</span><br><span class="line">        self.driver.find_element(*self.password_type).send_keys(password)</span><br><span class="line"></span><br><span class="line">        logging.info(&#x27;click loginBtn&#x27;)</span><br><span class="line">        self.driver.find_element(*self.loginBtn).click()</span><br><span class="line">        logging.info(&#x27;login finished!&#x27;)</span><br><span class="line"></span><br><span class="line">    def check_account_alert(self):</span><br><span class="line">        logging.info(&#x27;=====check_account_alert====&#x27;)</span><br><span class="line">        try:</span><br><span class="line">            element=self.driver.find_element(*self.tip_commit)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            pass</span><br><span class="line">        else:</span><br><span class="line">            logging.info(&#x27;close tip_commit&#x27;)</span><br><span class="line">            element.click()</span><br><span class="line"></span><br><span class="line">    def check_loginStatus(self):</span><br><span class="line">        logging.info(&#x27;====check_loginStatus======&#x27;)</span><br><span class="line">        self.check_market_ad()</span><br><span class="line">        self.check_account_alert()</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line"></span><br><span class="line">            self.driver.find_element(*self.button_mysefl).click()</span><br><span class="line">            self.driver.find_element(*self.username)</span><br><span class="line">        except NoSuchElementException:</span><br><span class="line">            logging.error(&#x27;login Fail!&#x27;)</span><br><span class="line">            self.getScreenShot(&#x27;login fail&#x27;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            logging.info(&#x27;login success!&#x27;)</span><br><span class="line">            self.logout_action()</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line">    def logout_action(self):</span><br><span class="line">        logging.info(&#x27;=====logout_action======&#x27;)</span><br><span class="line">        self.driver.find_element(*self.RightButton).click()</span><br><span class="line">        self.driver.find_element(*self.logoutBtn).click()</span><br><span class="line">        self.driver.find_element(*self.tip_commit).click()</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    driver=appium_desired()</span><br><span class="line">    l=LoginView(driver)</span><br><span class="line">    l.login_action(&#x27;cccc&#x27;,&#x27;cccc&#x27;)</span><br><span class="line"></span><br><span class="line">    l.check_loginStatus()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-data数据封装"><a href="#2-data数据封装" class="headerlink" title="2. data数据封装"></a><strong>2. data数据封装</strong></h4><h5 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h5><p><strong>在实际项目过程中，我们的数据可能是存储在一个数据文件中，如txt,excel、csv文件类型。我们可以封装一些方法来读取文件中的数据来实现数据驱动。</strong></p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><p><strong>将测试账号存储在account.csv文件，内容如下：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>用户名</strong></th>
+<th><strong>密码</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Dddd1</strong></td>
+<td><strong>Dddd1</strong></td>
+</tr>
+<tr>
+<td><strong>666</strong></td>
+<td><strong>222</strong></td>
+</tr>
+</tbody></table>
+<h5 id="enumerate-简介"><a href="#enumerate-简介" class="headerlink" title="enumerate()简介"></a><strong>enumerate()简介</strong></h5><p><strong>enumerate()是python的内置函数</strong></p>
+<ul>
+<li>enumerate在字典上是枚举、列举的意思</li>
+<li> 对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</li>
+<li>enumerate多用于在for循环中得到计数。</li>
+</ul>
+<h5 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h5><p><strong>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;,&quot;数据&quot;]</span><br><span class="line">    for i in range(len(list)):</span><br><span class="line">        print(i,list[i])</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">0 这</span><br><span class="line">1 是</span><br><span class="line">2 一个</span><br><span class="line">3 测试</span><br><span class="line">4 数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>上述方法有些累赘，利用enumerate()会更加直接和优美：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;,&quot;数据&quot;]</span><br><span class="line">    for index, item in enumerate(list1):</span><br><span class="line">        print(index,item)</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">0 这</span><br><span class="line">1 是</span><br><span class="line">2 一个</span><br><span class="line">3 测试</span><br><span class="line">4 数据</span><br></pre></td></tr></table></figure>
+
+<h5 id="数据读取方法封装"><a href="#数据读取方法封装" class="headerlink" title="数据读取方法封装"></a><strong>数据读取方法封装</strong></h5><p><strong>import csv</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import csv</span><br><span class="line"></span><br><span class="line">     def get_csv_data(csv_file,line):</span><br><span class="line">        with open(csv_file, &#x27;r&#x27;, encoding=&#x27;utf-8-sig&#x27;) as file:</span><br><span class="line">            reader=csv.reader(file)</span><br><span class="line">            for index, row in enumerate(reader,1):</span><br><span class="line">                if index == line:</span><br><span class="line">                    return row</span><br><span class="line"></span><br><span class="line">    csv_file=&#x27;../data/account.csv&#x27;</span><br><span class="line">    data=get_csv_data(csv_file,3)</span><br><span class="line">    print(data)</span><br></pre></td></tr></table></figure>
+
+<h5 id="utf-8与utf-8-sig两种编码格式的区别"><a href="#utf-8与utf-8-sig两种编码格式的区别" class="headerlink" title="utf-8与utf-8-sig两种编码格式的区别:"></a>utf-8与utf-8-sig两种编码格式的区别:</h5><p>UTF-8以字节为编码单元，它的字节顺序在所有系统中都是一样的，没有字节序的问题，也因此它实际上并不需要BOM(“ByteOrder Mark”)。</p>
+<p>但是UTF-8 with BOM即utf-8-sig需要提供BOM。</p>
+<h4 id="3-config文件配置"><a href="#3-config文件配置" class="headerlink" title="3. config文件配置"></a><strong>3. config文件配置</strong></h4><p>日志文件配置 </p>
+<p><strong>log.config</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys=root,infoLogger</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=DEBUG</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[logger_infoLogger]</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line">qualname=infoLogger</span><br><span class="line">propagate=0</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form02</span><br><span class="line">args=(sys.stderr,)</span><br><span class="line"></span><br><span class="line">[handler_fileHandler]</span><br><span class="line">class=FileHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form01</span><br><span class="line">args=(&#x27;../logs/runlog.log&#x27;, &#x27;a&#x27;)</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys=form01,form02</span><br><span class="line"></span><br><span class="line">[formatter_form01]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br><span class="line">[formatter_form02]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-测试用例封装"><a href="#4-测试用例封装" class="headerlink" title="4. 测试用例封装"></a><strong>4. 测试用例封装</strong></h4><ol>
+<li><p>测试用例执行开始结束操作封装 </p>
+<p><strong>myunit.py</strong></p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">from common.desired_caps import appium_desired</span><br><span class="line">import logging</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line">class StartEnd(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        logging.info(&#x27;=====setUp====&#x27;)</span><br><span class="line">        self.driver=appium_desired()</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        logging.info(&#x27;====tearDown====&#x27;)</span><br><span class="line">        sleep(5)</span><br><span class="line">        self.driver.close_app()</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li><p>登录用例：</p>
+<p><strong>test_login.py</strong></p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from common.myunit import StartEnd</span><br><span class="line">from businessView.loginView import LoginView</span><br><span class="line">import unittest</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">class TestLogin(StartEnd):</span><br><span class="line">    csv_file=&#x27;../data/account.csv&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def test_login_dd(self):</span><br><span class="line">        logging.info(&#x27;======test_login_dd=====&#x27;)</span><br><span class="line">        l=LoginView(self.driver)</span><br><span class="line">        data=l.get_csv_data(self.csv_file,2)</span><br><span class="line">        l.login_action(data[0],data[1])</span><br><span class="line">        self.assertTrue(l.check_loginStatus())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @unittest.skip(&#x27;test_login_error&#x27;)</span><br><span class="line">    def test_login_error(self):</span><br><span class="line">        logging.info(&#x27;======test_login_error=====&#x27;)</span><br><span class="line">        l = LoginView(self.driver)</span><br><span class="line">        data = l.get_csv_data(self.csv_file, 3)</span><br><span class="line"></span><br><span class="line">        l.login_action(data[0], data[1])</span><br><span class="line">        self.assertTrue(l.check_loginStatus(),msg=&#x27;login fail!&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-执行测试用例-amp-报告生成"><a href="#5-执行测试用例-amp-报告生成" class="headerlink" title="5. 执行测试用例&amp;报告生成"></a><strong>5. 执行测试用例&amp;报告生成</strong></h4><p><strong>run.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">from  BSTestRunner import BSTestRunner</span><br><span class="line">import time,logging</span><br><span class="line">import sys</span><br><span class="line">path=&#x27;D:\\kyb_testProject\\&#x27;</span><br><span class="line">sys.path.append(path)</span><br><span class="line"></span><br><span class="line">test_dir=&#x27;../test_case&#x27;</span><br><span class="line">report_dir=&#x27;../reports&#x27;</span><br><span class="line"></span><br><span class="line">discover=unittest.defaultTestLoader.discover(test_dir,pattern=&#x27;test_login.py&#x27;)</span><br><span class="line"></span><br><span class="line">now=time.strftime(&#x27;%Y-%m-%d %H_%M_%S&#x27;)</span><br><span class="line">report_name=report_dir+&#x27;/&#x27;+now+&#x27; test_report.html&#x27;</span><br><span class="line"></span><br><span class="line">with open(report_name,&#x27;wb&#x27;) as f:</span><br><span class="line">    runner=BSTestRunner(stream=f,title=&#x27;Kyb Test Report&#x27;,description=&#x27;kyb Android app test report&#x27;)</span><br><span class="line">    logging.info(&#x27;start run test case...&#x27;)</span><br><span class="line">    runner.run(discover)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-实现邮件发送-把这个生成测试报告与邮件发送的代码封装成函数"><a href="#6-实现邮件发送-把这个生成测试报告与邮件发送的代码封装成函数" class="headerlink" title="6.实现邮件发送,把这个生成测试报告与邮件发送的代码封装成函数"></a><strong>6.实现邮件发送,把这个生成测试报告与邮件发送的代码封装成函数</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">import os</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from BSTestRunner import BSTestRunner</span><br><span class="line">from email.mime.text import MIMEText #定义邮件内容</span><br><span class="line">from email.header import Header #定义邮件标题</span><br><span class="line">import smtplib #发送邮件模块</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">#截图的函数</span><br><span class="line">def insert_img(driver,filename):</span><br><span class="line">    #获取当前模块所在的路径</span><br><span class="line">    func_path=os.path.dirname(__file__)</span><br><span class="line">    #获取其上一级的目录</span><br><span class="line">    base_dir=os.path.dirname(func_path)</span><br><span class="line">    #把上一级目录转换为字符串</span><br><span class="line">    base_dir=str(base_dir)</span><br><span class="line">    #使用替换的方法</span><br><span class="line">    base_dir=base_dir.replace(&#x27;\\&#x27;,&#x27;/&#x27;)</span><br><span class="line">    base=base_dir.split(&#x27;/Website&#x27;)[0]</span><br><span class="line">    filepath = base + &#x27;/Website/test_report/screenshot/&#x27; + filename</span><br><span class="line">    driver.get_screenshot_as_file(filepath)</span><br><span class="line"></span><br><span class="line">#完善搜素最新报表的函数</span><br><span class="line">def latest_report(report_dir):  #传入整个报表的路径</span><br><span class="line">    lists = os.listdir(report_dir)</span><br><span class="line">    # 按时间顺序对该目录文件夹下面的文件进行排序</span><br><span class="line">  lists.sort(key=lambdafn:os.path.getatime(report_dir + &#x27;\\&#x27; + fn))</span><br><span class="line">    print((&quot;new report is :&quot; + lists[-1]))</span><br><span class="line"></span><br><span class="line">    file = os.path.join(report_dir, lists[-1])</span><br><span class="line">    print(file)#最新报表 ./2021-8-17  11-32-00 ...Html  路径</span><br><span class="line">    return file  #返回路径——最新报表</span><br><span class="line"></span><br><span class="line">#实现发邮件的函数</span><br><span class="line">def send_mail(latest_report):</span><br><span class="line">    # 读取传进来  最新报表的  内容</span><br><span class="line">    f = open(latest_report,&#x27;rb&#x27;)</span><br><span class="line">    mail_content = f.read()  # 存入 mail_content</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">smtpserver=&#x27;邮箱地址&#x27;</span><br><span class="line">user=&#x27;发送人邮箱&#x27;</span><br><span class="line">password=&#x27;HTTP授权码&#x27;</span><br><span class="line"></span><br><span class="line">sender=&#x27;发送人邮箱&#x27;</span><br><span class="line">receives=&#x27;接收人邮箱&#x27;</span><br><span class="line"></span><br><span class="line">subject = &#x27;Web Selenium 自动化测试报告&#x27;</span><br><span class="line">content = &#x27;&lt;html&gt;&lt;h1 style=&quot;color:red&quot;&gt;邮件内容&lt;/h1&gt;&lt;/html&gt;&#x27;</span><br><span class="line"></span><br><span class="line">    msg = MIMEText(content, &#x27;html&#x27;, &#x27;utf-8&#x27;)</span><br><span class="line">    msg[&#x27;Subject&#x27;] = Header(subject, &#x27;utf-8&#x27;)</span><br><span class="line">msg[&#x27;From&#x27;]=&#x27;发送人邮箱&#x27;</span><br><span class="line">msg[&#x27;To&#x27;]=&#x27;接收人邮箱&#x27;</span><br><span class="line"></span><br><span class="line">smtp=smtplib.SMTP_SSL(smtpserver, 465)</span><br><span class="line">smtp.helo(smtpserver)</span><br><span class="line">smtp.ehlo(smtpserver)</span><br><span class="line">smtp.login(user,password)</span><br><span class="line">print(&quot;Start send Email...&quot;)</span><br><span class="line">smtp.sendmail(sender,receives,msg.as_string())</span><br><span class="line">smtp.quit()</span><br><span class="line">print(&quot;Start  Email end!&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    test_dir = &#x27;../test_case&#x27;</span><br><span class="line">    report_dir = &#x27;../reports&#x27;</span><br><span class="line"></span><br><span class="line">    discover = unittest.defaultTestLoader.discover(test_dir, pattern=&#x27;test*.py&#x27;)</span><br><span class="line"></span><br><span class="line">    now = time.strftime(&#x27;%Y-%m-%d %H_%M_%S&#x27;)</span><br><span class="line">    report_name = report_dir + &#x27;/&#x27; + now + &#x27; test_report.html&#x27;</span><br><span class="line"></span><br><span class="line">    with open(report_name, &#x27;wb&#x27;) as f:</span><br><span class="line">        runner = BSTestRunner(stream=f, title=&#x27;Kyb Test Report&#x27;, description=&#x27;kyb Android app test report&#x27;)</span><br><span class="line">        # logging.info(&#x27;start run test case...&#x27;)</span><br><span class="line">        runner.run(discover)</span><br><span class="line">    f.close()</span><br><span class="line">    latest_report = latest_report(report_dir)</span><br><span class="line">    send_mail(latest_report)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Pageobject-unittest"><span class="toc-text">一、Pageobject+unittest</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9C%BA%E6%99%AF%E6%A1%88%E4%BE%8B"><span class="toc-text">1. 场景案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">1) 案例分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%87%8D%E6%9E%84%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="toc-text">2) 重构优化思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Page-Object"><span class="toc-text">3) Page Object</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2. 代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-unittest%E7%94%A8%E4%BE%8B%E5%B0%81%E8%A3%85"><span class="toc-text">3. unittest用例封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B"><span class="toc-text">二、自动化测试框架综合案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A1%86%E6%9E%B6%E5%8A%9F%E8%83%BD"><span class="toc-text">1. 框架功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="toc-text">2. 测试案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%86%E7%9B%96%E7%94%A8%E4%BE%8B"><span class="toc-text">覆盖用例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">3. 代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-driver%E9%85%8D%E7%BD%AE%E5%B0%81%E8%A3%85"><span class="toc-text">1) driver配置封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9F%BA%E7%B1%BB%E5%B0%81%E8%A3%85"><span class="toc-text">2) 基类封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-common%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85"><span class="toc-text">3) common公共模块封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85"><span class="toc-text">4) 业务模块封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E6%A8%A1%E5%9D%97"><span class="toc-text">1. 登录页面业务逻辑模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-data%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85"><span class="toc-text">2. data数据封装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%83%8C%E6%99%AF"><span class="toc-text">使用背景</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-text">案例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#enumerate-%E7%AE%80%E4%BB%8B"><span class="toc-text">enumerate()简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#enumerate-%E4%BD%BF%E7%94%A8"><span class="toc-text">enumerate()使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E6%96%B9%E6%B3%95%E5%B0%81%E8%A3%85"><span class="toc-text">数据读取方法封装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#utf-8%E4%B8%8Eutf-8-sig%E4%B8%A4%E7%A7%8D%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">utf-8与utf-8-sig两种编码格式的区别:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-config%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">3. config文件配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E5%B0%81%E8%A3%85"><span class="toc-text">4. 测试用例封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B-amp-%E6%8A%A5%E5%91%8A%E7%94%9F%E6%88%90"><span class="toc-text">5. 执行测试用例&amp;报告生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81-%E6%8A%8A%E8%BF%99%E4%B8%AA%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A%E4%B8%8E%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E7%9A%84%E4%BB%A3%E7%A0%81%E5%B0%81%E8%A3%85%E6%88%90%E5%87%BD%E6%95%B0"><span class="toc-text">6.实现邮件发送,把这个生成测试报告与邮件发送的代码封装成函数</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/09/Appium案例整合/">http://example.com/2021/09/09/Appium案例整合/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">Jmeter的基础操作</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/">Appium案例整合</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">Jmeter的基础操作</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月09日</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
