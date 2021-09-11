@@ -259,41 +259,10 @@
 </ul>
 <h2 id="七-配置检测"><a href="#七-配置检测" class="headerlink" title="七.配置检测"></a><strong>七.配置检测</strong></h2><p>在cmd界面输入“adb” 和”appt”来判断安装是否成功。</p>
 <p>adb命令</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\Shuqing&gt;adb
-Android Debug Bridge version 1.0.39
-Revision 3db08f2c6889-android
-Installed as E:\Andriod_sdk\platform-tools\adb.exe
-global options:
- -a         listen on all network interfaces, not just localhost
- -d         use USB device (error if multiple devices connected)
- -e         use TCP&#x2F;IP device (error if multiple TCP&#x2F;IP devices available)
- -s SERIAL
-     use device with given serial number (overrides $ANDROID_SERIAL)
- -p PRODUCT
-     name or path (&#39;angler&#39;&#x2F;&#39;out&#x2F;target&#x2F;product&#x2F;angler&#39;);
-     default $ANDROID_PRODUCT_OUT
- -H         name of adb server host [default&#x3D;localhost]
- -P         port of adb server [default&#x3D;5037]
- -L SOCKET  listen on given socket for adb server [default&#x3D;tcp:localhost:5037]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;adb</span><br><span class="line">Android Debug Bridge version 1.0.39</span><br><span class="line">Revision 3db08f2c6889-android</span><br><span class="line">Installed as E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">global options:</span><br><span class="line"> -a         listen on all network interfaces, not just localhost</span><br><span class="line"> -d         use USB device (error if multiple devices connected)</span><br><span class="line"> -e         use TCP/IP device (error if multiple TCP/IP devices available)</span><br><span class="line"> -s SERIAL</span><br><span class="line">     use device with given serial number (overrides $ANDROID_SERIAL)</span><br><span class="line"> -p PRODUCT</span><br><span class="line">     name or path (&#x27;angler&#x27;/&#x27;out/target/product/angler&#x27;);</span><br><span class="line">     default $ANDROID_PRODUCT_OUT</span><br><span class="line"> -H         name of adb server host [default=localhost]</span><br><span class="line"> -P         port of adb server [default=5037]</span><br><span class="line"> -L SOCKET  listen on given socket for adb server [default=tcp:localhost:5037]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p> aapt命令</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\Shuqing&gt;aapt
-Android Asset Packaging Tool
-
-Usage:
- aapt l[ist] [-v] [-a] file.&#123;zip,jar,apk&#125;
-   List contents of Zip-compatible archive.
-
- aapt d[ump] [--values] [--include-meta-data] WHAT file.&#123;apk&#125; [asset [asset ...]]
-   strings          Print the contents of the resource table string pool in the APK.
-   badging          Print the label and icon for the app declared in APK.
-   permissions      Print the permissions from the APK.
-   resources        Print the resource table from the APK.
-   configurations   Print the configurations in the APK.
-   xmltree          Print the compiled xmls in the given assets.
-   xmlstrings       Print the strings of the given compiled xml assets.
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Shuqing&gt;aapt</span><br><span class="line">Android Asset Packaging Tool</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"> aapt l[ist] [-v] [-a] file.&#123;zip,jar,apk&#125;</span><br><span class="line">   List contents of Zip-compatible archive.</span><br><span class="line"></span><br><span class="line"> aapt d[ump] [--values] [--include-meta-data] WHAT file.&#123;apk&#125; [asset [asset ...]]</span><br><span class="line">   strings          Print the contents of the resource table string pool in the APK.</span><br><span class="line">   badging          Print the label and icon for the app declared in APK.</span><br><span class="line">   permissions      Print the permissions from the APK.</span><br><span class="line">   resources        Print the resource table from the APK.</span><br><span class="line">   configurations   Print the configurations in the APK.</span><br><span class="line">   xmltree          Print the compiled xmls in the given assets.</span><br><span class="line">   xmlstrings       Print the strings of the given compiled xml assets.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -416,7 +385,7 @@ Usage:
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">17</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月09日</a><span class="archive-list-count">17</span></li></ul>
     </div>
   </div>
 

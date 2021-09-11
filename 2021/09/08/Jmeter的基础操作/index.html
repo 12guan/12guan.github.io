@@ -429,13 +429,13 @@
 <p><img src="https://pic.imgdb.cn/item/6138d93e44eaada739998f71.png"></p>
 <h2 id="10-JMeter-的函数"><a href="#10-JMeter-的函数" class="headerlink" title="10.JMeter 的函数"></a><strong>10.JMeter</strong> <strong>的函数</strong></h2><p>JMeter 函数可以称为特殊值，可以填充测试树中任何 Sampler 或其他元素的字段。 </p>
 <p>JMeter 中函数的语法:  </p>
-<pre class="line-numbers language-none"><code class="language-none">$&#123;__functionName(var1,var2,var3)&#125; , <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__functionName(var1,var2,var3)&#125; , </span><br></pre></td></tr></table></figure>
 
 <p>这里__ functionName 匹配函数的名称，圆括号围绕发送给函数的参数。 </p>
 <p>如果函数参数包含逗号，那么请务必使用“\”对其进行转义，否则 JMeter 会将其 </p>
 <p>视为参数分隔符。 </p>
 <p>例如: </p>
-<pre class="line-numbers language-none"><code class="language-none">$&#123;__time(EEE\, d MMM yyyy)&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__time(EEE\, d MMM yyyy)&#125; </span><br></pre></td></tr></table></figure>
 
 <h3 id="函数列表"><a href="#函数列表" class="headerlink" title="函数列表"></a><strong>函数列表</strong></h3><table>
 <thead>
@@ -602,7 +602,7 @@
 <p><strong>注意：JMeter 函数和变量始终区分大小写。</strong> </p>
 <p>让我们考虑一个 Log Function 的例子来理解 JMeter 中函数的使用。 </p>
 <p>JMeter 日志函数的语法： </p>
-<pre class="line-numbers language-none"><code class="language-none">$&#123;__log(&quot;message&quot;)&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__log(&quot;message&quot;)&#125; </span><br></pre></td></tr></table></figure>
 
 <p>首先，我们将使用 HTTP 请求采样器创建一个简单的测试计划。 </p>
 <h3 id="创建-JMeter-测试计划"><a href="#创建-JMeter-测试计划" class="headerlink" title="创建 JMeter 测试计划"></a><strong>创建</strong> <strong>JMeter</strong> <strong>测试计划</strong></h3><ul>
@@ -651,7 +651,7 @@
 <p>您可以看到日志功能已打印<strong>“Hello World”</strong>而不是完整的采样器名称。 让我们来 </p>
 <p>看看一个时间函数的例子，将再次使用它作为第二个 HTTP 采样器的名称。 </p>
 <p>时间函数的语法： </p>
-<pre class="line-numbers language-none"><code class="language-none">$&#123;__time(dd MM YYYY HH mm ss)&#125;  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;__time(dd MM YYYY HH mm ss)&#125;  </span><br></pre></td></tr></table></figure>
 
 <p><img src="https://pic.imgdb.cn/item/6138df3444eaada739a9ff04.png"></p>
 <p>单击 <strong>Run</strong> &gt; <strong>Start</strong> 以执行测试计划。 </p>
@@ -954,7 +954,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">17</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月09日</a><span class="archive-list-count">17</span></li></ul>
     </div>
   </div>
 
