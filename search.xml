@@ -1,6 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Appium环境的搭建</title>
+    <url>/2021/09/01/Appium%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
+<li><p>Node.js</p>
+</li>
+<li><p>Appium</p>
+</li>
+<li><p>Appium-desktop</p>
+</li>
+<li><p>Appium-doctor</p>
+</li>
+<li><p>Appium-Python-Client</p>
+</li>
+<li><p>Python</p>
+</li>
+<li><p>JDK</p>
+</li>
+<li><p>Andriod SDK</p>
+ <span id="more"></span></li>
+</ul>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
+<pre class="line-numbers language-none"><code class="language-none">输入如下命令：
+C:\Users\admin&gt;node -v
+执行完之后可以看到
+v12.18.3
+
+
+执行以下命令
+C:\Users\admin&gt;npm -v
+执行完之后可以看到
+6.14.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong>说明：</strong></p>
+<ul>
+<li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
+<li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
+</ul>
+<h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
+<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><p>执行以下命令</p>
+<pre class="line-numbers language-none"><code class="language-none">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p> 执行完成命令看到如下提示则表示设置完成</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt; npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org
+
+npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow  and an import issue introduced in 2.1.0
+
+C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm
+
+\+ cnpm@5.2.0
+
+added 764 packages in 63.767s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a>appium 安装</h4><p>使用如下命令来执行安装：</p>
+<p>安装最新版本</p>
+<p>cnpm install -g appium</p>
+<p>安装指定版本</p>
+<pre class="line-numbers language-none"><code class="language-none">cnpm install appium@1.7.2 -g <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>看到如下命令时则表示下载安装完成。</p>
+<pre class="line-numbers language-none"><code class="language-none">All packages installed (565 packages installed from npm registry, used 57s, speed 835.67kB&#x2F;s, json 477(6.16MB), tarball 40.58MB)
+
+[appium@1.8.0] link C:\Users\admin\AppData\Roaming\npm\appium@ -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\appium\build\lib\main.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>npm的包安装分为本地安装（local）、全局安装（global）两种，一般我们推荐使用全局安装。</p>
+<h4 id="appium配置"><a href="#appium配置" class="headerlink" title="appium配置"></a>appium配置</h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
+<p>执行以下命令</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;where appium <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行完之后可以看到</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin\AppData\Roaming\npm\appium
+C:\Users\admin\AppData\Roaming\npm\appium.cmd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a>appium运行</h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
+<pre class="line-numbers language-none"><code class="language-none">执行以下命令
+C:\Users\admin&gt;appium -v
+
+执行完之后可以看到
+1.7.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">执行以下命令 
+C:\Users\admin&gt;appium
+
+执行完之后可以看到
+[Appium] Welcome to Appium v1.7.2
+[Appium] Appium REST http interface listener started on 0.0.0.0:4723<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
+<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a>退出appium</h4><p>按键 ctrl+c 选择y 即可退出</p>
+<h2 id="安装Appium-desktop"><a href="#安装Appium-desktop" class="headerlink" title="安装Appium-desktop"></a>安装Appium-desktop</h2><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
+<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
+<p>appium-desktop是我们初学者最容易上手的工具，后面课程首先会基于这个工具来讲解！然后再基于appium 命令来讲。</p>
+<h4 id="python环境安装配置"><a href="#python环境安装配置" class="headerlink" title="python环境安装配置"></a>python环境安装配置</h4><pre class="line-numbers language-none"><code class="language-none">安装成功之后，执行以下命令 
+C:Users admin&gt;python --version
+
+执行完之后可以看到
+Python  3.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="安装Appium-Python-Client"><a href="#安装Appium-Python-Client" class="headerlink" title="安装Appium-Python-Client"></a>安装Appium-Python-Client</h2><p>通过命令pip install Appium-Python-Client 进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
+<p>输入命令“from appium import webdriver” 回车，如果控制台没有报错，则说明安装成功。</p>
+<pre class="line-numbers language-none"><code class="language-none">输入以下命令
+C:\Users\admin&gt;python
+
+执行完之后可以看到
+Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+\&gt;&gt;&gt; &lt;u&gt;from appium import webdriver&lt;&#x2F;u&gt;&lt;!--此处是输入的命令--&gt;
+
+如果出现如下报错，则说明安装失败
+ImportError: No module named &#39;appium&#39;
+ImportError: cannot import name  “webdriver”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明：</p>
+<p>装Appium-Python-Client安装后的路径一般为：{Python 安装路径}\Lib\site-packages\appium</p>
+<h2 id="JDK安装配置"><a href="#JDK安装配置" class="headerlink" title="JDK安装配置"></a>JDK安装配置</h2><p>jdk下载地址:</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<p>jdk环境变量配置</p>
+<p><a href="http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html">http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html</a></p>
+<p>安装配置完成后，打开命令提示符窗口，然后输入如下面命令有对应提示说明安装配置成功。</p>
+<pre class="line-numbers language-none"><code class="language-none">输入以下命令
+C:\Users\admin&gt;java -version
+
+执行完之后可以看到
+java version &quot;1.8.0_05&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_05-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="Andriod-sdk-安装"><a href="#Andriod-sdk-安装" class="headerlink" title="Andriod sdk 安装"></a>Andriod sdk 安装</h2><p>下载地址： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
+<p>根据自己的PC平台下载对应版本即可。</p>
+<p>安装完成后需要配置环境变量：ANDROID_HOME。</p>
+<h2 id="安装-appium-doctor"><a href="#安装-appium-doctor" class="headerlink" title="安装 appium-doctor"></a>安装 appium-doctor</h2><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
+<pre class="line-numbers language-none"><code class="language-none">输入以下命令
+C:\Users\admin&gt;cnpm install appium-doctor -g
+
+输入以下命令，如下提示说明整体环境配置成功
+C:\Users\admin&gt;appium-doctor
+
+info AppiumDoctor Appium Doctor v.1.4.3
+info AppiumDoctor ### Diagnostic starting ###
+info AppiumDoctor  ✔ The Node.js binary was found at: D:\program files\nodejs\node.exe
+info AppiumDoctor  ✔ Node version is 6.11.3
+info AppiumDoctor  ✔ ANDROID_HOME is set to: E:\Andriod_sdk
+info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk1.8.0_05
+info AppiumDoctor  ✔ adb exists at: E:\Andriod_sdk\platform-tools\adb.exe
+info AppiumDoctor  ✔ android exists at: E:\Andriod_sdk\tools\android.bat
+info AppiumDoctor  ✔ emulator exists at: E:\Andriod_sdk\tools\emulator.exe
+info AppiumDoctor  ✔ Bin directory of %JAVA_HOME% is set
+info AppiumDoctor ### Diagnostic completed, no fix needed. ###
+info AppiumDoctor
+info AppiumDoctor Everything looks good, bye!
+info AppiumDoctor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Appium基础-安装、配置、启动</title>
     <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
     <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
@@ -544,175 +713,6 @@ driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_splash_guidfinish
 ]]></content>
   </entry>
   <entry>
-    <title>Appium环境的搭建</title>
-    <url>/2021/09/01/Appium%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
-<li><p>Node.js</p>
-</li>
-<li><p>Appium</p>
-</li>
-<li><p>Appium-desktop</p>
-</li>
-<li><p>Appium-doctor</p>
-</li>
-<li><p>Appium-Python-Client</p>
-</li>
-<li><p>Python</p>
-</li>
-<li><p>JDK</p>
-</li>
-<li><p>Andriod SDK</p>
- <span id="more"></span></li>
-</ul>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
-<pre class="line-numbers language-none"><code class="language-none">输入如下命令：
-C:\Users\admin&gt;node -v
-执行完之后可以看到
-v12.18.3
-
-
-执行以下命令
-C:\Users\admin&gt;npm -v
-执行完之后可以看到
-6.14.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p><strong>说明：</strong></p>
-<ul>
-<li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
-<li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
-</ul>
-<h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><p>执行以下命令</p>
-<pre class="line-numbers language-none"><code class="language-none">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p> 执行完成命令看到如下提示则表示设置完成</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt; npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org
-
-npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow  and an import issue introduced in 2.1.0
-
-C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm
-
-\+ cnpm@5.2.0
-
-added 764 packages in 63.767s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a>appium 安装</h4><p>使用如下命令来执行安装：</p>
-<p>安装最新版本</p>
-<p>cnpm install -g appium</p>
-<p>安装指定版本</p>
-<pre class="line-numbers language-none"><code class="language-none">cnpm install appium@1.7.2 -g <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>看到如下命令时则表示下载安装完成。</p>
-<pre class="line-numbers language-none"><code class="language-none">All packages installed (565 packages installed from npm registry, used 57s, speed 835.67kB&#x2F;s, json 477(6.16MB), tarball 40.58MB)
-
-[appium@1.8.0] link C:\Users\admin\AppData\Roaming\npm\appium@ -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\appium\build\lib\main.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>npm的包安装分为本地安装（local）、全局安装（global）两种，一般我们推荐使用全局安装。</p>
-<h4 id="appium配置"><a href="#appium配置" class="headerlink" title="appium配置"></a>appium配置</h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<p>执行以下命令</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;where appium <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>执行完之后可以看到</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin\AppData\Roaming\npm\appium
-C:\Users\admin\AppData\Roaming\npm\appium.cmd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a>appium运行</h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<pre class="line-numbers language-none"><code class="language-none">执行以下命令
-C:\Users\admin&gt;appium -v
-
-执行完之后可以看到
-1.7.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none">执行以下命令 
-C:\Users\admin&gt;appium
-
-执行完之后可以看到
-[Appium] Welcome to Appium v1.7.2
-[Appium] Appium REST http interface listener started on 0.0.0.0:4723<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a>退出appium</h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h2 id="安装Appium-desktop"><a href="#安装Appium-desktop" class="headerlink" title="安装Appium-desktop"></a>安装Appium-desktop</h2><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<p>appium-desktop是我们初学者最容易上手的工具，后面课程首先会基于这个工具来讲解！然后再基于appium 命令来讲。</p>
-<h4 id="python环境安装配置"><a href="#python环境安装配置" class="headerlink" title="python环境安装配置"></a>python环境安装配置</h4><pre class="line-numbers language-none"><code class="language-none">安装成功之后，执行以下命令 
-C:Users admin&gt;python --version
-
-执行完之后可以看到
-Python  3.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="安装Appium-Python-Client"><a href="#安装Appium-Python-Client" class="headerlink" title="安装Appium-Python-Client"></a>安装Appium-Python-Client</h2><p>通过命令pip install Appium-Python-Client 进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<p>输入命令“from appium import webdriver” 回车，如果控制台没有报错，则说明安装成功。</p>
-<pre class="line-numbers language-none"><code class="language-none">输入以下命令
-C:\Users\admin&gt;python
-
-执行完之后可以看到
-Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-\&gt;&gt;&gt; &lt;u&gt;from appium import webdriver&lt;&#x2F;u&gt;&lt;!--此处是输入的命令--&gt;
-
-如果出现如下报错，则说明安装失败
-ImportError: No module named &#39;appium&#39;
-ImportError: cannot import name  “webdriver”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>说明：</p>
-<p>装Appium-Python-Client安装后的路径一般为：{Python 安装路径}\Lib\site-packages\appium</p>
-<h2 id="JDK安装配置"><a href="#JDK安装配置" class="headerlink" title="JDK安装配置"></a>JDK安装配置</h2><p>jdk下载地址:</p>
-<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
-<p>jdk环境变量配置</p>
-<p><a href="http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html">http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html</a></p>
-<p>安装配置完成后，打开命令提示符窗口，然后输入如下面命令有对应提示说明安装配置成功。</p>
-<pre class="line-numbers language-none"><code class="language-none">输入以下命令
-C:\Users\admin&gt;java -version
-
-执行完之后可以看到
-java version &quot;1.8.0_05&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_05-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="Andriod-sdk-安装"><a href="#Andriod-sdk-安装" class="headerlink" title="Andriod sdk 安装"></a>Andriod sdk 安装</h2><p>下载地址： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
-<p>根据自己的PC平台下载对应版本即可。</p>
-<p>安装完成后需要配置环境变量：ANDROID_HOME。</p>
-<h2 id="安装-appium-doctor"><a href="#安装-appium-doctor" class="headerlink" title="安装 appium-doctor"></a>安装 appium-doctor</h2><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<pre class="line-numbers language-none"><code class="language-none">输入以下命令
-C:\Users\admin&gt;cnpm install appium-doctor -g
-
-输入以下命令，如下提示说明整体环境配置成功
-C:\Users\admin&gt;appium-doctor
-
-info AppiumDoctor Appium Doctor v.1.4.3
-info AppiumDoctor ### Diagnostic starting ###
-info AppiumDoctor  ✔ The Node.js binary was found at: D:\program files\nodejs\node.exe
-info AppiumDoctor  ✔ Node version is 6.11.3
-info AppiumDoctor  ✔ ANDROID_HOME is set to: E:\Andriod_sdk
-info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk1.8.0_05
-info AppiumDoctor  ✔ adb exists at: E:\Andriod_sdk\platform-tools\adb.exe
-info AppiumDoctor  ✔ android exists at: E:\Andriod_sdk\tools\android.bat
-info AppiumDoctor  ✔ emulator exists at: E:\Andriod_sdk\tools\emulator.exe
-info AppiumDoctor  ✔ Bin directory of %JAVA_HOME% is set
-info AppiumDoctor ### Diagnostic completed, no fix needed. ###
-info AppiumDoctor
-info AppiumDoctor Everything looks good, bye!
-info AppiumDoctor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Appium的元素定位入门</title>
     <url>/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>与Web自动化测试一样，app自动化测试过程中最重要一个环节就是元素定位，只有准确定位到了元素才能进行相关元素的操作，如输入、点击、拖拽、滑动等。</p>
@@ -1086,197 +1086,6 @@ aapt dump badging xxxx.apk | find &quot;launchable-activity&quot;<span aria-hidd
 ]]></content>
   </entry>
   <entry>
-    <title>monkey自定义脚本实践</title>
-    <url>/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<h4 id="一-自定义脚本的稳定性测试"><a href="#一-自定义脚本的稳定性测试" class="headerlink" title="一.自定义脚本的稳定性测试"></a><strong>一.自定义脚本的稳定性测试</strong></h4><p>常规Monkey测试执行的是随机的事件流，但如果只是想让Monkey测试某个特定场景这时候就需要用到自定义脚本了，Monkey支持执行用户自定义脚本的测试，用户只需要按照Monkey脚本的规范编写好脚本，存放到手机上，启动Monkey通过-f 参数调用脚本即可。</p>
-<span id="more"></span>
-
-<h4 id="二-测试案例"><a href="#二-测试案例" class="headerlink" title="二.测试案例"></a><strong>二.测试案例</strong></h4><p>启动考研帮app3.1.0，然后跳过升级提示和引导页面，进入到登录界面并输入用户名密码进行登录。</p>
-<h4 id="三-需求分析"><a href="#三-需求分析" class="headerlink" title="三.需求分析"></a><strong>三.需求分析</strong></h4><ul>
-<li>从用户角度来思考步骤该怎样进行？</li>
-<li> 要操作的元素该如何定位？</li>
-<li>怎样将操作步骤转化为测试脚本？</li>
-</ul>
-<h5 id="获取元素坐标点位置"><a href="#获取元素坐标点位置" class="headerlink" title="获取元素坐标点位置"></a><strong>获取元素坐标点位置</strong></h5><p>Monkey脚本只能通过坐标的方式来定位点击和移动事件的屏幕位置，这里就需要提前获取坐标信息。获取坐标信息的方法很多，最简单的方法就是打开手机中的开发人员选项，打开“显示指针位置”。随后，在屏幕上的每次操作，在导航栏上都会显示坐标信息。</p>
-<h5 id="Monkey脚本API简介"><a href="#Monkey脚本API简介" class="headerlink" title="Monkey脚本API简介"></a><strong>Monkey脚本API简介</strong></h5><ul>
-<li>LaunchActivity(pkg_name, cl_name)：启动应用的Activity。参数：包名和启动的Activity。</li>
-<li>Tap(x, y, tapDuration)： 模拟一次手指单击事件。参数：x,y为控件坐标，tapDuration为点击的持续时间，此参数可省略。</li>
-<li>UserWait(sleepTime)： 休眠一段时间</li>
-<li>DispatchPress(keyName)： 按键。参数： keycode。 RotateScreen(rotationDegree, persist)： 旋转屏幕。 参数：rotationDegree为旋转角度， e.g. 1代表90度；persist表示旋转之后是否固定，0表示旋转后恢复，非0则表示固定不变。</li>
-<li>DispatchString(input)： 输入字符串。</li>
-<li>DispatchFlip(true/false)： 打开或者关闭软键盘。</li>
-<li>PressAndHold(x, y, pressDuration)： 模拟长按事件。</li>
-<li>Drag(xStart, yStart, xEnd, yEnd, stepCount)： 用于模拟一个拖拽操作。</li>
-<li>PinchZoom(x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End, stepCount)： 模拟缩放手势。</li>
-<li>LongPress()： 长按2秒。</li>
-<li>DeviceWakeUp()： 唤醒屏幕。</li>
-<li>PowerLog(power_log_type, test_case_status)： 模拟电池电量信息。</li>
-<li>WriteLog()： 将电池信息写入sd卡。</li>
-<li>RunCmd(cmd)： 运行shell命令。</li>
-<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFlags)： 向指定位置，发送单个手势。</li>
-<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFilags)： 发送按键消息。</li>
-<li>LaunchInstrumentation(test_name,runner_name)： 运行一个instrumentation测试用例。</li>
-<li>DispatchTrackball： 模拟发送轨迹球事件。</li>
-<li>ProfileWait： 等待5秒。</li>
-<li>StartCaptureFramerate()： 获取帧率。</li>
-<li>EndCaptureFramerate(input)： 结束获取帧率。</li>
-</ul>
-<h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
-<pre class="line-numbers language-none"><code class="language-none">type &#x3D; raw events  
-count &#x3D; 1  
-speed &#x3D; 1.0  
-&#x2F;&#x2F;下面为monkey命令  
-start data &gt;&gt;   
-具体的monkey脚本内容  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
-<pre class="line-numbers language-none"><code class="language-none">#头文件信息
-
-type &#x3D; raw events 
-
-count &#x3D; 1
-
-speed &#x3D; 1.0
-
-#启动测试
-start data &gt;&gt;
-
-LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)
-UserWait(2000)
-
-Tap(624,900,1000) #点击取消升级
-UserWait(2000)
-
-Tap(806,64,1000) #点击跳过
-UserWait(2000)
-
-Tap(217,378,1000) #点击用户名输入框
-DispatchString(账户)
-UserWait(2000)
-
-Tap(197,461,1000) #点击密码输入框
-DispatchString(密码)
-UserWait(2000)
-
-Tap(343,637,1000) #点击登录按钮
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
-<pre class="line-numbers language-none"><code class="language-none">adb push C:\Users\admin\Desktop\kyb1.txt &#x2F;sdcard
-
-adb shell monkey -f &#x2F;sdcard&#x2F;kyb1.txt -v 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行结果</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -f &#x2F;sdcard&#x2F;kyb.txt -v 1
-:Monkey: seed&#x3D;1524592021303 count&#x3D;1
-:IncludeCategory: android.intent.category.LAUNCHER
-:IncludeCategory: android.intent.category.MONKEY
-Replaying 0 events with speed 1.0
-:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity;end
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity &#125; in package com.tal.kaoyan
-:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;com.android.systemui.recent.action.TOGGLE_RECENTS cmp&#x3D;com.android.systemui&#x2F;.recent.RecentsActivity &#125; in package com.android.systemui
-:Sending Touch (ACTION_UP): 0:(267.0,1233.0)
-Events injected: 5
-:Sending rotation degree&#x3D;0, persist&#x3D;false
-:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
-## Network stats: elapsed time&#x3D;7201ms (0ms mobile, 0ms wifi, 7201ms not connected)
-&#x2F;&#x2F; Monkey finished<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
-<pre class="line-numbers language-none"><code class="language-none">java.lang.NumberFormatException: Invalid int: &quot;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h4 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五.参考资料"></a><strong>五.参考资料</strong></h4><p><a href="https://www.cnblogs.com/mgzc-1508873480/p/7911373.html">https://www.cnblogs.com/mgzc-1508873480/p/7911373.html</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>monkey 日志管理</title>
-    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
-<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
-<li><p>保存在PC中</p>
-</li>
-<li><p>保存在手机上</p>
-</li>
-<li><p>标准流和错误流分开保存</p>
-</li>
-</ol>
-<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
-
-eg：
-C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
-monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
-<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
-<li>标准流与错误流分开保存，代码如下：</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
-
-C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
-<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
-<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>运行后log如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
-:Monkey: seed&#x3D;1524595418646 count&#x3D;100
-:IncludeCategory: android.intent.category.LAUNCHER
-:IncludeCategory: android.intent.category.MONKEY
-&#x2F;&#x2F; Event percentages:
-&#x2F;&#x2F;   0: 15.0%
-&#x2F;&#x2F;   1: 10.0%
-&#x2F;&#x2F;   2: 2.0%
-&#x2F;&#x2F;   3: 15.0%
-&#x2F;&#x2F;   4: -0.0%
-&#x2F;&#x2F;   5: 25.0%
-&#x2F;&#x2F;   6: 15.0%
-&#x2F;&#x2F;   7: 2.0%
-&#x2F;&#x2F;   8: 2.0%
-&#x2F;&#x2F;   9: 1.0%
-&#x2F;&#x2F;   10: 13.0%
-:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
-:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
-:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
-:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
-:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
-:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
-:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
-:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
-:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
-:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
-:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
-:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
-:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
-:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
-:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
-:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
-:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
-:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
-:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
-:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
-Events injected: 100
-:Sending rotation degree&#x3D;0, persist&#x3D;false
-:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
-## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
-&#x2F;&#x2F; Monkey finished
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-]]></content>
-  </entry>
-  <entry>
     <title>adb命令</title>
     <url>/2021/09/05/adb%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="一、Android-调试桥"><a href="#一、Android-调试桥" class="headerlink" title="一、Android 调试桥"></a><strong>一、Android 调试桥</strong></h1><p>adb ( Android Debug Bridge)是一个通用命令行工具，其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用。</p>
@@ -1563,6 +1372,197 @@ Nox_1是新增的模拟器，复制自nox<span aria-hidden="true" class="line-nu
 
 
 
+]]></content>
+  </entry>
+  <entry>
+    <title>monkey 日志管理</title>
+    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
+<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
+<li><p>保存在PC中</p>
+</li>
+<li><p>保存在手机上</p>
+</li>
+<li><p>标准流和错误流分开保存</p>
+</li>
+</ol>
+<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
+
+eg：
+C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
+monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
+<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
+<li>标准流与错误流分开保存，代码如下：</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
+
+C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
+<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>运行后log如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
+:Monkey: seed&#x3D;1524595418646 count&#x3D;100
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+&#x2F;&#x2F; Event percentages:
+&#x2F;&#x2F;   0: 15.0%
+&#x2F;&#x2F;   1: 10.0%
+&#x2F;&#x2F;   2: 2.0%
+&#x2F;&#x2F;   3: 15.0%
+&#x2F;&#x2F;   4: -0.0%
+&#x2F;&#x2F;   5: 25.0%
+&#x2F;&#x2F;   6: 15.0%
+&#x2F;&#x2F;   7: 2.0%
+&#x2F;&#x2F;   8: 2.0%
+&#x2F;&#x2F;   9: 1.0%
+&#x2F;&#x2F;   10: 13.0%
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
+:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
+:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
+:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
+:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
+:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
+:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
+:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
+:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
+:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
+:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
+:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
+:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
+:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
+:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
+:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
+Events injected: 100
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
+&#x2F;&#x2F; Monkey finished
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>monkey自定义脚本实践</title>
+    <url>/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<h4 id="一-自定义脚本的稳定性测试"><a href="#一-自定义脚本的稳定性测试" class="headerlink" title="一.自定义脚本的稳定性测试"></a><strong>一.自定义脚本的稳定性测试</strong></h4><p>常规Monkey测试执行的是随机的事件流，但如果只是想让Monkey测试某个特定场景这时候就需要用到自定义脚本了，Monkey支持执行用户自定义脚本的测试，用户只需要按照Monkey脚本的规范编写好脚本，存放到手机上，启动Monkey通过-f 参数调用脚本即可。</p>
+<span id="more"></span>
+
+<h4 id="二-测试案例"><a href="#二-测试案例" class="headerlink" title="二.测试案例"></a><strong>二.测试案例</strong></h4><p>启动考研帮app3.1.0，然后跳过升级提示和引导页面，进入到登录界面并输入用户名密码进行登录。</p>
+<h4 id="三-需求分析"><a href="#三-需求分析" class="headerlink" title="三.需求分析"></a><strong>三.需求分析</strong></h4><ul>
+<li>从用户角度来思考步骤该怎样进行？</li>
+<li> 要操作的元素该如何定位？</li>
+<li>怎样将操作步骤转化为测试脚本？</li>
+</ul>
+<h5 id="获取元素坐标点位置"><a href="#获取元素坐标点位置" class="headerlink" title="获取元素坐标点位置"></a><strong>获取元素坐标点位置</strong></h5><p>Monkey脚本只能通过坐标的方式来定位点击和移动事件的屏幕位置，这里就需要提前获取坐标信息。获取坐标信息的方法很多，最简单的方法就是打开手机中的开发人员选项，打开“显示指针位置”。随后，在屏幕上的每次操作，在导航栏上都会显示坐标信息。</p>
+<h5 id="Monkey脚本API简介"><a href="#Monkey脚本API简介" class="headerlink" title="Monkey脚本API简介"></a><strong>Monkey脚本API简介</strong></h5><ul>
+<li>LaunchActivity(pkg_name, cl_name)：启动应用的Activity。参数：包名和启动的Activity。</li>
+<li>Tap(x, y, tapDuration)： 模拟一次手指单击事件。参数：x,y为控件坐标，tapDuration为点击的持续时间，此参数可省略。</li>
+<li>UserWait(sleepTime)： 休眠一段时间</li>
+<li>DispatchPress(keyName)： 按键。参数： keycode。 RotateScreen(rotationDegree, persist)： 旋转屏幕。 参数：rotationDegree为旋转角度， e.g. 1代表90度；persist表示旋转之后是否固定，0表示旋转后恢复，非0则表示固定不变。</li>
+<li>DispatchString(input)： 输入字符串。</li>
+<li>DispatchFlip(true/false)： 打开或者关闭软键盘。</li>
+<li>PressAndHold(x, y, pressDuration)： 模拟长按事件。</li>
+<li>Drag(xStart, yStart, xEnd, yEnd, stepCount)： 用于模拟一个拖拽操作。</li>
+<li>PinchZoom(x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End, stepCount)： 模拟缩放手势。</li>
+<li>LongPress()： 长按2秒。</li>
+<li>DeviceWakeUp()： 唤醒屏幕。</li>
+<li>PowerLog(power_log_type, test_case_status)： 模拟电池电量信息。</li>
+<li>WriteLog()： 将电池信息写入sd卡。</li>
+<li>RunCmd(cmd)： 运行shell命令。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFlags)： 向指定位置，发送单个手势。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFilags)： 发送按键消息。</li>
+<li>LaunchInstrumentation(test_name,runner_name)： 运行一个instrumentation测试用例。</li>
+<li>DispatchTrackball： 模拟发送轨迹球事件。</li>
+<li>ProfileWait： 等待5秒。</li>
+<li>StartCaptureFramerate()： 获取帧率。</li>
+<li>EndCaptureFramerate(input)： 结束获取帧率。</li>
+</ul>
+<h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
+<pre class="line-numbers language-none"><code class="language-none">type &#x3D; raw events  
+count &#x3D; 1  
+speed &#x3D; 1.0  
+&#x2F;&#x2F;下面为monkey命令  
+start data &gt;&gt;   
+具体的monkey脚本内容  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
+<pre class="line-numbers language-none"><code class="language-none">#头文件信息
+
+type &#x3D; raw events 
+
+count &#x3D; 1
+
+speed &#x3D; 1.0
+
+#启动测试
+start data &gt;&gt;
+
+LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)
+UserWait(2000)
+
+Tap(624,900,1000) #点击取消升级
+UserWait(2000)
+
+Tap(806,64,1000) #点击跳过
+UserWait(2000)
+
+Tap(217,378,1000) #点击用户名输入框
+DispatchString(账户)
+UserWait(2000)
+
+Tap(197,461,1000) #点击密码输入框
+DispatchString(密码)
+UserWait(2000)
+
+Tap(343,637,1000) #点击登录按钮
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
+<pre class="line-numbers language-none"><code class="language-none">adb push C:\Users\admin\Desktop\kyb1.txt &#x2F;sdcard
+
+adb shell monkey -f &#x2F;sdcard&#x2F;kyb1.txt -v 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>执行结果</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -f &#x2F;sdcard&#x2F;kyb.txt -v 1
+:Monkey: seed&#x3D;1524592021303 count&#x3D;1
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+Replaying 0 events with speed 1.0
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity &#125; in package com.tal.kaoyan
+:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;com.android.systemui.recent.action.TOGGLE_RECENTS cmp&#x3D;com.android.systemui&#x2F;.recent.RecentsActivity &#125; in package com.android.systemui
+:Sending Touch (ACTION_UP): 0:(267.0,1233.0)
+Events injected: 5
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;7201ms (0ms mobile, 0ms wifi, 7201ms not connected)
+&#x2F;&#x2F; Monkey finished<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
+<pre class="line-numbers language-none"><code class="language-none">java.lang.NumberFormatException: Invalid int: &quot;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h4 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五.参考资料"></a><strong>五.参考资料</strong></h4><p><a href="https://www.cnblogs.com/mgzc-1508873480/p/7911373.html">https://www.cnblogs.com/mgzc-1508873480/p/7911373.html</a></p>
 ]]></content>
   </entry>
   <entry>
