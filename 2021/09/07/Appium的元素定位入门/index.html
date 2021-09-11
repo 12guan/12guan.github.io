@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -158,18 +162,62 @@
 <li><p>点击引导页面的跳过按钮</p>
 </li>
 </ol>
-<h3 id="2-脚本实现"><a href="#2-脚本实现" class="headerlink" title="2) 脚本实现"></a><strong>2)</strong> <strong>脚本实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;5.1.1&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;android:id/button2&#x27;).click()</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;).click()</span><br></pre></td></tr></table></figure>
+<h3 id="2-脚本实现"><a href="#2-脚本实现" class="headerlink" title="2) 脚本实现"></a><strong>2)</strong> <strong>脚本实现</strong></h3><pre class="line-numbers language-none"><code class="language-none">from  appium import webdriver
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;&#39;Android&#39;
+desired_caps[&#39;deviceName&#39;]&#x3D;&#39;127.0.0.1:62025&#39;
+desired_caps[&#39;platforVersion&#39;]&#x3D;&#39;5.1.1&#39;
 
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+desired_caps[&#39;app&#39;]&#x3D;r&#39;D:\kaoyan3.1.0.apk&#39;
+desired_caps[&#39;appPackage&#39;]&#x3D;&#39;com.tal.kaoyan&#39;
+desired_caps[&#39;appActivity&#39;]&#x3D;&#39;com.tal.kaoyan.ui.activity.SplashActivity&#39;
+
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;localhost:4723&#x2F;wd&#x2F;hub&#39;,desired_caps)
+driver.implicitly_wait(5)
+
+driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;).click()
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="三、思考"><a href="#三、思考" class="headerlink" title="三、思考"></a><strong>三、思考</strong></h2><ul>
 <li>如果安装的版本最新的包，或者升级到了最新的版本，则启动后没有升级弹窗元素该如何处理？</li>
 <li> 跳过引导页面首次启动和非首次启动场景该如何处理？</li>
 </ul>
 <h3 id="方案探索1——if条件判断"><a href="#方案探索1——if条件判断" class="headerlink" title="方案探索1——if条件判断"></a><strong>方案探索1——if条件判断</strong></h3><p>你可能想到用if来做条件判断？判断元素是否存在，存在则点击，不存在则跳过。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;D:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line">cancelBtn=driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">skipBtn=driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line"></span><br><span class="line">if cancelBtn:</span><br><span class="line">    cancelBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">if skipBtn:</span><br><span class="line">    skipBtn.click()</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;no skipBtn&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from  appium import webdriver
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;&#39;Android&#39;
+desired_caps[&#39;deviceName&#39;]&#x3D;&#39;127.0.0.1:62025&#39;
+desired_caps[&#39;platforVersion&#39;]&#x3D;&#39;7.1.2&#39;
+
+
+desired_caps[&#39;app&#39;]&#x3D;r&#39;D:\kaoyan3.1.0.apk&#39;
+desired_caps[&#39;appPackage&#39;]&#x3D;&#39;com.tal.kaoyan&#39;
+desired_caps[&#39;appActivity&#39;]&#x3D;&#39;com.tal.kaoyan.ui.activity.SplashActivity&#39;
+
+desired_caps[&#39;noReset&#39;]&#x3D;&#39;True&#39;
+
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;localhost:4723&#x2F;wd&#x2F;hub&#39;,desired_caps)
+driver.implicitly_wait(5)
+cancelBtn&#x3D;driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+skipBtn&#x3D;driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+
+if cancelBtn:
+    cancelBtn.click()
+else:
+    print(&#39;no cancelBtn&#39;)
+
+if skipBtn:
+    skipBtn.click()
+else:
+    print(&#39;no skipBtn&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -177,11 +225,50 @@
 <p>报异常：</p>
 <p>selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.</p>
 <h3 id="方案探索2——异常捕捉"><a href="#方案探索2——异常捕捉" class="headerlink" title="方案探索2——异常捕捉"></a>方案探索2——异常捕捉</h3><p>既然上面的if语句判断无法生效，但是我们发现一个突破口，那就是捕捉NoSuchElementException异常。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from  appium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;&#39;Android&#39;
+desired_caps[&#39;deviceName&#39;]&#x3D;&#39;127.0.0.1:62025&#39;
+desired_caps[&#39;platforVersion&#39;]&#x3D;&#39;7.1.2&#39;
+
+
+desired_caps[&#39;app&#39;]&#x3D;r&#39;d:\kaoyan3.1.0.apk&#39;
+desired_caps[&#39;appPackage&#39;]&#x3D;&#39;com.tal.kaoyan&#39;
+desired_caps[&#39;appActivity&#39;]&#x3D;&#39;com.tal.kaoyan.ui.activity.SplashActivity&#39;
+
+desired_caps[&#39;noReset&#39;]&#x3D;&#39;True&#39;
+
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;localhost:4723&#x2F;wd&#x2F;hub&#39;,desired_caps)
+driver.implicitly_wait(5)
+
+
+def check_cancelBtn():
+    print(&quot;check_cancelBtn&quot;)
+    try:
+        cancelBtn &#x3D; driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+    except NoSuchElementException:
+        print(&#39;no CancelBtn&#39;)
+    else:
+        cancelBtn.click()
+
+
+def check_skipBtn():
+    print(&quot;check_skipBtn&quot;)
+    try:
+        skipBtn &#x3D; driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+    except NoSuchElementException:
+        print(&#39;check_skipBtn&#39;)
+    else:
+        skipBtn.click()
+
+check_updateBtn()
+check_skipBtn()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="四、id定位综合实践——自动登录"><a href="#四、id定位综合实践——自动登录" class="headerlink" title="四、id定位综合实践——自动登录"></a><strong>四、id定位综合实践——自动登录</strong></h2><h3 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h3><ol>
 <li><p>启动App，进入到登录界面</p>
@@ -197,14 +284,72 @@
 <li><p>注意：send_keys()传入中文时需要在capability中配置如下内容：</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">desired_caps[&#x27;unicodeKeyboard&#x27;]=&quot;True&quot;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;resetKeyboard&#x27;]=&quot;True&quot;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">desired_caps[&#39;unicodeKeyboard&#39;]&#x3D;&quot;True&quot;
+
+desired_caps[&#39;resetKeyboard&#39;]&#x3D;&quot;True&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>设置之后会有Appium的输入法守护来执行输入操作</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;True&#x27;</span><br><span class="line"></span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&quot;check_cancelBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no CancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;check_skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">#check_updateBtn()</span><br><span class="line"></span><br><span class="line">check_skipBtn()</span><br><span class="line"></span><br><span class="line">def login():</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).clear()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line"></span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;)</span><br><span class="line">except NoSuchElementException:</span><br><span class="line">    login()</span><br><span class="line">else:</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/mainactivity_button_mysefl&#x27;).click()</span><br><span class="line">    driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_usercenter_username&#x27;).click()</span><br><span class="line">    login()</span><br></pre></td></tr></table></figure>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><pre class="line-numbers language-none"><code class="language-none">from  appium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;&#39;Android&#39;
+desired_caps[&#39;deviceName&#39;]&#x3D;&#39;127.0.0.1:62025&#39;
+desired_caps[&#39;platforVersion&#39;]&#x3D;&#39;7.1.2&#39;
+
+
+desired_caps[&#39;app&#39;]&#x3D;r&#39;d:\kaoyan3.1.0.apk&#39;
+desired_caps[&#39;appPackage&#39;]&#x3D;&#39;com.tal.kaoyan&#39;
+desired_caps[&#39;appActivity&#39;]&#x3D;&#39;com.tal.kaoyan.ui.activity.SplashActivity&#39;
+
+desired_caps[&#39;noReset&#39;]&#x3D;&#39;True&#39;
+
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;localhost:4723&#x2F;wd&#x2F;hub&#39;,desired_caps)
+driver.implicitly_wait(5)
+
+
+def check_cancelBtn():
+    print(&quot;check_cancelBtn&quot;)
+    try:
+        cancelBtn &#x3D; driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+    except NoSuchElementException:
+        print(&#39;no CancelBtn&#39;)
+    else:
+        cancelBtn.click()
+
+
+def check_skipBtn():
+    print(&quot;check_skipBtn&quot;)
+    try:
+        skipBtn &#x3D; driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+    except NoSuchElementException:
+        print(&#39;check_skipBtn&#39;)
+    else:
+        skipBtn.click()
+
+#check_updateBtn()
+
+check_skipBtn()
+
+def login():
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_email_edittext&#39;).clear()
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_email_edittext&#39;).send_keys(&#39;xxxxxx&#39;)
+
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_password_edittext&#39;).send_keys(&#39;xxxxxx&#39;)
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_login_btn&#39;).click()
+
+try:
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;mainactivity_button_mysefl&#39;)
+except NoSuchElementException:
+    login()
+else:
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;mainactivity_button_mysefl&#39;).click()
+    driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_usercenter_username&#39;).click()
+    login()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>注意：</p>
 <p>使用Appium做了输入操作之后，如果出现输入法无法唤起，可以在系统设置——语言和输入法——将当前输入法替换为系统输入法或者其他输入法。</p>
@@ -212,6 +357,13 @@
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">一、元素定位方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81id%E5%AE%9A%E4%BD%8D"><span class="toc-text">二、id定位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">1) 测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="toc-text">2) 脚本实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%80%9D%E8%80%83"><span class="toc-text">三、思考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%8E%A2%E7%B4%A21%E2%80%94%E2%80%94if%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="toc-text">方案探索1——if条件判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%8E%A2%E7%B4%A22%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E6%8D%95%E6%8D%89"><span class="toc-text">方案探索2——异常捕捉</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81id%E5%AE%9A%E4%BD%8D%E7%BB%BC%E5%90%88%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95"><span class="toc-text">四、id定位综合实践——自动登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -418,6 +570,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

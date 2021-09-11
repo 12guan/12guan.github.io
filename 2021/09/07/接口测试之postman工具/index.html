@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -202,7 +206,30 @@
 <p><strong>案例1：</strong></p>
 <p><strong>https</strong>://postman-echo.com/post?param=java </p>
 <p>返回值： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">&quot;args&quot;: &#123; </span><br><span class="line">&quot;param&quot;: &quot;java&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;data&quot;: &#123;&#125;, </span><br><span class="line">&quot;files&quot;: &#123;&#125;, </span><br><span class="line">&quot;form&quot;: &#123;&#125;, </span><br><span class="line">&quot;headers&quot;: &#123; </span><br><span class="line">&quot;x-forwarded-proto&quot;: &quot;https&quot;, </span><br><span class="line">&quot;x-forwarded-port&quot;: &quot;443&quot;, </span><br><span class="line">&quot;host&quot;: &quot;postman-echo.com&quot;, </span><br><span class="line">&quot;x-amzn-trace-id&quot;: &quot;Root=1-5f297e6e-ff1108001ac45200f71e6e00&quot;, </span><br><span class="line">&quot;content-length&quot;: &quot;0&quot;, </span><br><span class="line">&quot;cache-control&quot;: &quot;no-cache&quot;, </span><br><span class="line">&quot;postman-token&quot;: &quot;69f685b5-96ab-4ca2-83b5-26f4e1c50203&quot;, </span><br><span class="line">&quot;user-agent&quot;: &quot;PostmanRuntime/7.4.0&quot;, </span><br><span class="line">&quot;accept&quot;: &quot;*/*&quot;, </span><br><span class="line">&quot;cookie&quot;: &quot;sails.sid=s%3AwSs2NC8SufYRF_X8JSeoRRYm2S8zld8-.0lM9TgljEowpovt7s9T4jobFlIbPoF5e6gaYBSiw758&quot;, </span><br><span class="line">&quot;accept-encoding&quot;: &quot;gzip, deflate&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;json&quot;: null, </span><br><span class="line">&quot;url&quot;: &quot;https://postman-echo.com/post?param=java&quot; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123; 
+
+&quot;args&quot;: &#123; 
+&quot;param&quot;: &quot;java&quot; 
+&#125;,
+&quot;data&quot;: &#123;&#125;, 
+&quot;files&quot;: &#123;&#125;, 
+&quot;form&quot;: &#123;&#125;, 
+&quot;headers&quot;: &#123; 
+&quot;x-forwarded-proto&quot;: &quot;https&quot;, 
+&quot;x-forwarded-port&quot;: &quot;443&quot;, 
+&quot;host&quot;: &quot;postman-echo.com&quot;, 
+&quot;x-amzn-trace-id&quot;: &quot;Root&#x3D;1-5f297e6e-ff1108001ac45200f71e6e00&quot;, 
+&quot;content-length&quot;: &quot;0&quot;, 
+&quot;cache-control&quot;: &quot;no-cache&quot;, 
+&quot;postman-token&quot;: &quot;69f685b5-96ab-4ca2-83b5-26f4e1c50203&quot;, 
+&quot;user-agent&quot;: &quot;PostmanRuntime&#x2F;7.4.0&quot;, 
+&quot;accept&quot;: &quot;*&#x2F;*&quot;, 
+&quot;cookie&quot;: &quot;sails.sid&#x3D;s%3AwSs2NC8SufYRF_X8JSeoRRYm2S8zld8-.0lM9TgljEowpovt7s9T4jobFlIbPoF5e6gaYBSiw758&quot;, 
+&quot;accept-encoding&quot;: &quot;gzip, deflate&quot; 
+&#125;,
+&quot;json&quot;: null, 
+&quot;url&quot;: &quot;https:&#x2F;&#x2F;postman-echo.com&#x2F;post?param&#x3D;java&quot; 
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>案例 2：</strong></p>
 <p>发送一个 Request，其中 body 为 application/x-www-form-urlencoded 类型，别为 param1=wulibobo 和 param2=888 </p>
@@ -269,7 +296,9 @@
 <p><a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"><img src="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"></a></p>
 <h2 id="3-Digest-Auth-授权"><a href="#3-Digest-Auth-授权" class="headerlink" title="3. Digest Auth 授权"></a><strong>3. Digest Auth</strong> <strong>授权</strong></h2><p>Digest auth 是一个简单的认证机制，最初是为 HTTP 协议开发的，因此也常叫做 HTTP 摘要。 </p>
 <p>其身份验证机制非 常简单，它采用哈希加密方法，以避免用明文传输用户的口令。摘 要认证就是要核实參与通信的两方都知道双方共 享的一个口令。 当 server 想要查证用户的身份，它产生一个摘要盘问（digest challenge），并发送 给用户。典型的摘要盘问例如 以下： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Digest realm=&quot;iptel.org&quot;, qop=&quot;auth,auth-int&quot;, </span><br><span class="line"></span><br><span class="line">nonce=&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;, opaque=&quot;&quot;, algorithm=MD5 </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">Digest realm&#x3D;&quot;iptel.org&quot;, qop&#x3D;&quot;auth,auth-int&quot;, 
+
+nonce&#x3D;&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;, opaque&#x3D;&quot;&quot;, algorithm&#x3D;MD5 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>这里包含了一组参数，也要发送给用户。用户使用这些參数，来产生正确的摘要回答，并发 送给 server。各个參数意义如下： </p>
 <p><strong>realm（领域</strong>）：领域參数是强制的，在全部的盘问中都必须有。它是目的是鉴别 SIP 消 息中的机密。在 SIP 实际应用中，它通常设置为 SIP 代理 server 所负责的域名。 </p>
@@ -282,7 +311,10 @@
 <p>准备 URL： </p>
 <p><a target="_blank" rel="noopener" href="https://postman-echo.com/digest-auth">https://postman-echo.com/digest-auth</a></p>
 <p>配置： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Digest username=&quot;postman&quot;, realm=&quot;Users&quot;, nonce=&quot;ni1LiL0O37PRRhofWdCLmwFsnEtH1lew&quot;, </span><br><span class="line"></span><br><span class="line">uri=&quot;/digest-auth&quot;, </span><br><span class="line">response=&quot;254679099562cf07df9b6f5d8d15db44&quot;, opaque=&quot;&quot; </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">Digest username&#x3D;&quot;postman&quot;, realm&#x3D;&quot;Users&quot;, nonce&#x3D;&quot;ni1LiL0O37PRRhofWdCLmwFsnEtH1lew&quot;, 
+
+uri&#x3D;&quot;&#x2F;digest-auth&quot;, 
+response&#x3D;&quot;254679099562cf07df9b6f5d8d15db44&quot;, opaque&#x3D;&quot;&quot; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"><img src="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"></a></p>
 <p>一切都正确，结果如下：</p>
@@ -411,7 +443,19 @@
 <p>pm.variables.set(“user”,’wulibobo’); </p>
 <p><img src="https://pic.imgdb.cn/item/6138b88f44eaada73952d8bb.png"></p>
 <p><strong>在</strong> <strong>Test</strong> <strong>栏下面编写如下脚本</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//判断响应状态码 </span><br><span class="line">pm.test(&quot;Status code is 200&quot;, function () &#123; pm.response.to.have.status(200); &#125;); </span><br><span class="line"></span><br><span class="line">//获取发送的参数值 </span><br><span class="line">username=pm.variables.get(&quot;user&quot;); </span><br><span class="line">console.log(username); </span><br><span class="line"></span><br><span class="line">//校验响应内容是否和请求的一致 </span><br><span class="line">pm.test(&quot;Check username&quot;, function () &#123; var jsonData = pm.response.json(); pm.expect(jsonData.json[&#x27;user&#x27;]).to.eql(username); &#125;);</span><br><span class="line"></span><br><span class="line">//检测响应时间是否小于 0.5s </span><br><span class="line">pm.test(&quot;Response time is less than 500ms&quot;, function () &#123; pm.expect(pm.response.responseTime).to.be.below(500);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;判断响应状态码 
+pm.test(&quot;Status code is 200&quot;, function () &#123; pm.response.to.have.status(200); &#125;); 
+
+&#x2F;&#x2F;获取发送的参数值 
+username&#x3D;pm.variables.get(&quot;user&quot;); 
+console.log(username); 
+
+&#x2F;&#x2F;校验响应内容是否和请求的一致 
+pm.test(&quot;Check username&quot;, function () &#123; var jsonData &#x3D; pm.response.json(); pm.expect(jsonData.json[&#39;user&#39;]).to.eql(username); &#125;);
+
+&#x2F;&#x2F;检测响应时间是否小于 0.5s 
+pm.test(&quot;Response time is less than 500ms&quot;, function () &#123; pm.expect(pm.response.responseTime).to.be.below(500);
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://pic.imgdb.cn/item/6138b8b844eaada7395321bf.png"></p>
 <h4 id="4-断言的结果"><a href="#4-断言的结果" class="headerlink" title="(4) 断言的结果"></a><strong>(4)</strong> <strong>断言的结果</strong></h4><p><img src="https://pic.imgdb.cn/item/6138b8cc44eaada7395344ce.png"></p>
@@ -421,6 +465,13 @@
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81postman-%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="toc-text">一、postman 的概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8-postman%EF%BC%9F"><span class="toc-text">1. 为什么使用 postman？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Postman-%E7%9A%84%E4%B8%8B%E8%BD%BD%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">2. Postman 的下载、安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Postman-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">二、Postman 的工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81Postman%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E8%AF%B7%E6%B1%82"><span class="toc-text">三、Postman发送多种请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8F%91%E9%80%81-get-%E8%AF%B7%E6%B1%82"><span class="toc-text">1. 发送 get 请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%91%E9%80%81-post-%E8%AF%B7%E6%B1%82"><span class="toc-text">2. 发送 post 请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8F%91%E9%80%81-put-%E8%AF%B7%E6%B1%82"><span class="toc-text">3. 发送 put 请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8E%88%E6%9D%83%E8%AE%BE%E7%BD%AE"><span class="toc-text">四、授权设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E6%8E%88%E6%9D%83%E7%95%8C%E9%9D%A2"><span class="toc-text">1. 如何打开授权界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Basic-auth-%E6%8E%88%E6%9D%83"><span class="toc-text">2. Basic auth 授权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Digest-Auth-%E6%8E%88%E6%9D%83"><span class="toc-text">3. Digest Auth 授权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Hawk-Auth"><span class="toc-text">4. Hawk Auth</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%8F%82%E6%95%B0"><span class="toc-text">1) 准备参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%AD%A5%E9%AA%A4%E6%88%AA%E5%9B%BE"><span class="toc-text">2) 步骤截图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">3) 执行结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%8F%82%E6%95%B0-1"><span class="toc-text">1) 准备参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%AD%A5%E9%AA%A4%E6%88%AA%E5%9B%BE-1"><span class="toc-text">2) 步骤截图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C-1"><span class="toc-text">3) 执行结果</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Cookie%E8%AE%BE%E7%BD%AE"><span class="toc-text">五、Cookie设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-cookie"><span class="toc-text">1. 什么是 cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE-cookie"><span class="toc-text">2. 设置 cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-text">1) 准备参数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-text">3) 查看结果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%8E%B7%E5%8F%96-cookie"><span class="toc-text">3. 获取 cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%A0%E9%99%A4-cookie"><span class="toc-text">4. 删除 cookie</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%8F%98%E9%87%8F"><span class="toc-text">六、变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%BC%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="toc-text">1．为什么需要变量？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%BC%8EPostman-%E7%9A%84%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-text">2．Postman 的变量类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Postman%E7%9A%84%E5%8F%98%E9%87%8F%E8%AF%A6%E8%A7%A3"><span class="toc-text">3.Postman的变量详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-Environment-Variable"><span class="toc-text">1) 环境变量(Environment Variable)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%AC%E5%9C%B0%E5%8F%98%E9%87%8F-LocalVariable"><span class="toc-text">2) 本地变量(LocalVariable )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-Global-Variable"><span class="toc-text">3) 全局变量(Global Variable)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%82%B9%E5%87%BB%E7%95%8C%E9%9D%A2%E9%87%8C%E8%AE%BE%E7%BD%AE"><span class="toc-text">1. 点击界面里设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9C%A8%E8%84%9A%E6%9C%AC%E9%87%8C%E8%AE%BE%E7%BD%AE"><span class="toc-text">2.在脚本里设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B%EF%BC%9A"><span class="toc-text">4) 实践案例：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%96%AD%E8%A8%80%EF%BC%9A"><span class="toc-text">七、断言：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%AD%E8%A8%80%EF%BC%9F"><span class="toc-text">1) 什么是断言？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%AD%E8%A8%80%E7%9A%84%E6%A1%88%E4%BE%8B"><span class="toc-text">2) 断言的案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E7%9A%84-URL"><span class="toc-text">(1) 准备的 URL:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%96%AD%E8%A8%80%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-text">(2) 断言的规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%87%86%E5%A4%87%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text">(3) 准备的脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%96%AD%E8%A8%80%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="toc-text">(4) 断言的结果</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -627,6 +678,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

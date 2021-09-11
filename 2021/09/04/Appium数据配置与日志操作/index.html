@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -138,10 +142,28 @@
 <p>由于实现简单，解析成本很低，YAML特别适合在脚本语言中使用。列一下现有的语言实现：Ruby，Java，Perl，Python，PHP，JavaScript等。</p>
 <p>YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。比如同一段数据Josn和Yaml的表示分别如下：</p>
 <p><strong>Json</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: &#x27;Tom Smith&#x27;,age: 37,spouse: &#123; name: &#x27;Jane Smith&#x27;, age: 25 &#125;,children: [ &#123; name: &#x27;Jimmy Smith&#x27;, age: 15 &#125;,&#123; name: &#x27;Jenny Smith&#x27;, age: 12 &#125; ] &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123; name: &#39;Tom Smith&#39;,age: 37,spouse: &#123; name: &#39;Jane Smith&#39;, age: 25 &#125;,children: [ &#123; name: &#39;Jimmy Smith&#39;, age: 15 &#125;,&#123; name: &#39;Jenny Smith&#39;, age: 12 &#125; ] &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>yaml</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line"></span><br><span class="line">age: 37</span><br><span class="line"></span><br><span class="line">spouse:</span><br><span class="line"></span><br><span class="line">  name: Jane Smith</span><br><span class="line"></span><br><span class="line">  age: 25</span><br><span class="line"></span><br><span class="line">children:</span><br><span class="line"></span><br><span class="line"> name: Jimmy Smith</span><br><span class="line"></span><br><span class="line">  age: 15</span><br><span class="line"></span><br><span class="line"> name: Jenny Smith</span><br><span class="line"></span><br><span class="line">  age: 12</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">name: Tom Smith
+
+age: 37
+
+spouse:
+
+  name: Jane Smith
+
+  age: 25
+
+children:
+
+ name: Jimmy Smith
+
+  age: 15
+
+ name: Jenny Smith
+
+  age: 12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -168,23 +190,35 @@
 <p><strong>2）.</strong> <strong>数组</strong>：一组按次序排列的值，又称为序列（sequence） / 列表（list）</p>
 <p><strong>3）.</strong> <strong>对象</strong>：键值对的集合，又称为映射（mapping）/ 哈希（hashes） / 字典（dictionary）</p>
 <h2 id="2-纯量"><a href="#2-纯量" class="headerlink" title="2. 纯量"></a><strong>2. 纯量</strong></h2><p>数据最小的单位，不可以再分割。类似于Python中单个变量</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">flag<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h2 id="3-list数组"><a href="#3-list数组" class="headerlink" title="3. list数组"></a><strong>3. list数组</strong></h2><p>与Python的list结构类似，数组元素使用“-”开头，也可以根据缩进进行数组嵌套。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- Jack</span><br><span class="line"></span><br><span class="line">\- Harry</span><br><span class="line"></span><br><span class="line">\- Sunny</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#也可以写成一行</span><br><span class="line">[Jack,Harry,Sunny]</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">- Jack
+
+\- Harry
+
+\- Sunny
+
+
+#也可以写成一行
+[Jack,Harry,Sunny]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p> 对应到python的list写法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;Jack&#x27;,&#x27;Harry&#x27;,&#x27;Sunny&#x27;]</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[&#39;Jack&#39;,&#39;Harry&#39;,&#39;Sunny&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h2 id="4-对象"><a href="#4-对象" class="headerlink" title="4. 对象"></a><strong>4.</strong> 对象</h2><p>对象的一组键值对，使用冒号结构表示。类似Python中的字典数据结构。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line">platformVersion: 7.1.2</span><br><span class="line"></span><br><span class="line"># Yaml 也允许另一种写法，将所有键值对写成一个行内对象。</span><br><span class="line">&#123;platformName: Android,platformVersion: 7.1.2&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">platformName: Android
+platformVersion: 7.1.2
+
+# Yaml 也允许另一种写法，将所有键值对写成一个行内对象。
+&#123;platformName: Android,platformVersion: 7.1.2&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>注意</strong>：冒号后面一定要有空格！对应到python字典的写法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;platformName&#x27;: &#x27;Android&#x27;, &#x27;platformVersion&#x27;: &#x27;6.0.1&#x27;&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;&#39;platformName&#39;: &#39;Android&#39;, &#39;platformVersion&#39;: &#39;6.0.1&#39;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -193,10 +227,19 @@
 <p>Tom Smith 37岁，他有一个妻子叫 Jane Smith，35岁。 另外他有2个孩子，一个叫Jimmy Smith，15岁；另外一个叫Jenny Smith ，12岁。</p>
 <p>yaml语法表示如下：</p>
 <p><strong>familyInfo.yaml</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name: Tom Smith</span><br><span class="line">age: 37</span><br><span class="line">spouse:</span><br><span class="line">    name: Jane Smith</span><br><span class="line">    age: 35</span><br><span class="line">children:</span><br><span class="line"> - name: Jimmy Smith</span><br><span class="line">   age: 15</span><br><span class="line"> - name: Jenny Smith</span><br><span class="line">   age: 12</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">name: Tom Smith
+age: 37
+spouse:
+    name: Jane Smith
+    age: 35
+children:
+ - name: Jimmy Smith
+   age: 15
+ - name: Jenny Smith
+   age: 12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>转化为Python的写法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;name&#x27;:&#x27;Tom Smith&#x27;,&#x27;age&#x27;:37,&#x27;spouse&#x27;:&#123;&#x27;name&#x27;:&#x27;Jane Smith&#x27;,&#x27;age&#x27;:25&#125;,&#x27;childern&#x27;:[&#123;&#x27;name&#x27;:&#x27;Jimmy Smith&#x27;,&#x27;age&#x27;:15&#125;,&#123;&#x27;name&#x27;:&#x27;Jenny Smith&#x27;,&#x27;age&#x27;:12&#125;]&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;&#39;name&#39;:&#39;Tom Smith&#39;,&#39;age&#39;:37,&#39;spouse&#39;:&#123;&#39;name&#39;:&#39;Jane Smith&#39;,&#39;age&#39;:25&#125;,&#39;childern&#39;:[&#123;&#39;name&#39;:&#39;Jimmy Smith&#39;,&#39;age&#39;:15&#125;,&#123;&#39;name&#39;:&#39;Jenny Smith&#39;,&#39;age&#39;:12&#125;]&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -211,22 +254,60 @@
 </li>
 </ul>
 <h3 id="2-load方法"><a href="#2-load方法" class="headerlink" title="2) load方法"></a>2) load方法</h3><p>load(stream, Loader=Loader) 解析文件流中的第一个YAML文档并生成相应的Python对象。</p>
-<h3 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3) 代码实现"></a><strong>3) 代码实现</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import yaml&lt;!--须在设置里面添加pyaml--&gt;</span><br><span class="line">file=open(&#x27;runtest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line">print(data[&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;spouse&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;spouse&#x27;][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][0][&#x27;age&#x27;])</span><br><span class="line"></span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;name&#x27;])</span><br><span class="line">print(data[&#x27;children&#x27;][1][&#x27;age&#x27;])</span><br></pre></td></tr></table></figure>
+<h3 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3) 代码实现"></a><strong>3) 代码实现</strong></h3><pre class="line-numbers language-none"><code class="language-none">import yaml&lt;!--须在设置里面添加pyaml--&gt;
+file&#x3D;open(&#39;runtest.yaml&#39;,&#39;r&#39;)
+data&#x3D;yaml.load(file)
+
+print(data)
+
+print(data[&#39;name&#39;])
+print(data[&#39;age&#39;])
+
+print(data[&#39;spouse&#39;])
+print(data[&#39;spouse&#39;][&#39;name&#39;])
+print(data[&#39;spouse&#39;][&#39;age&#39;])
+
+print(data[&#39;children&#39;])
+print(data[&#39;children&#39;][0][&#39;name&#39;])
+print(data[&#39;children&#39;][0][&#39;age&#39;])
+
+print(data[&#39;children&#39;][1][&#39;name&#39;])
+print(data[&#39;children&#39;][1][&#39;age&#39;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="2-数据修改"><a href="#2-数据修改" class="headerlink" title="2. 数据修改"></a><strong>2.</strong> <strong>数据修改</strong></h2><p>如果想改变某个数据，可以使用如下方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line">file=open(&#x27;runTest.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line">data[&#x27;name&#x27;]=&#x27;Test123&#x27;</span><br><span class="line">print(data[&#x27;name&#x27;])</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import yaml
+file&#x3D;open(&#39;runTest.yaml&#39;,&#39;r&#39;)
+data&#x3D;yaml.load(file)
+data[&#39;name&#39;]&#x3D;&#39;Test123&#39;
+print(data[&#39;name&#39;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意：此处只是变量类型的数据变更，不会真正修改到yaml配置表中的数据。</p>
 <h2 id="3-数据转化"><a href="#3-数据转化" class="headerlink" title="3. 数据转化"></a><strong>3.</strong> <strong>数据转化</strong></h2><p>方法：dump()可以将Python对象序列化成YAML流。如果stream为None，则返回生成的字符串。</p>
 <h3 id="1-测试场景-1"><a href="#1-测试场景-1" class="headerlink" title="1) 测试场景"></a>1) <strong>测试场景</strong></h3><p>将下面python数据类型转化为yaml数据类型</p>
-<h3 id="2-代码实践"><a href="#2-代码实践" class="headerlink" title="2) 代码实践"></a>2) <strong>代码实践</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">city=[&#x27;changsha&#x27;,&#x27;wuhan&#x27;,&#x27;beijing&#x27;]</span><br><span class="line">person=&#123;&#x27;tom&#x27;:&#x27;18&#x27;&#125;</span><br><span class="line"></span><br><span class="line">#python data</span><br><span class="line">print(city)</span><br><span class="line">print(person)</span><br><span class="line">#yaml data</span><br><span class="line">print(yaml.dump(city))</span><br><span class="line">print(yaml.dump(person))</span><br></pre></td></tr></table></figure>
+<h3 id="2-代码实践"><a href="#2-代码实践" class="headerlink" title="2) 代码实践"></a>2) <strong>代码实践</strong></h3><pre class="line-numbers language-none"><code class="language-none">import yaml
+
+city&#x3D;[&#39;changsha&#39;,&#39;wuhan&#39;,&#39;beijing&#39;]
+person&#x3D;&#123;&#39;tom&#39;:&#39;18&#39;&#125;
+
+#python data
+print(city)
+print(person)
+#yaml data
+print(yaml.dump(city))
+print(yaml.dump(person))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p>运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;changsha&#x27;, &#x27;wuhan&#x27;, &#x27;beijing&#x27;]</span><br><span class="line">&#123;&#x27;tom&#x27;: &#x27;18&#x27;&#125;</span><br><span class="line">\- changsha</span><br><span class="line">\- wuhan</span><br><span class="line">\- beijing</span><br><span class="line"></span><br><span class="line">tom: &#x27;18&#x27;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[&#39;changsha&#39;, &#39;wuhan&#39;, &#39;beijing&#39;]
+&#123;&#39;tom&#39;: &#39;18&#39;&#125;
+\- changsha
+\- wuhan
+\- beijing
+
+tom: &#39;18&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -235,15 +316,41 @@
 <h3 id="3-代码实现-1"><a href="#3-代码实现-1" class="headerlink" title="3) 代码实现"></a><strong>3)</strong> <strong>代码实现</strong></h3><ol>
 <li>参数配置表：<strong>desired_caps.yaml</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">platformName: Android</span><br><span class="line">platformVersion: 7.1.2</span><br><span class="line">deviceName: 127.0.0.1:62025</span><br><span class="line">app: D\kaoyan3.1.0.apk</span><br><span class="line">noReset: False</span><br><span class="line">appPackage: com.tal.kaoyan&lt;!--#此次测试了考研帮--&gt;</span><br><span class="line">appActivity: com.tal.kaoyan.ui.activity.SplashActivity</span><br><span class="line">ip: 127.0.0.1</span><br><span class="line">port: 4723</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">platformName: Android
+platformVersion: 7.1.2
+deviceName: 127.0.0.1:62025
+app: D\kaoyan3.1.0.apk
+noReset: False
+appPackage: com.tal.kaoyan&lt;!--#此次测试了考研帮--&gt;
+appActivity: com.tal.kaoyan.ui.activity.SplashActivity
+ip: 127.0.0.1
+port: 4723<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>Python脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from appium import webdriver
+import yaml
+
+file&#x3D;open(&#39;desired_caps.yaml&#39;,&#39;r&#39;)
+data&#x3D;yaml.load(file)
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;data[&#39;platformName&#39;]
+
+desired_caps[&#39;platformVersion&#39;]&#x3D;data[&#39;platformVersion&#39;]
+desired_caps[&#39;deviceName&#39;]&#x3D;data[&#39;deviceName&#39;]
+
+desired_caps[&#39;app&#39;]&#x3D;data[&#39;app&#39;]
+desired_caps[&#39;noReset&#39;]&#x3D;data[&#39;noReset&#39;]
+
+desired_caps[&#39;appPackage&#39;]&#x3D;data[&#39;appPackage&#39;]
+desired_caps[&#39;appActivity&#39;]&#x3D;data[&#39;appActivity&#39;]
+
+driver &#x3D; webdriver.Remote(&#39;http:&#x2F;&#x2F;&#39;+str(data[&#39;ip&#39;])+&#39;:&#39;+str(data[&#39;port&#39;])+&#39;&#x2F;wd&#x2F;hub&#39;, desired_caps)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p><strong>报错分析</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaml.scanner.ScannerError: mapping values are not allowed here</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">yaml.scanner.ScannerError: mapping values are not allowed here<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>该报错说明map对象数据类型写法错误，一般为“：”后面没有留空格。如：platformName:Android</p>
 <p> <strong>问题思考</strong></p>
@@ -282,7 +389,8 @@
 <h2 id="3-日志格式"><a href="#3-日志格式" class="headerlink" title="3 日志格式"></a><strong>3 日志格式</strong></h2><p>日志格式化是为了提高日志的可阅读性，比如：<strong>时间+模块+行数+日志</strong>具体信息的内容格式。如果日志信息杂乱无章的全部输出来，这样也不利于定位问题。</p>
 <h2 id="4-日志位置"><a href="#4-日志位置" class="headerlink" title="4 日志位置"></a><strong>4 日志位置</strong></h2><p>一个项目中会有很多的日志采集点，而日志采集点必须结合业务属性来设置。比如在登录代码执行前可以插入“准备登录..”日志信息,如果登录完成之后，再设置登录的提示日志就会给人造成误解，无法判断到底是登录之前的问题还是登录之后的问题，因此日志采集点的位置很重要。</p>
 <h1 id="五、logging模块"><a href="#五、logging模块" class="headerlink" title="五、logging模块"></a><strong>五、logging模块</strong></h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a><strong>1 简介</strong></h2><p>Python的logging模块提供了通用的日志系统，这个模块提供不同的日志级别，并可以采用不同的方式记录日志，比如文件，HTTP GET/POST，SMTP，Socket等，甚至可以自己实现方式记录日志。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#导入logging模块</span><br><span class="line">import logging</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">#导入logging模块
+import logging<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
@@ -335,14 +443,22 @@
 <p><strong>format</strong>:为处理程序使用指定的格式字符串。</p>
 <p><strong>datefmt</strong>: 使用指定的日期/时间格式。样式如果指定了格式字符串，则使用它来指定 格式字符串的类型.</p>
 <p><strong>level</strong>:将根记录器级别设置为指定级别。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line">logging.basicConfig(level=logging.INFO)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import logging
+logging.basicConfig(level&#x3D;logging.DEBUG)
+logging.basicConfig(level&#x3D;logging.INFO)
+logging.debug(&#39;debug info&#39;)
+logging.info(&#39;hello tom！&#39;)
+logging.warning(&#39;warning info&#39;)
+logging.error(&#39;error info&#39;)
+logging.critical(&#39;critical info&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="4-Handler-处理器"><a href="#4-Handler-处理器" class="headerlink" title="4 Handler 处理器"></a><strong>4 Handler 处理器</strong></h2><p>Handler 处理器，将日志记录发送至合适的路径,Handler处理器类型有很多种，比较常用的有三个：</p>
 <h3 id="1-StreamHandler"><a href="#1-StreamHandler" class="headerlink" title="1).StreamHandler"></a><strong>1).StreamHandler</strong></h3><p>将日志记录输出发送到诸如sys.stdout，sys.stderr或任何类似文件流的对象。</p>
 <h3 id="2-FileHandler"><a href="#2-FileHandler" class="headerlink" title="2).FileHandler"></a><strong>2).FileHandler</strong></h3><p>将日志记录输出发送到磁盘文件。 它继承了StreamHandler的输出功能。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG)</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">logging.basicConfig(filename&#x3D;&#39;runlog.log&#39;,level&#x3D;logging.DEBUG)
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
@@ -401,29 +517,172 @@
 </tr>
 </tbody></table>
 <p>使用方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logging.basicConfig(filename=&#x27;runlog.log&#x27;,level=logging.DEBUG,</span><br><span class="line">format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&#x27;)</span><br><span class="line">logging.debug(&#x27;debug info&#x27;)</span><br><span class="line">logging.info(&#x27;hello tom！&#x27;)</span><br><span class="line">logging.warning(&#x27;warning info&#x27;)</span><br><span class="line">logging.error(&#x27;error info&#x27;)</span><br><span class="line">logging.critical(&#x27;critical info&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import logging
+logging.basicConfig(filename&#x3D;&#39;runlog.log&#39;,level&#x3D;logging.DEBUG,
+format&#x3D;&#39;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&#39;)
+logging.debug(&#39;debug info&#39;)
+logging.info(&#39;hello tom！&#39;)
+logging.warning(&#39;warning info&#39;)
+logging.error(&#39;error info&#39;)
+logging.critical(&#39;critical info&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p>输出结果：</p>
 <p>2021-09-02 11:50:20,094   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,359   .py[line:5] DEBUG debug info<br>2021-09-02 11:50:41,360   .py[line:6] INFO hello tom<br>2021-09-02 11:50:41,360   .py[line:7] WARNING warning info<br>2021-09-02 11:50:41,360   .py[line:8] ERROR error info<br>2021-09-02 11:50:41,360 </p>
 <h1 id="六、Logging实践操作"><a href="#六、Logging实践操作" class="headerlink" title="六、Logging实践操作"></a><strong>六、Logging实践操作</strong></h1><h2 id="1测试场景"><a href="#1测试场景" class="headerlink" title="1测试场景"></a><strong>1测试场景</strong></h2><p>将前面所学的启动考研帮App的脚本增加log采集功能，设置指定的日志格式输出，并将日志保存到指定文件。</p>
-<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a><strong>2 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">file=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(file)</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO,filename=&#x27;runlog.log&#x27;,</span><br><span class="line">                    format=&#x27;%(asctime)s %(filename)s[line:%(lineno)d]%(levelname)s%(message)s&#x27;)</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">logging.info(&#x27;start app...&#x27;)</span><br><span class="line">driver=webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;,desired_caps)</span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    logging.info(&#x27;check cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no cancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&#x27;check skipBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;no skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_cancelBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a><strong>2 代码实现</strong></h2><pre class="line-numbers language-none"><code class="language-none">from appium import webdriver
+import yaml
+from selenium.common.exceptions import NoSuchElementException
+import logging
+
+file&#x3D;open(&#39;desired_caps.yaml&#39;,&#39;r&#39;)
+data&#x3D;yaml.load(file)
+
+logging.basicConfig(level&#x3D;logging.INFO,filename&#x3D;&#39;runlog.log&#39;,
+                    format&#x3D;&#39;%(asctime)s %(filename)s[line:%(lineno)d]%(levelname)s%(message)s&#39;)
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;data[&#39;platformName&#39;]
+desired_caps[&#39;platformVersion&#39;]&#x3D;data[&#39;platformVersion&#39;]
+desired_caps[&#39;deviceName&#39;]&#x3D;data[&#39;deviceName&#39;]
+
+desired_caps[&#39;app&#39;]&#x3D;data[&#39;app&#39;]
+desired_caps[&#39;appPackage&#39;]&#x3D;data[&#39;appPackage&#39;]
+desired_caps[&#39;appActivity&#39;]&#x3D;data[&#39;appActivity&#39;]
+desired_caps[&#39;noReset&#39;]&#x3D;data[&#39;noReset&#39;]
+
+logging.info(&#39;start app...&#39;)
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;&#39;+str(data[&#39;ip&#39;])+&#39;:&#39;+str(data[&#39;port&#39;])+&#39;&#x2F;wd&#x2F;hub&#39;,desired_caps)
+
+def check_cancelBtn():
+    logging.info(&#39;check cancelBtn&#39;)
+
+    try:
+        cancelBtn &#x3D; driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+    except NoSuchElementException:
+        logging.info(&#39;no cancelBtn&#39;)
+    else:
+        cancelBtn.click()
+
+def check_skipBtn():
+    logging.info(&#39;check skipBtn&#39;)
+
+    try:
+        skipBtn &#x3D; driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+    except NoSuchElementException:
+        logging.info(&#39;no skipBtn&#39;)
+    else:
+        skipBtn.click()
+
+check_cancelBtn()
+check_skipBtn()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="3-问题思考"><a href="#3-问题思考" class="headerlink" title="3 问题思考"></a><strong>3 问题思考</strong></h2><p>前面我们已经实现了在代码中增添log，log也按照预期的采集到了，看似一切完美无瑕。但是该log配置的作用域也只是控制当前的脚本 。 然而一个自动化项目中通常有很多模块脚本，难道我们需要每一个脚本都这样配置吗？</p>
 <h2 id="4解决思路"><a href="#4解决思路" class="headerlink" title="4解决思路"></a><strong>4解决思路</strong></h2><p>将这些日志配置的参数抽离出来，各个模块需要使用则直接引用即可。</p>
 <h2 id="5日志格式配置"><a href="#5日志格式配置" class="headerlink" title="5日志格式配置"></a><strong>5日志格式配置</strong></h2><p>将log输出格式，输出路径等参数抽离出来作为一个配置表，如下所示：</p>
 <p><strong>log.conf</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys=root,infoLogger</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=DEBUG</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[logger_infoLogger]</span><br><span class="line">handlers=consoleHandler,fileHandler</span><br><span class="line">qualname=infoLogger</span><br><span class="line">propagate=0</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys=consoleHandler,fileHandler</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form02</span><br><span class="line">args=(sys.stdout,)</span><br><span class="line"></span><br><span class="line">[handler_fileHandler]</span><br><span class="line">class=FileHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form01</span><br><span class="line">args=(&#x27;runlog.log&#x27;, &#x27;a&#x27;)</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys=form01,form02</span><br><span class="line"></span><br><span class="line">[formatter_form01]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br><span class="line">[formatter_form02]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[loggers]
+keys&#x3D;root,infoLogger
+
+[logger_root]
+level&#x3D;DEBUG
+handlers&#x3D;consoleHandler,fileHandler
+
+[logger_infoLogger]
+handlers&#x3D;consoleHandler,fileHandler
+qualname&#x3D;infoLogger
+propagate&#x3D;0
+
+[handlers]
+keys&#x3D;consoleHandler,fileHandler
+
+[handler_consoleHandler]
+class&#x3D;StreamHandler
+level&#x3D;INFO
+formatter&#x3D;form02
+args&#x3D;(sys.stdout,)
+
+[handler_fileHandler]
+class&#x3D;FileHandler
+level&#x3D;INFO
+formatter&#x3D;form01
+args&#x3D;(&#39;runlog.log&#39;, &#39;a&#39;)
+
+[formatters]
+keys&#x3D;form01,form02
+
+[formatter_form01]
+format&#x3D;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s
+
+[formatter_form02]
+format&#x3D;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在需要调用的模块增加如下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">import logging
+import logging.config
+
+
+CON_LOG&#x3D;&#39;log.conf&#39;
+logging.config.fileConfig(CON_LOG)
+logging&#x3D;logging.getLogger()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileConfig(fname, defaults=None, disable_existing_loggers=True)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">fileConfig(fname, defaults&#x3D;None, disable_existing_loggers&#x3D;True)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>该放在作用是从ConfigParser格式的文件中读取日志配置，同时如果当前脚本有配置log参数，则覆盖当前log配置选项。</p>
-<h2 id="6-代码实现"><a href="#6-代码实现" class="headerlink" title="6 代码实现"></a><strong>6 代码实现</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">from appium import webdriver</span><br><span class="line">import yaml</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">import logging</span><br><span class="line">import logging.config</span><br><span class="line"></span><br><span class="line">stream=open(&#x27;desired_caps.yaml&#x27;,&#x27;r&#x27;)</span><br><span class="line">data=yaml.load(stream)</span><br><span class="line"></span><br><span class="line">CON_LOG=&#x27;log.conf&#x27;</span><br><span class="line">logging.config.fileConfig(CON_LOG)</span><br><span class="line">logging=logging.getLogger()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=data[&#x27;platformName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;platformVersion&#x27;]=data[&#x27;platformVersion&#x27;]</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=data[&#x27;deviceName&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=data[&#x27;app&#x27;]</span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=data[&#x27;noReset&#x27;]</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=data[&#x27;appPackage&#x27;]</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=data[&#x27;appActivity&#x27;]</span><br><span class="line"></span><br><span class="line">driver = webdriver.Remote(&#x27;http://&#x27;+str(data[&#x27;ip&#x27;])+&#x27;:&#x27;+str(data[&#x27;port&#x27;])+&#x27;/wd/hub&#x27;, desired_caps)</span><br><span class="line"></span><br><span class="line">def check_updateBtn():</span><br><span class="line">    logging.info(&quot;check_pdateBtn&quot;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;update element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    logging.info(&quot;check_skipBtn&quot;)</span><br><span class="line">    try:</span><br><span class="line">        element = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        logging.info(&#x27;skipBtn element is not found!&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        element.click()</span><br><span class="line"></span><br><span class="line">check_updateBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+<h2 id="6-代码实现"><a href="#6-代码实现" class="headerlink" title="6 代码实现"></a><strong>6 代码实现</strong></h2><pre class="line-numbers language-none"><code class="language-none">from appium import webdriver
+import yaml
+from selenium.common.exceptions import NoSuchElementException
+
+import logging
+import logging.config
+
+stream&#x3D;open(&#39;desired_caps.yaml&#39;,&#39;r&#39;)
+data&#x3D;yaml.load(stream)
+
+CON_LOG&#x3D;&#39;log.conf&#39;
+logging.config.fileConfig(CON_LOG)
+logging&#x3D;logging.getLogger()
+
+
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;data[&#39;platformName&#39;]
+
+desired_caps[&#39;platformVersion&#39;]&#x3D;data[&#39;platformVersion&#39;]
+desired_caps[&#39;deviceName&#39;]&#x3D;data[&#39;deviceName&#39;]
+
+desired_caps[&#39;app&#39;]&#x3D;data[&#39;app&#39;]
+desired_caps[&#39;noReset&#39;]&#x3D;data[&#39;noReset&#39;]
+
+desired_caps[&#39;appPackage&#39;]&#x3D;data[&#39;appPackage&#39;]
+desired_caps[&#39;appActivity&#39;]&#x3D;data[&#39;appActivity&#39;]
+
+driver &#x3D; webdriver.Remote(&#39;http:&#x2F;&#x2F;&#39;+str(data[&#39;ip&#39;])+&#39;:&#39;+str(data[&#39;port&#39;])+&#39;&#x2F;wd&#x2F;hub&#39;, desired_caps)
+
+def check_updateBtn():
+    logging.info(&quot;check_pdateBtn&quot;)
+
+    try:
+        element &#x3D; driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+    except NoSuchElementException:
+        logging.info(&#39;update element is not found!&#39;)
+    else:
+        element.click()
+
+
+def check_skipBtn():
+    logging.info(&quot;check_skipBtn&quot;)
+    try:
+        element &#x3D; driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+    except NoSuchElementException:
+        logging.info(&#39;skipBtn element is not found!&#39;)
+    else:
+        element.click()
+
+check_updateBtn()
+check_skipBtn()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -431,6 +690,13 @@
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Appium%E7%9A%84%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86"><span class="toc-text">Appium的数据配置与日志收集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81yaml%E6%A6%82%E8%BF%B0"><span class="toc-text">一、yaml概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-yaml%E7%AE%80%E4%BB%8B"><span class="toc-text">1 yaml简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AF%AD%E6%B3%95%E7%89%B9%E7%82%B9%E3%80%90%E6%B3%A8%E6%84%8F%E3%80%91"><span class="toc-text">2 语法特点【注意】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-yaml%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">3 yaml下载安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81yaml%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3"><span class="toc-text">二、yaml数据类型详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%94%AF%E6%8C%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.支持数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BA%AF%E9%87%8F"><span class="toc-text">2. 纯量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-list%E6%95%B0%E7%BB%84"><span class="toc-text">3. list数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AF%B9%E8%B1%A1"><span class="toc-text">4. 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%95%B0%E6%8D%AE%E5%B5%8C%E5%A5%97"><span class="toc-text">5.数据嵌套</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81yaml%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="toc-text">三、yaml数据操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96"><span class="toc-text">1. 数据读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">1) 测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-load%E6%96%B9%E6%B3%95"><span class="toc-text">2) load方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">3) 代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E4%BF%AE%E6%94%B9"><span class="toc-text">2. 数据修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96"><span class="toc-text">3. 数据转化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF-1"><span class="toc-text">1) 测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E8%B7%B5"><span class="toc-text">2) 代码实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Capability%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%88%86%E7%A6%BB"><span class="toc-text">4. Capability配置数据分离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF-2"><span class="toc-text">1) 测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90"><span class="toc-text">2) 场景分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-text">3) 代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0"><span class="toc-text">四、日志概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%97%A5%E5%BF%97%E4%BD%9C%E7%94%A8"><span class="toc-text">1 日志作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="toc-text">2 日志级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F"><span class="toc-text">3 日志格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%97%A5%E5%BF%97%E4%BD%8D%E7%BD%AE"><span class="toc-text">4 日志位置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81logging%E6%A8%A1%E5%9D%97"><span class="toc-text">五、logging模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-logging%E6%9E%84%E6%88%90"><span class="toc-text">2 logging构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Logger-%E8%AE%B0%E5%BD%95%E5%99%A8"><span class="toc-text">3 Logger 记录器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Handler-%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4 Handler 处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-StreamHandler"><span class="toc-text">1).StreamHandler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-FileHandler"><span class="toc-text">2).FileHandler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-NullHandler"><span class="toc-text">3).NullHandler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Formatter"><span class="toc-text">5 Formatter</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81Logging%E5%AE%9E%E8%B7%B5%E6%93%8D%E4%BD%9C"><span class="toc-text">六、Logging实践操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">1测试场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2 代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83"><span class="toc-text">3 问题思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="toc-text">4解决思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">5日志格式配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">6 代码实现</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -637,6 +903,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

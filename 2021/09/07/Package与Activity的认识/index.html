@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -135,7 +139,8 @@
 <p>Tips：activity的生命周期：即“产生、运行、销毁”，但是这其中会调用许多方法onCreate（创建） 、onStart（激活） 、onResume（恢复） 、onPause（暂停） 、onStop（停止） 、onDestroy（销毁） 、onRestart（重启）。</p>
 <h4 id="Activity获取"><a href="#Activity获取" class="headerlink" title="Activity获取"></a><strong>Activity获取</strong></h4><p>研发提供</p>
 <h5 id="aapt"><a href="#aapt" class="headerlink" title="aapt"></a><strong>aapt</strong></h5><p>aapt即Android Asset Packaging Tool，在SDK的build-tools目录下。该工具可以查看，创建， 更新ZIP格式的文档附件(zip, jar, apk)。也可将资源文件编译成二进制文件。获取命令如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aapt dump badging xxxx.apk</span><br><span class="line">aapt dump badging xxxx.apk | find &quot;launchable-activity&quot;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">aapt dump badging xxxx.apk
+aapt dump badging xxxx.apk | find &quot;launchable-activity&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>可以把appt配置到环境变量（系统变量中的Path），这样运行便捷一些，appt路径：\Andriod_SDK\build-tools{version}</p>
 <h4 id="Activity页面布局元素"><a href="#Activity页面布局元素" class="headerlink" title="Activity页面布局元素"></a><strong>Activity页面布局元素</strong></h4><h5 id="FrameLayout"><a href="#FrameLayout" class="headerlink" title="FrameLayout"></a><strong>FrameLayout</strong></h5><p>FrameLayout是最简单的布局了。所有放在布局里的控件，都按照层次堆叠在屏幕的左上角。后加进来的控件覆盖前面的控件。</p>
@@ -150,6 +155,13 @@
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Package"><span class="toc-text">Package</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Activity"><span class="toc-text">Activity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Activity%E8%8E%B7%E5%8F%96"><span class="toc-text">Activity获取</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#aapt"><span class="toc-text">aapt</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Activity%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80%E5%85%83%E7%B4%A0"><span class="toc-text">Activity页面布局元素</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#FrameLayout"><span class="toc-text">FrameLayout</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LinearLayout"><span class="toc-text">LinearLayout</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RelativeLayout"><span class="toc-text">RelativeLayout</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AbsoluteLayout"><span class="toc-text">AbsoluteLayout</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TableLayout"><span class="toc-text">TableLayout</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TextView"><span class="toc-text">TextView</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ImageView"><span class="toc-text">ImageView</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -356,6 +368,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

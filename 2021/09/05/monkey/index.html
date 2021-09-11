@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -147,11 +151,11 @@
 <li> 连接模拟器</li>
 <li> 连接成功后输入命令</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb  shell</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">adb  shell<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
-<h2 id="四、进入到指定目录"><a href="#四、进入到指定目录" class="headerlink" title="四、进入到指定目录"></a>四、<strong>进入到指定目录</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd  /system/bin</span><br></pre></td></tr></table></figure>
+<h2 id="四、进入到指定目录"><a href="#四、进入到指定目录" class="headerlink" title="四、进入到指定目录"></a>四、<strong>进入到指定目录</strong></h2><pre class="line-numbers language-none"><code class="language-none">cd  &#x2F;system&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol>
 <li><p>输入 monkey命令看到如下提示则说明启动成功。</p>
@@ -166,7 +170,7 @@
 </li>
 </ol>
 <h2 id="六、monkey-命令"><a href="#六、monkey-命令" class="headerlink" title="六、monkey 命令"></a>六、<strong>monkey 命令</strong></h2><p>monkey命令格式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey [options] &lt;event-count&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey [options] &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>[options]是指monkey可传入的参数，是可选项（如果不指定options，Monkey将以无反馈模式启动，并把事件任意发送到安装在目标环境中的全部包）</li>
@@ -203,10 +207,10 @@
 </ul>
 <h3 id="2-常规类参数"><a href="#2-常规类参数" class="headerlink" title="2. 常规类参数"></a>2. <strong>常规类参数</strong></h3><p>常规类参数包括帮助参数和日志信息参数。帮助参数用于输出Monkey命令使用指导；日志信息参数将日志分为三个级别，级别越高，日志的信息越详细。</p>
 <p>1.帮助类参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monkey -h</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">monkey -h<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>2.日志级别</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -v &lt;event-count&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -v &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>-v：打印出日志信息，每个-v将增加反馈信息的级别。-v越多日志信息越详细，不过目前最多支持3个-v：</p>
 <img src="https://pic.imgdb.cn/item/6137707a44eaada739328274.jpg">
@@ -215,59 +219,74 @@
 
 <h3 id="3-事件类参数"><a href="#3-事件类参数" class="headerlink" title="3.事件类参数"></a>3.事件类参数</h3><p>类参数的作用是对随机事件进行调控，从而使其遵照设定运行，如设置各种事件的百分比、设置事件生成所使用的种子值等。频率参数主要限制事件执行的时间间隔。</p>
 <p>1.执行指定脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -f &lt;scriptfile&gt; &lt;event-count&gt;</span><br><span class="line">eg：</span><br><span class="line">$ adb shell monkey -f /mnt/sdcard/test1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -f &lt;scriptfile&gt; &lt;event-count&gt;
+eg：
+$ adb shell monkey -f &#x2F;mnt&#x2F;sdcard&#x2F;test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>2.伪随机数生成种子值</p>
 <p>使用 -s命令可以重复执行之前的伪随机操作。本身每次执行伪随机事件操作也会默认生成一个seed值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -s &lt;seed&gt; &lt;event-count&gt;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line">$ adb shell monkey -s 666 100</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -s &lt;seed&gt; &lt;event-count&gt;
+
+eg:
+$ adb shell monkey -s 666 100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>3.设置间隔 如果你希望在每一个指令之间加上固定的间隔时间，可以用–throttle（注意，前面是–）命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --throttle &lt;milliseconds&gt;</span><br><span class="line">eg:</span><br><span class="line">$ adb shell monkey --throttle 3000  5</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --throttle &lt;milliseconds&gt;
+eg:
+$ adb shell monkey --throttle 3000  5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>–throttle：后面接时间，单位为ms（<milliseconds>），表示事件之间的固定延迟（即执行每一个指令间隔的时间），若不接该选项，monkey将不会延迟。</p>
 <p>4.调整触摸事件百分比</p>
 <p>如果你希望调整触摸事件的百分比，记住使用–pct-touch。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --pct-touch</span><br><span class="line">eg:</span><br><span class="line">$ adb shell monkey -v -v --pct-touch 100 200</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-touch
+eg:
+$ adb shell monkey -v -v --pct-touch 100 200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p> <percent>–pct-touch：后面接触摸事件百分比</p>
 <p><strong>注意</strong>：触摸事件不单单是按键，它泛指发生在某一位置的一个down-up事件。</p>
 <p>5.调整手势事件百分比</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --pct-motion</span><br><span class="line">eg:</span><br><span class="line">$ adb shell monkey -v -v --pct-motion 100 200</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-motion
+eg:
+$ adb shell monkey -v -v --pct-motion 100 200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>6.调整应用启动事件的百分比</p>
 <p>如果你希望调整应用启动事件的百分比，记住使用–pct-app-switch。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --pct-appswtich &lt;percent&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-appswtich &lt;percent&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>–pct-appswitch：后面接应用启动事件百分比。</p>
 <p>应用启动事件（即activity launches）俗称打开应用，通过调用startActivity()方法最大限度地开启该package下的所有应用。</p>
 <p>7.调整屏幕旋转事件百分比</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --pct-rotation &lt;percent&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-rotation &lt;percent&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>–pct-rotation 后面接屏幕旋转事件的比例值。</p>
 <p>8.其他参数</p>
 <img src="https://pic.imgdb.cn/item/613770de44eaada739338427.jpg">
 
 <h3 id="4-约束类参数"><a href="#4-约束类参数" class="headerlink" title="4. 约束类参数"></a>4. <strong>约束类参数</strong></h3><h4 id="1-包约束"><a href="#1-包约束" class="headerlink" title="1.包约束"></a><strong>1.包约束</strong></h4><p>-p：后面接一个或多个包名（<allowed-package-name>），如果应用需要访问其他包里的Activity，那相关的包也需要在此同时指定。如果不指定任何包，monkey将允许系统启动全部包里的Activity。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -p &lt;allowed-package-name&gt; &lt;event-count&gt;</span><br><span class="line">eg：</span><br><span class="line">$ adb shell monkey -p com.tal.kaoyan 500</span><br><span class="line"></span><br><span class="line">$ adb shell monkey -p com.tal.kaoyan -p com.tencent.mm 500</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -p &lt;allowed-package-name&gt; &lt;event-count&gt;
+eg：
+$ adb shell monkey -p com.tal.kaoyan 500
+
+$ adb shell monkey -p com.tal.kaoyan -p com.tencent.mm 500<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="2-activity类约束"><a href="#2-activity类约束" class="headerlink" title="2.activity类约束"></a><strong>2.activity类约束</strong></h4><p>如果你希望将monkey限制在一个或几个类别中，使用如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -c &lt;main-category&gt; &lt;event-count&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -c &lt;main-category&gt; &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>以下命令表示运行Intent.CATEGORY_LAUNCHER类别的Activity并发送1000个随机事件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey -c Intent.CATEGORY_LAUNCHER  1000</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -c Intent.CATEGORY_LAUNCHER  1000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <img src="https://pic.imgdb.cn/item/6137710244eaada73933e3bf.jpg">
 
 <h3 id="5-调试类参数"><a href="#5-调试类参数" class="headerlink" title="5. 调试类参数"></a>5. <strong>调试类参数</strong></h3><h4 id="1-应用程序崩溃后继续发送事件"><a href="#1-应用程序崩溃后继续发送事件" class="headerlink" title="1.应用程序崩溃后继续发送事件"></a><strong>1.应用程序崩溃后继续发送事件</strong></h4><p>如果你希望monkey在应用程序崩溃后继续发送事件，则需要用到–ignore-crashes命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --ignore-crashes &lt;event-count&gt; </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-crashes &lt;event-count&gt; <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在设置此选项后，当应用程序崩溃或发生失控异常时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到上述崩溃或异常将停止运行。</p>
 <h4 id="2-超时错误继续发送事件"><a href="#2-超时错误继续发送事件" class="headerlink" title="2.超时错误继续发送事件"></a><strong>2.超时错误继续发送事件</strong></h4><p>如果你希望monkey在任何超时错误发生后继续发送事件，则需要用到–ignore-timeouts命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --ignore-timeouts</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-timeouts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><event-count>–ignore-timeouts：在设置此选项后，当应用程序发生任何超时错误（如ANR，即Application Not Responding）时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到此类超时对话框将停止运行。</p>
 <h4 id="3-应用程序权限错误发生后继续发送事件"><a href="#3-应用程序权限错误发生后继续发送事件" class="headerlink" title="3.应用程序权限错误发生后继续发送事件"></a><strong>3.应用程序权限错误发生后继续发送事件</strong></h4><p>如果你希望monkey在应用程序权限错误发生后继续发送事件，则需要用到–ignore-security-exceptions命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell monkey --ignore-security-exceptions</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-security-exceptions<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><event-count>–ignore-security-exceptions：在设置此选项后，当应用程序发生任何权限错误（如启动一个需要某些权限的Activity）时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到此类权限错误将停止运行。 </p>
 <h4 id="4-其他"><a href="#4-其他" class="headerlink" title="4.其他"></a><strong>4.其他</strong></h4><img src="https://pic.imgdb.cn/item/6137711644eaada7393416cc.jpg">
@@ -282,12 +301,33 @@
 <p>4、使用–throttle参数来控制Monkey每个操作之间的时间间隔 指定操作之间的时间间隔，一方面是希望能更接近用户的操作场景，正常用户操作都会有一定的时间间隔；另一方面也是不希望因为过于频繁的操作而导致系统崩溃，尤其是在比较低端的手机上执行测试时。因此通过–throttle设置Monkey每个操作固定延迟0.4秒。</p>
 <p>5、使用**–ignore-crashs<strong>和-</strong>-ignore-timeouts**参数使Monkey遇到意外时能继续执行 在执行Monkey测试时，会因为应用的崩溃或没有响应而意外终止，所以需要在命令中增加限制参数–ignore-crash和–ignore-timeouts，让Monkey在遇到崩溃或没有响应的时候，能在日志中记录相关信息，并继续执行后续的测试。</p>
 <p>6、使用-v指定log的详细级别 Monkey的日志输出有3个级别：日志的级别越高，其详细程度也越高。为了方便问题的定位，这里将日志设为 -v -v.</p>
-<h3 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a><strong>测试命令</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -p com.tal.kaoyan</span><br><span class="line"></span><br><span class="line">--pct-touch 40 --pct-motion 25 </span><br><span class="line"></span><br><span class="line">--pct-appswitch 10</span><br><span class="line"></span><br><span class="line">--pct-rotation 5</span><br><span class="line"></span><br><span class="line">-s 1666 --throttle 400</span><br><span class="line"></span><br><span class="line">--ignore-crashes</span><br><span class="line"></span><br><span class="line">--ignore-timeouts</span><br><span class="line"></span><br><span class="line">-v -v  200</span><br></pre></td></tr></table></figure>
+<h3 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a><strong>测试命令</strong></h3><pre class="line-numbers language-none"><code class="language-none">adb shell monkey -p com.tal.kaoyan
+
+--pct-touch 40 --pct-motion 25 
+
+--pct-appswitch 10
+
+--pct-rotation 5
+
+-s 1666 --throttle 400
+
+--ignore-crashes
+
+--ignore-timeouts
+
+-v -v  200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Monkey%E7%AE%80%E4%BB%8B"><span class="toc-text">一、Monkey简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Moneky-%E8%B7%AF%E5%BE%84"><span class="toc-text">二、Moneky 路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Monkey%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">三、Monkey启动步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%9B%E5%85%A5%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-text">四、进入到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BC%BA%E5%88%B6%E5%85%B3%E9%97%ADmonkey"><span class="toc-text">五、强制关闭monkey</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81monkey-%E5%91%BD%E4%BB%A4"><span class="toc-text">六、monkey 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%93%8D%E4%BD%9C%E4%BA%8B%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-text">七、操作事件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6"><span class="toc-text">1.触摸事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E5%8A%BF%E4%BA%8B%E4%BB%B6"><span class="toc-text">2.手势事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8C%E6%8C%87%E7%BC%A9%E6%94%BE%E4%BA%8B%E4%BB%B6"><span class="toc-text">3.二指缩放事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BD%A8%E8%BF%B9%E4%BA%8B%E4%BB%B6"><span class="toc-text">4.轨迹事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%BA%8B%E4%BB%B6"><span class="toc-text">5.屏幕旋转事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%9F%BA%E6%9C%AC%E5%AF%BC%E8%88%AA%E4%BA%8B%E4%BB%B6"><span class="toc-text">6.基本导航事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%BB%E8%A6%81%E5%AF%BC%E8%88%AA%E4%BA%8B%E4%BB%B6"><span class="toc-text">7.主要导航事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%B3%BB%E7%BB%9F%E6%8C%89%E9%94%AE%E4%BA%8B%E4%BB%B6"><span class="toc-text">8.系统按键事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%90%AF%E5%8A%A8Activity%E4%BA%8B%E4%BB%B6"><span class="toc-text">9.启动Activity事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="toc-text">10.键盘事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8B%E4%BA%8B%E4%BB%B6"><span class="toc-text">11.其他类型事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81monkey-%E5%8F%82%E6%95%B0"><span class="toc-text">八、monkey 参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8F%82%E6%95%B0%E5%88%86%E7%B1%BB"><span class="toc-text">1. 参数分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%B8%E8%A7%84%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">2. 常规类参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">3.事件类参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BA%A6%E6%9D%9F%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">4. 约束类参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8C%85%E7%BA%A6%E6%9D%9F"><span class="toc-text">1.包约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-activity%E7%B1%BB%E7%BA%A6%E6%9D%9F"><span class="toc-text">2.activity类约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B0%83%E8%AF%95%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">5. 调试类参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E5%90%8E%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">1.应用程序崩溃后继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%B6%85%E6%97%B6%E9%94%99%E8%AF%AF%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">2.超时错误继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF%E5%8F%91%E7%94%9F%E5%90%8E%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">3.应用程序权限错误发生后继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96"><span class="toc-text">4.其他</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81Monkey%E5%8F%82%E6%95%B0%E5%BA%94%E7%94%A8%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B"><span class="toc-text">九、Monkey参数应用综合案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-text">测试命令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -494,6 +534,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

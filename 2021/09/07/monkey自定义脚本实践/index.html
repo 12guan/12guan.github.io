@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -163,25 +167,75 @@
 <li>EndCaptureFramerate(input)： 结束获取帧率。</li>
 </ul>
 <h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type = raw events  </span><br><span class="line">count = 1  </span><br><span class="line">speed = 1.0  </span><br><span class="line">//下面为monkey命令  </span><br><span class="line">start data &gt;&gt;   </span><br><span class="line">具体的monkey脚本内容  </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">type &#x3D; raw events  
+count &#x3D; 1  
+speed &#x3D; 1.0  
+&#x2F;&#x2F;下面为monkey命令  
+start data &gt;&gt;   
+具体的monkey脚本内容  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#头文件信息</span><br><span class="line"></span><br><span class="line">type = raw events </span><br><span class="line"></span><br><span class="line">count = 1</span><br><span class="line"></span><br><span class="line">speed = 1.0</span><br><span class="line"></span><br><span class="line">#启动测试</span><br><span class="line">start data &gt;&gt;</span><br><span class="line"></span><br><span class="line">LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(624,900,1000) #点击取消升级</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(806,64,1000) #点击跳过</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(217,378,1000) #点击用户名输入框</span><br><span class="line">DispatchString(账户)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(197,461,1000) #点击密码输入框</span><br><span class="line">DispatchString(密码)</span><br><span class="line">UserWait(2000)</span><br><span class="line"></span><br><span class="line">Tap(343,637,1000) #点击登录按钮</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">#头文件信息
+
+type &#x3D; raw events 
+
+count &#x3D; 1
+
+speed &#x3D; 1.0
+
+#启动测试
+start data &gt;&gt;
+
+LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)
+UserWait(2000)
+
+Tap(624,900,1000) #点击取消升级
+UserWait(2000)
+
+Tap(806,64,1000) #点击跳过
+UserWait(2000)
+
+Tap(217,378,1000) #点击用户名输入框
+DispatchString(账户)
+UserWait(2000)
+
+Tap(197,461,1000) #点击密码输入框
+DispatchString(密码)
+UserWait(2000)
+
+Tap(343,637,1000) #点击登录按钮
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push C:\Users\admin\Desktop\kyb1.txt /sdcard</span><br><span class="line"></span><br><span class="line">adb shell monkey -f /sdcard/kyb1.txt -v 1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">adb push C:\Users\admin\Desktop\kyb1.txt &#x2F;sdcard
+
+adb shell monkey -f &#x2F;sdcard&#x2F;kyb1.txt -v 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>执行结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1</span><br><span class="line">:Monkey: seed=1524592021303 count=1</span><br><span class="line">:IncludeCategory: android.intent.category.LAUNCHER</span><br><span class="line">:IncludeCategory: android.intent.category.MONKEY</span><br><span class="line">Replaying 0 events with speed 1.0</span><br><span class="line">:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.tal.kaoyan/.ui.activity.SplashActivity;end</span><br><span class="line">    // Allowing start of Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.tal.kaoyan/.ui.activity.SplashActivity &#125; in package com.tal.kaoyan</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)</span><br><span class="line">    // Allowing start of Intent &#123; act=com.android.systemui.recent.action.TOGGLE_RECENTS cmp=com.android.systemui/.recent.RecentsActivity &#125; in package com.android.systemui</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(267.0,1233.0)</span><br><span class="line">Events injected: 5</span><br><span class="line">:Sending rotation degree=0, persist=false</span><br><span class="line">:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0</span><br><span class="line">## Network stats: elapsed time=7201ms (0ms mobile, 0ms wifi, 7201ms not connected)</span><br><span class="line">// Monkey finished</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -f &#x2F;sdcard&#x2F;kyb.txt -v 1
+:Monkey: seed&#x3D;1524592021303 count&#x3D;1
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+Replaying 0 events with speed 1.0
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity &#125; in package com.tal.kaoyan
+:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;com.android.systemui.recent.action.TOGGLE_RECENTS cmp&#x3D;com.android.systemui&#x2F;.recent.RecentsActivity &#125; in package com.android.systemui
+:Sending Touch (ACTION_UP): 0:(267.0,1233.0)
+Events injected: 5
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;7201ms (0ms mobile, 0ms wifi, 7201ms not connected)
+&#x2F;&#x2F; Monkey finished<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NumberFormatException: Invalid int: &quot;&quot;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">java.lang.NumberFormatException: Invalid int: &quot;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -190,6 +244,13 @@
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="toc-text">一.自定义脚本的稳定性测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E6%B5%8B%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="toc-text">二.测试案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">三.需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E5%9D%90%E6%A0%87%E7%82%B9%E4%BD%8D%E7%BD%AE"><span class="toc-text">获取元素坐标点位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Monkey%E8%84%9A%E6%9C%ACAPI%E7%AE%80%E4%BB%8B"><span class="toc-text">Monkey脚本API简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Monkey%E8%84%9A%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">Monkey脚本格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="toc-text">编写脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-text">执行脚本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">四.注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">五.参考资料</span></a></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -396,6 +457,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>

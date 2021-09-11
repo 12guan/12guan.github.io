@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -133,21 +137,67 @@
  <span id="more"></span>
 
 <p><strong>Capability.py</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">from  appium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line">desired_caps[&#x27;platformName&#x27;]=&#x27;Android&#x27;</span><br><span class="line">desired_caps[&#x27;deviceName&#x27;]=&#x27;127.0.0.1:62025&#x27;</span><br><span class="line">desired_caps[&#x27;platforVersion&#x27;]=&#x27;7.1.2&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;app&#x27;]=r&#x27;d:\kaoyan3.1.0.apk&#x27;</span><br><span class="line">desired_caps[&#x27;appPackage&#x27;]=&#x27;com.tal.kaoyan&#x27;</span><br><span class="line">desired_caps[&#x27;appActivity&#x27;]=&#x27;com.tal.kaoyan.ui.activity.SplashActivity&#x27;</span><br><span class="line"></span><br><span class="line">desired_caps[&#x27;noReset&#x27;]=&#x27;False&#x27;</span><br><span class="line">driver=webdriver.Remote(&#x27;http://localhost:4723/wd/hub&#x27;,desired_caps)</span><br><span class="line">driver.implicitly_wait(2)</span><br><span class="line"></span><br><span class="line">def check_cancelBtn():</span><br><span class="line">    print(&#x27;check cancelBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        cancelBtn = driver.find_element_by_id(&#x27;android:id/button2&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no cancelBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        cancelBtn.click()</span><br><span class="line"></span><br><span class="line">def check_skipBtn():</span><br><span class="line">    print(&#x27;check skipBtn&#x27;)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        skipBtn = driver.find_element_by_id(&#x27;com.tal.kaoyan:id/tv_skip&#x27;)</span><br><span class="line">    except NoSuchElementException:</span><br><span class="line">        print(&#x27;no skipBtn&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        skipBtn.click()</span><br><span class="line"></span><br><span class="line">check_cancelBtn()</span><br><span class="line">check_skipBtn()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from  appium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+desired_caps&#x3D;&#123;&#125;
+desired_caps[&#39;platformName&#39;]&#x3D;&#39;Android&#39;
+desired_caps[&#39;deviceName&#39;]&#x3D;&#39;127.0.0.1:62025&#39;
+desired_caps[&#39;platforVersion&#39;]&#x3D;&#39;7.1.2&#39;
+
+desired_caps[&#39;app&#39;]&#x3D;r&#39;d:\kaoyan3.1.0.apk&#39;
+desired_caps[&#39;appPackage&#39;]&#x3D;&#39;com.tal.kaoyan&#39;
+desired_caps[&#39;appActivity&#39;]&#x3D;&#39;com.tal.kaoyan.ui.activity.SplashActivity&#39;
+
+desired_caps[&#39;noReset&#39;]&#x3D;&#39;False&#39;
+driver&#x3D;webdriver.Remote(&#39;http:&#x2F;&#x2F;localhost:4723&#x2F;wd&#x2F;hub&#39;,desired_caps)
+driver.implicitly_wait(2)
+
+def check_cancelBtn():
+    print(&#39;check cancelBtn&#39;)
+
+    try:
+        cancelBtn &#x3D; driver.find_element_by_id(&#39;android:id&#x2F;button2&#39;)
+    except NoSuchElementException:
+        print(&#39;no cancelBtn&#39;)
+    else:
+        cancelBtn.click()
+
+def check_skipBtn():
+    print(&#39;check skipBtn&#39;)
+
+    try:
+        skipBtn &#x3D; driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;tv_skip&#39;)
+    except NoSuchElementException:
+        print(&#39;no skipBtn&#39;)
+    else:
+        skipBtn.click()
+
+check_cancelBtn()
+check_skipBtn()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="一、name定位"><a href="#一、name定位" class="headerlink" title="一、name定位"></a><strong>一、name定位</strong></h2><p>根据name进行定位，对于android来说，就是text属性</p>
 <p>但是由于text稳定性不是很好，所以appium 1.5开始废弃了该方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from Capability import *</span><br><span class="line">driver.find_element_by_name(&#x27;请输入用户名&#x27;).send_keys(&#x27;&#x27;)</span><br><span class="line">driver.find_element_by_name(&#x27;登录&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import *
+driver.find_element_by_name(&#39;请输入用户名&#39;).send_keys(&#39;&#39;)
+driver.find_element_by_name(&#39;登录&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><em>运行提示： Locator Strategy ‘name’ is not supported for this session</em></p>
 <h2 id="二、classname定位"><a href="#二、classname定位" class="headerlink" title="二、classname定位"></a><strong>二、classname定位</strong></h2><p>classname定位是根据元素类型来进行定位，但是实际情况中很多元素的classname都是相同的，如上例中登录页面中的用户名和密码都是clasName属性值都是：<strong>“android.widget.EditText”</strong>因此只能定位第一个元素也就是用户名，而密码输入框就需要使用其他方式来定位，这样其实很鸡肋.一般情况下如果有id就不必使用classname定位。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from Capability import *</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.EditText&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.EditText&#x27;).send_keys(&#x27;xxxxxx&#x27;)</span><br><span class="line">driver.find_element_by_class_name(&#x27;android.widget.Button&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import *
+driver.find_element_by_class_name(&#39;android.widget.EditText&#39;).send_keys(&#39;xxxxxx&#39;)
+driver.find_element_by_class_name(&#39;android.widget.EditText&#39;).send_keys(&#39;xxxxxx&#39;)
+driver.find_element_by_class_name(&#39;android.widget.Button&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="三、相对定位"><a href="#三、相对定位" class="headerlink" title="三、相对定位"></a><strong>三、相对定位</strong></h2><p>相对定位是先找到该元素的有对应属性的父元素节点，然后基于父元素进行元素定位。</p>
 <p><strong>测试案例</strong></p>
 <p>不使用id元素定位方式，在新用户注册界面点击添加头像按钮。</p>
 <p><strong>代码实现</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rom Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">root_element=driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_parentlayout&#x27;)</span><br><span class="line">root_element.find_element_by_class_name(&#x27;android.widget.ImageView&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">rom Capability import driver
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_register_text&#39;).click()
+
+root_element&#x3D;driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_parentlayout&#39;)
+root_element.find_element_by_class_name(&#39;android.widget.ImageView&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="四、xpath定位"><a href="#四、xpath定位" class="headerlink" title="四、xpath定位"></a><strong>四、xpath定位</strong></h2><p>xpath定位是一种路径定位方式，主要是依赖于元素绝对路径或者相关属性来定位，但是绝对路径xpath执行效率比较低（特别是元素路径比较深的时候），一般使用比较少。通常使用xpath相对路径和属性定位。</p>
 <p>xpath路径表达式</p>
@@ -205,12 +255,24 @@
 </tbody></table>
 <p><strong>案例</strong></p>
 <p>使用xpath定位元素来进行登录操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line">driver.find_element_by_xpath(&#x27;//android.widget.EditText[@text=&quot;请输入用户名&quot;]&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_xpath(&#x27;//*[@class=&quot;android.widget.EditText&quot;and @index=&quot;3&quot;]&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line">driver.find_element_by_xpath(&#x27;//android.widget.Button&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import driver
+driver.find_element_by_xpath(&#39;&#x2F;&#x2F;android.widget.EditText[@text&#x3D;&quot;请输入用户名&quot;]&#39;).send_keys(&#39;liubo10010&#39;)
+driver.find_element_by_xpath(&#39;&#x2F;&#x2F;*[@class&#x3D;&quot;android.widget.EditText&quot;and @index&#x3D;&quot;3&quot;]&#39;).send_keys(&#39;liubo10010&#39;)
+driver.find_element_by_xpath(&#39;&#x2F;&#x2F;android.widget.Button&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="五、List定位"><a href="#五、List定位" class="headerlink" title="五、List定位"></a><strong>五、List定位</strong></h2><p>前面我们提到相同的classname属性值元素无法区分定位，现在将使用List定位来解决这个问题。List定位首先是使用find_elements_by_XX 获取一组相同的class属性的元素，然后使用数组下标来区分标记不同元素进行相关操作。</p>
 <p><strong>测试案例1</strong></p>
 <p>在新用户注册界面点击添加头像按钮后，选择指定的图片保存作为头像。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_userheader&#x27;).click()</span><br><span class="line"></span><br><span class="line">images=driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/item_image&#x27;)</span><br><span class="line">images[2].click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/save&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import driver
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_register_text&#39;).click()
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_userheader&#39;).click()
+
+images&#x3D;driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;item_image&#39;)
+images[2].click()
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;save&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -225,7 +287,56 @@
 </li>
 </ol>
 <h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><p>注意：运行前记得将noRest设置为：desired_caps[‘noReset’]=’False’ 以免之前的注册残留信息干扰。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">#进入注册界面选择并设置头像</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_register_text&#x27;).click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_userheader&#x27;).click()</span><br><span class="line"></span><br><span class="line">images=driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/item_image&#x27;)</span><br><span class="line"></span><br><span class="line">images[2].click()</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/save&#x27;).click()</span><br><span class="line"></span><br><span class="line">#注册信息填写</span><br><span class="line">username=&#x27;Test&#x27;+&#x27;tt&#x27;+str(random.randint(1000,9000))</span><br><span class="line">print(&#x27;username: %s&#x27; %username)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_username_edittext&#x27;).send_keys(username)</span><br><span class="line"></span><br><span class="line">password=&#x27;appium&#x27;+str(random.randint(1000,9000))</span><br><span class="line">print(&#x27;password: %s&#x27; %password)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_password_edittext&#x27;).send_keys(password)</span><br><span class="line"></span><br><span class="line">email=&#x27;pwd&#x27;+str(random.randint(1000,9000))+&#x27;@163.com&#x27;</span><br><span class="line">print(&#x27;email: %s&#x27; %email)</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_email_edittext&#x27;).send_keys(email)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_register_register_btn&#x27;).click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#院校选择</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/perfectinfomation_edit_school_name&#x27;).click()</span><br><span class="line">#选择省份</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/more_forum_title&#x27;)[1].click()</span><br><span class="line">#选择具体院校--同济大学</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/university_search_item_name&#x27;)[1].click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#专业选择</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_perfectinfomation_major&#x27;).click()</span><br><span class="line">#选择经济学类-统计学-经济统计学</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_subject_title&#x27;)[1].click()</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_group_title&#x27;)[2].click()</span><br><span class="line">driver.find_elements_by_id(&#x27;com.tal.kaoyan:id/major_search_item_name&#x27;)[1].click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#点击“进入考研帮”按钮</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_perfectinfomation_goBtn&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import driver
+import random
+
+#进入注册界面选择并设置头像
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_register_text&#39;).click()
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_userheader&#39;).click()
+
+images&#x3D;driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;item_image&#39;)
+
+images[2].click()
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;save&#39;).click()
+
+#注册信息填写
+username&#x3D;&#39;Test&#39;+&#39;tt&#39;+str(random.randint(1000,9000))
+print(&#39;username: %s&#39; %username)
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_username_edittext&#39;).send_keys(username)
+
+password&#x3D;&#39;appium&#39;+str(random.randint(1000,9000))
+print(&#39;password: %s&#39; %password)
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_password_edittext&#39;).send_keys(password)
+
+email&#x3D;&#39;pwd&#39;+str(random.randint(1000,9000))+&#39;@163.com&#39;
+print(&#39;email: %s&#39; %email)
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_email_edittext&#39;).send_keys(email)
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_register_register_btn&#39;).click()
+
+
+#院校选择
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;perfectinfomation_edit_school_name&#39;).click()
+#选择省份
+driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;more_forum_title&#39;)[1].click()
+#选择具体院校--同济大学
+driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;university_search_item_name&#39;)[1].click()
+
+
+#专业选择
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_perfectinfomation_major&#39;).click()
+#选择经济学类-统计学-经济统计学
+driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;major_subject_title&#39;)[1].click()
+driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;major_group_title&#39;)[2].click()
+driver.find_elements_by_id(&#39;com.tal.kaoyan:id&#x2F;major_search_item_name&#39;)[1].click()
+
+
+#点击“进入考研帮”按钮
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_perfectinfomation_goBtn&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="六、UIAutomator定位简介"><a href="#六、UIAutomator定位简介" class="headerlink" title="六、UIAutomator定位简介"></a><strong>六、UIAutomator定位简介</strong></h2><p>UIAutomator元素定位是 Android 系统原生支持的定位方式，虽然与 xpath 类似，但比它更加好用，且支持元素全部属性定位.定位原理是通过android 自带的android uiautomator的类库去查找元素。使用法  find_element_by_android_uiautomator() 可以运用UiAutomator元素定位。</p>
 <h3 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h3><ul>
@@ -237,7 +348,15 @@
 </li>
 </ul>
 <h4 id="id定位"><a href="#id定位" class="headerlink" title="id定位"></a>id定位</h4><p>id定位是根据元素的resource-id属性来进行定位，使用 UiSelector().resourceId()方法即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator(&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_email_edittext&quot;)&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator\</span><br><span class="line">    (&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_password_edittext&quot;)&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_android_uiautomator\</span><br><span class="line">    (&#x27;new UiSelector().resourceId(&quot;com.tal.kaoyan:id/login_login_btn&quot;)&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from Capability import driver
+
+driver.find_element_by_android_uiautomator(&#39;new UiSelector().resourceId(&quot;com.tal.kaoyan:id&#x2F;login_email_edittext&quot;)&#39;).send_keys(&#39;liubo10010&#39;)
+
+driver.find_element_by_android_uiautomator\
+    (&#39;new UiSelector().resourceId(&quot;com.tal.kaoyan:id&#x2F;login_password_edittext&quot;)&#39;).send_keys(&#39;liubo10010&#39;)
+
+driver.find_element_by_android_uiautomator\
+    (&#39;new UiSelector().resourceId(&quot;com.tal.kaoyan:id&#x2F;login_login_btn&quot;)&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -245,43 +364,73 @@
 <h2 id="七、元素等待作用"><a href="#七、元素等待作用" class="headerlink" title="七、元素等待作用"></a><strong>七、元素等待作用</strong></h2><p>设置元素等待可以更加灵活的制定等待定位元素的时间，从而增强脚本的健壮性，提高执行效率。</p>
 <p>元素等待类型分为强制等待、隐式等待、显示等待</p>
 <h4 id="强制等待"><a href="#强制等待" class="headerlink" title="强制等待"></a><strong>强制等待</strong></h4><p>设置固定的等待时间，使用sleep()方法即可实现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">#强制等待5秒</span><br><span class="line">sleep(5)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from time import sleep
+#强制等待5秒
+sleep(5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h4 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a><strong>隐式等待</strong></h4><p>隐式等待是针对全部元素设置的等待时间</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.implicitly_wait(20)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">driver.implicitly_wait(20)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h4 id="显式等待"><a href="#显式等待" class="headerlink" title="显式等待"></a><strong>显式等待</strong></h4><p>显式等待是针对某个元素来设置的等待时间。</p>
 <p>方法WebDriverWait格式参数如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line"></span><br><span class="line">WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)</span><br><span class="line">driver : WebDriver</span><br><span class="line">timeout : 最长超时时间，默认以秒为单位</span><br><span class="line">poll_frequency : 休眠时间的间隔时间，默认为0.5秒</span><br><span class="line">ignored_exceptions : 超时后的异常信息，默认情况下抛NoSuchElementException异常。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from selenium.webdriver.support.ui import WebDriverWait
+
+WebDriverWait(driver, timeout, poll_frequency&#x3D;0.5, ignored_exceptions&#x3D;None)
+driver : WebDriver
+timeout : 最长超时时间，默认以秒为单位
+poll_frequency : 休眠时间的间隔时间，默认为0.5秒
+ignored_exceptions : 超时后的异常信息，默认情况下抛NoSuchElementException异常。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>WebDriverWait()一般和until()或until_not()方法配合使用，另外，lambda提供了一个运行时动态创建函数的方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line">WebDriverWait(driver,10).until(lambda x:x.find_element_by_id(&quot;elementID&quot;))</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from selenium.webdriver.support.ui import WebDriverWait
+WebDriverWait(driver,10).until(lambda x:x.find_element_by_id(&quot;elementID&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="八、截图方法"><a href="#八、截图方法" class="headerlink" title="八、截图方法"></a><strong>八、截图方法</strong></h2><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a><strong>方法1</strong></h4><p>save_screenshot() 该方法直接保存当前屏幕截图到当前脚本所在文件位置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.save_screenshot(&#x27;login.png&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">driver.save_screenshot(&#39;login.png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a><strong>方法2</strong></h4><p>get_screenshot_as_file(self, filename)</p>
 <p>将截图保留到指定文件路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get_screenshot_as_file(&#x27;./images/login.png&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">driver.get_screenshot_as_file(&#39;.&#x2F;images&#x2F;login.png&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
 <h4 id="测试场景-1"><a href="#测试场景-1" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h4><p>在考研帮App登录页面输入用户名和密码之后截图，分别保存到当前文件和指定的文件路径。</p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).clear()</span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_email_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_password_edittext&#x27;).send_keys(&#x27;liubo10010&#x27;)</span><br><span class="line"></span><br><span class="line">driver.save_screenshot(&#x27;login.png&#x27;)</span><br><span class="line">driver.get_screenshot_as_file(&#x27;./images/login.png&#x27;)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/login_login_btn&#x27;).click()</span><br></pre></td></tr></table></figure>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><pre class="line-numbers language-none"><code class="language-none">from Capability import driver
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_email_edittext&#39;).clear()
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_email_edittext&#39;).send_keys(&#39;liubo10010&#39;)
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_password_edittext&#39;).send_keys(&#39;liubo10010&#39;)
+
+driver.save_screenshot(&#39;login.png&#39;)
+driver.get_screenshot_as_file(&#39;.&#x2F;images&#x2F;login.png&#39;)
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;login_login_btn&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="九、滑动效果"><a href="#九、滑动效果" class="headerlink" title="九、滑动效果"></a><strong>九、滑动效果</strong></h2><p>在app应用日常使用过程中，会经常用到在屏幕滑动操作。如刷朋友圈上下滑操作、浏览图片左右滑动操作等。在自动化脚本该如何实现这些操作呢？</p>
 <p>在Appium中模拟用户滑动操作需要使用swipe方法，该方法定义如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def swipe(self, start_x, start_y, end_x, end_y, duration=None):</span><br><span class="line">       &quot;&quot;&quot;Swipe from one point to another point, for an optional duration.</span><br><span class="line"></span><br><span class="line">       :Args:</span><br><span class="line">        - start_x - x-coordinate at which to start</span><br><span class="line">        - start_y - y-coordinate at which to start</span><br><span class="line">        - end_x - x-coordinate at which to stop</span><br><span class="line">        - end_y - y-coordinate at which to stop</span><br><span class="line">        - duration - (optional) time to take the swipe, in ms.</span><br><span class="line"></span><br><span class="line">       :Usage:</span><br><span class="line">           driver.swipe(100, 100, 100, 400)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">def swipe(self, start_x, start_y, end_x, end_y, duration&#x3D;None):
+       &quot;&quot;&quot;Swipe from one point to another point, for an optional duration.
+
+       :Args:
+        - start_x - x-coordinate at which to start
+        - start_y - y-coordinate at which to start
+        - end_x - x-coordinate at which to stop
+        - end_y - y-coordinate at which to stop
+        - duration - (optional) time to take the swipe, in ms.
+
+       :Usage:
+           driver.swipe(100, 100, 100, 400)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>滑动解析</p>
 <p>swipe()方法的参数说明：<br>start_x：起始横坐标<br>start_y：起始纵坐标<br>end_x：结束时横坐标<br>end_y：结束时纵坐标<br>duration：滑动持续时间，单位毫秒，默认None（一般设置500-1000毫秒比较合适）</p>
@@ -302,12 +451,45 @@
 </li>
 </ul>
 <h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><p>注意：运行前记得将capablity里面的check_skipBtn()先注释掉，否则直接跳过了无法滑动引导页面。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">#获取屏幕尺寸</span><br><span class="line">def get_size():</span><br><span class="line">    x=driver.get_window_size()[&#x27;width&#x27;]</span><br><span class="line">    y=driver.get_window_size()[&#x27;height&#x27;]</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">#显示屏幕尺寸（width,height）</span><br><span class="line">l=get_size()</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">#向左滑动</span><br><span class="line">def swipeLeft():</span><br><span class="line">    l=get_size()</span><br><span class="line">    x1=int(l[0]*0.9)</span><br><span class="line">    y1=int(l[1]*0.5)</span><br><span class="line">    x2=int(l[0]*0.1)</span><br><span class="line">    driver.swipe(x1,y1,x2,y1,1000)</span><br><span class="line"></span><br><span class="line">#向左滑动2次</span><br><span class="line">for i in range(2):</span><br><span class="line">    swipeLeft()</span><br><span class="line">    sleep(0.5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_splash_guidfinish&#x27;).click()</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from time import sleep
+from Capability import driver
+
+#获取屏幕尺寸
+def get_size():
+    x&#x3D;driver.get_window_size()[&#39;width&#39;]
+    y&#x3D;driver.get_window_size()[&#39;height&#39;]
+    return x,y
+
+#显示屏幕尺寸（width,height）
+l&#x3D;get_size()
+print(l)
+
+#向左滑动
+def swipeLeft():
+    l&#x3D;get_size()
+    x1&#x3D;int(l[0]*0.9)
+    y1&#x3D;int(l[1]*0.5)
+    x2&#x3D;int(l[0]*0.1)
+    driver.swipe(x1,y1,x2,y1,1000)
+
+#向左滑动2次
+for i in range(2):
+    swipeLeft()
+    sleep(0.5)
+
+driver.find_element_by_id(&#39;com.tal.kaoyan:id&#x2F;activity_splash_guidfinish&#39;).click()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
         
             <div id="toc-article">
                 
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81name%E5%AE%9A%E4%BD%8D"><span class="toc-text">一、name定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81classname%E5%AE%9A%E4%BD%8D"><span class="toc-text">二、classname定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-text">三、相对定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81xpath%E5%AE%9A%E4%BD%8D"><span class="toc-text">四、xpath定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81List%E5%AE%9A%E4%BD%8D"><span class="toc-text">五、List定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list%E5%AE%9A%E4%BD%8D%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B%E2%80%94%E2%80%94%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C"><span class="toc-text">list定位综合案例——用户注册</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81UIAutomator%E5%AE%9A%E4%BD%8D%E7%AE%80%E4%BB%8B"><span class="toc-text">六、UIAutomator定位简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95"><span class="toc-text">定位方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#id%E5%AE%9A%E4%BD%8D"><span class="toc-text">id定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%85%83%E7%B4%A0%E7%AD%89%E5%BE%85%E4%BD%9C%E7%94%A8"><span class="toc-text">七、元素等待作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%AD%89%E5%BE%85"><span class="toc-text">强制等待</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E7%AD%89%E5%BE%85"><span class="toc-text">隐式等待</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E7%AD%89%E5%BE%85"><span class="toc-text">显式等待</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%88%AA%E5%9B%BE%E6%96%B9%E6%B3%95"><span class="toc-text">八、截图方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-text">方法2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF-1"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-text">代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C"><span class="toc-text">九、滑动效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF-2"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-text">代码实现</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
 
             </div>
         
@@ -514,6 +696,17 @@
 
 
 
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
 
   </div>
 </body>
