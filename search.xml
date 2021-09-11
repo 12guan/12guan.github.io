@@ -1086,6 +1086,197 @@ aapt dump badging xxxx.apk | find &quot;launchable-activity&quot;<span aria-hidd
 ]]></content>
   </entry>
   <entry>
+    <title>monkey自定义脚本实践</title>
+    <url>/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<h4 id="一-自定义脚本的稳定性测试"><a href="#一-自定义脚本的稳定性测试" class="headerlink" title="一.自定义脚本的稳定性测试"></a><strong>一.自定义脚本的稳定性测试</strong></h4><p>常规Monkey测试执行的是随机的事件流，但如果只是想让Monkey测试某个特定场景这时候就需要用到自定义脚本了，Monkey支持执行用户自定义脚本的测试，用户只需要按照Monkey脚本的规范编写好脚本，存放到手机上，启动Monkey通过-f 参数调用脚本即可。</p>
+<span id="more"></span>
+
+<h4 id="二-测试案例"><a href="#二-测试案例" class="headerlink" title="二.测试案例"></a><strong>二.测试案例</strong></h4><p>启动考研帮app3.1.0，然后跳过升级提示和引导页面，进入到登录界面并输入用户名密码进行登录。</p>
+<h4 id="三-需求分析"><a href="#三-需求分析" class="headerlink" title="三.需求分析"></a><strong>三.需求分析</strong></h4><ul>
+<li>从用户角度来思考步骤该怎样进行？</li>
+<li> 要操作的元素该如何定位？</li>
+<li>怎样将操作步骤转化为测试脚本？</li>
+</ul>
+<h5 id="获取元素坐标点位置"><a href="#获取元素坐标点位置" class="headerlink" title="获取元素坐标点位置"></a><strong>获取元素坐标点位置</strong></h5><p>Monkey脚本只能通过坐标的方式来定位点击和移动事件的屏幕位置，这里就需要提前获取坐标信息。获取坐标信息的方法很多，最简单的方法就是打开手机中的开发人员选项，打开“显示指针位置”。随后，在屏幕上的每次操作，在导航栏上都会显示坐标信息。</p>
+<h5 id="Monkey脚本API简介"><a href="#Monkey脚本API简介" class="headerlink" title="Monkey脚本API简介"></a><strong>Monkey脚本API简介</strong></h5><ul>
+<li>LaunchActivity(pkg_name, cl_name)：启动应用的Activity。参数：包名和启动的Activity。</li>
+<li>Tap(x, y, tapDuration)： 模拟一次手指单击事件。参数：x,y为控件坐标，tapDuration为点击的持续时间，此参数可省略。</li>
+<li>UserWait(sleepTime)： 休眠一段时间</li>
+<li>DispatchPress(keyName)： 按键。参数： keycode。 RotateScreen(rotationDegree, persist)： 旋转屏幕。 参数：rotationDegree为旋转角度， e.g. 1代表90度；persist表示旋转之后是否固定，0表示旋转后恢复，非0则表示固定不变。</li>
+<li>DispatchString(input)： 输入字符串。</li>
+<li>DispatchFlip(true/false)： 打开或者关闭软键盘。</li>
+<li>PressAndHold(x, y, pressDuration)： 模拟长按事件。</li>
+<li>Drag(xStart, yStart, xEnd, yEnd, stepCount)： 用于模拟一个拖拽操作。</li>
+<li>PinchZoom(x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End, stepCount)： 模拟缩放手势。</li>
+<li>LongPress()： 长按2秒。</li>
+<li>DeviceWakeUp()： 唤醒屏幕。</li>
+<li>PowerLog(power_log_type, test_case_status)： 模拟电池电量信息。</li>
+<li>WriteLog()： 将电池信息写入sd卡。</li>
+<li>RunCmd(cmd)： 运行shell命令。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFlags)： 向指定位置，发送单个手势。</li>
+<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFilags)： 发送按键消息。</li>
+<li>LaunchInstrumentation(test_name,runner_name)： 运行一个instrumentation测试用例。</li>
+<li>DispatchTrackball： 模拟发送轨迹球事件。</li>
+<li>ProfileWait： 等待5秒。</li>
+<li>StartCaptureFramerate()： 获取帧率。</li>
+<li>EndCaptureFramerate(input)： 结束获取帧率。</li>
+</ul>
+<h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
+<pre class="line-numbers language-none"><code class="language-none">type &#x3D; raw events  
+count &#x3D; 1  
+speed &#x3D; 1.0  
+&#x2F;&#x2F;下面为monkey命令  
+start data &gt;&gt;   
+具体的monkey脚本内容  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
+<pre class="line-numbers language-none"><code class="language-none">#头文件信息
+
+type &#x3D; raw events 
+
+count &#x3D; 1
+
+speed &#x3D; 1.0
+
+#启动测试
+start data &gt;&gt;
+
+LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)
+UserWait(2000)
+
+Tap(624,900,1000) #点击取消升级
+UserWait(2000)
+
+Tap(806,64,1000) #点击跳过
+UserWait(2000)
+
+Tap(217,378,1000) #点击用户名输入框
+DispatchString(账户)
+UserWait(2000)
+
+Tap(197,461,1000) #点击密码输入框
+DispatchString(密码)
+UserWait(2000)
+
+Tap(343,637,1000) #点击登录按钮
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
+<pre class="line-numbers language-none"><code class="language-none">adb push C:\Users\admin\Desktop\kyb1.txt &#x2F;sdcard
+
+adb shell monkey -f &#x2F;sdcard&#x2F;kyb1.txt -v 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>执行结果</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -f &#x2F;sdcard&#x2F;kyb.txt -v 1
+:Monkey: seed&#x3D;1524592021303 count&#x3D;1
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+Replaying 0 events with speed 1.0
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity &#125; in package com.tal.kaoyan
+:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;com.android.systemui.recent.action.TOGGLE_RECENTS cmp&#x3D;com.android.systemui&#x2F;.recent.RecentsActivity &#125; in package com.android.systemui
+:Sending Touch (ACTION_UP): 0:(267.0,1233.0)
+Events injected: 5
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;7201ms (0ms mobile, 0ms wifi, 7201ms not connected)
+&#x2F;&#x2F; Monkey finished<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
+<pre class="line-numbers language-none"><code class="language-none">java.lang.NumberFormatException: Invalid int: &quot;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h4 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五.参考资料"></a><strong>五.参考资料</strong></h4><p><a href="https://www.cnblogs.com/mgzc-1508873480/p/7911373.html">https://www.cnblogs.com/mgzc-1508873480/p/7911373.html</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>monkey 日志管理</title>
+    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
+<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
+<li><p>保存在PC中</p>
+</li>
+<li><p>保存在手机上</p>
+</li>
+<li><p>标准流和错误流分开保存</p>
+</li>
+</ol>
+<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
+
+eg：
+C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
+monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
+<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
+<li>标准流与错误流分开保存，代码如下：</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
+
+C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
+<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>运行后log如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
+:Monkey: seed&#x3D;1524595418646 count&#x3D;100
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+&#x2F;&#x2F; Event percentages:
+&#x2F;&#x2F;   0: 15.0%
+&#x2F;&#x2F;   1: 10.0%
+&#x2F;&#x2F;   2: 2.0%
+&#x2F;&#x2F;   3: 15.0%
+&#x2F;&#x2F;   4: -0.0%
+&#x2F;&#x2F;   5: 25.0%
+&#x2F;&#x2F;   6: 15.0%
+&#x2F;&#x2F;   7: 2.0%
+&#x2F;&#x2F;   8: 2.0%
+&#x2F;&#x2F;   9: 1.0%
+&#x2F;&#x2F;   10: 13.0%
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
+:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
+:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
+:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
+:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
+:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
+:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
+:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
+:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
+:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
+:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
+:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
+:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
+:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
+:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
+:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
+Events injected: 100
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
+&#x2F;&#x2F; Monkey finished
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+]]></content>
+  </entry>
+  <entry>
     <title>adb命令</title>
     <url>/2021/09/05/adb%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="一、Android-调试桥"><a href="#一、Android-调试桥" class="headerlink" title="一、Android 调试桥"></a><strong>一、Android 调试桥</strong></h1><p>adb ( Android Debug Bridge)是一个通用命令行工具，其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用。</p>
@@ -1372,197 +1563,6 @@ Nox_1是新增的模拟器，复制自nox<span aria-hidden="true" class="line-nu
 
 
 
-]]></content>
-  </entry>
-  <entry>
-    <title>monkey 日志管理</title>
-    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
-<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
-<li><p>保存在PC中</p>
-</li>
-<li><p>保存在手机上</p>
-</li>
-<li><p>标准流和错误流分开保存</p>
-</li>
-</ol>
-<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
-
-eg：
-C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
-monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
-<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
-<li>标准流与错误流分开保存，代码如下：</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
-
-C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
-<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
-<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>运行后log如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
-:Monkey: seed&#x3D;1524595418646 count&#x3D;100
-:IncludeCategory: android.intent.category.LAUNCHER
-:IncludeCategory: android.intent.category.MONKEY
-&#x2F;&#x2F; Event percentages:
-&#x2F;&#x2F;   0: 15.0%
-&#x2F;&#x2F;   1: 10.0%
-&#x2F;&#x2F;   2: 2.0%
-&#x2F;&#x2F;   3: 15.0%
-&#x2F;&#x2F;   4: -0.0%
-&#x2F;&#x2F;   5: 25.0%
-&#x2F;&#x2F;   6: 15.0%
-&#x2F;&#x2F;   7: 2.0%
-&#x2F;&#x2F;   8: 2.0%
-&#x2F;&#x2F;   9: 1.0%
-&#x2F;&#x2F;   10: 13.0%
-:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
-:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
-:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
-:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
-:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
-:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
-:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
-:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
-:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
-:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
-:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
-:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
-:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
-:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
-:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
-:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
-:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
-:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
-:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
-:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
-Events injected: 100
-:Sending rotation degree&#x3D;0, persist&#x3D;false
-:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
-## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
-&#x2F;&#x2F; Monkey finished
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-]]></content>
-  </entry>
-  <entry>
-    <title>monkey自定义脚本实践</title>
-    <url>/2021/09/07/monkey%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<h4 id="一-自定义脚本的稳定性测试"><a href="#一-自定义脚本的稳定性测试" class="headerlink" title="一.自定义脚本的稳定性测试"></a><strong>一.自定义脚本的稳定性测试</strong></h4><p>常规Monkey测试执行的是随机的事件流，但如果只是想让Monkey测试某个特定场景这时候就需要用到自定义脚本了，Monkey支持执行用户自定义脚本的测试，用户只需要按照Monkey脚本的规范编写好脚本，存放到手机上，启动Monkey通过-f 参数调用脚本即可。</p>
-<span id="more"></span>
-
-<h4 id="二-测试案例"><a href="#二-测试案例" class="headerlink" title="二.测试案例"></a><strong>二.测试案例</strong></h4><p>启动考研帮app3.1.0，然后跳过升级提示和引导页面，进入到登录界面并输入用户名密码进行登录。</p>
-<h4 id="三-需求分析"><a href="#三-需求分析" class="headerlink" title="三.需求分析"></a><strong>三.需求分析</strong></h4><ul>
-<li>从用户角度来思考步骤该怎样进行？</li>
-<li> 要操作的元素该如何定位？</li>
-<li>怎样将操作步骤转化为测试脚本？</li>
-</ul>
-<h5 id="获取元素坐标点位置"><a href="#获取元素坐标点位置" class="headerlink" title="获取元素坐标点位置"></a><strong>获取元素坐标点位置</strong></h5><p>Monkey脚本只能通过坐标的方式来定位点击和移动事件的屏幕位置，这里就需要提前获取坐标信息。获取坐标信息的方法很多，最简单的方法就是打开手机中的开发人员选项，打开“显示指针位置”。随后，在屏幕上的每次操作，在导航栏上都会显示坐标信息。</p>
-<h5 id="Monkey脚本API简介"><a href="#Monkey脚本API简介" class="headerlink" title="Monkey脚本API简介"></a><strong>Monkey脚本API简介</strong></h5><ul>
-<li>LaunchActivity(pkg_name, cl_name)：启动应用的Activity。参数：包名和启动的Activity。</li>
-<li>Tap(x, y, tapDuration)： 模拟一次手指单击事件。参数：x,y为控件坐标，tapDuration为点击的持续时间，此参数可省略。</li>
-<li>UserWait(sleepTime)： 休眠一段时间</li>
-<li>DispatchPress(keyName)： 按键。参数： keycode。 RotateScreen(rotationDegree, persist)： 旋转屏幕。 参数：rotationDegree为旋转角度， e.g. 1代表90度；persist表示旋转之后是否固定，0表示旋转后恢复，非0则表示固定不变。</li>
-<li>DispatchString(input)： 输入字符串。</li>
-<li>DispatchFlip(true/false)： 打开或者关闭软键盘。</li>
-<li>PressAndHold(x, y, pressDuration)： 模拟长按事件。</li>
-<li>Drag(xStart, yStart, xEnd, yEnd, stepCount)： 用于模拟一个拖拽操作。</li>
-<li>PinchZoom(x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End, stepCount)： 模拟缩放手势。</li>
-<li>LongPress()： 长按2秒。</li>
-<li>DeviceWakeUp()： 唤醒屏幕。</li>
-<li>PowerLog(power_log_type, test_case_status)： 模拟电池电量信息。</li>
-<li>WriteLog()： 将电池信息写入sd卡。</li>
-<li>RunCmd(cmd)： 运行shell命令。</li>
-<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFlags)： 向指定位置，发送单个手势。</li>
-<li>DispatchPointer(downtime,eventTime,action,x,yxpressure,size,metastate,xPrecision,yPrecision,device,edgeFilags)： 发送按键消息。</li>
-<li>LaunchInstrumentation(test_name,runner_name)： 运行一个instrumentation测试用例。</li>
-<li>DispatchTrackball： 模拟发送轨迹球事件。</li>
-<li>ProfileWait： 等待5秒。</li>
-<li>StartCaptureFramerate()： 获取帧率。</li>
-<li>EndCaptureFramerate(input)： 结束获取帧率。</li>
-</ul>
-<h5 id="Monkey脚本格式"><a href="#Monkey脚本格式" class="headerlink" title="Monkey脚本格式"></a><strong>Monkey脚本格式</strong></h5><p>Monkey脚本主要包含两部分，一部分是头文件信息，一部分是具体的monkey命令。</p>
-<pre class="line-numbers language-none"><code class="language-none">type &#x3D; raw events  
-count &#x3D; 1  
-speed &#x3D; 1.0  
-&#x2F;&#x2F;下面为monkey命令  
-start data &gt;&gt;   
-具体的monkey脚本内容  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h5 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a><strong>编写脚本</strong></h5><p>kyb.txt</p>
-<pre class="line-numbers language-none"><code class="language-none">#头文件信息
-
-type &#x3D; raw events 
-
-count &#x3D; 1
-
-speed &#x3D; 1.0
-
-#启动测试
-start data &gt;&gt;
-
-LaunchActivity(com.tal.kaoyan,com.tal.kaoyan.ui.activity.SplashActivity)
-UserWait(2000)
-
-Tap(624,900,1000) #点击取消升级
-UserWait(2000)
-
-Tap(806,64,1000) #点击跳过
-UserWait(2000)
-
-Tap(217,378,1000) #点击用户名输入框
-DispatchString(账户)
-UserWait(2000)
-
-Tap(197,461,1000) #点击密码输入框
-DispatchString(密码)
-UserWait(2000)
-
-Tap(343,637,1000) #点击登录按钮
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a><strong>执行脚本</strong></h5><p>脚本编写完成后，传到手机设备上，然后执行。</p>
-<pre class="line-numbers language-none"><code class="language-none">adb push C:\Users\admin\Desktop\kyb1.txt &#x2F;sdcard
-
-adb shell monkey -f &#x2F;sdcard&#x2F;kyb1.txt -v 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行结果</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -f &#x2F;sdcard&#x2F;kyb.txt -v 1
-:Monkey: seed&#x3D;1524592021303 count&#x3D;1
-:IncludeCategory: android.intent.category.LAUNCHER
-:IncludeCategory: android.intent.category.MONKEY
-Replaying 0 events with speed 1.0
-:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity;end
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.tal.kaoyan&#x2F;.ui.activity.SplashActivity &#125; in package com.tal.kaoyan
-:Sending Touch (ACTION_DOWN): 0:(267.0,1233.0)
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;com.android.systemui.recent.action.TOGGLE_RECENTS cmp&#x3D;com.android.systemui&#x2F;.recent.RecentsActivity &#125; in package com.android.systemui
-:Sending Touch (ACTION_UP): 0:(267.0,1233.0)
-Events injected: 5
-:Sending rotation degree&#x3D;0, persist&#x3D;false
-:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
-## Network stats: elapsed time&#x3D;7201ms (0ms mobile, 0ms wifi, 7201ms not connected)
-&#x2F;&#x2F; Monkey finished<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a><strong>四.注意事项</strong></h4><p>头文件代码书写注意“=”两边预留空格，否则会出现如下报错。</p>
-<pre class="line-numbers language-none"><code class="language-none">java.lang.NumberFormatException: Invalid int: &quot;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h4 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五.参考资料"></a><strong>五.参考资料</strong></h4><p><a href="https://www.cnblogs.com/mgzc-1508873480/p/7911373.html">https://www.cnblogs.com/mgzc-1508873480/p/7911373.html</a></p>
 ]]></content>
   </entry>
   <entry>
