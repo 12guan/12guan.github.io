@@ -713,6 +713,131 @@ info AppiumDoctor<span aria-hidden="true" class="line-numbers-rows"><span></span
 ]]></content>
   </entry>
   <entry>
+    <title>Appium简介</title>
+    <url>/2021/09/07/Appium%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<h1 id="一-Appium简介"><a href="#一-Appium简介" class="headerlink" title="一.Appium简介"></a><strong>一.Appium简介</strong></h1><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
+<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
+<ul>
+<li><p><a href="http://appium.io/">Appium官网</a></p>
+</li>
+<li><p><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></p>
+</li>
+<li><p><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></p>
+</li>
+<li><p> <a href="http://discuss.appium.io/latest">Appium官方论坛</a></p>
+</li>
+<li><p> <a href="https://testerhome.com/">Testerhome中文社区</a></p>
+</li>
+</ul>
+<h1 id="二-Appium优势"><a href="#二-Appium优势" class="headerlink" title="二.Appium优势"></a>二.Appium优势</h1><ul>
+<li><p>可以跨平台同时支持android、ios</p>
+</li>
+<li><p>支持多种语言，java、python、php、Ruby等等</p>
+</li>
+<li><p>不用为复杂的环境发愁</p>
+</li>
+<li><p> 如果你有selenium经验，直接上手。</p>
+</li>
+</ul>
+<h2 id="Appium架构原理"><a href="#Appium架构原理" class="headerlink" title="Appium架构原理"></a>Appium架构原理</h2><ul>
+<li><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
+</li>
+<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
+</li>
+<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
+</li>
+<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。 </p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/61376a0144eaada739210646.jpg" alt="https://pic.imgdb.cn/item/61376a0144eaada739210646.jpg"></p>
+<h5 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a><strong>运行原理</strong></h5><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
+<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
+<h5 id="Appium服务器"><a href="#Appium服务器" class="headerlink" title="Appium服务器"></a><strong>Appium服务器</strong></h5><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
+<h5 id="Bootstrap-jar"><a href="#Bootstrap-jar" class="headerlink" title="Bootstrap.jar"></a><strong>Bootstrap.jar</strong></h5><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
+<h5 id="Appium客户端"><a href="#Appium客户端" class="headerlink" title="Appium客户端"></a><strong>Appium客户端</strong></h5><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
+<h2 id="三-Appium组件"><a href="#三-Appium组件" class="headerlink" title="三.Appium组件"></a>三.Appium组件</h2><h4 id="Appium-Server"><a href="#Appium-Server" class="headerlink" title="Appium Server"></a><strong>Appium Server</strong></h4><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
+<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from NPM:</p>
+<pre class="line-numbers language-none"><code class="language-none">$npm install -g appium
+
+$appium<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="Appium-Desktop"><a href="#Appium-Desktop" class="headerlink" title="Appium Desktop"></a><strong>Appium Desktop</strong></h4><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
+<ol>
+<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
+</li>
+<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
+</li>
+</ol>
+<p><img src="https://pic.imgdb.cn/item/61376a4d44eaada7392200e1.jpg" alt="https://pic.imgdb.cn/item/61376a4d44eaada7392200e1.jpg"> </p>
+<p><img src="https://pic.imgdb.cn/item/61376a8944eaada73922bfac.jpg" alt="https://pic.imgdb.cn/item/61376a8944eaada73922bfac.jpg"> </p>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a><strong>注意</strong></h5><p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
+<h4 id="Appium-GUI"><a href="#Appium-GUI" class="headerlink" title="Appium GUI"></a><strong>Appium GUI</strong></h4><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。</p>
+<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
+<p> <img src="https://pic.imgdb.cn/item/61376ab044eaada7392346b7.jpg" alt="https://pic.imgdb.cn/item/61376ab044eaada7392346b7.jpg"></p>
+<h4 id="Appium-Clients"><a href="#Appium-Clients" class="headerlink" title="Appium Clients"></a><strong>Appium Clients</strong></h4><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
+<table>
+<thead>
+<tr>
+<th>Language/Framework</th>
+<th>Github Repo and Installation Instructions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ruby</td>
+<td><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
+</tr>
+<tr>
+<td>Java</td>
+<td><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
+</tr>
+<tr>
+<td>JavaScript (Node.js)</td>
+<td><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
+</tr>
+<tr>
+<td>Objective C</td>
+<td><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
+</tr>
+<tr>
+<td>C# (.NET)</td>
+<td><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
+</tr>
+<tr>
+<td>RobotFramework</td>
+<td><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
+</tr>
+</tbody></table>
+<h4 id="Appium-desktop"><a href="#Appium-desktop" class="headerlink" title="Appium-desktop"></a>Appium-desktop</h4><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
+<h2 id="四-Simple"><a href="#四-Simple" class="headerlink" title="四.Simple"></a>四.Simple</h2><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
+<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
+<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
+<p><img src="https://pic.imgdb.cn/item/61376ace44eaada73923a4c0.jpg" alt="https://pic.imgdb.cn/item/61376ace44eaada73923a4c0.jpg"> </p>
+<h2 id="五-Advanced"><a href="#五-Advanced" class="headerlink" title="五.Advanced"></a>五.Advanced</h2><p>高级参数配置修改，主要是一些Android和iOS设备，log路径等相关信息的配置。</p>
+<p><img src="https://pic.imgdb.cn/item/61376aea44eaada73923f7db.jpg" alt="https://pic.imgdb.cn/item/61376aea44eaada73923f7db.jpg"> </p>
+<p><img src="https://pic.imgdb.cn/item/61376b0044eaada7392436ee.jpg" alt="https://pic.imgdb.cn/item/61376b0044eaada7392436ee.jpg"></p>
+<h2 id="六-presets"><a href="#六-presets" class="headerlink" title="六.presets"></a>六.presets</h2><p>将Advanced中的一些配置信息作为预设配置。</p>
+<h2 id="七-启动Appium"><a href="#七-启动Appium" class="headerlink" title="七.启动Appium"></a>七.启动Appium</h2><p>启动后控制台提示如下信息，表示Appium启动成功。</p>
+<pre class="line-numbers language-none"><code class="language-none">[Appium] Welcome to Appium v1.7.2
+[Appium] Non-default server args:
+[Appium]   address: 127.0.0.1
+[Appium] Appium REST http interface listener started on 127.0.0.1:4723<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="https://pic.imgdb.cn/item/61376b1844eaada739247a92.jpg">
+
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h4><p><a href="https://github.com/appium/appium-desktop">https://github.com/appium/appium-desktop</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Appium的元素定位入门</title>
     <url>/2021/09/07/Appium%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>与Web自动化测试一样，app自动化测试过程中最重要一个环节就是元素定位，只有准确定位到了元素才能进行相关元素的操作，如输入、点击、拖拽、滑动等。</p>
@@ -935,131 +1060,6 @@ else:
 
 <p>注意：</p>
 <p>使用Appium做了输入操作之后，如果出现输入法无法唤起，可以在系统设置——语言和输入法——将当前输入法替换为系统输入法或者其他输入法。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Appium简介</title>
-    <url>/2021/09/07/Appium%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<h1 id="一-Appium简介"><a href="#一-Appium简介" class="headerlink" title="一.Appium简介"></a><strong>一.Appium简介</strong></h1><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
-<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
-<ul>
-<li><p><a href="http://appium.io/">Appium官网</a></p>
-</li>
-<li><p><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></p>
-</li>
-<li><p><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></p>
-</li>
-<li><p> <a href="http://discuss.appium.io/latest">Appium官方论坛</a></p>
-</li>
-<li><p> <a href="https://testerhome.com/">Testerhome中文社区</a></p>
-</li>
-</ul>
-<h1 id="二-Appium优势"><a href="#二-Appium优势" class="headerlink" title="二.Appium优势"></a>二.Appium优势</h1><ul>
-<li><p>可以跨平台同时支持android、ios</p>
-</li>
-<li><p>支持多种语言，java、python、php、Ruby等等</p>
-</li>
-<li><p>不用为复杂的环境发愁</p>
-</li>
-<li><p> 如果你有selenium经验，直接上手。</p>
-</li>
-</ul>
-<h2 id="Appium架构原理"><a href="#Appium架构原理" class="headerlink" title="Appium架构原理"></a>Appium架构原理</h2><ul>
-<li><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
-</li>
-<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
-</li>
-<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
-</li>
-<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。 </p>
-</li>
-</ul>
-<p><img src="https://pic.imgdb.cn/item/61376a0144eaada739210646.jpg" alt="https://pic.imgdb.cn/item/61376a0144eaada739210646.jpg"></p>
-<h5 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a><strong>运行原理</strong></h5><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
-<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
-<h5 id="Appium服务器"><a href="#Appium服务器" class="headerlink" title="Appium服务器"></a><strong>Appium服务器</strong></h5><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
-<h5 id="Bootstrap-jar"><a href="#Bootstrap-jar" class="headerlink" title="Bootstrap.jar"></a><strong>Bootstrap.jar</strong></h5><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
-<h5 id="Appium客户端"><a href="#Appium客户端" class="headerlink" title="Appium客户端"></a><strong>Appium客户端</strong></h5><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
-<h2 id="三-Appium组件"><a href="#三-Appium组件" class="headerlink" title="三.Appium组件"></a>三.Appium组件</h2><h4 id="Appium-Server"><a href="#Appium-Server" class="headerlink" title="Appium Server"></a><strong>Appium Server</strong></h4><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
-<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from NPM:</p>
-<pre class="line-numbers language-none"><code class="language-none">$npm install -g appium
-
-$appium<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="Appium-Desktop"><a href="#Appium-Desktop" class="headerlink" title="Appium Desktop"></a><strong>Appium Desktop</strong></h4><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
-<ol>
-<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
-</li>
-<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
-</li>
-</ol>
-<p><img src="https://pic.imgdb.cn/item/61376a4d44eaada7392200e1.jpg" alt="https://pic.imgdb.cn/item/61376a4d44eaada7392200e1.jpg"> </p>
-<p><img src="https://pic.imgdb.cn/item/61376a8944eaada73922bfac.jpg" alt="https://pic.imgdb.cn/item/61376a8944eaada73922bfac.jpg"> </p>
-<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a><strong>注意</strong></h5><p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
-<h4 id="Appium-GUI"><a href="#Appium-GUI" class="headerlink" title="Appium GUI"></a><strong>Appium GUI</strong></h4><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。</p>
-<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
-<p> <img src="https://pic.imgdb.cn/item/61376ab044eaada7392346b7.jpg" alt="https://pic.imgdb.cn/item/61376ab044eaada7392346b7.jpg"></p>
-<h4 id="Appium-Clients"><a href="#Appium-Clients" class="headerlink" title="Appium Clients"></a><strong>Appium Clients</strong></h4><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
-<table>
-<thead>
-<tr>
-<th>Language/Framework</th>
-<th>Github Repo and Installation Instructions</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ruby</td>
-<td><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
-</tr>
-<tr>
-<td>Python</td>
-<td><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
-</tr>
-<tr>
-<td>Java</td>
-<td><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
-</tr>
-<tr>
-<td>JavaScript (Node.js)</td>
-<td><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
-</tr>
-<tr>
-<td>Objective C</td>
-<td><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
-</tr>
-<tr>
-<td>C# (.NET)</td>
-<td><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
-</tr>
-<tr>
-<td>RobotFramework</td>
-<td><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
-</tr>
-</tbody></table>
-<h4 id="Appium-desktop"><a href="#Appium-desktop" class="headerlink" title="Appium-desktop"></a>Appium-desktop</h4><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
-<h2 id="四-Simple"><a href="#四-Simple" class="headerlink" title="四.Simple"></a>四.Simple</h2><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
-<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
-<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
-<p><img src="https://pic.imgdb.cn/item/61376ace44eaada73923a4c0.jpg" alt="https://pic.imgdb.cn/item/61376ace44eaada73923a4c0.jpg"> </p>
-<h2 id="五-Advanced"><a href="#五-Advanced" class="headerlink" title="五.Advanced"></a>五.Advanced</h2><p>高级参数配置修改，主要是一些Android和iOS设备，log路径等相关信息的配置。</p>
-<p><img src="https://pic.imgdb.cn/item/61376aea44eaada73923f7db.jpg" alt="https://pic.imgdb.cn/item/61376aea44eaada73923f7db.jpg"> </p>
-<p><img src="https://pic.imgdb.cn/item/61376b0044eaada7392436ee.jpg" alt="https://pic.imgdb.cn/item/61376b0044eaada7392436ee.jpg"></p>
-<h2 id="六-presets"><a href="#六-presets" class="headerlink" title="六.presets"></a>六.presets</h2><p>将Advanced中的一些配置信息作为预设配置。</p>
-<h2 id="七-启动Appium"><a href="#七-启动Appium" class="headerlink" title="七.启动Appium"></a>七.启动Appium</h2><p>启动后控制台提示如下信息，表示Appium启动成功。</p>
-<pre class="line-numbers language-none"><code class="language-none">[Appium] Welcome to Appium v1.7.2
-[Appium] Non-default server args:
-[Appium]   address: 127.0.0.1
-[Appium] Appium REST http interface listener started on 127.0.0.1:4723<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<img src="https://pic.imgdb.cn/item/61376b1844eaada739247a92.jpg">
-
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h4><p><a href="https://github.com/appium/appium-desktop">https://github.com/appium/appium-desktop</a></p>
 ]]></content>
   </entry>
   <entry>
