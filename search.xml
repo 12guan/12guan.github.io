@@ -1086,85 +1086,6 @@ aapt dump badging xxxx.apk | find &quot;launchable-activity&quot;<span aria-hidd
 ]]></content>
   </entry>
   <entry>
-    <title>monkey 日志管理</title>
-    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
-<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
-<li><p>保存在PC中</p>
-</li>
-<li><p>保存在手机上</p>
-</li>
-<li><p>标准流和错误流分开保存</p>
-</li>
-</ol>
-<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
-
-eg：
-C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
-monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
-<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
-<li>标准流与错误流分开保存，代码如下：</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
-
-C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
-<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
-<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>运行后log如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
-:Monkey: seed&#x3D;1524595418646 count&#x3D;100
-:IncludeCategory: android.intent.category.LAUNCHER
-:IncludeCategory: android.intent.category.MONKEY
-&#x2F;&#x2F; Event percentages:
-&#x2F;&#x2F;   0: 15.0%
-&#x2F;&#x2F;   1: 10.0%
-&#x2F;&#x2F;   2: 2.0%
-&#x2F;&#x2F;   3: 15.0%
-&#x2F;&#x2F;   4: -0.0%
-&#x2F;&#x2F;   5: 25.0%
-&#x2F;&#x2F;   6: 15.0%
-&#x2F;&#x2F;   7: 2.0%
-&#x2F;&#x2F;   8: 2.0%
-&#x2F;&#x2F;   9: 1.0%
-&#x2F;&#x2F;   10: 13.0%
-:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
-    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
-:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
-:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
-:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
-:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
-:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
-:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
-:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
-:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
-:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
-:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
-:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
-:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
-:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
-:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
-:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
-:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
-:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
-:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
-:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
-Events injected: 100
-:Sending rotation degree&#x3D;0, persist&#x3D;false
-:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
-## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
-&#x2F;&#x2F; Monkey finished
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-]]></content>
-  </entry>
-  <entry>
     <title>adb命令</title>
     <url>/2021/09/05/adb%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="一、Android-调试桥"><a href="#一、Android-调试桥" class="headerlink" title="一、Android 调试桥"></a><strong>一、Android 调试桥</strong></h1><p>adb ( Android Debug Bridge)是一个通用命令行工具，其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用。</p>
@@ -1450,6 +1371,85 @@ Nox_1是新增的模拟器，复制自nox<span aria-hidden="true" class="line-nu
 [C:\Users\xxxx\Desktop\backup20171030174008.vmdk]文件还原到Nox_1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
+
+]]></content>
+  </entry>
+  <entry>
+    <title>monkey 日志管理</title>
+    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
+<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
+<li><p>保存在PC中</p>
+</li>
+<li><p>保存在手机上</p>
+</li>
+<li><p>标准流和错误流分开保存</p>
+</li>
+</ol>
+<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><pre class="line-numbers language-none"><code class="language-none">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt
+
+eg：
+C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell
+monkey -v 100 &gt;&#x2F;sdcard&#x2F;monkeylog.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
+<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
+<li>标准流与错误流分开保存，代码如下：</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">Monkey [option] &lt;count&gt; 1&gt;&#x2F;sdcard&#x2F;monkey.txt 2&gt;&#x2F;sdcard&#x2F;error.txt
+
+C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
+<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">adb shell monkey -v 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>运行后log如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\admin&gt;adb shell monkey -v 100
+:Monkey: seed&#x3D;1524595418646 count&#x3D;100
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+&#x2F;&#x2F; Event percentages:
+&#x2F;&#x2F;   0: 15.0%
+&#x2F;&#x2F;   1: 10.0%
+&#x2F;&#x2F;   2: 2.0%
+&#x2F;&#x2F;   3: 15.0%
+&#x2F;&#x2F;   4: -0.0%
+&#x2F;&#x2F;   5: 25.0%
+&#x2F;&#x2F;   6: 15.0%
+&#x2F;&#x2F;   7: 2.0%
+&#x2F;&#x2F;   8: 2.0%
+&#x2F;&#x2F;   9: 1.0%
+&#x2F;&#x2F;   10: 13.0%
+:Switch: #Intent;action&#x3D;android.intent.action.MAIN;category&#x3D;android.intent.category.LAUNCHER;launchFlags&#x3D;0x10200000;component&#x3D;com.android.settings&#x2F;.Settings;end
+    &#x2F;&#x2F; Allowing start of Intent &#123; act&#x3D;android.intent.action.MAIN cat&#x3D;[android.intent.category.LAUNCHER] cmp&#x3D;com.android.settings&#x2F;.Settings &#125; in package com.android.settings
+:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)
+:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)
+:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)
+:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)
+:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)
+:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)
+:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)
+:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)
+:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)
+:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)
+:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)
+:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)
+:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)
+:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)
+:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)
+Events injected: 100
+:Sending rotation degree&#x3D;0, persist&#x3D;false
+:Dropped: keys&#x3D;0 pointers&#x3D;0 trackballs&#x3D;0 flips&#x3D;0 rotations&#x3D;0
+## Network stats: elapsed time&#x3D;924ms (0ms mobile, 0ms wifi, 924ms not connected)
+&#x2F;&#x2F; Monkey finished
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 ]]></content>
   </entry>
