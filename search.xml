@@ -1,6 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Appium基础-安装、配置、启动</title>
+    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
+<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
+<ul>
+<li><a href="http://appium.io/">Appium官网</a></li>
+<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
+<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
+<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
+<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
+</ul>
+<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
+<li>可以跨平台同时支持android、ios</li>
+<li> 支持多种语言，java、python、php、Ruby等等</li>
+<li>不用为复杂的环境发愁</li>
+<li> 如果你有selenium经验，直接上手。</li>
+</ul>
+<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
+<ul>
+<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
+</li>
+<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
+</li>
+<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
+<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
+</ul>
+<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
+<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
+<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
+<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
+<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
+<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
+<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
+<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
+<ol>
+<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
+</li>
+<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
+<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
+
+<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
+</ol>
+<p> 注意：</p>
+<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
+<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
+<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
+<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
+<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
+
+<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
+<table>
+<thead>
+<tr>
+<th>Language/Framework</th>
+<th align="left">Github Repo and Installation Instructions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ruby</td>
+<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
+</tr>
+<tr>
+<td>Java</td>
+<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
+</tr>
+<tr>
+<td>JavaScript (Node.js)</td>
+<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
+</tr>
+<tr>
+<td>Objective C</td>
+<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
+</tr>
+<tr>
+<td>C# (.NET)</td>
+<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
+</tr>
+<tr>
+<td>RobotFramework</td>
+<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
+</tr>
+</tbody></table>
+<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
+<p>Appium</p>
+<p>Appium-desktop</p>
+<p>Appium-doctor</p>
+<p>Appium-Python-Clien</p>
+<p>Python</p>
+<p>JDK</p>
+<p>Andriod SDK</p>
+<p>环境开始搭建的时候，尽量保持版本一致。</p>
+<p>在软件目录里面</p>
+<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
+
+<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
+<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
+<p>这步server安装不上，跳过安装 appium-desktop</p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>执行完成命令看到如下提示则表示设置完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
+
+<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
+<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
+<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
+<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
+<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
+
+<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
+<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
+
+<p>输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
+
+<p>回车，如果控制台没有报错，则说明安装成功。 </p>
+<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
+<p>如果出现如下报错，则说明安装失败</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
+
+<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
+<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
+<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
+<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
+
+<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
+<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
+<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
+<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
+<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
+<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
+<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
+<p><strong>Session</strong></p>
+<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
+<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
+<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
+
+<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
+  </entry>
+  <entry>
     <title>Appium基础操作</title>
     <url>/2021/09/02/Appium%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>优化：把启动app的脚本封装在一个模块，接下来的每次试验直接调用即可。</p>
@@ -179,277 +349,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">#获取屏幕尺寸</span><br><span class="line">def get_size():</span><br><span class="line">    x=driver.get_window_size()[&#x27;width&#x27;]</span><br><span class="line">    y=driver.get_window_size()[&#x27;height&#x27;]</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">#显示屏幕尺寸（width,height）</span><br><span class="line">l=get_size()</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">#向左滑动</span><br><span class="line">def swipeLeft():</span><br><span class="line">    l=get_size()</span><br><span class="line">    x1=int(l[0]*0.9)</span><br><span class="line">    y1=int(l[1]*0.5)</span><br><span class="line">    x2=int(l[0]*0.1)</span><br><span class="line">    driver.swipe(x1,y1,x2,y1,1000)</span><br><span class="line"></span><br><span class="line">#向左滑动2次</span><br><span class="line">for i in range(2):</span><br><span class="line">    swipeLeft()</span><br><span class="line">    sleep(0.5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_splash_guidfinish&#x27;).click()</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-  </entry>
-  <entry>
-    <title>Appium环境的搭建</title>
-    <url>/2021/09/01/Appium%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
-<li><p>Node.js</p>
-</li>
-<li><p>Appium</p>
-</li>
-<li><p>Appium-desktop</p>
-</li>
-<li><p>Appium-doctor</p>
-</li>
-<li><p>Appium-Python-Client</p>
-</li>
-<li><p>Python</p>
-</li>
-<li><p>JDK</p>
-</li>
-<li><p>Andriod SDK</p>
- <span id="more"></span></li>
-</ul>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入如下命令：</span><br><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">v12.18.3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">6.14.6</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>说明：</strong></p>
-<ul>
-<li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
-<li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
-</ul>
-<h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><p>执行以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p> 执行完成命令看到如下提示则表示设置完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow  and an import issue introduced in 2.1.0</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line"></span><br><span class="line">\+ cnpm@5.2.0</span><br><span class="line"></span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a>appium 安装</h4><p>使用如下命令来执行安装：</p>
-<p>安装最新版本</p>
-<p>cnpm install -g appium</p>
-<p>安装指定版本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install appium@1.7.2 -g </span><br></pre></td></tr></table></figure>
-
-<p>看到如下命令时则表示下载安装完成。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">All packages installed (565 packages installed from npm registry, used 57s, speed 835.67kB/s, json 477(6.16MB), tarball 40.58MB)</span><br><span class="line"></span><br><span class="line">[appium@1.8.0] link C:\Users\admin\AppData\Roaming\npm\appium@ -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\appium\build\lib\main.js</span><br></pre></td></tr></table></figure>
-
-<p>npm的包安装分为本地安装（local）、全局安装（global）两种，一般我们推荐使用全局安装。</p>
-<h4 id="appium配置"><a href="#appium配置" class="headerlink" title="appium配置"></a>appium配置</h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<p>执行以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium </span><br></pre></td></tr></table></figure>
-
-<p>执行完之后可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a>appium运行</h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">1.7.2</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">执行以下命令 </span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a>退出appium</h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h2 id="安装Appium-desktop"><a href="#安装Appium-desktop" class="headerlink" title="安装Appium-desktop"></a>安装Appium-desktop</h2><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<p>appium-desktop是我们初学者最容易上手的工具，后面课程首先会基于这个工具来讲解！然后再基于appium 命令来讲。</p>
-<h4 id="python环境安装配置"><a href="#python环境安装配置" class="headerlink" title="python环境安装配置"></a>python环境安装配置</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">安装成功之后，执行以下命令 </span><br><span class="line">C:Users admin&gt;python --version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python  3.5.0</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="安装Appium-Python-Client"><a href="#安装Appium-Python-Client" class="headerlink" title="安装Appium-Python-Client"></a>安装Appium-Python-Client</h2><p>通过命令pip install Appium-Python-Client 进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<p>输入命令“from appium import webdriver” 回车，如果控制台没有报错，则说明安装成功。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;python</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">\&gt;&gt;&gt; &lt;u&gt;from appium import webdriver&lt;/u&gt;&lt;!--此处是输入的命令--&gt;</span><br><span class="line"></span><br><span class="line">如果出现如下报错，则说明安装失败</span><br><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name  “webdriver”</span><br></pre></td></tr></table></figure>
-
-<p>说明：</p>
-<p>装Appium-Python-Client安装后的路径一般为：{Python 安装路径}\Lib\site-packages\appium</p>
-<h2 id="JDK安装配置"><a href="#JDK安装配置" class="headerlink" title="JDK安装配置"></a>JDK安装配置</h2><p>jdk下载地址:</p>
-<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
-<p>jdk环境变量配置</p>
-<p><a href="http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html">http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html</a></p>
-<p>安装配置完成后，打开命令提示符窗口，然后输入如下面命令有对应提示说明安装配置成功。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;java -version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">java version &quot;1.8.0_05&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_05-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Andriod-sdk-安装"><a href="#Andriod-sdk-安装" class="headerlink" title="Andriod sdk 安装"></a>Andriod sdk 安装</h2><p>下载地址： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
-<p>根据自己的PC平台下载对应版本即可。</p>
-<p>安装完成后需要配置环境变量：ANDROID_HOME。</p>
-<h2 id="安装-appium-doctor"><a href="#安装-appium-doctor" class="headerlink" title="安装 appium-doctor"></a>安装 appium-doctor</h2><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br><span class="line"></span><br><span class="line">输入以下命令，如下提示说明整体环境配置成功</span><br><span class="line">C:\Users\admin&gt;appium-doctor</span><br><span class="line"></span><br><span class="line">info AppiumDoctor Appium Doctor v.1.4.3</span><br><span class="line">info AppiumDoctor ### Diagnostic starting ###</span><br><span class="line">info AppiumDoctor  ✔ The Node.js binary was found at: D:\program files\nodejs\node.exe</span><br><span class="line">info AppiumDoctor  ✔ Node version is 6.11.3</span><br><span class="line">info AppiumDoctor  ✔ ANDROID_HOME is set to: E:\Andriod_sdk</span><br><span class="line">info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk1.8.0_05</span><br><span class="line">info AppiumDoctor  ✔ adb exists at: E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">info AppiumDoctor  ✔ android exists at: E:\Andriod_sdk\tools\android.bat</span><br><span class="line">info AppiumDoctor  ✔ emulator exists at: E:\Andriod_sdk\tools\emulator.exe</span><br><span class="line">info AppiumDoctor  ✔ Bin directory of %JAVA_HOME% is set</span><br><span class="line">info AppiumDoctor ### Diagnostic completed, no fix needed. ###</span><br><span class="line">info AppiumDoctor</span><br><span class="line">info AppiumDoctor Everything looks good, bye!</span><br><span class="line">info AppiumDoctor</span><br></pre></td></tr></table></figure>
-
-
-
-<p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Appium基础-安装、配置、启动</title>
-    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
-<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
-<ul>
-<li><a href="http://appium.io/">Appium官网</a></li>
-<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
-<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
-<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
-<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
-</ul>
-<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
-<li>可以跨平台同时支持android、ios</li>
-<li> 支持多种语言，java、python、php、Ruby等等</li>
-<li>不用为复杂的环境发愁</li>
-<li> 如果你有selenium经验，直接上手。</li>
-</ul>
-<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
-<ul>
-<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
-</li>
-<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
-</li>
-<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
-<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
-</ul>
-<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
-<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
-<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
-<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
-<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
-<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
-<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
-<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
-<ol>
-<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
-</li>
-<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
-<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
-
-<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
-</ol>
-<p> 注意：</p>
-<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
-<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
-<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
-<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
-<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
-
-<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
-<table>
-<thead>
-<tr>
-<th>Language/Framework</th>
-<th align="left">Github Repo and Installation Instructions</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ruby</td>
-<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
-</tr>
-<tr>
-<td>Python</td>
-<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
-</tr>
-<tr>
-<td>Java</td>
-<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
-</tr>
-<tr>
-<td>JavaScript (Node.js)</td>
-<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
-</tr>
-<tr>
-<td>Objective C</td>
-<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
-</tr>
-<tr>
-<td>C# (.NET)</td>
-<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
-</tr>
-<tr>
-<td>RobotFramework</td>
-<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
-</tr>
-</tbody></table>
-<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
-<p>Appium</p>
-<p>Appium-desktop</p>
-<p>Appium-doctor</p>
-<p>Appium-Python-Clien</p>
-<p>Python</p>
-<p>JDK</p>
-<p>Andriod SDK</p>
-<p>环境开始搭建的时候，尽量保持版本一致。</p>
-<p>在软件目录里面</p>
-<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
-
-<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<p>这步server安装不上，跳过安装 appium-desktop</p>
-<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>执行完成命令看到如下提示则表示设置完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
-
-<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
-
-<p>输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
-
-<p>回车，如果控制台没有报错，则说明安装成功。 </p>
-<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
-<p>如果出现如下报错，则说明安装失败</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
-
-<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
-<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
-<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
-<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
-
-<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
-<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
-<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
-<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
-<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
-<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
-<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
-<p><strong>Session</strong></p>
-<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
-<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
-<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
-
-<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
   </entry>
   <entry>
     <title>Appium的元素定位入门</title>
@@ -656,6 +555,107 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Appium环境的搭建</title>
+    <url>/2021/09/01/Appium%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><ul>
+<li><p>Node.js</p>
+</li>
+<li><p>Appium</p>
+</li>
+<li><p>Appium-desktop</p>
+</li>
+<li><p>Appium-doctor</p>
+</li>
+<li><p>Appium-Python-Client</p>
+</li>
+<li><p>Python</p>
+</li>
+<li><p>JDK</p>
+</li>
+<li><p>Andriod SDK</p>
+ <span id="more"></span></li>
+</ul>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>下载地址：<a href="https://nodejs.org/en/download/releases/">https://nodejs.org/en/download/releases/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入如下命令：</span><br><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">v12.18.3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">执行完之后可以看到</span><br><span class="line">6.14.6</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>说明：</strong></p>
+<ul>
+<li> npm（node package manage）是node.js安装包管理工具，类似Python中的pip工具。</li>
+<li> 如果显示‘npm’不是内部命令提示，则可以管理员省份运行cmd，如果还是失败，则需要检查一下环境变量是否配置，或者重新安装nodejs。</li>
+</ul>
+<h2 id="Appium-安装"><a href="#Appium-安装" class="headerlink" title="Appium 安装"></a>Appium 安装</h2><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
+<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><p>执行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p> 执行完成命令看到如下提示则表示设置完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow  and an import issue introduced in 2.1.0</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line"></span><br><span class="line">\+ cnpm@5.2.0</span><br><span class="line"></span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a>appium 安装</h4><p>使用如下命令来执行安装：</p>
+<p>安装最新版本</p>
+<p>cnpm install -g appium</p>
+<p>安装指定版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install appium@1.7.2 -g </span><br></pre></td></tr></table></figure>
+
+<p>看到如下命令时则表示下载安装完成。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">All packages installed (565 packages installed from npm registry, used 57s, speed 835.67kB/s, json 477(6.16MB), tarball 40.58MB)</span><br><span class="line"></span><br><span class="line">[appium@1.8.0] link C:\Users\admin\AppData\Roaming\npm\appium@ -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\appium\build\lib\main.js</span><br></pre></td></tr></table></figure>
+
+<p>npm的包安装分为本地安装（local）、全局安装（global）两种，一般我们推荐使用全局安装。</p>
+<h4 id="appium配置"><a href="#appium配置" class="headerlink" title="appium配置"></a>appium配置</h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
+<p>执行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium </span><br></pre></td></tr></table></figure>
+
+<p>执行完之后可以看到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a>appium运行</h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">执行以下命令</span><br><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">1.7.2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">执行以下命令 </span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
+
+<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
+<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a>退出appium</h4><p>按键 ctrl+c 选择y 即可退出</p>
+<h2 id="安装Appium-desktop"><a href="#安装Appium-desktop" class="headerlink" title="安装Appium-desktop"></a>安装Appium-desktop</h2><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
+<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
+<p>appium-desktop是我们初学者最容易上手的工具，后面课程首先会基于这个工具来讲解！然后再基于appium 命令来讲。</p>
+<h4 id="python环境安装配置"><a href="#python环境安装配置" class="headerlink" title="python环境安装配置"></a>python环境安装配置</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">安装成功之后，执行以下命令 </span><br><span class="line">C:Users admin&gt;python --version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python  3.5.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装Appium-Python-Client"><a href="#安装Appium-Python-Client" class="headerlink" title="安装Appium-Python-Client"></a>安装Appium-Python-Client</h2><p>通过命令pip install Appium-Python-Client 进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
+<p>输入命令“from appium import webdriver” 回车，如果控制台没有报错，则说明安装成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;python</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">\&gt;&gt;&gt; &lt;u&gt;from appium import webdriver&lt;/u&gt;&lt;!--此处是输入的命令--&gt;</span><br><span class="line"></span><br><span class="line">如果出现如下报错，则说明安装失败</span><br><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name  “webdriver”</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>装Appium-Python-Client安装后的路径一般为：{Python 安装路径}\Lib\site-packages\appium</p>
+<h2 id="JDK安装配置"><a href="#JDK安装配置" class="headerlink" title="JDK安装配置"></a>JDK安装配置</h2><p>jdk下载地址:</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<p>jdk环境变量配置</p>
+<p><a href="http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html">http://jingyan.baidu.com/article/624e74599e8ad834e8ba5a94.html</a></p>
+<p>安装配置完成后，打开命令提示符窗口，然后输入如下面命令有对应提示说明安装配置成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;java -version</span><br><span class="line"></span><br><span class="line">执行完之后可以看到</span><br><span class="line">java version &quot;1.8.0_05&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_05-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Andriod-sdk-安装"><a href="#Andriod-sdk-安装" class="headerlink" title="Andriod sdk 安装"></a>Andriod sdk 安装</h2><p>下载地址： <a href="http://tools.android-studio.org/index.php/sdk">http://tools.android-studio.org/index.php/sdk</a></p>
+<p>根据自己的PC平台下载对应版本即可。</p>
+<p>安装完成后需要配置环境变量：ANDROID_HOME。</p>
+<h2 id="安装-appium-doctor"><a href="#安装-appium-doctor" class="headerlink" title="安装 appium-doctor"></a>安装 appium-doctor</h2><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入以下命令</span><br><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br><span class="line"></span><br><span class="line">输入以下命令，如下提示说明整体环境配置成功</span><br><span class="line">C:\Users\admin&gt;appium-doctor</span><br><span class="line"></span><br><span class="line">info AppiumDoctor Appium Doctor v.1.4.3</span><br><span class="line">info AppiumDoctor ### Diagnostic starting ###</span><br><span class="line">info AppiumDoctor  ✔ The Node.js binary was found at: D:\program files\nodejs\node.exe</span><br><span class="line">info AppiumDoctor  ✔ Node version is 6.11.3</span><br><span class="line">info AppiumDoctor  ✔ ANDROID_HOME is set to: E:\Andriod_sdk</span><br><span class="line">info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk1.8.0_05</span><br><span class="line">info AppiumDoctor  ✔ adb exists at: E:\Andriod_sdk\platform-tools\adb.exe</span><br><span class="line">info AppiumDoctor  ✔ android exists at: E:\Andriod_sdk\tools\android.bat</span><br><span class="line">info AppiumDoctor  ✔ emulator exists at: E:\Andriod_sdk\tools\emulator.exe</span><br><span class="line">info AppiumDoctor  ✔ Bin directory of %JAVA_HOME% is set</span><br><span class="line">info AppiumDoctor ### Diagnostic completed, no fix needed. ###</span><br><span class="line">info AppiumDoctor</span><br><span class="line">info AppiumDoctor Everything looks good, bye!</span><br><span class="line">info AppiumDoctor</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果上面某一项显示为“X”则说明相关环境没有配置好，需要重新安装配置。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://testerhome.com/topics/13146">https://testerhome.com/topics/13146</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Jmeter做接口测试</title>
     <url>/2021/09/11/Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/</url>
     <content><![CDATA[<h1 id="Jmeter做接口测试"><a href="#Jmeter做接口测试" class="headerlink" title="Jmeter做接口测试"></a>Jmeter做接口测试</h1><p>Jmeter脚本编写一般分五个步骤:</p>
@@ -664,7 +664,7 @@
 <li>添加 http 请求</li>
 <li>在 http 请求中写入接入 url、路径、请求方式和参数</li>
 <li> 添加查看结果树</li>
-<li>调用接口、查看返回值</li>
+<li>调用接口、查看返回值<span id="more"></span></li>
 </ol>
 <p> 本次用来测试的接口地址的api：<a href="http://httpbin.org/">httpbin.org</a></p>
 <h2 id="一、实施1-2步骤："><a href="#一、实施1-2步骤：" class="headerlink" title="一、实施1-2步骤："></a>一、<strong>实施1-2步骤：</strong></h2><p>添加线程组、http请求</p>

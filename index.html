@@ -122,145 +122,15 @@
 <li>添加 http 请求</li>
 <li>在 http 请求中写入接入 url、路径、请求方式和参数</li>
 <li> 添加查看结果树</li>
-<li>调用接口、查看返回值</li>
-</ol>
-<p> 本次用来测试的接口地址的api：<a target="_blank" rel="noopener" href="http://httpbin.org/">httpbin.org</a></p>
-<h2 id="一、实施1-2步骤："><a href="#一、实施1-2步骤：" class="headerlink" title="一、实施1-2步骤："></a>一、<strong>实施1-2步骤：</strong></h2><p>添加线程组、http请求</p>
-<p><img src="https://pic.imgdb.cn/item/613cd42844eaada739ec1ff8.jpg"> </p>
-<h2 id="二、配置http请求的相关参数"><a href="#二、配置http请求的相关参数" class="headerlink" title="二、配置http请求的相关参数"></a>二、<strong>配置http请求的相关参数</strong></h2><p>在 http 请求中写入接入 url、路径、请求方式和参数，当前选择请求的方式为GET方式。</p>
-<p><img src="https://pic.imgdb.cn/item/613cd45a44eaada739ecf7ba.jpg"> </p>
-<h2 id="三、调用接口，查看返回值"><a href="#三、调用接口，查看返回值" class="headerlink" title="三、调用接口，查看返回值"></a>三、<strong>调用接口，查看返回值</strong></h2><ol>
-<li><p>添加查看结果树</p>
-</li>
-<li><p>调用接口，得到返回值</p>
-</li>
-</ol>
-<img src="https://pic.imgdb.cn/item/613cd47544eaada739ed6ed0.jpg"> 
-
-<h2 id="四、请求方式改为post方式来进行请求"><a href="#四、请求方式改为post方式来进行请求" class="headerlink" title="四、请求方式改为post方式来进行请求"></a>四、<strong>请求方式改为post方式来进行请求</strong></h2><p>改为post进行测试，得到的响应数据</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd48d44eaada739edd9b1.jpg"></p>
-<h2 id="五、HTTP-请求默认值"><a href="#五、HTTP-请求默认值" class="headerlink" title="五、HTTP 请求默认值"></a>五、<strong>HTTP 请求默认值</strong></h2><p>通过上面两个请求我们发现，Web 服务器中的协议和服务器名称或 IP 这两个值都是一样，每次重复输入其实比较麻烦，因此我们可以使用 HTTP 请求默认值来管理这些公共的配置数据。</p>
-<p>添加步骤：</p>
-<p>线程组——添加——配置元件——HTTP 请求默认值 </p>
-<p>然后进行如下配置，并把该元件放置到请求前面。</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd51344eaada739f01a80.jpg"></p>
-<p>经过请求默认值的配置后，后续我们增加新的请求，如果这两项值是一样的话，那么则无需再重复填入该值。 </p>
-<h2 id="六、断言设置"><a href="#六、断言设置" class="headerlink" title="六、断言设置"></a>六、<strong>断言设置</strong></h2><p>Jmeter 可以针对每一个请求响应进行断言。</p>
-<p>设置步骤:</p>
-<p>选中一个请求，如 http-get,然后右键选择：</p>
-<p>添加——断言—响应断言。</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd53a44eaada739f0bd4d.jpg"></p>
-<p>各个匹配模式含义如下</p>
-<p>包括：响应内容包括需要匹配的内容即代表响应成功，支持正则表达式</p>
-<p>匹配：响应内容要完全匹配需要匹配的内容即代表响应成功，大小写不敏感，支持正则表达式。</p>
-<p>Equals：响应内容要完全等于需要匹配的内容才代表成功，大小写敏感，需要匹配的内容是字符串正则表达式</p>
-<p>Substring：返回结果包含指定结果的字串，但是 subString 不支持正则字符串</p>
-<p>如下图所示匹配返回的字符串是否包含：<a target="_blank" rel="noopener" href="http://httpbin.org/get">http://httpbin.org/get</a></p>
-<p>如果断言成功，则查看结果树为绿色标志，如果断言失败则为红色显示，如下图所示：</p>
-<p><img src="https://pic.imgdb.cn/item/613cd55044eaada739f11641.jpg"> </p>
-<h2 id="七、参数设置"><a href="#七、参数设置" class="headerlink" title="七、参数设置"></a>七、<strong>参数设置</strong></h2><p>Jmeter 支持通过 Query String Parameters 或者 Request body 请求体来传递参数。</p>
-<p><strong>Query</strong> <strong>String</strong> <strong>Parameters</strong></p>
-<p> 如果希望在请求 URL 中添加参数，则可以在 Http 请求界面的 Parameters 选项里面添加参数。该参数会通过 Query String Parameters 方式传递给服务器，也就是在 URL 中传递参数。 如下图如所示设置参数：</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd57044eaada739f19a87.jpg"></p>
-<p><strong>Request</strong> <strong>body</strong></p>
-<p> 在 Post 请求中参数一般在 body 中传递，Jmeter 也支持在 body 中传递参数。如传递 Json 格式的参数，在 BodyData 编辑框输入如下参数：</p>
-<p>{“username”:”Test1234”}</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd58644eaada739f1fed2.jpg"></p>
-<p>另外还需要指定参数的格式，因此需要添加 HTTP 信息头</p>
-<p>添加步骤：</p>
-<p>选定请求——添加——配置元件——HTTP 信息头管理器，然后在管理器里面添加参数类型Content-Type ：application/json 如下图所示：</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd59c44eaada739f25cb2.jpg"></p>
-<h2 id="八、变量"><a href="#八、变量" class="headerlink" title="八、变量"></a>八、<strong>变量</strong></h2><p> 在请求过程中，有时我们需要在请求中设置一些变量来测试不同的场景。</p>
-<p>Jmeter 支持以下类型变量：</p>
-<ol>
-<li>用户自定义变量</li>
-<li>函数生成变量</li>
-<li> 数据文件变量</li>
-</ol>
-<p><strong>1) 用户自定义变量</strong></p>
-<p> 设置步骤: 选中请求——添加——前置处理器——用户参数 设置变量名称为 user，值为 Test1234 <img src="https://pic.imgdb.cn/item/613cd5bf44eaada739f2f71d.jpg"></p>
-<p>在请求时引用变量如下所示: 变量引用格式为：${user}</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd5dd44eaada739f3775e.jpg"></p>
-<p><strong>2) 函数生成变量</strong></p>
-<p>Jmeter 有许多内置的函数，可以生成随机数。</p>
-<p>创建步骤:</p>
-<p>点击菜单栏选项——函数助手对话框——下拉选择__Random()函数 函数配置如下：</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd5f344eaada739f3cf6d.jpg"></p>
-<p> <img src="https://pic.imgdb.cn/item/613cd60a44eaada739f431bc.jpg"></p>
-<ol start="3">
-<li><strong>CSV 数据文件变量</strong></li>
-</ol>
-<p> CSV 数据文件变量是指从外部 csv 文件读取数据出来作为变量。</p>
-<p> 设置步骤: </p>
-<p>选择请求——添加——配置元件——CSV 数据文件设置</p>
-<p>创建 csv 文件:  注意文件编码为 UTF-8 文件内容如下：</p>
-<p> data.csv</p>
-<p>CSV 数据文件设置如下： </p>
-<p> <img src="https://pic.imgdb.cn/item/613cd62644eaada739f4b053.jpg"></p>
-<p>在 Post 请求中引用变量数据如下： </p>
-<p> <img src="https://pic.imgdb.cn/item/613cd64144eaada739f529fa.jpg"></p>
-<p>得到的请求数据</p>
-<p> <strong>4) CSV参数化</strong></p>
-<p>针对之前的 POST 接口进行如下参数遍历测试： </p>
-<p> 接口如下： </p>
-<p><a target="_blank" rel="noopener" href="http://httpbin.org/post">http://httpbin.org/post</a> </p>
-<p> 发送参数：user1.csv</p>
-<p>在之前的 csv 数据文件设置需要需改配置如下：</p>
-<p>表示把所有数据读取一遍，且不重复。 </p>
-<p><img src="https://pic.imgdb.cn/item/613cd66144eaada739f5d2a7.jpg"> </p>
-<p>读取的数据：</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd67d44eaada739f65dc6.jpg"></p>
-<h2 id="九、用例分离"><a href="#九、用例分离" class="headerlink" title="九、用例分离"></a>九、<strong>用例分离</strong></h2><h3 id="用例设计"><a href="#用例设计" class="headerlink" title="用例设计"></a><strong>用例设计</strong></h3><p>之前我们的用例数据都是配置在 Jmeter Http 请求中，每次需要增加，修改用例都需要打开 jmeter 重新编辑，当 用例越来越多的时候，用例维护起来就越来越麻烦，有没有好的方法来解决这种情况呢？ </p>
-<p>其实我们可以将用例的数据存放在 csv 文件中，然后通过 csv 文件配置来读取用例中的数据，执行测试。用例数据如图所示：</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd6a244eaada739f6bc67.jpg"></p>
-<p>用例名称变量含义：</p>
-<p>1．${caseSeq}:用例编号</p>
-<p>2．${apiType}:api 类型</p>
-<p>3．${apiSeq} ：api 版本号</p>
-<p>4．${apiName}：api 名称</p>
-<p>5．${priority}:优先级</p>
-<p>6．${url}:api 路径</p>
-<p>7．${methods}:请求方法</p>
-<p>8．${parameter}: 请求参数</p>
-<p>9．${expectValue}:期望值，用于断言</p>
-<h3 id="Jmeter设置步骤："><a href="#Jmeter设置步骤：" class="headerlink" title="Jmeter设置步骤："></a><strong>Jmeter设置步骤：</strong></h3><h4 id="1-新建一个线程组，命名为：数据驱动"><a href="#1-新建一个线程组，命名为：数据驱动" class="headerlink" title="1.新建一个线程组，命名为：数据驱动"></a><strong>1.新建一个线程组，命名为：数据驱动</strong></h4><h4 id="2-创建一个-http-请求默认值，设置如下："><a href="#2-创建一个-http-请求默认值，设置如下：" class="headerlink" title="2.创建一个 http 请求默认值，设置如下："></a><strong>2.创建一个 http 请求默认值，设置如下：</strong></h4><p> <img src="https://pic.imgdb.cn/item/613cd6ba44eaada739f6f8f2.jpg"></p>
-<h4 id="3-添加一个循环控制器"><a href="#3-添加一个循环控制器" class="headerlink" title="3.添加一个循环控制器"></a><strong>3.添加一个循环控制器</strong></h4><p>步骤为：线程组——添加——逻辑控制器——循环控制器。 </p>
-<p>循环控制器的作用可以控制整个用例循环执行的次数。默认值是 1 根据用例数量可以修改为 4</p>
-<p> <img src="https://pic.imgdb.cn/item/613cd6d644eaada739f73d39.jpg"></p>
-<h4 id="4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"><a href="#4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步" class="headerlink" title="4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"></a><strong>4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</strong></h4><p> <img src="https://pic.imgdb.cn/item/613cd6f244eaada739f78290.jpg"></p>
-<h4 id="5-创建一个-if-控制器"><a href="#5-创建一个-if-控制器" class="headerlink" title="5.创建一个 if 控制器"></a><strong>5.创建一个 if 控制器</strong></h4><p>步骤为：线程组——添加——逻辑控制器——if 控制器</p>
-<p>if 控制器的作用为根据不同条件执行不同的用例，例如这里根据不同的接口请求类型，分别创建了 GET 和 POST 两个控制器。</p>
-<p>GET 设置的条件语句如下：</p>
-<p>条件语句为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;$&#123;methods&#125;&quot;==&quot;GET&quot;其中 $&#123;methods&#125;表示引用 csv 中的 methods 中的值。</span><br></pre></td></tr></table></figure>
-
-<p> <img src="https://pic.imgdb.cn/item/613cd70444eaada739f7ac5b.jpg"></p>
-<p>POST请求设置：</p>
-<p><img src="https://pic.imgdb.cn/item/613cd73144eaada739f818e8.jpg"></p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
+<li>调用接口、查看返回值
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/11/Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/#more">Read More</a>
+        </p>
       
       
       
