@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>monkey | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-monkey" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      monkey
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-05T13:23:55.000Z" itemprop="datePublished">2021年09月05日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/05/monkey/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、Monkey简介"><a href="#一、Monkey简介" class="headerlink" title="一、Monkey简介"></a>一、<strong>Monkey简介</strong></h2><p>在Android的官方自动化测试领域有一只非常著名的“猴子”叫Monkey，这只“猴子”一旦启动，就会让被测的Android应用程序像猴子一样活蹦乱跳，到处乱跑。人们常用这只“猴子”来对被测程序进行压力测试，检查和评估被测程序的稳定性。</p>
+<span id="more"></span>
+
+<p>Android官方对这只“猴子”的描述是这样的：</p>
+<p>The Monkey is a program that runs on your emulator or device and generates pseudo-random streams of user events such as clicks, touches, or gestures, as well as a number of system-level events. You can use the Monkey to stress-test applications that you are developing, in a random yet repeatable manner.</p>
+<p>Monkey是一个程序，运行在您的模拟器或设备上，并生成伪随机的用户事件流，如点击，触摸或手势，以及一些系统级事件。 您可以使用Monkey以随机但可重复的方式对您正在开发的应用程序进行压力测试。</p>
+<p>monkey官方文档：<a target="_blank" rel="noopener" href="http://www.android-doc.com/tools/help/monkey.html">http://www.android-doc.com/tools/help/monkey.html</a></p>
+<h2 id="二、Moneky-路径"><a href="#二、Moneky-路径" class="headerlink" title="二、Moneky 路径"></a>二、<strong>Moneky 路径</strong></h2><p>Monkey程序是Android系统自带的，其启动脚本是位于Android系统的/system/bin目录的Monkey文件，其jar包是位于Android系统的/system/framework目录的Monkey.jar文件。用户主要是通过adb命令来启动Monkey的，Monkey在运行时，会根据命令行参数的配置，生成伪随机的事件流，并在Android设备上执行对应的测试事件。同时，Monkey还会对测试系统进行监测，当出现以下三种情况时会进行特殊处理：</p>
+<ul>
+<li> 如限定了Monkey运行在特定包上，当监测到试图转到其他包的操作，将对其进行阻止。</li>
+<li> 如应用程序崩溃或接收到任何失控异常，Monkey将记录对应的错误日志，并根据命令行参数判断是停止运行还是继续运行。</li>
+<li> 如果应用程序发生了程序无响应（application not responding）的错误，Monkey将记录对应的错误日志，并根据命令行参数判断是停止运行还是继续运行。</li>
+<li> 按照选定的不同级别的反馈信息，在Monkey中还可以看到其执行过程报告和生成的事件。</li>
+</ul>
+<h2 id="三、Monkey启动步骤"><a href="#三、Monkey启动步骤" class="headerlink" title="三、Monkey启动步骤"></a>三、<strong>Monkey启动步骤</strong></h2><ol>
+<li> 连接模拟器</li>
+<li> 连接成功后输入命令</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">adb  shell<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h2 id="四、进入到指定目录"><a href="#四、进入到指定目录" class="headerlink" title="四、进入到指定目录"></a>四、<strong>进入到指定目录</strong></h2><pre class="line-numbers language-none"><code class="language-none">cd  &#x2F;system&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li><p>输入 monkey命令看到如下提示则说明启动成功。</p>
+<img src="https://pic.imgdb.cn/item/6137704644eaada73931f0ea.jpg"></li>
+</ol>
+<h2 id="五、强制关闭monkey"><a href="#五、强制关闭monkey" class="headerlink" title="五、强制关闭monkey"></a>五、<strong>强制关闭monkey</strong></h2><ol>
+<li><p>adb shell ps 查看全部在运行的进程</p>
+</li>
+<li><p>查找出com.android.commands.monkey 进程PID</p>
+</li>
+<li><p>adb shell kill pid 杀掉monkey进程</p>
+</li>
+</ol>
+<h2 id="六、monkey-命令"><a href="#六、monkey-命令" class="headerlink" title="六、monkey 命令"></a>六、<strong>monkey 命令</strong></h2><p>monkey命令格式如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey [options] &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>[options]是指monkey可传入的参数，是可选项（如果不指定options，Monkey将以无反馈模式启动，并把事件任意发送到安装在目标环境中的全部包）</li>
+<li><event-count>是指随机发送事件数。如：输入100就是执行100个伪随机事件，为必选项。</li>
+</ul>
+<h2 id="七、操作事件简介"><a href="#七、操作事件简介" class="headerlink" title="七、操作事件简介"></a>七、<strong>操作事件简介</strong></h2><p>Monkey所执行的随机事件流中包含11大事件，分别是触摸事件、手势事件、二指缩放事件、轨迹事件、屏幕旋转事件、基本导航事件、主要导航事件、系统按键事件、启动Activity事件、键盘事件、其他类型事件。Monkey通过这11大事件来模拟用户的常规操作，对手机App进行稳定性测试。下面让我们来详细了解这11大事件。</p>
+<h3 id="1-触摸事件"><a href="#1-触摸事件" class="headerlink" title="1.触摸事件"></a><strong>1.触摸事件</strong></h3><p>触摸事件是指在屏幕某处按下并抬起的操作，可通过**–pct-touch**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到。 </p>
+<p>该事件由一组Touch（ACTION_DOWN）和Touch（ACTION_UP）事件组成，在手机上看到实际操作类似于点击。</p>
+<h3 id="2-手势事件"><a href="#2-手势事件" class="headerlink" title="2.手势事件"></a><strong>2.手势事件</strong></h3><p>手势事件是指在屏幕某处的按下、随机移动、抬起的操作，即直线滑动操作。可通过**–pct-motion**参数来配置其事件百分比。</p>
+<p>该事件是由一个ACTION_DOWN事件、一系列ACTION_MOVE事件和一个ACTION_UP事件组成的，在手机上看到的实际操作是一个没有拐弯的直线滑动操作。</p>
+<h3 id="3-二指缩放事件"><a href="#3-二指缩放事件" class="headerlink" title="3.二指缩放事件"></a><strong>3.二指缩放事件</strong></h3><p>二指缩放事件是指在屏幕上的两处同时按下，并同时移动，最后同时抬起的操作，即智能机上的放大缩小手势操作。可通过**–pct-pinchzoom**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p>该事件起始是一个ACTION_DOWN事件和一个ACTION_POINTER_DOWN事件，即模拟两个手指同时点下；中间是一系列的ACTION_MOVE事件，即两个手指同时在屏幕上直线滑动；结束是由一个ACTION_POINTER_UP事件和一个ACTION_UP事件组成的，即两个手指同时放开。</p>
+<h3 id="4-轨迹事件"><a href="#4-轨迹事件" class="headerlink" title="4.轨迹事件"></a><strong>4.轨迹事件</strong></h3><p>轨迹事件是由一个或多个随机的移动组成的，有时会伴随着点击。很早之前的Android手机带有轨迹球，这个事件就是模拟的轨迹球的操作。现在的手机几乎都没有轨迹球，但轨迹球事件中包含曲线滑动操作，如果被测程序需要曲线滑动时可以选用此参数。可通过**–pct-trackball**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p>该事件是由一系列的Trackball（ACTION_MOVE）事件组成的，观察手机上的操作，即为一系列的曲线滑动操作。</p>
+<h3 id="5-屏幕旋转事件"><a href="#5-屏幕旋转事件" class="headerlink" title="5.屏幕旋转事件"></a><strong>5.屏幕旋转事件</strong></h3><p>屏幕旋转事件是一个隐藏事件，在Android官方文档中并没有记录这个事件。它其实是模拟的Android手机的横屏和竖屏切换。可通过**–pct-rotation**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p> [代码] 该事件由一个rotation事件组成，其中degree表示的是旋转方向，顺时针旋转，0表示旋转90度的方向，1表示旋转180度的方向，2表示旋转270度的方向，3表示旋转360度的方向。在执行过程中，可以看到手机屏幕在横竖屏之间不断地切换。</p>
+<h3 id="6-基本导航事件"><a href="#6-基本导航事件" class="headerlink" title="6.基本导航事件"></a><strong>6.基本导航事件</strong></h3><p>基本导航事件是指点击方向输入设备的上、下、左、右按键的操作，现在手机上很少有上、下、左、右按键，这种事件一般用得比较少。可通过**–pct-nav**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p>该事件是由一个Key（ACTION_DOWN）和一个Key（ACTION_UP）组成的，点击的就是上、下、左、右四个方向按键。</p>
+<h3 id="7-主要导航事件"><a href="#7-主要导航事件" class="headerlink" title="7.主要导航事件"></a><strong>7.主要导航事件</strong></h3><p>主要导航事件是指点击“主要导航”按键的操作，这些按键通常会导致UI界面中的动作，如键盘的中间键、回退按键、菜单按键。可通过**–pct-majornav**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p> [代码] 该事件是由一个Key（ACTION_DOWN）和一个Key（ACTION_UP）组成的，点击的按键就是中间键和菜单键。</p>
+<h3 id="8-系统按键事件"><a href="#8-系统按键事件" class="headerlink" title="8.系统按键事件"></a><strong>8.系统按键事件</strong></h3><p>系统按键事件是指点击系统保留使用的按键的操作，如点击Home键、返回键、音量调节键等。可通过**–pct-syskeys**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到： </p>
+<p>[代码] 该事件是由一个Key（ACTION_DOWN）和一个Key（ACTION_UP）组成的，点击的就是上面说到的几个系统按键。</p>
+<h3 id="9-启动Activity事件"><a href="#9-启动Activity事件" class="headerlink" title="9.启动Activity事件"></a><strong>9.启动Activity事件</strong></h3><p>启动Activity事件是指在手机上启动一个Activity的操作。在随机的时间间隔中，Monkey将执行一个startActivity（）方法，作为最大限度上覆盖被测包中全部Activity的一种方法。可通过-<strong>-pct-appswitch</strong>参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p> [代码] 该事件是由一个Switch操作组成的，从手机上看，上面的操作实际是打开了com.android.settings这个应用的一个com.android.settings.Settings的Activity界面。</p>
+<h3 id="10-键盘事件"><a href="#10-键盘事件" class="headerlink" title="10.键盘事件"></a><strong>10.键盘事件</strong></h3><p>键盘事件主要是一些与键盘相关的操作。比如点击输入框、键盘弹起、点击输入框以外区域、键盘收回等。可通过-<strong>-pct-flip</strong>参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到： </p>
+<p>[代码] 如日志所示，这里主要是键盘的打开和关闭操作。</p>
+<h3 id="11-其他类型事件"><a href="#11-其他类型事件" class="headerlink" title="11.其他类型事件"></a><strong>11.其他类型事件</strong></h3><p>其他类型事件包括了除前面提到的10种事件外其他所有的事件，如按键、其他不常用的设备上的按钮等。可通过**–pct-anyevent**参数来配置其事件百分比。从Monkey执行该事件对外输出的日志可以看到：</p>
+<p> [代码] 该事件是由一个Key（ACTION_DOWN）和一个Key（ACTION_UP）组成的，点击的按键就是其他的一些系统按键，如字母按键、数字按键等。因为现在手机很少带字母按键或数字按键，所以这个事件一般使用得比较少。</p>
+<h2 id="八、monkey-参数"><a href="#八、monkey-参数" class="headerlink" title="八、monkey 参数"></a>八、<strong>monkey 参数</strong></h2><h3 id="1-参数分类"><a href="#1-参数分类" class="headerlink" title="1. 参数分类"></a>1. <strong>参数分类</strong></h3><ul>
+<li> 常规类参数</li>
+<li>事件类参数</li>
+<li>约束类参数</li>
+<li>调试类参数</li>
+</ul>
+<h3 id="2-常规类参数"><a href="#2-常规类参数" class="headerlink" title="2. 常规类参数"></a>2. <strong>常规类参数</strong></h3><p>常规类参数包括帮助参数和日志信息参数。帮助参数用于输出Monkey命令使用指导；日志信息参数将日志分为三个级别，级别越高，日志的信息越详细。</p>
+<p>1.帮助类参数</p>
+<pre class="line-numbers language-none"><code class="language-none">monkey -h<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>2.日志级别</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -v &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>-v：打印出日志信息，每个-v将增加反馈信息的级别。-v越多日志信息越详细，不过目前最多支持3个-v：</p>
+<img src="https://pic.imgdb.cn/item/6137707a44eaada739328274.jpg">
+
+<img src="https://pic.imgdb.cn/item/6137708b44eaada73932acb8.jpg">
+
+<h3 id="3-事件类参数"><a href="#3-事件类参数" class="headerlink" title="3.事件类参数"></a>3.事件类参数</h3><p>类参数的作用是对随机事件进行调控，从而使其遵照设定运行，如设置各种事件的百分比、设置事件生成所使用的种子值等。频率参数主要限制事件执行的时间间隔。</p>
+<p>1.执行指定脚本</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -f &lt;scriptfile&gt; &lt;event-count&gt;
+eg：
+$ adb shell monkey -f &#x2F;mnt&#x2F;sdcard&#x2F;test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>2.伪随机数生成种子值</p>
+<p>使用 -s命令可以重复执行之前的伪随机操作。本身每次执行伪随机事件操作也会默认生成一个seed值</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -s &lt;seed&gt; &lt;event-count&gt;
+
+eg:
+$ adb shell monkey -s 666 100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>3.设置间隔 如果你希望在每一个指令之间加上固定的间隔时间，可以用–throttle（注意，前面是–）命令。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --throttle &lt;milliseconds&gt;
+eg:
+$ adb shell monkey --throttle 3000  5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>–throttle：后面接时间，单位为ms（<milliseconds>），表示事件之间的固定延迟（即执行每一个指令间隔的时间），若不接该选项，monkey将不会延迟。</p>
+<p>4.调整触摸事件百分比</p>
+<p>如果你希望调整触摸事件的百分比，记住使用–pct-touch。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-touch
+eg:
+$ adb shell monkey -v -v --pct-touch 100 200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p> <percent>–pct-touch：后面接触摸事件百分比</p>
+<p><strong>注意</strong>：触摸事件不单单是按键，它泛指发生在某一位置的一个down-up事件。</p>
+<p>5.调整手势事件百分比</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-motion
+eg:
+$ adb shell monkey -v -v --pct-motion 100 200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>6.调整应用启动事件的百分比</p>
+<p>如果你希望调整应用启动事件的百分比，记住使用–pct-app-switch。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-appswtich &lt;percent&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>–pct-appswitch：后面接应用启动事件百分比。</p>
+<p>应用启动事件（即activity launches）俗称打开应用，通过调用startActivity()方法最大限度地开启该package下的所有应用。</p>
+<p>7.调整屏幕旋转事件百分比</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --pct-rotation &lt;percent&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>–pct-rotation 后面接屏幕旋转事件的比例值。</p>
+<p>8.其他参数</p>
+<img src="https://pic.imgdb.cn/item/613770de44eaada739338427.jpg">
+
+<h3 id="4-约束类参数"><a href="#4-约束类参数" class="headerlink" title="4. 约束类参数"></a>4. <strong>约束类参数</strong></h3><h4 id="1-包约束"><a href="#1-包约束" class="headerlink" title="1.包约束"></a><strong>1.包约束</strong></h4><p>-p：后面接一个或多个包名（<allowed-package-name>），如果应用需要访问其他包里的Activity，那相关的包也需要在此同时指定。如果不指定任何包，monkey将允许系统启动全部包里的Activity。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -p &lt;allowed-package-name&gt; &lt;event-count&gt;
+eg：
+$ adb shell monkey -p com.tal.kaoyan 500
+
+$ adb shell monkey -p com.tal.kaoyan -p com.tencent.mm 500<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-activity类约束"><a href="#2-activity类约束" class="headerlink" title="2.activity类约束"></a><strong>2.activity类约束</strong></h4><p>如果你希望将monkey限制在一个或几个类别中，使用如下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -c &lt;main-category&gt; &lt;event-count&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>以下命令表示运行Intent.CATEGORY_LAUNCHER类别的Activity并发送1000个随机事件。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey -c Intent.CATEGORY_LAUNCHER  1000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="https://pic.imgdb.cn/item/6137710244eaada73933e3bf.jpg">
+
+<h3 id="5-调试类参数"><a href="#5-调试类参数" class="headerlink" title="5. 调试类参数"></a>5. <strong>调试类参数</strong></h3><h4 id="1-应用程序崩溃后继续发送事件"><a href="#1-应用程序崩溃后继续发送事件" class="headerlink" title="1.应用程序崩溃后继续发送事件"></a><strong>1.应用程序崩溃后继续发送事件</strong></h4><p>如果你希望monkey在应用程序崩溃后继续发送事件，则需要用到–ignore-crashes命令</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-crashes &lt;event-count&gt; <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在设置此选项后，当应用程序崩溃或发生失控异常时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到上述崩溃或异常将停止运行。</p>
+<h4 id="2-超时错误继续发送事件"><a href="#2-超时错误继续发送事件" class="headerlink" title="2.超时错误继续发送事件"></a><strong>2.超时错误继续发送事件</strong></h4><p>如果你希望monkey在任何超时错误发生后继续发送事件，则需要用到–ignore-timeouts命令。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-timeouts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><event-count>–ignore-timeouts：在设置此选项后，当应用程序发生任何超时错误（如ANR，即Application Not Responding）时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到此类超时对话框将停止运行。</p>
+<h4 id="3-应用程序权限错误发生后继续发送事件"><a href="#3-应用程序权限错误发生后继续发送事件" class="headerlink" title="3.应用程序权限错误发生后继续发送事件"></a><strong>3.应用程序权限错误发生后继续发送事件</strong></h4><p>如果你希望monkey在应用程序权限错误发生后继续发送事件，则需要用到–ignore-security-exceptions命令。</p>
+<pre class="line-numbers language-none"><code class="language-none">$ adb shell monkey --ignore-security-exceptions<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><event-count>–ignore-security-exceptions：在设置此选项后，当应用程序发生任何权限错误（如启动一个需要某些权限的Activity）时，monkey将继续运行直到计数完成。如果不设置此选项，monkey遇到此类权限错误将停止运行。 </p>
+<h4 id="4-其他"><a href="#4-其他" class="headerlink" title="4.其他"></a><strong>4.其他</strong></h4><img src="https://pic.imgdb.cn/item/6137711644eaada7393416cc.jpg">
+
+
+
+<h2 id="九、Monkey参数应用综合案例"><a href="#九、Monkey参数应用综合案例" class="headerlink" title="九、Monkey参数应用综合案例"></a>九、<strong>Monkey参数应用综合案例</strong></h2><h3 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a><strong>测试场景</strong></h3><p>测试考研帮app Android版。测试希望通过Monkey来模拟用户的随机操作，检查被测应用是否会出现异常（应用崩溃或者无响应）。</p>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a><strong>需求分析</strong></h3><p>1、测试是指定应用，因此需要使用-p指定被测app包名：com.tal.kaoyan</p>
+<p>2、这个测试的目的是希望模拟用户操作，因此需要让Monkey执行的事件尽可能地接近用户的常规操作，这样才可以最大限度地发现用户使用过程中可能出现的问题。因此需要对Monkey执行的事件百分比做一些调整:</p>
+<p>触摸事件和手势事件是用户最常见的操作，所以通过**–pct-touch<strong>和-</strong>-pct-motion<strong>将这两个事件的占比调整到40%与25%；目标应用包含了多个Activity，为了能覆盖大部分的Activity，所以通过</strong>–pct-appswitch<strong>将Activity切换的事件占比调整到10%；被测应用在测试中出现过不少横竖屏之间切换的问题，这个场景也必须关注，因此通过</strong>–pct-rotation**把横竖屏切换事件调整到10%。</p>
+<p>3、使用-s参数来指定命令执行的seed值 Monkey会根据seed值来生成对应事件流，同一个seed生成的事件流是完全相同的。这里指定了seed值，是为了测试发现问题时，便于进行问题复现。</p>
+<p>4、使用–throttle参数来控制Monkey每个操作之间的时间间隔 指定操作之间的时间间隔，一方面是希望能更接近用户的操作场景，正常用户操作都会有一定的时间间隔；另一方面也是不希望因为过于频繁的操作而导致系统崩溃，尤其是在比较低端的手机上执行测试时。因此通过–throttle设置Monkey每个操作固定延迟0.4秒。</p>
+<p>5、使用**–ignore-crashs<strong>和-</strong>-ignore-timeouts**参数使Monkey遇到意外时能继续执行 在执行Monkey测试时，会因为应用的崩溃或没有响应而意外终止，所以需要在命令中增加限制参数–ignore-crash和–ignore-timeouts，让Monkey在遇到崩溃或没有响应的时候，能在日志中记录相关信息，并继续执行后续的测试。</p>
+<p>6、使用-v指定log的详细级别 Monkey的日志输出有3个级别：日志的级别越高，其详细程度也越高。为了方便问题的定位，这里将日志设为 -v -v.</p>
+<h3 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a><strong>测试命令</strong></h3><pre class="line-numbers language-none"><code class="language-none">adb shell monkey -p com.tal.kaoyan
+
+--pct-touch 40 --pct-motion 25 
+
+--pct-appswitch 10
+
+--pct-rotation 5
+
+-s 1666 --throttle 400
+
+--ignore-crashes
+
+--ignore-timeouts
+
+-v -v  200<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Monkey%E7%AE%80%E4%BB%8B"><span class="toc-text">一、Monkey简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Moneky-%E8%B7%AF%E5%BE%84"><span class="toc-text">二、Moneky 路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Monkey%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">三、Monkey启动步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%9B%E5%85%A5%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-text">四、进入到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BC%BA%E5%88%B6%E5%85%B3%E9%97%ADmonkey"><span class="toc-text">五、强制关闭monkey</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81monkey-%E5%91%BD%E4%BB%A4"><span class="toc-text">六、monkey 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%93%8D%E4%BD%9C%E4%BA%8B%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-text">七、操作事件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6"><span class="toc-text">1.触摸事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E5%8A%BF%E4%BA%8B%E4%BB%B6"><span class="toc-text">2.手势事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8C%E6%8C%87%E7%BC%A9%E6%94%BE%E4%BA%8B%E4%BB%B6"><span class="toc-text">3.二指缩放事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BD%A8%E8%BF%B9%E4%BA%8B%E4%BB%B6"><span class="toc-text">4.轨迹事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%BA%8B%E4%BB%B6"><span class="toc-text">5.屏幕旋转事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%9F%BA%E6%9C%AC%E5%AF%BC%E8%88%AA%E4%BA%8B%E4%BB%B6"><span class="toc-text">6.基本导航事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%BB%E8%A6%81%E5%AF%BC%E8%88%AA%E4%BA%8B%E4%BB%B6"><span class="toc-text">7.主要导航事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%B3%BB%E7%BB%9F%E6%8C%89%E9%94%AE%E4%BA%8B%E4%BB%B6"><span class="toc-text">8.系统按键事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%90%AF%E5%8A%A8Activity%E4%BA%8B%E4%BB%B6"><span class="toc-text">9.启动Activity事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="toc-text">10.键盘事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8B%E4%BA%8B%E4%BB%B6"><span class="toc-text">11.其他类型事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81monkey-%E5%8F%82%E6%95%B0"><span class="toc-text">八、monkey 参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8F%82%E6%95%B0%E5%88%86%E7%B1%BB"><span class="toc-text">1. 参数分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%B8%E8%A7%84%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">2. 常规类参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">3.事件类参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BA%A6%E6%9D%9F%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">4. 约束类参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8C%85%E7%BA%A6%E6%9D%9F"><span class="toc-text">1.包约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-activity%E7%B1%BB%E7%BA%A6%E6%9D%9F"><span class="toc-text">2.activity类约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B0%83%E8%AF%95%E7%B1%BB%E5%8F%82%E6%95%B0"><span class="toc-text">5. 调试类参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E5%90%8E%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">1.应用程序崩溃后继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%B6%85%E6%97%B6%E9%94%99%E8%AF%AF%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">2.超时错误继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF%E5%8F%91%E7%94%9F%E5%90%8E%E7%BB%A7%E7%BB%AD%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6"><span class="toc-text">3.应用程序权限错误发生后继续发送事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96"><span class="toc-text">4.其他</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81Monkey%E5%8F%82%E6%95%B0%E5%BA%94%E7%94%A8%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B"><span class="toc-text">九、Monkey参数应用综合案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9C%BA%E6%99%AF"><span class="toc-text">测试场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-text">测试命令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/05/monkey/">http://example.com/2021/09/05/monkey/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Appium基础-安装、配置、启动
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/05/adb%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">adb命令</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/">Appium案例整合</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">Jmeter的基础操作</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/Appium%E7%AE%80%E4%BB%8B/">Appium简介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
