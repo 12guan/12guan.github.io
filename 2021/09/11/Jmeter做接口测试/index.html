@@ -138,11 +138,11 @@
 <li>调用接口、查看返回值<span id="more"></span></li>
 </ol>
 <p> 本次用来测试的接口地址的api：<a target="_blank" rel="noopener" href="http://httpbin.org/">httpbin.org</a></p>
-<h2 id="一、实施1-2步骤："><a href="#一、实施1-2步骤：" class="headerlink" title="一、实施1-2步骤："></a>一、<strong>实施1-2步骤：</strong></h2><p>添加线程组、http请求</p>
+<h2 id="一、实施1-2步骤："><a href="#一、实施1-2步骤：" class="headerlink" title="一、实施1-2步骤："></a><strong>一、实施1-2步骤：</strong></h2><p>添加线程组、http请求</p>
 <p><img src="https://pic.imgdb.cn/item/613cd42844eaada739ec1ff8.jpg"> </p>
-<h2 id="二、配置http请求的相关参数"><a href="#二、配置http请求的相关参数" class="headerlink" title="二、配置http请求的相关参数"></a>二、<strong>配置http请求的相关参数</strong></h2><p>在 http 请求中写入接入 url、路径、请求方式和参数，当前选择请求的方式为GET方式。</p>
+<h2 id="二、配置http请求的相关参数"><a href="#二、配置http请求的相关参数" class="headerlink" title="二、配置http请求的相关参数"></a><strong>二、配置http请求的相关参数</strong></h2><p>在 http 请求中写入接入 url、路径、请求方式和参数，当前选择请求的方式为GET方式。</p>
 <p><img src="https://pic.imgdb.cn/item/613cd45a44eaada739ecf7ba.jpg"> </p>
-<h2 id="三、调用接口，查看返回值"><a href="#三、调用接口，查看返回值" class="headerlink" title="三、调用接口，查看返回值"></a>三、<strong>调用接口，查看返回值</strong></h2><ol>
+<h2 id="三、调用接口，查看返回值"><a href="#三、调用接口，查看返回值" class="headerlink" title="三、调用接口，查看返回值"></a><strong>三、调用接口，查看返回值</strong></h2><ol>
 <li><p>添加查看结果树</p>
 </li>
 <li><p>调用接口，得到返回值</p>
@@ -171,7 +171,7 @@
 <p>如下图所示匹配返回的字符串是否包含：<a target="_blank" rel="noopener" href="http://httpbin.org/get">http://httpbin.org/get</a></p>
 <p>如果断言成功，则查看结果树为绿色标志，如果断言失败则为红色显示，如下图所示：</p>
 <p><img src="https://pic.imgdb.cn/item/613cd55044eaada739f11641.jpg"> </p>
-<h2 id="七、参数设置"><a href="#七、参数设置" class="headerlink" title="七、参数设置"></a>七、<strong>参数设置</strong></h2><p>Jmeter 支持通过 Query String Parameters 或者 Request body 请求体来传递参数。</p>
+<h2 id="七、参数设置"><a href="#七、参数设置" class="headerlink" title="七、参数设置"></a><strong>七、参数设置</strong></h2><p>Jmeter 支持通过 Query String Parameters 或者 Request body 请求体来传递参数。</p>
 <p><strong>Query</strong> <strong>String</strong> <strong>Parameters</strong></p>
 <p> 如果希望在请求 URL 中添加参数，则可以在 Http 请求界面的 Parameters 选项里面添加参数。该参数会通过 Query String Parameters 方式传递给服务器，也就是在 URL 中传递参数。 如下图如所示设置参数：</p>
 <p> <img src="https://pic.imgdb.cn/item/613cd57044eaada739f19a87.jpg"></p>
@@ -183,7 +183,7 @@
 <p>添加步骤：</p>
 <p>选定请求——添加——配置元件——HTTP 信息头管理器，然后在管理器里面添加参数类型Content-Type ：application/json 如下图所示：</p>
 <p> <img src="https://pic.imgdb.cn/item/613cd59c44eaada739f25cb2.jpg"></p>
-<h2 id="八、变量"><a href="#八、变量" class="headerlink" title="八、变量"></a>八、<strong>变量</strong></h2><p> 在请求过程中，有时我们需要在请求中设置一些变量来测试不同的场景。</p>
+<h2 id="八、变量"><a href="#八、变量" class="headerlink" title="八、变量"></a><strong>八、变量</strong></h2><p> 在请求过程中，有时我们需要在请求中设置一些变量来测试不同的场景。</p>
 <p>Jmeter 支持以下类型变量：</p>
 <ol>
 <li>用户自定义变量</li>
@@ -223,7 +223,7 @@
 <p><img src="https://pic.imgdb.cn/item/613cd66144eaada739f5d2a7.jpg"> </p>
 <p>读取的数据：</p>
 <p> <img src="https://pic.imgdb.cn/item/613cd67d44eaada739f65dc6.jpg"></p>
-<h2 id="九、用例分离"><a href="#九、用例分离" class="headerlink" title="九、用例分离"></a>九、<strong>用例分离</strong></h2><h3 id="用例设计"><a href="#用例设计" class="headerlink" title="用例设计"></a><strong>用例设计</strong></h3><p>之前我们的用例数据都是配置在 Jmeter Http 请求中，每次需要增加，修改用例都需要打开 jmeter 重新编辑，当 用例越来越多的时候，用例维护起来就越来越麻烦，有没有好的方法来解决这种情况呢？ </p>
+<h2 id="九、用例分离"><a href="#九、用例分离" class="headerlink" title="九、用例分离"></a><strong>九、用例分离</strong></h2><h3 id="用例设计"><a href="#用例设计" class="headerlink" title="用例设计"></a><strong>用例设计</strong></h3><p>之前我们的用例数据都是配置在 Jmeter Http 请求中，每次需要增加，修改用例都需要打开 jmeter 重新编辑，当 用例越来越多的时候，用例维护起来就越来越麻烦，有没有好的方法来解决这种情况呢？ </p>
 <p>其实我们可以将用例的数据存放在 csv 文件中，然后通过 csv 文件配置来读取用例中的数据，执行测试。用例数据如图所示：</p>
 <p> <img src="https://pic.imgdb.cn/item/613cd6a244eaada739f6bc67.jpg"></p>
 <p>用例名称变量含义：</p>
@@ -240,7 +240,7 @@
 <h4 id="3-添加一个循环控制器"><a href="#3-添加一个循环控制器" class="headerlink" title="3.添加一个循环控制器"></a><strong>3.添加一个循环控制器</strong></h4><p>步骤为：线程组——添加——逻辑控制器——循环控制器。 </p>
 <p>循环控制器的作用可以控制整个用例循环执行的次数。默认值是 1 根据用例数量可以修改为 4</p>
 <p> <img src="https://pic.imgdb.cn/item/613cd6d644eaada739f73d39.jpg"></p>
-<h4 id="4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"><a href="#4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步" class="headerlink" title="4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"></a><strong>4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</strong></h4><p> <img src="https://pic.imgdb.cn/item/613cd6f244eaada739f78290.jpg"></p>
+<h4 id="4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"><a href="#4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步" class="headerlink" title="4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"></a><strong>4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</strong></h4><p> <img src="https://pic.imgdb.cn/item/613e105b44eaada739c5ec44.png"></p>
 <h4 id="5-创建一个-if-控制器"><a href="#5-创建一个-if-控制器" class="headerlink" title="5.创建一个 if 控制器"></a><strong>5.创建一个 if 控制器</strong></h4><p>步骤为：线程组——添加——逻辑控制器——if 控制器</p>
 <p>if 控制器的作用为根据不同条件执行不同的用例，例如这里根据不同的接口请求类型，分别创建了 GET 和 POST 两个控制器。</p>
 <p>GET 设置的条件语句如下：</p>
@@ -248,8 +248,50 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;$&#123;methods&#125;&quot;==&quot;GET&quot;其中 $&#123;methods&#125;表示引用 csv 中的 methods 中的值。</span><br></pre></td></tr></table></figure>
 
 <p> <img src="https://pic.imgdb.cn/item/613cd70444eaada739f7ac5b.jpg"></p>
-<p>POST请求设置：</p>
-<p><img src="https://pic.imgdb.cn/item/613cd73144eaada739f818e8.jpg"></p>
+<p>参数： </p>
+<p>• Interpret Condition as Variable Expression?：如果这个选项被选中，将不会使用 js 解析;条件表达式的值必须是 true(忽略大小写)，这里我们取消勾选状态。</p>
+<p>• Evaluate for all children：如果选中这一项，在每个子结点执行前都会计算表达式</p>
+<h4 id="6-创建-GET-请求类型的用例如下"><a href="#6-创建-GET-请求类型的用例如下" class="headerlink" title="6. 创建 GET 请求类型的用例如下:"></a>6. <strong>创建 GET 请求类型的用例如下:</strong></h4><p><img src="https://pic.imgdb.cn/item/613e0f9644eaada739c4093d.png"></p>
+<h4 id="7-POST请求设置：POST-条件语句设置为：-methods-”-”POST"><a href="#7-POST请求设置：POST-条件语句设置为：-methods-”-”POST" class="headerlink" title="7. POST请求设置：POST 条件语句设置为：${methods}”==”POST"></a>7. POST请求设置：POST 条件语句设置为：${methods}”==”POST</h4><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml14984\wps4.jpg" alt="img"> </p>
+<p><img src="https://pic.imgdb.cn/item/613e101044eaada739c52fca.png"></p>
+<p>用例名称格式：${caseSeq}_ ${apiSeq}_${apiName} </p>
+<p>断言设置如下：${expectValue}引用 csv 中对应的值。</p>
+<h2 id="十、测试报告"><a href="#十、测试报告" class="headerlink" title="十、测试报告"></a><strong>十、测试报告</strong></h2><p>批量执行完接口测试之后，我们需要查看测试报告，在之前单个接口调试我们是通过查看结果树查看结果，但是当大 </p>
+<p>批量执行接口测试之后依旧这样查看那么肯定会很低效 那么该如何设置呢？ </p>
+<p><strong>聚合报告</strong></p>
+<p>聚合报告是一个比较精简的报告元件，可以查看每个接口的性能情况与执行结果。 设置步骤：选中线程组——添 </p>
+<p>加——监听器——聚合报告。报告各个参数含义如下： </p>
+<p>• Samples – 本次场景中一共完成了多少个请求 </p>
+<p>• Average – 平均响应时间(单位：ms) </p>
+<p>• Median – 响应时间的中值(单位：ms) </p>
+<p>• 90% Line – 所有请求中 90%的响应时间。 </p>
+<p>• Min – 最小响应时间(单位：ms) </p>
+<p>• Max – 最大响应时间(单位：ms) </p>
+<p>• Error – 出错率 </p>
+<p>• Troughput – 吞吐量 </p>
+<p>• Received–响应数据大小 </p>
+<p>• KB/sec – 以流量做衡量的吞吐量 </p>
+<p><strong>HTML 报告</strong></p>
+<p>有时候我们需要将测试报告以 HTML 附件形式发送给各个项目成员，那么需要生成 HTML 报告。 JMeter3.0 以后 </p>
+<p>引入了 Dashboard Report，用于生成 HTML 页面格式图形化报告的扩展模块。 </p>
+<p>生成步骤： </p>
+<p>打开 cmd 进入 jmeter 目录 bin 目录 </p>
+<p>执行命令： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmeter -n -t httpbin_test.jmx -l httpbin.jtl -e -o  C:\Users\Administrator\Desktop\Report </span><br></pre></td></tr></table></figure>
+
+<p> 命令的参数：</p>
+<p>-n ：以非 GUI 形式运行 Jmeter </p>
+<p> -t ：jmeter 脚本路径 </p>
+<p> -l ：result.jtl 运行结果保存路径（.jtl）此文件必须不存在。 </p>
+<p> -e ：在脚本运行结束后生成 html 报告 </p>
+<p> -o ：用于存放 html 报告的目录，不加该参数默认生成到 </p>
+<p> <strong>参考/拓展资料</strong></p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/zhizunyu2009/article/details/79011413">https://blog.csdn.net/zhizunyu2009/article/details/79011413</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/gld824125233/article/details/52842914">https://blog.csdn.net/gld824125233/article/details/52842914</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/defonds/article/details/53517247">https://blog.csdn.net/defonds/article/details/53517247</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/wuyou10206/article/details/77539791">https://blog.csdn.net/wuyou10206/article/details/77539791</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/huangjuyan/article/details/52993758">https://blog.csdn.net/huangjuyan/article/details/52993758</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/imyalost/p/10239317.html">https://www.cnblogs.com/imyalost/p/10239317.html</a></p>
 
         
             <div id="toc-article">
@@ -257,7 +299,7 @@
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="toc-text">Jmeter做接口测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E6%96%BD1-2%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">一、实施1-2步骤：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AEhttp%E8%AF%B7%E6%B1%82%E7%9A%84%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">二、配置http请求的相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%9F%A5%E7%9C%8B%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">三、调用接口，查看返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E6%94%B9%E4%B8%BApost%E6%96%B9%E5%BC%8F%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82"><span class="toc-text">四、请求方式改为post方式来进行请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81HTTP-%E8%AF%B7%E6%B1%82%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="toc-text">五、HTTP 请求默认值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%96%AD%E8%A8%80%E8%AE%BE%E7%BD%AE"><span class="toc-text">六、断言设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-text">七、参数设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%8F%98%E9%87%8F"><span class="toc-text">八、变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%94%A8%E4%BE%8B%E5%88%86%E7%A6%BB"><span class="toc-text">九、用例分离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-text">用例设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jmeter%E8%AE%BE%E7%BD%AE%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">Jmeter设置步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E7%BB%84%EF%BC%8C%E5%91%BD%E5%90%8D%E4%B8%BA%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8"><span class="toc-text">1.新建一个线程组，命名为：数据驱动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-http-%E8%AF%B7%E6%B1%82%E9%BB%98%E8%AE%A4%E5%80%BC%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">2.创建一个 http 请求默认值，设置如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">3.添加一个循环控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%9C%A8%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E8%8A%82%E7%82%B9%E4%B8%8B%E5%88%9B%E5%BB%BA-CSV-%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%EF%BC%8C%E5%85%B7%E4%BD%93%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%E2%80%94%E2%80%94%E6%B3%A8%E6%84%8Fcsv%E6%96%87%E4%BB%B6%E4%B8%BA%E4%B8%8A%E9%9D%A2%E7%9A%84%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1%E8%BF%99%E6%AD%A5"><span class="toc-text">4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-if-%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">5.创建一个 if 控制器</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="toc-text">Jmeter做接口测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E6%96%BD1-2%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">一、实施1-2步骤：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AEhttp%E8%AF%B7%E6%B1%82%E7%9A%84%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">二、配置http请求的相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%9F%A5%E7%9C%8B%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">三、调用接口，查看返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E6%94%B9%E4%B8%BApost%E6%96%B9%E5%BC%8F%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82"><span class="toc-text">四、请求方式改为post方式来进行请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81HTTP-%E8%AF%B7%E6%B1%82%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="toc-text">五、HTTP 请求默认值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%96%AD%E8%A8%80%E8%AE%BE%E7%BD%AE"><span class="toc-text">六、断言设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-text">七、参数设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%8F%98%E9%87%8F"><span class="toc-text">八、变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%94%A8%E4%BE%8B%E5%88%86%E7%A6%BB"><span class="toc-text">九、用例分离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-text">用例设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jmeter%E8%AE%BE%E7%BD%AE%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-text">Jmeter设置步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E7%BB%84%EF%BC%8C%E5%91%BD%E5%90%8D%E4%B8%BA%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8"><span class="toc-text">1.新建一个线程组，命名为：数据驱动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-http-%E8%AF%B7%E6%B1%82%E9%BB%98%E8%AE%A4%E5%80%BC%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">2.创建一个 http 请求默认值，设置如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">3.添加一个循环控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%9C%A8%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E8%8A%82%E7%82%B9%E4%B8%8B%E5%88%9B%E5%BB%BA-CSV-%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%EF%BC%8C%E5%85%B7%E4%BD%93%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%E2%80%94%E2%80%94%E6%B3%A8%E6%84%8Fcsv%E6%96%87%E4%BB%B6%E4%B8%BA%E4%B8%8A%E9%9D%A2%E7%9A%84%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1%E8%BF%99%E6%AD%A5"><span class="toc-text">4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-if-%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">5.创建一个 if 控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%88%9B%E5%BB%BA-GET-%E8%AF%B7%E6%B1%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%94%A8%E4%BE%8B%E5%A6%82%E4%B8%8B"><span class="toc-text">6. 创建 GET 请求类型的用例如下:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-POST%E8%AF%B7%E6%B1%82%E8%AE%BE%E7%BD%AE%EF%BC%9APOST-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5%E8%AE%BE%E7%BD%AE%E4%B8%BA%EF%BC%9A-methods-%E2%80%9D-%E2%80%9DPOST"><span class="toc-text">7. POST请求设置：POST 条件语句设置为：${methods}”&#x3D;&#x3D;”POST</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="toc-text">十、测试报告</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -290,6 +332,15 @@
       
         
 <nav id="article-nav">
+  
+    <a href="/2021/09/12/selenium%E7%9A%84IDE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          selenium的IDE
+        
+      </div>
+    </a>
   
   
     <a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/" id="article-nav-older" class="article-nav-link-wrap">
@@ -324,6 +375,10 @@
       <ul>
         
           <li>
+            <a href="/2021/09/12/selenium%E7%9A%84IDE/">selenium的IDE</a>
+          </li>
+        
+          <li>
             <a href="/2021/09/11/Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">Jmeter做接口测试</a>
           </li>
         
@@ -337,10 +392,6 @@
         
           <li>
             <a href="/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/">接口测试之postman工具</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/07/%E5%AE%89%E5%8D%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">安卓操作系统介绍</a>
           </li>
         
       </ul>
@@ -358,7 +409,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">18</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">19</span></li></ul>
     </div>
   </div>
 
