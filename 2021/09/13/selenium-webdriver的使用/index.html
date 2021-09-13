@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>selenium webdriver的使用 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-selenium-webdriver的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      selenium webdriver的使用
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-13T03:06:23.000Z" itemprop="datePublished">2021年09月13日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/13/selenium-webdriver%E7%9A%84%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、Webdriver-的概述、环境搭建"><a href="#一、Webdriver-的概述、环境搭建" class="headerlink" title="一、Webdriver 的概述、环境搭建"></a><strong>一、Webdriver 的概述、环境搭建</strong></h1><p>Webdriver (Selenium2）是一种用于 Web 应用程序的自动测试工具，它提供了一套友 好的 API，与 Selenium 1（Selenium-RC）相比，Webdriver 的 API 更容易理解和使用，其 可读性和可维护性也大大提高。Webdriver 完全就是一套类库，不依赖于任何测试架，除 了必要的浏览器驱动，不需要启动其他进程或安装其他程序，也不必像 Selenium 1 那样需 要先启动服务。 <span id="more"></span></p>
+<h2 id="1-支持浏览器"><a href="#1-支持浏览器" class="headerlink" title="(1)支持浏览器"></a>(1)支持浏览器</h2><ul>
+<li>Firefox （FirefoxDriver） </li>
+<li>IE（InternetExplorerDriver） </li>
+<li>Opera（OperaDriver） </li>
+<li>Chrome （ChromeDriver） </li>
+<li>safari（SafariDriver） </li>
+</ul>
+<h2 id="2-支持语言"><a href="#2-支持语言" class="headerlink" title="(2)支持语言"></a>(2)支持语言</h2><ul>
+<li>Java </li>
+<li>C# </li>
+<li>PHP </li>
+<li>Python </li>
+</ul>
+<h2 id="3-安装，卸载、查看"><a href="#3-安装，卸载、查看" class="headerlink" title="(3)安装，卸载、查看"></a>(3)安装，卸载、查看</h2><p>安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install selenium==XXXX </span><br></pre></td></tr></table></figure>
+
+<p>卸载:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall selenium </span><br></pre></td></tr></table></figure>
+
+<p>查看版本号： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip show selenium </span><br></pre></td></tr></table></figure>
+
+<p>(4)环境的搭建</p>
+<p>前提要求： </p>
+<ol>
+<li><p>安装好 python 解释器 </p>
+</li>
+<li><p>安装好 pycharm 软件 </p>
+</li>
+</ol>
+<p>实现步骤： </p>
+<ol>
+<li><p>下载好 geckodriver 驱动 </p>
+</li>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">https://github.com/mozilla/geckodriver/releases</a> </p>
+</li>
+<li><p>然后解压，把文件放到 python 解释器的安装目录 </p>
+</li>
+<li><p>Pycharm 里面导入 selenium 模块 </p>
+</li>
+</ol>
+<h1 id="二、第一个自动化测试的脚本"><a href="#二、第一个自动化测试的脚本" class="headerlink" title="二、第一个自动化测试的脚本"></a><strong>二、第一个自动化测试的脚本</strong></h1><p>注意，本文中的脚本案例，可能会随着目标网页的内容改版而失效，请仔细浏览思路。 </p>
+<h2 id="1-实现案例："><a href="#1-实现案例：" class="headerlink" title="(1) 实现案例："></a><strong>(1)</strong> <strong>实现案例：</strong></h2><p>启动火狐浏览器， </p>
+<p>首先打开网易首页，打印网页标题，等待 3 秒 </p>
+<p>打开百度首页，打印网页标题，再等待 2 秒 </p>
+<p>关闭浏览器。 </p>
+<h2 id="2-实现代码"><a href="#2-实现代码" class="headerlink" title="(2) 实现代码"></a><strong>(2)</strong> <strong>实现代码</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">\#加载浏览器驱动 </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">\#打开网易首页 </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.163.com&quot;) </span><br><span class="line"></span><br><span class="line">\#打印标题 </span><br><span class="line"></span><br><span class="line">print(driver.title) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">\#打开百度首页 </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">print(driver.title) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">\#关闭浏览器 </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="三、浏览器操作的方法"><a href="#三、浏览器操作的方法" class="headerlink" title="三、浏览器操作的方法"></a><strong>三、浏览器操作的方法</strong></h1><h2 id="1-浏览器的操作方法："><a href="#1-浏览器的操作方法：" class="headerlink" title="1. 浏览器的操作方法："></a><strong>1.</strong> <strong>浏览器的操作方法：</strong></h2><ol>
+<li><p>浏览器窗口大小设置：set_window_size(宽,高) </p>
+</li>
+<li><p>页面前进、后退：back()、forward() </p>
+</li>
+<li><p>页面刷新：refresh() </p>
+</li>
+</ol>
+<h2 id="2-案例：访问京东页面和京东男装页面"><a href="#2-案例：访问京东页面和京东男装页面" class="headerlink" title="2. 案例：访问京东页面和京东男装页面"></a><strong>2. 案例：访问京东页面和京东男装页面</strong></h2><ol>
+<li><p>打开京东，等 2 秒 </p>
+</li>
+<li><p>打开京东男装，设置窗口为(400,800) </p>
+</li>
+<li><p>刷新一下页面，等 2 秒 </p>
+</li>
+<li><p>后退，等 2 秒 </p>
+</li>
+<li><p>前进，等 2 秒 </p>
+</li>
+<li><p>关闭窗口 </p>
+</li>
+</ol>
+<h2 id="3-实现代码："><a href="#3-实现代码：" class="headerlink" title="3. 实现代码："></a><strong>3.</strong> <strong>实现代码：</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">\#打开京东 </span><br><span class="line"></span><br><span class="line">driver.get(&quot;https://www.jd.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.maximize_window() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#打开京东男装 </span><br><span class="line"></span><br><span class="line">driver.get(&quot;https://channel.jd.com/1315-1342.html&quot;) </span><br><span class="line"></span><br><span class="line">\#设置页面的窗体大小 </span><br><span class="line"></span><br><span class="line">driver.set_window_size(400,800) </span><br><span class="line"></span><br><span class="line">\#刷新一下页面 </span><br><span class="line"></span><br><span class="line">driver.refresh() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#后退 </span><br><span class="line"></span><br><span class="line">driver.back() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#前进 </span><br><span class="line"></span><br><span class="line">driver.forward() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="四、元素的定位"><a href="#四、元素的定位" class="headerlink" title="四、元素的定位"></a><strong>四、元素的定位</strong></h1><p>如果你熟悉 css 的话，想必听过什么 id、标签、类选择器以及 标签的 name 属性，没错，这个网页元素的定位原理——就是去 找网页上面的选择器、name。 </p>
+<h2 id="1-通过-id选择器、name-值去定位元素"><a href="#1-通过-id选择器、name-值去定位元素" class="headerlink" title="(1) 通过 id选择器、name 值去定位元素"></a><strong>(1) 通过 id选择器、name 值去定位元素</strong></h2><ol>
+<li><p>打开网页 </p>
+</li>
+<li><p>右击检查元素或者 F12 可以看到 id 与 name </p>
+</li>
+</ol>
+<p><strong>案例：打开百度，输入”码云”，点击搜素按钮</strong> </p>
+<ol>
+<li>打开百度网址 </li>
+<li>定位到输入框，输入“码云” </li>
+<li>定位到搜素按钮，点击一下 </li>
+<li>打开搜素页面 </li>
+</ol>
+<p><strong>实现代码：</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;)</span><br><span class="line"></span><br><span class="line">\#百度输入框的 id 名 kw </span><br><span class="line">driver.find_element_by_id(&quot;kw&quot;).send_keys(&quot;码云&quot;) </span><br><span class="line"></span><br><span class="line">\#百度输入框的 name 属性值 kw </span><br><span class="line">\#driver.find_element_by_name(&quot;wd&quot;).send_keys(&quot;码云&quot;) </span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#百度的搜素按钮的 id 名为 su </span><br><span class="line">driver.find_element_by_id(&quot;su&quot;).click() </span><br><span class="line"></span><br><span class="line">可以看出：.send_keys(“值”) </span><br><span class="line">表示在输入框输入的值 </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-通过通过标签名-tag-name-来定位"><a href="#2-通过通过标签名-tag-name-来定位" class="headerlink" title="(2) 通过通过标签名(tag_name)来定位"></a><strong>(2) 通过通过标签名(tag_name)来定位</strong></h2><p>页面 html 文档下的各种标签： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find_element_by_tag_name(&quot;input&quot;)； </span><br></pre></td></tr></table></figure>
+
+<p>tag 往往用来定义一类功能，所以通过 tag 识别某个元素的概率 很低。任意打开一个页面，都会发现大量的<div>、<input>、<a>等 tag，所以 tag name 定位很少用 </p>
+<h2 id="3-通过-class-name-来定位"><a href="#3-通过-class-name-来定位" class="headerlink" title="(3) 通过 class_name 来定位"></a><strong>(3)</strong> <strong>通过</strong> <strong>class_name</strong> <strong>来定位</strong></h2><p>根据标签中属性 class 来进行定位的一种方法 </p>
+<p><strong>案例：</strong></p>
+<ol>
+<li>打开百度 </li>
+<li>通过类名定位输入框，搜素“龟叔” </li>
+<li>然后点击搜素，弹出搜素页面 </li>
+</ol>
+<p><strong>实现代码：</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">\#百度输入框在类名 s_ipt 中 </span><br><span class="line"></span><br><span class="line">driver.find_element_by_class_name(&quot;s_ipt&quot;).send_keys(&quot;龟叔&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&quot;su&quot;).click() </span><br><span class="line"></span><br><span class="line">sleep(5) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h2 id="4-通过-link-Text-定位：专门用来定位文本链接"><a href="#4-通过-link-Text-定位：专门用来定位文本链接" class="headerlink" title="(4) 通过 link_Text 定位：专门用来定位文本链接."></a><strong>(4) 通过 link_Text 定位：专门用来定位文本链接.</strong></h2><p>对象名.find_element_by_link_name(“text”)； </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#页面右上方的一些个人操作，比如退出、个人中心、消息通知等 </span><br><span class="line"></span><br><span class="line">driver.find_element_by_link_text(u&quot;退出&quot;).click() </span><br></pre></td></tr></table></figure>
+
+<h2 id="5-XPath-定位：（了解）"><a href="#5-XPath-定位：（了解）" class="headerlink" title="(5) XPath 定位：（了解）"></a>(5) XPath 定位：（了解）</h2><p>对象名.find_element_by_xpath(“xpath 路径”)； </p>
+<h3 id="1）绝对路径定位："><a href="#1）绝对路径定位：" class="headerlink" title="1）绝对路径定位："></a>1）绝对路径定位：</h3><p>对于没有 id，name、classname 不好定位的，可以通过 </p>
+<p>Firefox 可以方便的获取到 xpath 值 </p>
+<h3 id="2）-利用元素属性定位："><a href="#2）-利用元素属性定位：" class="headerlink" title="2） 利用元素属性定位："></a>2） 利用元素属性定位：</h3><p>find_element_by_xpath(“.//<em>[@id=’Title’]”)，这里是用的 id，也可以用元素其他能够唯一标识的属性，不局限于 id、name、 class 这些；</em>代表的是标签名，不指定时就可以用*代替 </p>
+<h3 id="3）层级与属性结合：下图中就是这种"><a href="#3）层级与属性结合：下图中就是这种" class="headerlink" title="3）层级与属性结合：下图中就是这种"></a><strong>3）层级与属性结合：下图中就是这种</strong></h3><p>案例代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 登录 </span><br><span class="line"></span><br><span class="line">driver.find_element_by_xpath(&quot;.//*[@id=&#x27;divword&#x27;]/input[7]&quot;).click() </span><br><span class="line"></span><br><span class="line">\#个人页面的发布课程操作 </span><br><span class="line"></span><br><span class="line">driver.find_element_by_xpath(&quot;html/body/div[4]/div/div[2]/div/div[3]/a[1]&quot;).click() </span><br></pre></td></tr></table></figure>
+
+<h3 id="4-CSS-定位"><a href="#4-CSS-定位" class="headerlink" title="4)CSS 定位"></a><strong>4)CSS 定位</strong></h3><p>Selenium 极力推荐使用 CSS 定位，而不是 XPath 来定位元素，原因是 CSS 定位比 XPath 定 位速度快，语法也更加简洁。 </p>
+<h2 id="6-CSS-常用定位方法"><a href="#6-CSS-常用定位方法" class="headerlink" title="(6) CSS 常用定位方法"></a><strong>(6) CSS</strong> <strong>常用定位方法</strong></h2><ol>
+<li><p>find_element_by_css_selector（） </p>
+</li>
+<li><p>#id id 选择器根据 id 属性来定位元素 </p>
+</li>
+<li><p>.class class 选择器，根据 class 属性值来定位元素 </p>
+</li>
+<li><p>[attribute=’value’] 根据属性来定位元素 </p>
+</li>
+<li><p>element&gt;element 根据元素层级来定位 父元素&gt;子元素 </p>
+</li>
+</ol>
+<p>案例代码： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">\#根据 id 来定位 </span><br><span class="line">driver.find_element_by_css_selector(&#x27;#kw&#x27;).send_keys(&quot;今日头条&quot;) </span><br><span class="line"></span><br><span class="line">\#根据 class 定位 </span><br><span class="line">driver.find_element_by_css_selector(&#x27;.s_ipt&#x27;).send_keys(&#x27;python&#x27;) </span><br><span class="line"></span><br><span class="line">\#通过属性来定位 </span><br><span class="line">driver.find_element_by_css_selector([autocomplete=&#x27;off&#x27;]&quot;).send_keys(&quot;selenium&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;su&#x27;).click() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.toutiao.com&quot;) </span><br><span class="line"></span><br><span class="line">\#通过元素层级来定位 </span><br><span class="line">driver.find_element_by_css_selector(&quot;form#loginForm&gt;ul&gt;input&quot;).send_keys(&quot;今日头条&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h2 id="7-下拉菜单定位"><a href="#7-下拉菜单定位" class="headerlink" title="(7) 下拉菜单定位"></a><strong>(7)</strong> <strong>下拉菜单定位</strong></h2><p>下拉菜单元素定位 </p>
+<p>案例：在今日头条登录页面选择指定的保留时间。 </p>
+<p>下面的案例可能会随着网页的内容改版，会失效，请参考思路。 </p>
+<h3 id="1-根据选项元素标签定位"><a href="#1-根据选项元素标签定位" class="headerlink" title="1.根据选项元素标签定位"></a><strong>1.根据选项元素标签定位</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.support.ui import Select </span><br><span class="line"></span><br><span class="line">driver=webdriver.**Firefox**() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.toutiao.com&quot;) </span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#根据 option 标签来定位 </span><br><span class="line">driver.find_elements_by_tag_name(&#x27;option&#x27;)[1].click() </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;[value=&#x27;2&#x27;]&quot;).click() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用-Select-类定位"><a href="#2-使用-Select-类定位" class="headerlink" title="2.使用 Select 类定位"></a>2.使用 Select 类定位</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.support.ui import Select </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.toutiao.com&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#利用 Select 类来进行定位 </span><br><span class="line"></span><br><span class="line">select=Select(driver.find_element_by_css_selector([name=&#x27;CookieDate&#x27;]&quot;)) </span><br><span class="line"></span><br><span class="line">select.select_by_index(2) </span><br><span class="line"></span><br><span class="line">select.select_by_visible_text(&quot;留一年&quot;) </span><br><span class="line"></span><br><span class="line">select.select_by_value(&quot;1&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="五、鼠标键盘的操作"><a href="#五、鼠标键盘的操作" class="headerlink" title="五、鼠标键盘的操作"></a><strong>五、鼠标键盘的操作</strong></h1><h2 id="1-实现思路"><a href="#1-实现思路" class="headerlink" title="1. 实现思路"></a><strong>1.</strong> <strong>实现思路</strong></h2><ul>
+<li>需要引入 ActionChains 类  </li>
+<li>然后定位相关元素  </li>
+<li>在 ActionChains().调用相关鼠标操作方法 </li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.common.action_chains import ActionChains </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.maximize_window() </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(&quot;Python&quot;) </span><br><span class="line"></span><br><span class="line">#获取搜索框元素对象</span><br><span class="line">element=driver.find_element_by_css_selector(&quot;#kw&quot;) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">#双击操作 </span><br><span class="line">ActionChains(driver).double_click(element).perform() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">#右击操作</span><br><span class="line">ActionChains(driver).context_click(element).perform() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">#鼠标悬停 </span><br><span class="line">above=driver.find_element_by_css_selector(&quot;.pf&quot;) </span><br><span class="line"></span><br><span class="line">ActionChains(driver).move_to_element(above).perform() </span><br><span class="line"></span><br><span class="line">sleep(4) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-键盘操作"><a href="#2-键盘操作" class="headerlink" title="2. 键盘操作"></a><strong>2.</strong> <strong>键盘操作</strong></h2><p>案例： 在百度搜索关键词“Python” 然后将关键词复制或剪切到搜狗搜索框进行搜索 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.common.keys import Keys </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(&quot;Python&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">#键盘全选操作Ctrl+A</span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(Keys.CONTROL,&#x27;a&#x27;) </span><br><span class="line"></span><br><span class="line">#键盘选择复制或剪切操作Ctrl+C</span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(Keys.CONTROL,&#x27;c&#x27;) </span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(Keys.CONTROL,&#x27;x&#x27;) </span><br><span class="line"></span><br><span class="line">#打开搜狗页面</span><br><span class="line">driver.get(&quot;http://www.sogou.com/&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">#粘贴复制内容 </span><br><span class="line">driver.find_element_by_css_selector(&quot;.sec-input&quot;).send_keys(Keys.CONTROL,&#x27;v&#x27;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">#点击搜索按钮</span><br><span class="line"></span><br><span class="line"># driver.find_element_by_xpath(&quot;//input[@id=&#x27;stb&#x27;]&quot;).click() </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;#stb&quot;).click() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h2 id="3-元素的等待"><a href="#3-元素的等待" class="headerlink" title="3. 元素的等待"></a><strong>3.</strong> <strong>元素的等待</strong></h2><p>显示等待是针对某一个元素进行相关等待判定； </p>
+<p>隐式等待不针对某一个元素进行等待，全局元素等待。 </p>
+<h3 id="a-相关模块"><a href="#a-相关模块" class="headerlink" title="a.相关模块"></a>a.相关模块</h3><ul>
+<li>WebDriverWait 显示等待针对元素必用 </li>
+<li>expected_conditions 预期条件类（里面包含方法可以调用，用于显示等待） </li>
+<li>NoSuchElementException 用于隐式等待抛出异常 </li>
+</ul>
+<p>By 用于元素定位 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from </span><br><span class="line"></span><br><span class="line">selenium import webdriver </span><br><span class="line"></span><br><span class="line">from </span><br><span class="line"></span><br><span class="line">selenium.webdriver.common.by </span><br><span class="line"></span><br><span class="line">import By </span><br><span class="line"></span><br><span class="line">from </span><br><span class="line"></span><br><span class="line">selenium.webdriver.support.ui import WebDriverWait </span><br><span class="line"></span><br><span class="line">\#注意字母大写 </span><br><span class="line"></span><br><span class="line">from </span><br><span class="line"></span><br><span class="line">selenium.webdriver.support </span><br><span class="line"></span><br><span class="line">import </span><br><span class="line"></span><br><span class="line">expected_conditions </span><br><span class="line"></span><br><span class="line">as EC </span><br><span class="line"></span><br><span class="line">from </span><br><span class="line"></span><br><span class="line">selenium.common.exceptions </span><br><span class="line"></span><br><span class="line">import </span><br><span class="line"></span><br><span class="line">NoSuchElementException </span><br></pre></td></tr></table></figure>
+
+<h3 id="b-显示等待"><a href="#b-显示等待" class="headerlink" title="b.显示等待"></a><strong>b.显示等待</strong></h3><p>案例：检测百度页面搜索按钮是否存在，存在就输入关键词“Selenium” 然后点击搜索 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.support.ui import WebDriverWait </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.support import expected_conditions as EC </span><br><span class="line"></span><br><span class="line">from selenium.webdriver.common.by import By </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(&quot;Selenium&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">#显示等待--判断搜索按钮是否存在 </span><br><span class="line"></span><br><span class="line">element=WebDriverWait(driver,5,0.5).until(EC.presence_of_element_located((By.ID,&quot;su&quot;))) </span><br><span class="line"></span><br><span class="line">element.click() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h3 id="C-隐式等待"><a href="#C-隐式等待" class="headerlink" title="C.隐式等待"></a><strong>C.隐式等待</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from selenium.common.exceptions import NoSuchElementException </span><br><span class="line"></span><br><span class="line">from time import sleep,ctime </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.implicitly_wait(5) #隐式等待时间设定 5 秒 </span><br><span class="line"></span><br><span class="line">\#检测搜索框是否存在 </span><br><span class="line"></span><br><span class="line">try: </span><br><span class="line"></span><br><span class="line">print(ctime()) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys(&quot;Python&quot;) </span><br><span class="line"></span><br><span class="line">driver. find_element_by_css_selector(&quot;#su&quot;).click </span><br><span class="line"></span><br><span class="line">except NoSuchElementException as msg: </span><br><span class="line">print(msg) </span><br><span class="line"></span><br><span class="line">finally: </span><br><span class="line">print(ctime()) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="六、警告弹窗的处理"><a href="#六、警告弹窗的处理" class="headerlink" title="六、警告弹窗的处理"></a><strong>六、警告弹窗的处理</strong></h1><p>案例：点击百度首页设置按钮，然后进入搜索设置页面， </p>
+<p>点击“保存设置”或“恢复默认”按钮，处理警告弹窗窗口 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_link_text(&#x27;设置&#x27;).click() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_link_text(&#x27;搜索设置&#x27;).click() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_link_text(&#x27;保存设置&#x27;).click() </span><br><span class="line"></span><br><span class="line"># driver.find_element_by_link_text(&#x27;恢复默认&#x27;).click()</span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">#处理警告窗口</span><br><span class="line"></span><br><span class="line">alert=driver.switch_to_alert() </span><br><span class="line"></span><br><span class="line">alert.accept() </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="七、文件上传"><a href="#七、文件上传" class="headerlink" title="七、文件上传"></a><strong>七、文件上传</strong></h1><p>案例：在百度搜索上传本地图片进行搜索。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;.soutu-btn&quot;).click() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.find_element_by_css_selector(&quot;.upload-pic&quot;).send_keys(r&quot;E:\Python_script\Web </span><br><span class="line"></span><br><span class="line">driver\shuiyin.png&quot;) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"># driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="八、浏览器滚动操作"><a href="#八、浏览器滚动操作" class="headerlink" title="八、浏览器滚动操作"></a><strong>八、浏览器滚动操作</strong></h1><p>案例：打开京东页面，然后将滚动条拖到最底部，然后再拖到顶部 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;https://www.jd.com/&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#将滚动调拖到最底部 </span><br><span class="line"></span><br><span class="line">js=&quot;var action=document.documentElement.scrollTop=10000&quot; </span><br><span class="line"></span><br><span class="line">driver.execute_script(js) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">\#将滚动条拖到最顶部 </span><br><span class="line"></span><br><span class="line">js=&quot;var action=document.documentElement.scrollTop=0&quot; </span><br><span class="line"></span><br><span class="line">driver.execute_script(js) </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h1 id="九、网页自动截图"><a href="#九、网页自动截图" class="headerlink" title="九、网页自动截图"></a><strong>九、网页自动截图</strong></h1><p>案例：打开百度页面，然后进行截图 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">#加载浏览器驱动 </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">#打开百度页面并截图</span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com&quot;) </span><br><span class="line"></span><br><span class="line">driver.get_screenshot_as_file(r&quot;E:\Python_script\baidu.png&quot;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="十、Cookie-处理"><a href="#十、Cookie-处理" class="headerlink" title="十、Cookie 处理"></a>十、Cookie <strong>处理</strong></h1><h2 id="1-什么是-cookie"><a href="#1-什么是-cookie" class="headerlink" title="1. 什么是 cookie"></a><strong>1.</strong> <strong>什么是</strong> <strong>cookie</strong></h2><p>Cookie 是储存在用户本地终端上的数据，实际上是一小段的文本信息。 </p>
+<h2 id="2-Cookie-的作用"><a href="#2-Cookie-的作用" class="headerlink" title="2. Cookie 的作用"></a><strong>2.</strong> <strong>Cookie</strong> <strong>的作用</strong></h2><p>帮助 Web 站点保存有关访问者的信息，方便用户的访问。 </p>
+<p>如记住用户名密码实现自动登录。 </p>
+<p>案例：查看访问京东时的 Cookie 内容 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.jd.com/&quot;) </span><br><span class="line"></span><br><span class="line">\#获取 cookie 全部内容 </span><br><span class="line"></span><br><span class="line">cookie=driver.get_cookies() </span><br><span class="line"></span><br><span class="line">\#打印全部 cookile 信息 </span><br><span class="line"></span><br><span class="line">print(cookie) </span><br><span class="line"></span><br><span class="line">\#打印 cookie 第一组信息 </span><br><span class="line"></span><br><span class="line">print(cookie[0]) </span><br><span class="line"></span><br><span class="line">driver.quit() </span><br></pre></td></tr></table></figure>
+
+<h2 id="3-验证码作用"><a href="#3-验证码作用" class="headerlink" title="3. 验证码作用"></a><strong>3.</strong> <strong>验证码作用</strong></h2><p>不少网站在用户登录、用户提交信息等登录和输入的页面上使用了验证码技术。验证码 技术可以有效防止恶意用户对网站的滥用，使得网站可以有效避免用户信息失窃、保证网站 稳定安全性。 但是验证码给自动化测试带来一些不便，使脚本无法正常运行覆盖功能模块。 </p>
+<h1 id="十一、验证码的处理"><a href="#十一、验证码的处理" class="headerlink" title="十一、验证码的处理"></a><strong>十一、验证码的处理</strong></h1><h2 id="1-去掉验证码"><a href="#1-去掉验证码" class="headerlink" title="1.去掉验证码"></a>1.去掉验证码</h2><p>这是最简单的方法，对于开发人员来说，只是把验证码的相关代码注释掉即可，如果 是在测试环境，这样做可省去了测试人员不少麻烦，如果自动化脚本是要在正式环境跑，这 样就给系统带来了一定的风险。 </p>
+<h2 id="2-设置万能码"><a href="#2-设置万能码" class="headerlink" title="2.设置万能码"></a>2.设置万能码</h2><p>去掉验证码的主要是安全问题，为了应对在线系统的安全性威胁，可以在修改程序时不 取消验证码，而是程序中留一个“后门”—设置一个“万能验证码”，只要用户输入这个 “万能验证码”，程序就认为验证通过，否则按照原先的验证方式进行验证。 </p>
+<h2 id="3-记录-cookie"><a href="#3-记录-cookie" class="headerlink" title="3.记录 cookie"></a>3.记录 <strong>cookie</strong></h2><p>通过向浏览器中添加 cookie 可以绕过登录的验证码。 </p>
+<h1 id="十二、基于-Cookie-绕过验证码"><a href="#十二、基于-Cookie-绕过验证码" class="headerlink" title="十二、基于 Cookie 绕过验证码"></a><strong>十二、基于</strong> <strong>Cookie</strong> <strong>绕过验证码</strong></h1><p>案例：使用 Cookie 绕过百度验证码自动登录账户。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver </span><br><span class="line"></span><br><span class="line">from time import sleep </span><br><span class="line"></span><br><span class="line">driver=webdriver.Firefox() </span><br><span class="line"></span><br><span class="line">driver.get(&quot;http://www.baidu.com/&quot;) </span><br><span class="line"></span><br><span class="line">\#手动添加 cookie </span><br><span class="line"></span><br><span class="line">driver.add_cookie(&#123;&#x27;name&#x27;:&#x27;BAIDUID&#x27;,&#x27;value&#x27;:&#x27;9E4BF1D44014…(根据实际获取值填写)&#x27;&#125;) </span><br><span class="line"></span><br><span class="line">driver.add_cookie(&#123;&#x27;name&#x27;:&#x27;BDUSS&#x27;,&#x27;value&#x27;:&#x27;根据实际抓包获取值填写&#x27;&#125;) </span><br><span class="line"></span><br><span class="line">sleep(2) </span><br><span class="line"></span><br><span class="line">driver.refresh() </span><br><span class="line"></span><br><span class="line">sleep(3) </span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Webdriver-%E7%9A%84%E6%A6%82%E8%BF%B0%E3%80%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">一、Webdriver 的概述、环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%94%AF%E6%8C%81%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-text">(1)支持浏览器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80"><span class="toc-text">(2)支持语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E6%9F%A5%E7%9C%8B"><span class="toc-text">(3)安装，卸载、查看</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text">二、第一个自动化测试的脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E6%A1%88%E4%BE%8B%EF%BC%9A"><span class="toc-text">(1) 实现案例：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-text">(2) 实现代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">三、浏览器操作的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">1. 浏览器的操作方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%BF%E9%97%AE%E4%BA%AC%E4%B8%9C%E9%A1%B5%E9%9D%A2%E5%92%8C%E4%BA%AC%E4%B8%9C%E7%94%B7%E8%A3%85%E9%A1%B5%E9%9D%A2"><span class="toc-text">2. 案例：访问京东页面和京东男装页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">3. 实现代码：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D"><span class="toc-text">四、元素的定位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%80%9A%E8%BF%87-id%E9%80%89%E6%8B%A9%E5%99%A8%E3%80%81name-%E5%80%BC%E5%8E%BB%E5%AE%9A%E4%BD%8D%E5%85%83%E7%B4%A0"><span class="toc-text">(1) 通过 id选择器、name 值去定位元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%80%9A%E8%BF%87%E9%80%9A%E8%BF%87%E6%A0%87%E7%AD%BE%E5%90%8D-tag-name-%E6%9D%A5%E5%AE%9A%E4%BD%8D"><span class="toc-text">(2) 通过通过标签名(tag_name)来定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%80%9A%E8%BF%87-class-name-%E6%9D%A5%E5%AE%9A%E4%BD%8D"><span class="toc-text">(3) 通过 class_name 来定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%80%9A%E8%BF%87-link-Text-%E5%AE%9A%E4%BD%8D%EF%BC%9A%E4%B8%93%E9%97%A8%E7%94%A8%E6%9D%A5%E5%AE%9A%E4%BD%8D%E6%96%87%E6%9C%AC%E9%93%BE%E6%8E%A5"><span class="toc-text">(4) 通过 link_Text 定位：专门用来定位文本链接.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-XPath-%E5%AE%9A%E4%BD%8D%EF%BC%9A%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="toc-text">(5) XPath 定位：（了解）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%89%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AE%9A%E4%BD%8D%EF%BC%9A"><span class="toc-text">1）绝对路径定位：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%BC%89-%E5%88%A9%E7%94%A8%E5%85%83%E7%B4%A0%E5%B1%9E%E6%80%A7%E5%AE%9A%E4%BD%8D%EF%BC%9A"><span class="toc-text">2） 利用元素属性定位：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%BC%89%E5%B1%82%E7%BA%A7%E4%B8%8E%E5%B1%9E%E6%80%A7%E7%BB%93%E5%90%88%EF%BC%9A%E4%B8%8B%E5%9B%BE%E4%B8%AD%E5%B0%B1%E6%98%AF%E8%BF%99%E7%A7%8D"><span class="toc-text">3）层级与属性结合：下图中就是这种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-CSS-%E5%AE%9A%E4%BD%8D"><span class="toc-text">4)CSS 定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-CSS-%E5%B8%B8%E7%94%A8%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95"><span class="toc-text">(6) CSS 常用定位方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%B8%8B%E6%8B%89%E8%8F%9C%E5%8D%95%E5%AE%9A%E4%BD%8D"><span class="toc-text">(7) 下拉菜单定位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B9%E6%8D%AE%E9%80%89%E9%A1%B9%E5%85%83%E7%B4%A0%E6%A0%87%E7%AD%BE%E5%AE%9A%E4%BD%8D"><span class="toc-text">1.根据选项元素标签定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8-Select-%E7%B1%BB%E5%AE%9A%E4%BD%8D"><span class="toc-text">2.使用 Select 类定位</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%BC%A0%E6%A0%87%E9%94%AE%E7%9B%98%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">五、鼠标键盘的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-text">1. 实现思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%94%AE%E7%9B%98%E6%93%8D%E4%BD%9C"><span class="toc-text">2. 键盘操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%83%E7%B4%A0%E7%9A%84%E7%AD%89%E5%BE%85"><span class="toc-text">3. 元素的等待</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97"><span class="toc-text">a.相关模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E6%98%BE%E7%A4%BA%E7%AD%89%E5%BE%85"><span class="toc-text">b.显示等待</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E9%9A%90%E5%BC%8F%E7%AD%89%E5%BE%85"><span class="toc-text">C.隐式等待</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%AD%A6%E5%91%8A%E5%BC%B9%E7%AA%97%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">六、警告弹窗的处理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">七、文件上传</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">八、浏览器滚动操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%BD%91%E9%A1%B5%E8%87%AA%E5%8A%A8%E6%88%AA%E5%9B%BE"><span class="toc-text">九、网页自动截图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81Cookie-%E5%A4%84%E7%90%86"><span class="toc-text">十、Cookie 处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-cookie"><span class="toc-text">1. 什么是 cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Cookie-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">2. Cookie 的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E7%A0%81%E4%BD%9C%E7%94%A8"><span class="toc-text">3. 验证码作用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">十一、验证码的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8E%BB%E6%8E%89%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-text">1.去掉验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E4%B8%87%E8%83%BD%E7%A0%81"><span class="toc-text">2.设置万能码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%B0%E5%BD%95-cookie"><span class="toc-text">3.记录 cookie</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E5%9F%BA%E4%BA%8E-Cookie-%E7%BB%95%E8%BF%87%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-text">十二、基于 Cookie 绕过验证码</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/13/selenium-webdriver的使用/">http://example.com/2021/09/13/selenium-webdriver的使用/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/12/selenium%E7%9A%84IDE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">selenium的IDE</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/13/selenium-webdriver%E7%9A%84%E4%BD%BF%E7%94%A8/">selenium webdriver的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/selenium%E7%9A%84IDE/">selenium的IDE</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/11/Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">Jmeter做接口测试</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/">Appium案例整合</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/08/Jmeter%E7%9A%84%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">Jmeter的基础操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
