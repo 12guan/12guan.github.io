@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   
   
-  <title>书</title>
+  <title>Rest介绍与Django REST Framework环境搭建 | 书</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
   
@@ -85,11 +85,22 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Rest介绍与Django REST Framework环境搭建
+    </h1>
+  
+
+
+      </header>
+    
     <div class="article-meta">
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-09-13T14:04:04.231Z" itemprop="datePublished">2021年09月13日</time>
+  <time class="dt-published" datetime="2021-09-13T14:56:35.000Z" itemprop="datePublished">2021年09月13日</time>
 </span>
       
       
@@ -118,10 +129,9 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>title: Rest介绍与Django REST Framework环境搭建<br>date: 2021-09-13 22:04:04<br>tags:</p>
-<h1 id="一、Rest-概述"><a href="#一、Rest-概述" class="headerlink" title="一、Rest 概述"></a><strong>一、Rest 概述</strong></h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>• REST 是英文 Representational State Transfer(表现层状态转化)，Rest 是 web 服务的一种架构风格; </p>
+        <h1 id="一、Rest-概述"><a href="#一、Rest-概述" class="headerlink" title="一、Rest 概述"></a><strong>一、Rest 概述</strong></h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>• REST 是英文 Representational State Transfer(表现层状态转化)，Rest 是 web 服务的一种架构风格; </p>
 <p>• 使用 HTTP,URI、XML、JSON、HTML 等广泛流行的标准和协议;轻量级,跨平台、跨语言的架构设计; </p>
-<p>• 它是一种设计风格,不是一种标准,是一种思想。 </p>
+<p>• 它是一种设计风格,不是一种标准,是一种思想。 <span id="more"></span></p>
 <h2 id="Rest-原则"><a href="#Rest-原则" class="headerlink" title="Rest 原则"></a>Rest 原则</h2><p>• 网络上的所有事物都可以被抽象为资源(resource)。 </p>
 <p>• 每一个资源都有唯一的资源标识(resource identifier)，对资源的操作不会改变这些标识 </p>
 <p>• 所有的操作都是无状态的。 </p>
@@ -131,11 +141,23 @@
 <p>因此设计 web 接口的时候，REST 主要是用于定义接口名，接口名一般是用名次写，不用动词，那怎么表达“获取” </p>
 <p>或者“删除”或者“更新”这样的操作呢——用请求类型（GET,PUT,POST,DELETE）来区分。</p>
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a><strong>案例</strong></h2><p>比如我们设计一个用户管理系统的接口，如果不使用 Restful 风格，接口会定义如下： </p>
-<p>   1.<a target="_blank" rel="noopener" href="http://127.0.0.1/user/query/1">http://127.0.0.1/user/query/1</a> #根据用户 id 查询用户数据 GET 请求 </p>
-<ol start="2">
+<ol>
+<li><p><a target="_blank" rel="noopener" href="http://127.0.0.1/user/query/1">http://127.0.0.1/user/query/1</a> #根据用户 id 查询用户数据 GET 请求 </p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #POST 新增用户 </p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #PUT 修改用户信息 </p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #DELETE 删除用户信息</p>
+</li>
+</ol>
+<p>从上面的定义接口来看貌似没有什么问题，但是仔细揣测就会发现有一些瑕疵：比如查询方法定义接口使用了 query动词，而 GET 请求本身的含义也就是从服务器获取资源，带有查询的含义，如果接口里面定义又加上这样的动词显得重复，同理其他几个接口也是一样的。 </p>
+<p>而使用 Rest 接口定义如下：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user/1">http://127.0.0.1/user/1</a> #GET 根据用户 id 查询用户数据 </li>
 <li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #POST 新增用户 </li>
 <li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #PUT 修改用户信息 </li>
-<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #DELETE 删除用户信息</li>
+<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #DELETE 删除用户信息 </li>
 </ol>
 <p>从上面定义的接口我们可以看出，接口名称主要指向 user 资源，具体的资源操作（增删改查）由 HTTP 的请求类型来定义。这样接口名称显得统一整洁，就不用定义不同的接口名称。 遵循这样一种风格的 Reset 接口就叫做Restful。</p>
 <h2 id="Rest-优势"><a href="#Rest-优势" class="headerlink" title="Rest 优势"></a><strong>Rest 优势</strong></h2><p>由于 REST 强制所有的操作都必须是无状态的，这就没有上下文的约束，如果做分布式，集群都不需要考虑上下文和会话保持的问题。极大的提高系统的可伸缩性。 </p>
@@ -259,7 +281,7 @@
       <ul>
         
           <li>
-            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">(no title)</a>
+            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
           </li>
         
           <li>

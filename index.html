@@ -86,11 +86,22 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
+    </h1>
+  
+
+
+      </header>
+    
     <div class="article-meta">
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-09-13T14:04:04.231Z" itemprop="datePublished">2021年09月13日</time>
+  <time class="dt-published" datetime="2021-09-13T14:56:35.000Z" itemprop="datePublished">2021年09月13日</time>
 </span>
       
       
@@ -105,97 +116,17 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>title: Rest介绍与Django REST Framework环境搭建<br>date: 2021-09-13 22:04:04<br>tags:</p>
-<h1 id="一、Rest-概述"><a href="#一、Rest-概述" class="headerlink" title="一、Rest 概述"></a><strong>一、Rest 概述</strong></h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>• REST 是英文 Representational State Transfer(表现层状态转化)，Rest 是 web 服务的一种架构风格; </p>
+        <h1 id="一、Rest-概述"><a href="#一、Rest-概述" class="headerlink" title="一、Rest 概述"></a><strong>一、Rest 概述</strong></h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>• REST 是英文 Representational State Transfer(表现层状态转化)，Rest 是 web 服务的一种架构风格; </p>
 <p>• 使用 HTTP,URI、XML、JSON、HTML 等广泛流行的标准和协议;轻量级,跨平台、跨语言的架构设计; </p>
-<p>• 它是一种设计风格,不是一种标准,是一种思想。 </p>
-<h2 id="Rest-原则"><a href="#Rest-原则" class="headerlink" title="Rest 原则"></a>Rest 原则</h2><p>• 网络上的所有事物都可以被抽象为资源(resource)。 </p>
-<p>• 每一个资源都有唯一的资源标识(resource identifier)，对资源的操作不会改变这些标识 </p>
-<p>• 所有的操作都是无状态的。 </p>
-<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a><strong>设计思想</strong></h2><p>REST 简化开发，其架构遵循 CRUD 原则，该原则告诉我们对于资源(包括网络资源)只需要四种行为：创建，获取， </p>
-<p>更新和删除就可以完成相关的操作和处理。 </p>
-<p>我们可以通过统一资源标识符（Universal Resource Identifier，URI）来识别和定位资源，并且针对这些资源而 执行的操作是通过 HTTP 规范定义的。其核心操作只有 GET,POST,PUT,DELETE。也就是：URL 定位资源，用 HTTP 动词（GET,POST,DELETE,DETC）描述操作。 </p>
-<p>因此设计 web 接口的时候，REST 主要是用于定义接口名，接口名一般是用名次写，不用动词，那怎么表达“获取” </p>
-<p>或者“删除”或者“更新”这样的操作呢——用请求类型（GET,PUT,POST,DELETE）来区分。</p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a><strong>案例</strong></h2><p>比如我们设计一个用户管理系统的接口，如果不使用 Restful 风格，接口会定义如下： </p>
-<p>   1.<a target="_blank" rel="noopener" href="http://127.0.0.1/user/query/1">http://127.0.0.1/user/query/1</a> #根据用户 id 查询用户数据 GET 请求 </p>
-<ol start="2">
-<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #POST 新增用户 </li>
-<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #PUT 修改用户信息 </li>
-<li><a target="_blank" rel="noopener" href="http://127.0.0.1/user">http://127.0.0.1/user</a> #DELETE 删除用户信息</li>
-</ol>
-<p>从上面定义的接口我们可以看出，接口名称主要指向 user 资源，具体的资源操作（增删改查）由 HTTP 的请求类型来定义。这样接口名称显得统一整洁，就不用定义不同的接口名称。 遵循这样一种风格的 Reset 接口就叫做Restful。</p>
-<h2 id="Rest-优势"><a href="#Rest-优势" class="headerlink" title="Rest 优势"></a><strong>Rest 优势</strong></h2><p>由于 REST 强制所有的操作都必须是无状态的，这就没有上下文的约束，如果做分布式，集群都不需要考虑上下文和会话保持的问题。极大的提高系统的可伸缩性。 </p>
-<p>前后端分离。前端拿到数据只负责展示和渲染，不对数据做任何处理。后端处理数据并以 JSON 格式传输出去，定义这样一套统一的接口，在 web，ios，android 三端都可以用相同的接口。</p>
-<h1 id="二、Django-REST-Framework"><a href="#二、Django-REST-Framework" class="headerlink" title="二、Django REST Framework"></a>二、<strong>Django REST Framework</strong></h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>Django REST Framework，是一套基于 Django 的 REST 风格的框架。 </p>
-<p>官方主页：<a target="_blank" rel="noopener" href="http://www.django-rest-framework.org/">http://www.django-rest-framework.org</a> </p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h2><p>• 功能强大、灵活，可以帮助你快速开发 Web API。 </p>
-<p>• 支持认证策略，包括 OAuth1 和 OAuth2。</p>
-<p>• 支持 ORM(对象关系映射)和非 ORM 数据源的序列化。 </p>
-<p>• 丰富的文档以及良好的社区支持。</p>
-<h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a><strong>安装：</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install djangorestframework </span><br><span class="line">pip install markdown</span><br><span class="line">pip install django-filter </span><br></pre></td></tr></table></figure>
-
-<h2 id="创建-Api"><a href="#创建-Api" class="headerlink" title="创建 Api"></a><strong>创建 Api</strong></h2><p>项目创建 </p>
-<p>当 Django REST Framework 安装好之后，创建一个新的项目 django_restful，如下命令所示我是创建在 D 盘根目录。在项目下创建 api 应用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;d: </span><br><span class="line">#创建一个新的项目 </span><br><span class="line">D:\&gt;django-admin  startproject django_restful </span><br></pre></td></tr></table></figure>
-
-<p>进入项目 django_restful 创建 api 应用,创建完成之后可以看到项目文件夹下面多了一个 api 文件夹.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;cd django_restful </span><br><span class="line">D:\django_restful&gt;python manage.py startapp api </span><br></pre></td></tr></table></figure>
-
-<p>进入到 D:\django_rest\django_restful 目录，打开 settings.py 在项目下创建 api 和 rest_framework。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [ </span><br><span class="line">&#x27;django.contrib.admin&#x27;, </span><br><span class="line">&#x27;django.contrib.auth&#x27;, </span><br><span class="line">&#x27;django.contrib.contenttypes&#x27;, </span><br><span class="line">&#x27;django.contrib.sessions&#x27;, </span><br><span class="line">&#x27;django.contrib.messages&#x27;, </span><br><span class="line">&#x27;django.contrib.staticfiles&#x27;, </span><br><span class="line">&#x27;rest_framework&#x27;, </span><br><span class="line">&#x27;api&#x27;, </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>rest_framework 权限配置</p>
-<p>默认的权限策略可以设置在全局范围内，通过 DEFAULT_PERMISSION_CLASSES 设置。在该文件末尾添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REST_FRAMEWORK = &#123; </span><br><span class="line">&#x27;DEFAULT_PERMISSION_CLASSES&#x27;: ( </span><br><span class="line">&#x27;rest_framework.permissions.IsAuthenticated&#x27;, </span><br><span class="line">) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="数据库迁移"><a href="#数据库迁移" class="headerlink" title="数据库迁移"></a><strong>数据库迁移</strong></h2><p>然后通过命令 migrate 命令进行数据库迁移。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\django_restful&gt;python  manage.py migrate </span><br></pre></td></tr></table></figure>
-
-<p>执行之后看到如下提示说明迁移成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform: </span><br><span class="line"></span><br><span class="line">Apply all migrations: admin, auth, contenttypes, sessions </span><br><span class="line"></span><br><span class="line">Running migrations: </span><br><span class="line"></span><br><span class="line">Applying contenttypes.0001_initial... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0001_initial... OK </span><br><span class="line"></span><br><span class="line">Applying admin.0001_initial... OK </span><br><span class="line"></span><br><span class="line">Applying admin.0002_logentry_remove_auto_add... OK </span><br><span class="line"></span><br><span class="line">Applying contenttypes.0002_remove_content_type_name... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0002_alter_permission_name_max_length... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0003_alter_user_email_max_length... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0004_alter_user_username_opts... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0005_alter_user_last_login_null... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0006_require_contenttypes_0002... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0007_alter_validators_add_error_messages... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0008_alter_user_username_max_length... OK </span><br><span class="line"></span><br><span class="line">Applying auth.0009_alter_user_last_name_max_length... OK </span><br><span class="line"></span><br><span class="line">Applying sessions.0001_initial... OK</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a><strong>创建超级管理员</strong></h2><p>使用 createsuperuser 命令来创建超级管理员账户，密码至少 8 位数字和字母组合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">D:\django_rest&gt;python manage.py createsuperuser </span><br><span class="line">Username (leave blank to use &#x27;admin&#x27;): 账户</span><br><span class="line">Email address: 邮箱</span><br><span class="line">Password: </span><br><span class="line">Password (again): </span><br><span class="line">Superuser created successfully. </span><br></pre></td></tr></table></figure>
-
-<h2 id="启动-Server"><a href="#启动-Server" class="headerlink" title="启动 Server"></a><strong>启动 Server</strong></h2><p>启动 django，然后验证登录我们创建的超级管理员账户。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">D:\django_rest&gt;python  manage.py runserver </span><br><span class="line">Performing system checks... </span><br><span class="line">System check identified no issues (0 silenced). </span><br><span class="line">July 20, 2020 - 16:01:39 </span><br><span class="line"></span><br><span class="line">Django version 2.0.7, using settings &#x27;django_rest.settings&#x27; </span><br><span class="line">Starting development server at http://127.0.0.1:8000/ </span><br><span class="line">Quit the server with CTRL-BREAK. </span><br></pre></td></tr></table></figure>
-
-<p>启动成功之后，输入地址:<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> 我们可以看到如下页面： </p>
-<img src="https://pic.imgdb.cn/item/613f64fb44eaada7399e44bd.png" style="zoom:67%;" /> 
-
-<h2 id="登录超级管理员账户"><a href="#登录超级管理员账户" class="headerlink" title="登录超级管理员账户"></a><strong>登录超级管理员账户</strong></h2><p>我们再输入地址：<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a> 即可进入到登录超级管理员账户界面： </p>
-<p><img src="https://pic.imgdb.cn/item/613f650f44eaada7399e6e72.png"> </p>
-<p>登录我们创建的账户，可以看到如下界面：</p>
-<p><img src="https://pic.imgdb.cn/item/613f652144eaada7399e94f2.png"> </p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://example.com/index.html">http://example.com/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
+<p>• 它是一种设计风格,不是一种标准,是一种思想。
       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
+        
+        <p class="article-more-link">
+          <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#more">Read More</a>
+        </p>
       
       
       
@@ -688,7 +619,7 @@
       <ul>
         
           <li>
-            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">(no title)</a>
+            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
           </li>
         
           <li>
