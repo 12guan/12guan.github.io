@@ -135,8 +135,7 @@
 <h2 id="Rest-原则"><a href="#Rest-原则" class="headerlink" title="Rest 原则"></a>Rest 原则</h2><p>• 网络上的所有事物都可以被抽象为资源(resource)。 </p>
 <p>• 每一个资源都有唯一的资源标识(resource identifier)，对资源的操作不会改变这些标识 </p>
 <p>• 所有的操作都是无状态的。 </p>
-<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a><strong>设计思想</strong></h2><p>REST 简化开发，其架构遵循 CRUD 原则，该原则告诉我们对于资源(包括网络资源)只需要四种行为：创建，获取， </p>
-<p>更新和删除就可以完成相关的操作和处理。 </p>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a><strong>设计思想</strong></h2><p>REST 简化开发，其架构遵循 CRUD 原则，该原则告诉我们对于资源(包括网络资源)只需要四种行为：创建，获取， 更新和删除就可以完成相关的操作和处理。 </p>
 <p>我们可以通过统一资源标识符（Universal Resource Identifier，URI）来识别和定位资源，并且针对这些资源而 执行的操作是通过 HTTP 规范定义的。其核心操作只有 GET,POST,PUT,DELETE。也就是：URL 定位资源，用 HTTP 动词（GET,POST,DELETE,DETC）描述操作。 </p>
 <p>因此设计 web 接口的时候，REST 主要是用于定义接口名，接口名一般是用名次写，不用动词，那怎么表达“获取” </p>
 <p>或者“删除”或者“更新”这样的操作呢——用请求类型（GET,PUT,POST,DELETE）来区分。</p>
@@ -195,7 +194,7 @@
 
 
 <h2 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a><strong>创建超级管理员</strong></h2><p>使用 createsuperuser 命令来创建超级管理员账户，密码至少 8 位数字和字母组合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">D:\django_rest&gt;python manage.py createsuperuser </span><br><span class="line">Username (leave blank to use &#x27;admin&#x27;): 账户</span><br><span class="line">Email address: 邮箱</span><br><span class="line">Password: </span><br><span class="line">Password (again): </span><br><span class="line">Superuser created successfully. </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">D:\django_rest&gt;python manage.py createsuperuser </span><br><span class="line">Username (leave blank to use &#x27;admin&#x27;): 账户</span><br><span class="line">Email address: 邮箱</span><br><span class="line">Password: 密码</span><br><span class="line">Password (again): </span><br><span class="line">Superuser created successfully. </span><br></pre></td></tr></table></figure>
 
 <h2 id="启动-Server"><a href="#启动-Server" class="headerlink" title="启动 Server"></a><strong>启动 Server</strong></h2><p>启动 django，然后验证登录我们创建的超级管理员账户。 </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">D:\django_rest&gt;python  manage.py runserver </span><br><span class="line">Performing system checks... </span><br><span class="line">System check identified no issues (0 silenced). </span><br><span class="line">July 20, 2020 - 16:01:39 </span><br><span class="line"></span><br><span class="line">Django version 2.0.7, using settings &#x27;django_rest.settings&#x27; </span><br><span class="line">Starting development server at http://127.0.0.1:8000/ </span><br><span class="line">Quit the server with CTRL-BREAK. </span><br></pre></td></tr></table></figure>
@@ -248,6 +247,15 @@
         
 <nav id="article-nav">
   
+    <a href="/2021/09/14/selenium%E7%9A%848%E7%A7%8D%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          selenium的8种定位策略
+        
+      </div>
+    </a>
+  
   
     <a href="/2021/09/13/selenium-webdriver%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">older</strong>
@@ -281,6 +289,14 @@
       <ul>
         
           <li>
+            <a href="/2021/09/14/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%90%86%E8%A7%A3/">自动化测试理解</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/14/selenium%E7%9A%848%E7%A7%8D%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5/">selenium的8种定位策略</a>
+          </li>
+        
+          <li>
             <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
           </li>
         
@@ -290,14 +306,6 @@
         
           <li>
             <a href="/2021/09/12/selenium%E7%9A%84IDE/">selenium的IDE</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/11/Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">Jmeter做接口测试</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/09/Appium%E6%A1%88%E4%BE%8B%E6%95%B4%E5%90%88/">Appium案例整合</a>
           </li>
         
       </ul>
@@ -315,7 +323,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">21</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">23</span></li></ul>
     </div>
   </div>
 

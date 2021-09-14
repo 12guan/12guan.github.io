@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>自动化测试理解 | 书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-自动化测试理解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      自动化测试理解
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-14T15:12:12.000Z" itemprop="datePublished">2021年09月14日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/14/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%90%86%E8%A7%A3/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a><strong>一、概念</strong></h1><p>什么是自动化测试？让程序代替人为去验证程序功能的过程。</p>
+<p>误区：<br>①自动化测试能够完全代替手工测试。<br>②自动化测试一定比手工测试厉害。<br>③自动化测试可以挖掘更多的BUG。<span id="more"></span></p>
+<h1 id="二、为什么要进行自动化测试"><a href="#二、为什么要进行自动化测试" class="headerlink" title="二、为什么要进行自动化测试"></a><strong>二、为什么要进行自动化测试</strong></h1><p>做自动化测试需要投入很多的时间、精力、成本。那为什么要进行自动化测试呢？可以从以下几点来看自动化测试可以解决什么。<br>1、解决–回归测试：对于系统比较大，做一次回归测试，如果用手工进行回归测试的话，可能需要花费很多时间。那如果有了自动化，我们只需要手动一点，那么程序可以自动地帮我们进行回归测试，节省了一定的人力和时间。回归测试就是项目在发新版本之后对项目之前的功能进行验证。</p>
+<p>2、解决–压力测试：可以理解为多用户同时去操作软件，统计软件服务器处理多用户请求的能力。</p>
+<p>3、解决–兼容性测试：不同浏览器（IE、Firefox、Chrome等）。</p>
+<p>4、提高测试效率，保证产品质量，可以避免人为测试失误或遗漏。</p>
+<h1 id="三、自动化测试相关知识"><a href="#三、自动化测试相关知识" class="headerlink" title="三、自动化测试相关知识"></a><strong>三、自动化测试相关知识</strong></h1><h2 id="1、自动化测试在什么阶段开始？"><a href="#1、自动化测试在什么阶段开始？" class="headerlink" title="1、自动化测试在什么阶段开始？"></a><strong>1、自动化测试在什么阶段开始？</strong></h2><p>功能测试完毕（手工测试）</p>
+<h2 id="2、自动化测试所属分类？"><a href="#2、自动化测试所属分类？" class="headerlink" title="2、自动化测试所属分类？"></a>2、自动化测试所属分类？</h2><p>①黑盒测试（功能测试）；</p>
+<p>②灰盒测试（接口测试）；</p>
+<p>③白盒测试（单元测试）；</p>
+<p>web自动化测试属于黑盒测试（功能测试）。</p>
+<h2 id="3、自动化测试的优点"><a href="#3、自动化测试的优点" class="headerlink" title="3、自动化测试的优点"></a><strong>3、自动化测试的优点</strong></h2><p>①较少的时间允许较多的测试用例；</p>
+<p>②自动化脚本重复执行；</p>
+<p>③减少人为的错误；</p>
+<p>④测试数据存储；</p>
+<h2 id="4、自动化测试的缺点"><a href="#4、自动化测试的缺点" class="headerlink" title="4、自动化测试的缺点"></a><strong>4、自动化测试的缺点</strong></h2><p>①不能取代手工测试；</p>
+<p>②手工测试比自动化测试发现的缺陷更多；</p>
+<p>③测试人员技能要求；</p>
+<h1 id="四、自动化测试分类"><a href="#四、自动化测试分类" class="headerlink" title="四、自动化测试分类"></a><strong>四、自动化测试分类</strong></h1><p>1、web– UI自动化测试；</p>
+<p>2、接口–自动化测试；</p>
+<p>3、移动（app）–自动化测试；</p>
+<p>4、单元测试–自动化测试；</p>
+<h1 id="五、自动化测试流程"><a href="#五、自动化测试流程" class="headerlink" title="五、自动化测试流程"></a><strong>五、自动化测试流程</strong></h1><p>1、选择合适的自动化测试工具；</p>
+<p>2、确定自动化测试覆盖的范围；</p>
+<p>3、制定测试计划；</p>
+<p>4、搭建自动化测试环境；</p>
+<p>5、自动化脚本开发；</p>
+<p>6、执行测试脚本；</p>
+<p>7、维护测试脚本；</p>
+<h1 id="六、做自动化测试关注的一些指标"><a href="#六、做自动化测试关注的一些指标" class="headerlink" title="六、做自动化测试关注的一些指标"></a><strong>六、做自动化测试关注的一些指标</strong></h1><p>1、自动化测试用例的覆盖率 = 自动化测试用例数 / 所有用例总数，这个比例越高，测试反馈越快，成本节约越多。</p>
+<p>2、节省的时间成本 = 手工测试所花的时间 - 自动化测试所花的时间。</p>
+<p>3、自动化测试的投入 = 开发脚本的投入 + 脚本维护的投入 + 工具价格（商业工具）。</p>
+<p>4、自动化测试发现的缺陷数：每次回归测试时，自动化测试发现的缺陷数及遗漏数，反应了自动化用例的有效性。</p>
+<p>5、自动化测试的投入产出比（ROI）= （手工测试的成本-自动化测试的成本） / 自动化测试的成本。<br>ROI是领导层最关注的指标，ROI为负值，表示自动化测试的成本未收回。ROI为正数，表示自动化测试的脚本已收回，且值越大越好。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%BF%B5"><span class="toc-text">一、概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95"><span class="toc-text">二、为什么要进行自动化测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="toc-text">三、自动化测试相关知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%9C%A8%E4%BB%80%E4%B9%88%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%EF%BC%9F"><span class="toc-text">1、自动化测试在什么阶段开始？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%89%80%E5%B1%9E%E5%88%86%E7%B1%BB%EF%BC%9F"><span class="toc-text">2、自动化测试所属分类？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">3、自动化测试的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">4、自动化测试的缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB"><span class="toc-text">四、自动化测试分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B"><span class="toc-text">五、自动化测试流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%81%9A%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%85%B3%E6%B3%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87"><span class="toc-text">六、做自动化测试关注的一些指标</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/14/自动化测试理解/">http://example.com/2021/09/14/自动化测试理解/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/14/selenium%E7%9A%848%E7%A7%8D%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">selenium的8种定位策略</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/14/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%90%86%E8%A7%A3/">自动化测试理解</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/14/selenium%E7%9A%848%E7%A7%8D%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5/">selenium的8种定位策略</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/13/selenium-webdriver%E7%9A%84%E4%BD%BF%E7%94%A8/">selenium webdriver的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/selenium%E7%9A%84IDE/">selenium的IDE</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">23</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
