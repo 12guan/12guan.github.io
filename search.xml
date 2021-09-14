@@ -1,6 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Appium基础-安装、配置、启动</title>
+    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
+<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
+<ul>
+<li><a href="http://appium.io/">Appium官网</a></li>
+<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
+<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
+<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
+<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
+</ul>
+<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
+<li>可以跨平台同时支持android、ios</li>
+<li> 支持多种语言，java、python、php、Ruby等等</li>
+<li>不用为复杂的环境发愁</li>
+<li> 如果你有selenium经验，直接上手。</li>
+</ul>
+<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
+<ul>
+<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
+</li>
+<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
+</li>
+<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
+<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
+</ul>
+<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
+<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
+<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
+<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
+<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
+<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
+<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
+<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
+<ol>
+<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
+</li>
+<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
+<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
+
+<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
+</ol>
+<p> 注意：</p>
+<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
+<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
+<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
+<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
+<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
+
+<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
+<table>
+<thead>
+<tr>
+<th>Language/Framework</th>
+<th align="left">Github Repo and Installation Instructions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ruby</td>
+<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
+</tr>
+<tr>
+<td>Java</td>
+<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
+</tr>
+<tr>
+<td>JavaScript (Node.js)</td>
+<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
+</tr>
+<tr>
+<td>Objective C</td>
+<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
+</tr>
+<tr>
+<td>C# (.NET)</td>
+<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
+</tr>
+<tr>
+<td>RobotFramework</td>
+<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
+</tr>
+</tbody></table>
+<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
+<p>Appium</p>
+<p>Appium-desktop</p>
+<p>Appium-doctor</p>
+<p>Appium-Python-Clien</p>
+<p>Python</p>
+<p>JDK</p>
+<p>Andriod SDK</p>
+<p>环境开始搭建的时候，尽量保持版本一致。</p>
+<p>在软件目录里面</p>
+<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
+
+<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
+<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
+<p>这步server安装不上，跳过安装 appium-desktop</p>
+<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>执行完成命令看到如下提示则表示设置完成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
+
+<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
+<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
+<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
+<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
+<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
+
+<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
+<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
+
+<p>输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
+
+<p>回车，如果控制台没有报错，则说明安装成功。 </p>
+<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
+<p>如果出现如下报错，则说明安装失败</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
+
+<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
+<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
+<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
+<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
+
+<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
+<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
+<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
+<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
+<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
+<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
+<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
+<p><strong>Session</strong></p>
+<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
+<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
+<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
+
+<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
+  </entry>
+  <entry>
     <title>Appium基础操作</title>
     <url>/2021/09/02/Appium%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>优化：把启动app的脚本封装在一个模块，接下来的每次试验直接调用即可。</p>
@@ -179,176 +349,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from Capability import driver</span><br><span class="line"></span><br><span class="line">#获取屏幕尺寸</span><br><span class="line">def get_size():</span><br><span class="line">    x=driver.get_window_size()[&#x27;width&#x27;]</span><br><span class="line">    y=driver.get_window_size()[&#x27;height&#x27;]</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">#显示屏幕尺寸（width,height）</span><br><span class="line">l=get_size()</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">#向左滑动</span><br><span class="line">def swipeLeft():</span><br><span class="line">    l=get_size()</span><br><span class="line">    x1=int(l[0]*0.9)</span><br><span class="line">    y1=int(l[1]*0.5)</span><br><span class="line">    x2=int(l[0]*0.1)</span><br><span class="line">    driver.swipe(x1,y1,x2,y1,1000)</span><br><span class="line"></span><br><span class="line">#向左滑动2次</span><br><span class="line">for i in range(2):</span><br><span class="line">    swipeLeft()</span><br><span class="line">    sleep(0.5)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(&#x27;com.tal.kaoyan:id/activity_splash_guidfinish&#x27;).click()</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-  </entry>
-  <entry>
-    <title>Appium基础-安装、配置、启动</title>
-    <url>/2021/09/07/Appium%E5%9F%BA%E7%A1%80-%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<h2 id="一、Appium简介"><a href="#一、Appium简介" class="headerlink" title="一、Appium简介"></a>一、<strong>Appium简介</strong></h2><h3 id="1-Appium介绍"><a href="#1-Appium介绍" class="headerlink" title="1. Appium介绍"></a>1. <strong>Appium介绍</strong></h3><p>Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.</p>
-<p>Appium是一个开源测试自动化框架，可用于原生，混合和移动Web应用程序测试。 它使用WebDriver协议驱动iOS，Android和Windows应用程序。<span id="more"></span></p>
-<ul>
-<li><a href="http://appium.io/">Appium官网</a></li>
-<li><a href="https://github.com/appium?utf8=%E2%9C%93&q=&type=source&language=">Appium github主页</a></li>
-<li><a href="http://appium.io/docs/cn/about-appium/intro/">官方中文文档</a></li>
-<li><a href="http://discuss.appium.io/latest">Appium官方论坛</a></li>
-<li><a href="https://testerhome.com/">Testerhome中文社区</a></li>
-</ul>
-<h3 id="2-Appium优势"><a href="#2-Appium优势" class="headerlink" title="2. Appium优势"></a>2. <strong>Appium优势</strong></h3><ul>
-<li>可以跨平台同时支持android、ios</li>
-<li> 支持多种语言，java、python、php、Ruby等等</li>
-<li>不用为复杂的环境发愁</li>
-<li> 如果你有selenium经验，直接上手。</li>
-</ul>
-<h3 id="3-Appium架构原理"><a href="#3-Appium架构原理" class="headerlink" title="3. Appium架构原理"></a>3. <strong>Appium架构原理</strong></h3><p>Appium是在手机操作系统自带的测试框架基础上实现的，Android和iOS的系统上使用的工具分别如下：</p>
-<ul>
-<li><p>Android（版本&gt;4.3）：UIAutomator，Android 4.3之后系统自带的UI自动化测试工具。</p>
-</li>
-<li><p>Android（版本≤4.3）：Selendroid，基于Android Instrumentation框架实现的自动化测试工具。</p>
-</li>
-<li><p>iOS：UIAutomation（instruments框架里面的一个模板），iOS系统自带的UI自动化测试工具。</p>
-<img src="https://pic.imgdb.cn/item/6137722b44eaada73936c4f7.jpg"> </li>
-</ul>
-<h4 id="1-运行原理"><a href="#1-运行原理" class="headerlink" title="1) 运行原理"></a>1) <strong>运行原理</strong></h4><p>我们的电脑（client）上运行自动化测试脚本，调用的是webdriver的接口，appium server接收到我们client上发送过来的命令后他会将这些命令转换为UIautomator认识的命令，然后由UIautomator来在设备上执行自动化。</p>
-<p>Appium的架构原理如上图所示，由客户端（Appium Client）和服务器（Appium Server）两部分组成，客户端与服务器端通过JSON Wire Protocol进行通信。</p>
-<h4 id="2-Appium服务器"><a href="#2-Appium服务器" class="headerlink" title="2) Appium服务器"></a>2) <strong>Appium服务器</strong></h4><p>Appium服务器是Appium框架的核心。它是一个基于Node.js实现的HTTP服务器。Appium服务器的主要功能是接受从Appium客户端发起的连接，监听从客户端发送来的命令，将命令发送给bootstrap.jar（iOS手机为bootstrap.js）执行，并将命令的执行结果通过HTTP应答反馈给Appium客户端。</p>
-<h4 id="3-Boostrap-jar"><a href="#3-Boostrap-jar" class="headerlink" title="3) Boostrap.jar"></a>3) <strong>Boostrap.jar</strong></h4><p>Bootstrap.jar是在Android手机上运行的一个应用程序，它在手机上扮演TCP服务器的角色。当Appium服务器需要运行命令时，Appium服务器会与Bootstrap.jar建立TCP通信，并把命令发送给Bootstrap.jar；Bootstrap.jar负责运行测试命令。</p>
-<h4 id="4-Appium客户端"><a href="#4-Appium客户端" class="headerlink" title="4) Appium客户端"></a>4) <strong>Appium客户端</strong></h4><p>它主要是指实现了Appium功能的WebDriver协议的客户端Library，它负责与Appium服务器建立连接，并将测试脚本的指令发送到Appium服务器。现有的客户端Library有多种语言的实现，包括Ruby、Python、Java、JavaScript（Node.js）、Object C、PHP和C#。Appium的测试是在这些Library的基础上进行开发的。</p>
-<h2 id="二、Appium组件"><a href="#二、Appium组件" class="headerlink" title="二、Appium组件"></a>二、<strong>Appium组件</strong></h2><h3 id="1-Appium-Server"><a href="#1-Appium-Server" class="headerlink" title="1) Appium Server"></a>1) <strong>Appium Server</strong></h3><p>Appium Server就是Appium的服务端——一个web接口服务，使用Node.js实现。引用官网解释说明。</p>
-<p>Appium is a server written in Node.js. It can be built and installed from source or installed directly from </p>
-<h3 id="2-Appium-Desktop"><a href="#2-Appium-Desktop" class="headerlink" title="2) Appium Desktop"></a>2) <strong>Appium Desktop</strong></h3><p>Appium Desktop是一款适用于Mac，Windows和Linux的开源应用程序，它以美观而灵活的用户界面为您提供Appium自动化服务器的强大功能。 它是几个Appium相关工具的组合：</p>
-<ol>
-<li><p>Appium Server的图形界面。 您可以设置选项，启动/停止服务器，查看日志等…您也不需要使用Node 的NPM来安装Appium，因为Node运行时与Appium Desktop捆绑在一起。</p>
-</li>
-<li><p>您可以使用Inspector查看应用程序的元素，获取有关它们的基本信息，并与它们进行基本的交互。</p>
-<img src="https://pic.imgdb.cn/item/6137725f44eaada739373e1a.jpg">
-
-<img src="https://pic.imgdb.cn/item/6137726d44eaada739375f5d.jpg"></li>
-</ol>
-<p> 注意：</p>
-<p>Appium Desktop与Appium不同。 Appium Desktop是Appium的图形前端，带有其他工具。 Appium Desktop以其自己的节奏发布，并拥有自己的版本控制系统。 就像国内很多定制的Android系统有自己版本号，但是都是基于一个Android系统版本封装的。版本号不一定与Andriod原生系统版本号一致。如：魅族的flyme6.0系统的内核是Android 5.1</p>
-<h3 id="3-Appium-GUI"><a href="#3-Appium-GUI" class="headerlink" title="3) Appium GUI"></a>3) <strong>Appium GUI</strong></h3><p>Appium GUI是Appium desktop的前身。 这个也是把Appium server封装成了一个图形界面，降低使用门槛，如同最初的操作系统Dos都是敲命令，后面都是图形界面操作系统，如Windows系统。很多初学者对下面这个界面应该不陌生吧，这个就是Windows版本的Appium GUI界面。测试人员可以手动启动，配置相关server 服务，如果不用这个启动的话，需要命令启动服务。因为大部分教程都是基于这个GUI来讲解的，所以很多人一说Appium就认为是这个。</p>
-<p>该产品的Windows版本在2015年的AppiumForWindows_1_4_16_1.zip之后就停止更新了。目前版本可以使用，但是封装的不是最新的Appium版本，而是1.4.16版本。如果要使用最新的桌面版需要使用Appium Desktop。 </p>
-<p><a href="https://bitbucket.org/appium/appium.app/downloads/">历史版本下载</a></p>
-<img src="https://pic.imgdb.cn/item/613772e244eaada739387e9e.jpg">
-
-<h3 id="4-Appium-Clients"><a href="#4-Appium-Clients" class="headerlink" title="4) Appium Clients"></a>4) <strong>Appium Clients</strong></h3><p>因为Appium是一个C/S结构，有了服务端的肯定还有客户端，Appium Clients就是客户端，它会给服务端Appium Server发送请求会话来执行自动化任务。就像我们浏览器访问网页，浏览器是客户端，通过操作发送请求服务器来获取数据。我们可以使用不同的客户端浏览器（IE，Firefox,Chrome）访问一个网站。 Appium客户端可以使用不同的语言来实现，如Python，java等。具体详见下表：</p>
-<table>
-<thead>
-<tr>
-<th>Language/Framework</th>
-<th align="left">Github Repo and Installation Instructions</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ruby</td>
-<td align="left"><a href="https://github.com/appium/ruby_lib">https://github.com/appium/ruby_lib</a></td>
-</tr>
-<tr>
-<td>Python</td>
-<td align="left"><a href="https://github.com/appium/python-client">https://github.com/appium/python-client</a></td>
-</tr>
-<tr>
-<td>Java</td>
-<td align="left"><a href="https://github.com/appium/java-client">https://github.com/appium/java-client</a></td>
-</tr>
-<tr>
-<td>JavaScript (Node.js)</td>
-<td align="left"><a href="https://github.com/admc/wd">https://github.com/admc/wd</a></td>
-</tr>
-<tr>
-<td>Objective C</td>
-<td align="left"><a href="https://github.com/appium/selenium-objective-c">https://github.com/appium/selenium-objective-c</a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td align="left"><a href="https://github.com/appium/php-client">https://github.com/appium/php-client</a></td>
-</tr>
-<tr>
-<td>C# (.NET)</td>
-<td align="left"><a href="https://github.com/appium/appium-dotnet-driver">https://github.com/appium/appium-dotnet-driver</a></td>
-</tr>
-<tr>
-<td>RobotFramework</td>
-<td align="left"><a href="https://github.com/jollychang/robotframework-appiumlibrary">https://github.com/jollychang/robotframework-appiumlibrary</a></td>
-</tr>
-</tbody></table>
-<h2 id="三、Appium环境搭建"><a href="#三、Appium环境搭建" class="headerlink" title="三、Appium环境搭建"></a>三、<strong>Appium环境搭建</strong></h2><p>Node.js</p>
-<p>Appium</p>
-<p>Appium-desktop</p>
-<p>Appium-doctor</p>
-<p>Appium-Python-Clien</p>
-<p>Python</p>
-<p>JDK</p>
-<p>Andriod SDK</p>
-<p>环境开始搭建的时候，尽量保持版本一致。</p>
-<p>在软件目录里面</p>
-<img src="https://pic.imgdb.cn/item/6137731f44eaada739391309.jpg">
-
-<h3 id="1-Node-js"><a href="#1-Node-js" class="headerlink" title="1) Node.js"></a>1) <strong>Node.js</strong></h3><p>输入如下命令进行验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;node -v</span><br><span class="line">v6.11.3</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-Appium"><a href="#2-Appium" class="headerlink" title="2) Appium"></a>2) <strong>Appium</strong></h3><p>Appium Server其实可以通过命令 npm install -g appium来安装。不过由于众所周知的网络原因，直接使用这样安装会非常非常慢，甚至会安装失败，所以我们可以使用国内镜像来安装。</p>
-<p>选用的镜像是 <a href="https://npm.taobao.org/">淘宝NPM镜像</a></p>
-<p>这步server安装不上，跳过安装 appium-desktop</p>
-<h4 id="镜像设置"><a href="#镜像设置" class="headerlink" title="镜像设置"></a><strong>镜像设置</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>执行完成命令看到如下提示则表示设置完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">npm WARN deprecated socks@1.1.10: If using 2.x branch, please upgrade to at least 2.1.6 to avoid a serious bug with socket data flow and an import issue introduced in 2.1.0</span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\cnpm -&gt; C:\Users\admin\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm</span><br><span class="line">+ cnpm@5.2.0</span><br><span class="line">added 764 packages in 63.767s</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium-安装"><a href="#appium-安装" class="headerlink" title="appium 安装"></a><strong>appium 安装</strong></h4><p>使用如下命令来执行安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#安装最新版本</span><br><span class="line">cnpm install -g appium</span><br><span class="line"></span><br><span class="line">#安装指定版本</span><br><span class="line">cnpm install appium@1.7.2 -g</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Appium配置"><a href="#Appium配置" class="headerlink" title="Appium配置"></a><strong>Appium配置</strong></h4><p>安装完成之后可以使用如下命令查看appium的安装路径</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;where appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium</span><br><span class="line"></span><br><span class="line">C:\Users\admin\AppData\Roaming\npm\appium.cmd</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="appium运行"><a href="#appium运行" class="headerlink" title="appium运行"></a><strong>appium运行</strong></h4><p>在控制台输入命令 appium即可启动appium服务，appium -v查看版本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;appium -v</span><br><span class="line">1.7.2</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;appium</span><br><span class="line">[Appium] Welcome to Appium v1.7.2</span><br><span class="line">[Appium] Appium REST http interface listener started on 0.0.0.0:4723</span><br></pre></td></tr></table></figure>
-
-<p>如果输入appium后显示：“appium不是内部或外部命令,也不是可运行的程序或批处理文件” 可以将appium安装的路径 如： “C:\Users\admin\AppData\Roaming\npm”配置到系统环境变量Path中</p>
-<h4 id="退出appium"><a href="#退出appium" class="headerlink" title="退出appium"></a><strong>退出appium</strong></h4><p>按键 ctrl+c 选择y 即可退出</p>
-<h3 id="3-Appium-desktop"><a href="#3-Appium-desktop" class="headerlink" title="3) Appium-desktop"></a>3) <strong>Appium-desktop</strong></h3><p>下载地址：<a href="https://github.com/appium/appium-desktop/releases">https://github.com/appium/appium-desktop/releases</a></p>
-<p>上面提到的问题可以使用前面我们已经介绍了Appium Server来解决，Appium-desktop工具其实也封装了Appium server和Node.js依赖环境。</p>
-<h3 id="4-Appium-Python-Client"><a href="#4-Appium-Python-Client" class="headerlink" title="4) Appium-Python-Client"></a>4) <strong>Appium-Python-Client</strong></h3><p>通过命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install Appium-Python-Client</span><br></pre></td></tr></table></figure>
-
-<p>进行安装。 安装后可以通过如下命令来检测是否安装成功。</p>
-<img src="https://pic.imgdb.cn/item/6137735e44eaada73939a849.jpg">
-
-<p>输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from appium import webdriver</span><br></pre></td></tr></table></figure>
-
-<p>回车，如果控制台没有报错，则说明安装成功。 </p>
-<p>注意：推荐使用python3.xx版本，另外版本不要太低了，可能导致pip指令安装不成功。</p>
-<p>如果出现如下报错，则说明安装失败</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ImportError: No module named &#x27;appium&#x27;</span><br><span class="line">ImportError: cannot import name “webdriver”</span><br></pre></td></tr></table></figure>
-
-<p>说明：装Appium-Python-Client安装后的路径一般为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Python 安装路径&#125;\Lib\site-packages\appium</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-Python"><a href="#5-Python" class="headerlink" title="5) Python"></a>5) <strong>Python</strong></h3><p>Python安装3XX版本,然后cmd窗口验证一下:python</p>
-<h3 id="6-JDK"><a href="#6-JDK" class="headerlink" title="6) JDK"></a>6) <strong>JDK</strong></h3><p>控制台验证一下：java -version</p>
-<h3 id="7-Andriod-SDK"><a href="#7-Andriod-SDK" class="headerlink" title="7) Andriod SDK"></a>7) <strong>Andriod SDK</strong></h3><p>前面章节配置好了</p>
-<h3 id="8-appium-doctor"><a href="#8-appium-doctor" class="headerlink" title="8) appium-doctor"></a>8) <strong>appium-doctor</strong></h3><p>appium-doctor可以检测Appium整体依赖环境配置情况。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;cnpm install appium-doctor -g</span><br></pre></td></tr></table></figure>
-
-<p>· 在控制台输入命令：appium-doctor 看到如下提示说明整体环境配置成功。</p>
-<h2 id="四、Appium-desktop介绍"><a href="#四、Appium-desktop介绍" class="headerlink" title="四、Appium-desktop介绍"></a>四、<strong>Appium-desktop介绍</strong></h2><p>Appium-desktop主界面包含三个菜单Simple,Advanced、Presets</p>
-<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a><strong>Simple</strong></h3><h4 id="host"><a href="#host" class="headerlink" title="host"></a><strong>host</strong></h4><p>设置Appium server的ip地址，本地调试可以将ip地址修改为127.0.0.1</p>
-<h4 id="port"><a href="#port" class="headerlink" title="port"></a><strong>port</strong></h4><p>设置端口号，默认是4723不用修改</p>
-<h4 id="start-server"><a href="#start-server" class="headerlink" title="start server"></a><strong>start server</strong></h4><p>启动 Appium server</p>
-<h2 id="五、Capacity配置简介"><a href="#五、Capacity配置简介" class="headerlink" title="五、Capacity配置简介"></a>五、<strong>Capacity配置简介</strong></h2><h3 id="1-什么是Capability"><a href="#1-什么是Capability" class="headerlink" title="1. 什么是Capability"></a>1. <strong>什么是Capability</strong></h3><p>desired capability的功能是配置Appium会话。他们告诉Appium服务器您想要自动化的平台和应用程序。</p>
-<p>Desired Capabilities是一组设置的键值对的集合，其中键对应设置的名称，而值对应设置的值。（如：”platformName”: “Android”）Desired Capabilities主要用于通知Appium服务器建立需要的Session。</p>
-<p><strong>Session</strong></p>
-<p>Appium的客户端和服务端之间进行通信都必须在一个Session的上下文中进行。客户端在发起通信的时候首先会发送一个叫作“Desired Capabilities”的JSON对象给服务器。服务器收到该数据后，会创建一个session并将session的ID返回到客户端。之后客户端可以用该session的ID发送后续的命令。</p>
-<h3 id="2-常用Capability配置"><a href="#2-常用Capability配置" class="headerlink" title="2. 常用Capability配置"></a>2. <strong>常用Capability配置</strong></h3><p>主要分成了三部分：公共部分、ios部分、android部分，如果你android想用ios的那是不可能的，so，老老实实去了解每个平台有哪些，他们的作用是什么。下面我们介绍一些公用常用的,红色标记的为常用的选项。</p>
-<img src="https://pic.imgdb.cn/item/613773e644eaada7393aec3a.jpg">
-
-<h3 id="3-Android独有Capability"><a href="#3-Android独有Capability" class="headerlink" title="3. Android独有Capability"></a>3. <strong>Android独有Capability</strong></h3><img src="https://pic.imgdb.cn/item/6137741444eaada7393b59d1.jpg">]]></content>
   </entry>
   <entry>
     <title>Appium环境的搭建</title>
@@ -928,37 +928,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>monkey 日志管理</title>
-    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
-<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
-<li><p>保存在PC中</p>
-</li>
-<li><p>保存在手机上</p>
-</li>
-<li><p>标准流和错误流分开保存</p>
-</li>
-</ol>
-<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt</span><br><span class="line"></span><br><span class="line">eg：</span><br><span class="line">C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt</span><br></pre></td></tr></table></figure>
-
-<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell</span><br><span class="line">monkey -v 100 &gt;/sdcard/monkeylog.log</span><br></pre></td></tr></table></figure>
-
-<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
-<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
-<li>标准流与错误流分开保存，代码如下：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Monkey [option] &lt;count&gt; 1&gt;/sdcard/monkey.txt 2&gt;/sdcard/error.txt</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log</span><br></pre></td></tr></table></figure>
-
-<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
-<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell monkey -v 100</span><br></pre></td></tr></table></figure>
-
-<p>运行后log如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell monkey -v 100</span><br><span class="line">:Monkey: seed=1524595418646 count=100</span><br><span class="line">:IncludeCategory: android.intent.category.LAUNCHER</span><br><span class="line">:IncludeCategory: android.intent.category.MONKEY</span><br><span class="line">// Event percentages:</span><br><span class="line">//   0: 15.0%</span><br><span class="line">//   1: 10.0%</span><br><span class="line">//   2: 2.0%</span><br><span class="line">//   3: 15.0%</span><br><span class="line">//   4: -0.0%</span><br><span class="line">//   5: 25.0%</span><br><span class="line">//   6: 15.0%</span><br><span class="line">//   7: 2.0%</span><br><span class="line">//   8: 2.0%</span><br><span class="line">//   9: 1.0%</span><br><span class="line">//   10: 13.0%</span><br><span class="line">:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.settings/.Settings;end</span><br><span class="line">    // Allowing start of Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.android.settings/.Settings &#125; in package com.android.settings</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)</span><br><span class="line">Events injected: 100</span><br><span class="line">:Sending rotation degree=0, persist=false</span><br><span class="line">:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0</span><br><span class="line">## Network stats: elapsed time=924ms (0ms mobile, 0ms wifi, 924ms not connected)</span><br><span class="line">// Monkey finished</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-  </entry>
-  <entry>
     <title>adb命令</title>
     <url>/2021/09/05/adb%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="一、Android-调试桥"><a href="#一、Android-调试桥" class="headerlink" title="一、Android 调试桥"></a><strong>一、Android 调试桥</strong></h1><p>adb ( Android Debug Bridge)是一个通用命令行工具，其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用。</p>
@@ -1212,6 +1181,37 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：Nox.exe -restore:Nox_1 -file:C:\xxxx\lihc\Desktop\backup20171030174008.vmdk</span><br><span class="line">[C:\Users\xxxx\Desktop\backup20171030174008.vmdk]文件还原到Nox_1</span><br></pre></td></tr></table></figure>
 
 
+
+]]></content>
+  </entry>
+  <entry>
+    <title>monkey 日志管理</title>
+    <url>/2021/09/07/monkey-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h4 id="日志管理作用"><a href="#日志管理作用" class="headerlink" title="日志管理作用"></a><strong>日志管理作用</strong></h4><p>Monkey日志管理是Monkey测试中非常重要的一个环节，通过日志管理分析，可以获取当前测试对象在测试过程中是否会发生异常，以及发生的概率，同时还可以获取对应的错误信息，帮助开发定位和解决问题。<span id="more"></span></p>
+<h4 id="monkey日志保存方法"><a href="#monkey日志保存方法" class="headerlink" title="monkey日志保存方法"></a><strong>monkey日志保存方法</strong></h4><ol>
+<li><p>保存在PC中</p>
+</li>
+<li><p>保存在手机上</p>
+</li>
+<li><p>标准流和错误流分开保存</p>
+</li>
+</ol>
+<h5 id="保存在PC中"><a href="#保存在PC中" class="headerlink" title="保存在PC中"></a><strong>保存在PC中</strong></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;adb shell monkey [option] &lt;count&gt; &gt;d:\monkey.txt</span><br><span class="line"></span><br><span class="line">eg：</span><br><span class="line">C:\Users\admin&gt;adb shell monkey -v -v 100 &gt;d:\monkeylog.txt</span><br></pre></td></tr></table></figure>
+
+<h5 id="保存在手机上"><a href="#保存在手机上" class="headerlink" title="保存在手机上"></a><strong>保存在手机上</strong></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell</span><br><span class="line">monkey -v 100 &gt;/sdcard/monkeylog.log</span><br></pre></td></tr></table></figure>
+
+<p>注意：不能写成<strong>C:\Users\admin&gt;adb shell monkey -f /sdcard/kyb.txt -v 1 &gt; /mnt/sdcard/monkey.log</strong> 否则会报错“系统找不到指定的路径”。</p>
+<h5 id="标准流和错误流分开保存"><a href="#标准流和错误流分开保存" class="headerlink" title="标准流和错误流分开保存"></a><strong>标准流和错误流分开保存</strong></h5><ul>
+<li>标准流与错误流分开保存，代码如下：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Monkey [option] &lt;count&gt; 1&gt;/sdcard/monkey.txt 2&gt;/sdcard/error.txt</span><br><span class="line"></span><br><span class="line">C:\Users\admin&gt;adb shell monkey -v 100 1&gt;d:\monkey.log  2&gt;d:\error.log</span><br></pre></td></tr></table></figure>
+
+<p>执行以上命令，Monkey的运行日志和异常日志将被分开保存。此时Monkey的运行日志将被保存在monkey.txt文件中，而异常日志将被保存在D盘下的error.txt中。</p>
+<h4 id="日志内容分析"><a href="#日志内容分析" class="headerlink" title="日志内容分析"></a><strong>日志内容分析</strong></h4><p>运行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell monkey -v 100</span><br></pre></td></tr></table></figure>
+
+<p>运行后log如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\admin&gt;adb shell monkey -v 100</span><br><span class="line">:Monkey: seed=1524595418646 count=100</span><br><span class="line">:IncludeCategory: android.intent.category.LAUNCHER</span><br><span class="line">:IncludeCategory: android.intent.category.MONKEY</span><br><span class="line">// Event percentages:</span><br><span class="line">//   0: 15.0%</span><br><span class="line">//   1: 10.0%</span><br><span class="line">//   2: 2.0%</span><br><span class="line">//   3: 15.0%</span><br><span class="line">//   4: -0.0%</span><br><span class="line">//   5: 25.0%</span><br><span class="line">//   6: 15.0%</span><br><span class="line">//   7: 2.0%</span><br><span class="line">//   8: 2.0%</span><br><span class="line">//   9: 1.0%</span><br><span class="line">//   10: 13.0%</span><br><span class="line">:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.settings/.Settings;end</span><br><span class="line">    // Allowing start of Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.android.settings/.Settings &#125; in package com.android.settings</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(381.0,391.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(371.61426,386.54578)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(608.0,610.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(609.2884,609.54736)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(4.0,4.0)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(42.0,319.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(40.672623,306.90936)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(577.0,372.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(521.3876,386.2045)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(59.0,762.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(92.18322,695.0543)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(46.0,1066.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(118.78821,1042.1993)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(525.0,696.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(557.81305,684.04376)</span><br><span class="line">:Sending Touch (ACTION_DOWN): 0:(466.0,12.0)</span><br><span class="line">:Sending Touch (ACTION_UP): 0:(453.73657,10.844121)</span><br><span class="line">:Sending Trackball (ACTION_MOVE): 0:(0.0,1.0)</span><br><span class="line">Events injected: 100</span><br><span class="line">:Sending rotation degree=0, persist=false</span><br><span class="line">:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0</span><br><span class="line">## Network stats: elapsed time=924ms (0ms mobile, 0ms wifi, 924ms not connected)</span><br><span class="line">// Monkey finished</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 ]]></content>
   </entry>
@@ -3146,299 +3146,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>接口测试之postman工具</title>
-    <url>/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<h1 id="一、postman-的概述"><a href="#一、postman-的概述" class="headerlink" title="一、postman 的概述"></a>一、postman <strong>的概述</strong></h1><h2 id="1-为什么使用-postman？"><a href="#1-为什么使用-postman？" class="headerlink" title="1. 为什么使用 postman？"></a><strong>1.</strong> <strong>为什么使用</strong> postman？</h2><p>一般简单的接口测试我们可以直接在浏览器里面进行调试，但是涉及到一些权限设置的 就无法操作了，因此我们需 要接口测试的相关工具；Postman 是一个接口测试和 http 请 求的工具。<span id="more"></span> </p>
-<h2 id="2-Postman-的下载、安装"><a href="#2-Postman-的下载、安装" class="headerlink" title="2. Postman 的下载、安装"></a><strong>2. Postman</strong> <strong>的下载、安装</strong></h2><p>Postman 有 windows,Mac、Liunx 以及 Chrome 插件版本。这里主要介绍 Win 平 台软件版本的使用。 </p>
-<p>软件下载地址：<a href="https://dl.pstmn.io/download/latest/win64">https://dl.pstmn.io/download/latest/win64</a> </p>
-<img src="https://pic.imgdb.cn/item/6137859044eaada7396522f0.png">
-
-<p>当然这软件不能支持设置中文，如果对想看中文的，可以下载这款国产高仿的接口</p>
-<p>软件：apipost </p>
-<img src="https://pic.imgdb.cn/item/613785ca44eaada73965a582.png">
-
-<p>软件官网：<a href="https://www.apipost.cn/#">https://www.apipost.cn/#</a> </p>
-<p>软件手册：<a href="https://doc.apipost.cn/4a77c87f97fb686b">https://doc.apipost.cn/4a77c87f97fb686b</a> </p>
-<p><strong>3. Postman</strong> <strong>的优缺点</strong> </p>
-<ol>
-<li>支持各种的请求类型: get、post、put、patch、delete 等 </li>
-<li>支持在线存储数据，通过账号就可以进行迁移数据 </li>
-<li>很方便的支持请求 header 和请求参数的设置 </li>
-<li>支持不同的认证机制，如 Basic Auth，Digest Auth，OAuth 1.0，OAuth 2.0 等 </li>
-<li>响应数据是自动按照语法格式高亮的，包括 HTML，JSON 和 XML</li>
-</ol>
-<p><strong>Postman</strong> <strong>的界面介绍</strong> </p>
-<p><strong>A.</strong> <strong>Postman</strong> <strong>界面的组成</strong> </p>
-<img src="https://pic.imgdb.cn/item/6137865544eaada73966d067.png">
-
-<p><strong>B.</strong> <strong>控制台</strong> </p>
-<p>postman 控制台：先打开 console，再点击 send 发送请求</p>
-<img src="https://pic.imgdb.cn/item/6137869244eaada739676121.png">
-
-<p>devtools 控制台：view –&gt;developer 下 </p>
-<p>快捷键（ctrl+shift+I） </p>
-<img src="https://pic.imgdb.cn/item/613786c144eaada73967c5e1.png">
-
-<p><strong>C.</strong> <strong>基本的使用</strong> </p>
-<p>new，新建按钮，可以创建：请求、集合、环境变量、文档、Mock 服务器、 监视器、模版、API network </p>
-<img src="https://pic.imgdb.cn/item/6137870e44eaada739686cb8.png">
-
-<p>Request：创建一个基本的请求 </p>
-<p>Collection：就是请求的集合，里面可放多个请求，这些请求可以组成一组相关的测试场景 </p>
-<p>Environment：环境变量，用变量替代 URL 中的参数值 </p>
-<p>Monitor：监视器，定时运行接口，并收集、检查性能和相应结果（局域网不能使用，只支 持公网的 ip 请求；免费版使用次数有限制） </p>
-<p>API Documemtation：创建接口文档 </p>
-<p><strong>5.</strong> <strong>使用</strong> <strong>Postman</strong> <strong>的发送一个请求</strong> </p>
-<ol>
-<li><p>启动软件后在引导界面点击 Request，给 Request 命名，然后创建文件夹并把该 Request 归属到该文件夹。 </p>
-</li>
-<li><p>在地址栏输入 postman-echo.com/get 然后点击 Send 按钮，可以看到返回值。 </p>
-</li>
-</ol>
-<p>如下图所示：</p>
-<img src="https://pic.imgdb.cn/item/6137877144eaada7396941d2.png">
-
-<h1 id="二、Postman-的工作原理"><a href="#二、Postman-的工作原理" class="headerlink" title="二、Postman 的工作原理"></a>二、Postman 的工作原理</h1><p>如下图所示，当您在 Postman 中输入请求并单击 Send 按钮时，服务器将接收您的 请求并返回 Postman 在接口中显示的响应。 </p>
-<img src="https://pic.imgdb.cn/item/6137879b44eaada739699ee2.png">
-
-<p><strong>Request 编辑</strong> </p>
-<p>在主界面左侧可以查看、保存、编辑 Request。</p>
-<h1 id="三、Postman发送多种请求"><a href="#三、Postman发送多种请求" class="headerlink" title="三、Postman发送多种请求"></a><strong>三、Postman发送多种请求</strong></h1><h2 id="1-发送-get-请求"><a href="#1-发送-get-请求" class="headerlink" title="1. 发送 get 请求"></a><strong>1.</strong> <strong>发送</strong> <strong>get</strong> <strong>请求</strong></h2><p>HTTP GET 请求方法用于从服务器检索数据。 数据由唯一的 URI(统一资源标识符)标 识。 GET 请求可以使用“Query String Parameters”将参数传递给服务器。 例如，在 下面的请求中： </p>
-<p>案例：查询快递 100 的接口，下面准备接口地址 </p>
-<p><a href="https://www.kuaidi100.com/query?type=yuantong&amp;postid=123456">https://www.kuaidi100.com/query?type=yuantong&amp;postid=123456</a> </p>
-<p><strong>说明：</strong></p>
-<p>Type、postid 表示发送的参数 </p>
-<p>？问号后面连接参数 </p>
-<p>&amp;表示连接多个参数 </p>
-<p><strong>编辑参数：</strong> </p>
-<img src="https://pic.imgdb.cn/item/613787f044eaada7396a54c4.png">
-
-<p>解释：</p>
-<p>Type 设置的快递公司名称的拼音 </p>
-<p>Postid:表示快递的单号</p>
-<h2 id="2-发送-post-请求"><a href="#2-发送-post-请求" class="headerlink" title="2. 发送 post 请求"></a><strong>2.</strong> <strong>发送</strong> <strong>post</strong> <strong>请求</strong></h2><p>HTTP POST 请求方法旨在将数据传输到服务器，返回的数据取决于服务器的实现。 </p>
-<p>POST 请求可以使用 Query String Parameters 以及 body 将参数传递给服务器 </p>
-<p><strong>案例1：</strong></p>
-<p><strong>https</strong>://postman-echo.com/post?param=java </p>
-<p>返回值： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">&quot;args&quot;: &#123; </span><br><span class="line">&quot;param&quot;: &quot;java&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;data&quot;: &#123;&#125;, </span><br><span class="line">&quot;files&quot;: &#123;&#125;, </span><br><span class="line">&quot;form&quot;: &#123;&#125;, </span><br><span class="line">&quot;headers&quot;: &#123; </span><br><span class="line">&quot;x-forwarded-proto&quot;: &quot;https&quot;, </span><br><span class="line">&quot;x-forwarded-port&quot;: &quot;443&quot;, </span><br><span class="line">&quot;host&quot;: &quot;postman-echo.com&quot;, </span><br><span class="line">&quot;x-amzn-trace-id&quot;: &quot;Root=1-5f297e6e-ff1108001ac45200f71e6e00&quot;, </span><br><span class="line">&quot;content-length&quot;: &quot;0&quot;, </span><br><span class="line">&quot;cache-control&quot;: &quot;no-cache&quot;, </span><br><span class="line">&quot;postman-token&quot;: &quot;69f685b5-96ab-4ca2-83b5-26f4e1c50203&quot;, </span><br><span class="line">&quot;user-agent&quot;: &quot;PostmanRuntime/7.4.0&quot;, </span><br><span class="line">&quot;accept&quot;: &quot;*/*&quot;, </span><br><span class="line">&quot;cookie&quot;: &quot;sails.sid=s%3AwSs2NC8SufYRF_X8JSeoRRYm2S8zld8-.0lM9TgljEowpovt7s9T4jobFlIbPoF5e6gaYBSiw758&quot;, </span><br><span class="line">&quot;accept-encoding&quot;: &quot;gzip, deflate&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;json&quot;: null, </span><br><span class="line">&quot;url&quot;: &quot;https://postman-echo.com/post?param=java&quot; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>案例 2：</strong></p>
-<p>发送一个 Request，其中 body 为 application/x-www-form-urlencoded 类型，别为 param1=wulibobo 和 param2=888 </p>
-<p>请 求 URL 如下： </p>
-<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
-<img src="https://pic.imgdb.cn/item/6137881f44eaada7396abdef.png">
-
-<p><strong>Postman Body 数据类型说明：</strong> </p>
-<p>• <strong>form-data</strong> multipart/form-data 是 Web 表单用于传输数据的默认编码。这模拟了在 网站上填写表单并提 交它。表单数据编辑器允许我们为数据设置键-值对。我们也可以为文 件设置一个键，文件本身作为值进行 设置。 </p>
-<p>• <strong>x-www-form-urlencoded</strong> 该编码与 URL 参数中使用的编码相同。我们只需输入键- 值对，Postman 会 正确编码键和值。请注意，我们无法通过此编码模式上传文件。表单 数据和 urlencoded 之间可能存在一些差异，因此请务必首先检查 API 的编码实现，确定 是否可以使用这种方式发送请求。 </p>
-<p>• <strong>raw</strong> 请求可以包含任何内容。除了替换环境变量之外，Postman 不触碰在编辑器中输入 的字符串。无论你 在编辑区输入什么内容，都会随请求一起发送到服务器。编辑器允许我 们设置格式类型以及使用原始主体 发送的正确请求头。我们也可以手动设 Content-Type 标题，这将覆盖 Postman 定义的设置。 </p>
-<p>• <strong>binary</strong> 二进制数据可让我们发送 Postman 中无法输入的内容，例如图像，音频或视频 文件。 </p>
-<h2 id="3-发送-put-请求"><a href="#3-发送-put-请求" class="headerlink" title="3. 发送 put 请求"></a><strong>3.</strong> <strong>发送</strong> <strong>put</strong> <strong>请求</strong></h2><p>HTTP PUT 请求主要是从客户端向服务器传送的数据取代指定的文档的内容。 </p>
-<p>PUT 请求可以使用 Query String Parameters 以及 body 请求体将参数传递给服务器。 </p>
-<p><strong>案例：发送 put 请求，并传递字符串参数“xxxx”</strong></p>
-<img src="https://pic.imgdb.cn/item/613788b544eaada7396bfb44.png">
-
-<p><strong>4.</strong> <strong>发送</strong> <strong>delete</strong> <strong>请求</strong> </p>
-<p>HTTP DELETE 方法用于删除服务器上的资源，DELETE </p>
-<p>请求可以使用 Query String </p>
-<p>Parameters 以及 body 请求体将 参数传递给服务器。 </p>
-<p>准备接口参数：</p>
-<p><a href="https://postman-echo.com/delete">https://postman-echo.com/delete</a></p>
-<img src="https://pic.imgdb.cn/item/613788d744eaada7396c4599.png">
-
-<p><strong>5.</strong> <strong>请求头</strong> </p>
-<p>Request Header（请求头）用来说明服务器要使用的附加信息，比较重要的信息有 Cookie、Referer、User-Agent 等。在 Postman 中可以在请求下方的 Headers 栏目来 设置，如下如图所示： </p>
-<p><strong>准备接口参数：</strong> </p>
-<p><a href="https://postman-echo.com/post?param=java&amp;m=C#">https://postman-echo.com/post?param=java&amp;m=C#</a> </p>
-<p>如图：</p>
-<img src="https://pic.imgdb.cn/item/6137894044eaada7396d1fdd.png">
-
-<p><strong>6.</strong> <strong>响应头</strong> </p>
-<p>Response Header(响应头)其中包含了服务器对请求的应答信息，如 </p>
-<p>Content-Type、Server、Set-Cookie 等， 在 Postman 主界面下方 Headers 或者 Postman Console 界面都可以查看 Response Header 信息。 </p>
-<img src="https://pic.imgdb.cn/item/6137897244eaada7396d874b.png">
-
-<h1 id="四、授权设置"><a href="#四、授权设置" class="headerlink" title="四、授权设置"></a><strong>四、授权设置</strong></h1><p>很多时候，出于安全考虑我们的接口并不希望对外公开。这个时候就需要使用授权 (Authorization)机制 授权过程 验证您是否具有访问服务器所需数据的权限。 </p>
-<p>当您发送请求时，您通常必须包含参数，以确保请求具有访问和返 回所需数据的权限。 </p>
-<p>Postman 提供授权类型，可以轻松地在 Postman 本地应用程序中处理身份验证协 议。</p>
-<p><strong>Postman 支持的授权协议类型如下：</strong> </p>
-<p>• No Auth• Bearer Token</p>
-<p>• Basic auth</p>
-<p>• Digest Auth</p>
-<p>• OAuth 1.0</p>
-<p>• OAuth 2.0 </p>
-<p>• Hawk Authentication</p>
-<p>• AWS Signature </p>
-<p>• NTLM Authentication [Beta] </p>
-<p>这里主要介绍以上加粗标红的授权协议。</p>
-<h2 id="1-如何打开授权界面"><a href="#1-如何打开授权界面" class="headerlink" title="1. 如何打开授权界面"></a><strong>1.</strong> <strong>如何打开授权界面</strong></h2><p><strong>下方演示如何打开授权界面</strong> </p>
-<img src="https://pic.imgdb.cn/item/61378a1944eaada7396eed20.png">
-
-<h2 id="2-Basic-auth-授权"><a href="#2-Basic-auth-授权" class="headerlink" title="2. Basic auth 授权"></a><strong>2. Basic auth</strong> <strong>授权</strong></h2><p>基本身份验证是一种比较简单的授权类型，需要经过验证的用户名和密码才能访问数据资 源。这就需要我们输入用 户名和对应的密码。</p>
-<p><strong>案例：请求 URL 如下，授权账号为：</strong> </p>
-<p>• 用户名: postman </p>
-<p>• 密码: password </p>
-<p>• 授权协议为：Basic auth </p>
-<p><strong>准备的 URL：</strong>[<a href="https://postman-echo.com/basic-auth">https://postman-echo.com/basic-auth</a></p>
-<p><strong>注意：</strong> </p>
-<p>• 如果不输入用户名密码，直接使用 GET 请求，则会返回提示：Unauthorized </p>
-<p><a href="https://pic.imgdb.cn/item/6138ad7c44eaada7393fbe46.png"><img src="https://pic.imgdb.cn/item/6138ad7c44eaada7393fbe46.png"></a></p>
-<p>• 输入用户名密码，选择 Basic auth 授权类型，则返回如下结果：</p>
-<p><a href="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"><img src="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"></a></p>
-<h2 id="3-Digest-Auth-授权"><a href="#3-Digest-Auth-授权" class="headerlink" title="3. Digest Auth 授权"></a><strong>3. Digest Auth</strong> <strong>授权</strong></h2><p>Digest auth 是一个简单的认证机制，最初是为 HTTP 协议开发的，因此也常叫做 HTTP 摘要。 </p>
-<p>其身份验证机制非 常简单，它采用哈希加密方法，以避免用明文传输用户的口令。摘 要认证就是要核实參与通信的两方都知道双方共 享的一个口令。 当 server 想要查证用户的身份，它产生一个摘要盘问（digest challenge），并发送 给用户。典型的摘要盘问例如 以下： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Digest realm=&quot;iptel.org&quot;, qop=&quot;auth,auth-int&quot;, </span><br><span class="line"></span><br><span class="line">nonce=&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;, opaque=&quot;&quot;, algorithm=MD5 </span><br></pre></td></tr></table></figure>
-
-<p>这里包含了一组参数，也要发送给用户。用户使用这些參数，来产生正确的摘要回答，并发 送给 server。各个參数意义如下： </p>
-<p><strong>realm（领域</strong>）：领域參数是强制的，在全部的盘问中都必须有。它是目的是鉴别 SIP 消 息中的机密。在 SIP 实际应用中，它通常设置为 SIP 代理 server 所负责的域名。 </p>
-<p><strong>nonce（现时）</strong>：这是由 server 规定的数据字符串，在 server 每次产生一个摘要盘问时， 这个參数都是不一样的 （与前面所产生的不会雷同）。“现时”一般是由一些数据通过 md5 杂凑运算构造的。 这种数据通常包含时间标 识和 server 的机密短语。这确保每一个“现 时”都有一个有限的生命期（也就是过了一些时间后会失效，并且以后再也不会使用），并 且是独一无二的 （即不论什么其他的 server 都不能产生一个同样的“现时”）。 </p>
-<p><strong>algorithm（算法）</strong>：这是用来计算的算法。当前仅仅支持 MD5 算法。 </p>
-<p><strong>qop（保护的质量）</strong>。这个參数规定 server 支持哪种保护方案。client 能够从列表中选择 一个。值 auth 表示仅仅 进行身份查验， auth-int 表示进行查验外，另一些完整性保护。</p>
-<p>须要看更具体的描写叙述，请參阅 RFC2617。 </p>
-<p>参考链接：<a href="https://blog.csdn.net/guobailu/article/details/82775459">https://blog.csdn.net/guobailu/article/details/82775459</a> </p>
-<p>案例： </p>
-<p>准备 URL： </p>
-<p><a href="https://postman-echo.com/digest-auth">https://postman-echo.com/digest-auth</a></p>
-<p>配置： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Digest username=&quot;postman&quot;, realm=&quot;Users&quot;, nonce=&quot;ni1LiL0O37PRRhofWdCLmwFsnEtH1lew&quot;, </span><br><span class="line"></span><br><span class="line">uri=&quot;/digest-auth&quot;, </span><br><span class="line">response=&quot;254679099562cf07df9b6f5d8d15db44&quot;, opaque=&quot;&quot; </span><br></pre></td></tr></table></figure>
-
-<p><a href="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"><img src="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"></a></p>
-<p>一切都正确，结果如下：</p>
-<p><a href="https://pic.imgdb.cn/item/6138aecc44eaada73941e757.png"><img src="https://pic.imgdb.cn/item/6138aecc44eaada73941e757.png"></a></p>
-<h2 id="4-Hawk-Auth"><a href="#4-Hawk-Auth" class="headerlink" title="4. Hawk Auth"></a><strong>4. Hawk Auth</strong></h2><p>Hawk Auth 是一个 HTTP 认证方案，使用 MAC(Message Authentication Code， 消息认证码算法)算法，它提供 了对请求进行部分加密验证的认证 HTTP 请求的方法。 hawk 方案要求提供一个共享对称密匙在服务器与客户端之 间，通常这个共享的凭证 在初始 TLS（安全传输层协议）保护阶段建立的，或者是从客户端和服务器都可用的其他 一些共享机密信息中获得的。 </p>
-<h3 id="1-准备参数"><a href="#1-准备参数" class="headerlink" title="1) 准备参数"></a><strong>1)</strong> <strong>准备参数</strong></h3><p>请求的 URL：<a href="https://postman-echo.com/auth/hawk">https://postman-echo.com/auth/hawk</a></p>
-<p><strong>秘钥信息：</strong> </p>
-<p>Hawk Auth ID: </p>
-<p>dh37fgj492je </p>
-<p>Hawk Auth Key: </p>
-<p>werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn </p>
-<p>Algorithm: sha256</p>
-<h3 id="2-步骤截图"><a href="#2-步骤截图" class="headerlink" title="2) 步骤截图"></a><strong>2) 步骤截图</strong></h3><p><a href="https://pic.imgdb.cn/item/6138af0644eaada7394241a4.png"><img src="https://pic.imgdb.cn/item/6138af0644eaada7394241a4.png"></a></p>
-<h3 id="3-执行结果"><a href="#3-执行结果" class="headerlink" title="3) 执行结果"></a><strong>3)</strong> <strong>执行结果</strong></h3><p><img src="https://pic.imgdb.cn/item/6138af3e44eaada739429f28.png"></p>
-<p>如果将 key 改为其他任意的字符则返回如下结果：</p>
-<p><a href="https://pic.imgdb.cn/item/6138af7044eaada73942f034.png"><img src="https://pic.imgdb.cn/item/6138af7044eaada73942f034.png"></a></p>
-<p><a href="https://pic.imgdb.cn/item/6138affc44eaada73943d56e.png"><img src="https://pic.imgdb.cn/item/6138affc44eaada73943d56e.png"></a></p>
-<ol start="5">
-<li>OAuth 1.0 OAuth（开放授权）是一个开放标准，允许用户让第三方应用访问该用户在某一网站 上存储的私密的资源（如照片， 视频，联系人列表），而无需将用户名和密码提供给第三 方应用。 </li>
-</ol>
-<p>扩展资料： <a href="https://blog.huoding.com/2010/10/10/8">https://blog.huoding.com/2010/10/10/8</a></p>
-<h4 id="1-准备参数-1"><a href="#1-准备参数-1" class="headerlink" title="1) 准备参数"></a><strong>1</strong>) 准备参数</h4><p>请求 URL 如下：请求方式为 GET，Add authorization data to </p>
-<p>设置 Request Headers 为：<a href="https://postman-echo.com/oauth1">https://postman-echo.com/oauth1</a> </p>
-<p><strong>配置参数：</strong> </p>
-<p>Consumer Key: RKCGzna7bv9YD57c </p>
-<p>Consumer Secret: D+EdQ-gs$-%@2Nu7 </p>
-<h4 id="2-步骤截图-1"><a href="#2-步骤截图-1" class="headerlink" title="2) 步骤截图"></a><strong>2) 步骤截图</strong></h4><p><a href="https://pic.imgdb.cn/item/6138b2f744eaada73948adca.png"><img src="https://pic.imgdb.cn/item/6138b2f744eaada73948adca.png"></a></p>
-<h4 id="3-执行结果-1"><a href="#3-执行结果-1" class="headerlink" title="3) 执行结果"></a><strong>3)</strong> <strong>执行结果</strong></h4><p>正确结果：</p>
-<p><a href="https://pic.imgdb.cn/item/6138b3b144eaada73949f5f8.png"><img src="https://pic.imgdb.cn/item/6138b3b144eaada73949f5f8.png"></a></p>
-<p>异常结果： </p>
-<p><a href="https://pic.imgdb.cn/item/6138b3be44eaada7394a0ee7.png"><img src="https://pic.imgdb.cn/item/6138b3be44eaada7394a0ee7.png"></a></p>
-<p>如果 Consumer Secret 错误则返回如下结果： </p>
-<h1 id="五、Cookie设置"><a href="#五、Cookie设置" class="headerlink" title="五、Cookie设置"></a><strong>五、Cookie设置</strong></h1><h2 id="1-什么是-cookie"><a href="#1-什么是-cookie" class="headerlink" title="1. 什么是 cookie"></a><strong>1.</strong> <strong>什么是</strong> <strong>cookie</strong></h2><p>cookie 是存储在浏览器中的小片段信息，每次请求后都将其发送回服务器，以便在请 求之间存储有用的信息。比如很多网站登录界面都有保留账号密码，以便下次登录。 由于 HTTP 是一种无状态的协议，服务器单从网络连接上无从知道客户身份。怎么办 呢？就给客户端们颁发一个通行证吧，每人一个，无论谁访问都必须携带自己通行证。这样 服务器就能从通行证上确认客户身份了。这就是 Cookie 的工作原理。 </p>
-<p>Cookie 是由服务端生成，存储在响应头中，返回给客户端，客户端会将 cookie 存储下来，在客户端发送请求时， user-agent 会自动获取本地存储的 cookie，将 cookie 信息存储在请求头中，并发送给服务端。 </p>
-<p>postman 也可以设置、获取、删除 Cookie。 </p>
-<h2 id="2-设置-cookie"><a href="#2-设置-cookie" class="headerlink" title="2. 设置 cookie"></a><strong>2.</strong> <strong>设置</strong> <strong>cookie</strong></h2><p>在 Send 按钮下方点击 Cookies 文字菜单，弹出如下界面，然后可以设置 Cookie。 </p>
-<p><a href="https://pic.imgdb.cn/item/6138b3fb44eaada7394a8ea1.png"><img src="https://pic.imgdb.cn/item/6138b3fb44eaada7394a8ea1.png"></a></p>
-<h3 id="1-准备参数："><a href="#1-准备参数：" class="headerlink" title="1) 准备参数："></a><strong>1)</strong> <strong>准备参数：</strong></h3><p>请求 URL：<a href="https://www.baidu.com/">https://www.baidu.com</a> </p>
-<p>请求方式：GET 请求 </p>
-<p>设置 cookie 为：username:wu</p>
-<p><strong>点击下方</strong> <strong>cookie</strong> </p>
-<p><a href="https://pic.imgdb.cn/item/6138b40d44eaada7394aaf61.png"><img src="https://pic.imgdb.cn/item/6138b40d44eaada7394aaf61.png"></a></p>
-<p><strong>添加参数进去</strong></p>
-<p><a href="https://pic.imgdb.cn/item/6138b49144eaada7394b9e2d.png"><img src="https://pic.imgdb.cn/item/6138b49144eaada7394b9e2d.png"></a></p>
-<p><strong>点击控制台</strong> </p>
-<p><img src="https://pic.imgdb.cn/item/6138b4f344eaada7394c4b64.png"></p>
-<p><strong>点击发送</strong></p>
-<p><img src="https://pic.imgdb.cn/item/6138b50d44eaada7394c78db.png"></p>
-<h3 id="3-查看结果："><a href="#3-查看结果：" class="headerlink" title="3) 查看结果："></a><strong>3)</strong> <strong>查看结果：</strong></h3><p><img src="https://pic.imgdb.cn/item/6138b57544eaada7394d2e3e.png"></p>
-<h2 id="3-获取-cookie"><a href="#3-获取-cookie" class="headerlink" title="3. 获取 cookie"></a><strong>3.</strong> <strong>获取</strong> <strong>cookie</strong></h2><p>Cookie 获取比较简单，直接获取 Response Headers 里面的 set-cookie 值即 可，或者在主界面下方 Cookie 菜单 栏里面也可以查看。</p>
-<p><img src="https://pic.imgdb.cn/item/6138b59d44eaada7394d72c5.png"></p>
-<h3 id="4-删除-cookie"><a href="#4-删除-cookie" class="headerlink" title="4. 删除 cookie"></a><strong>4.</strong> <strong>删除</strong> <strong>cookie</strong></h3><p>点击 Cookies 文字菜单,然后可以根据需求去清除对应的 Cookie。 </p>
-<h1 id="六、变量"><a href="#六、变量" class="headerlink" title="六、变量"></a><strong>六、变量</strong></h1><h2 id="1．为什么需要变量？"><a href="#1．为什么需要变量？" class="headerlink" title="1．为什么需要变量？"></a>1．为什么需要变量？</h2><p>在开发不同阶段可能存在不同的环境,比如测试环境和生产环境。 </p>
-<p>测试环境 API 如下： </p>
-<p><a href="https://dev.postman.com/get">https://dev.postman.com/get</a> </p>
-<p><a href="https://dev.postman.com/post">https://dev.postman.com/post</a> </p>
-<p><a href="https://dev.postman.com/put">https://dev.postman.com/put</a> </p>
-<p>生产环境 API 如下： </p>
-<p><a href="https://postman-echo.com/get">https://postman-echo.com/get</a> </p>
-<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
-<p><a href="https://postman-echo.com/put">https://postman-echo.com/put</a></p>
-<p>在这么情况下，按照常规思路要么你需要维护两套环境的 API，要么每次都手动一个 个去修改 URL，不管哪种选择 都比较麻烦且低效，那么有没有比较的好的方法来解决这个 问题呢？</p>
-<p>通过比较我们可以发现，以上两组 API 主要是除了 host 不同之外其他都一样，其实 把 Host 用<strong>变量</strong>替换，这样就可以灵活切换环境。</p>
-<h2 id="2．Postman-的变量类型"><a href="#2．Postman-的变量类型" class="headerlink" title="2．Postman 的变量类型"></a>2．Postman <strong>的变量类型</strong></h2><p><strong>Postman 提供了变量设置，有 4 种变量类型。</strong> </p>
-<ul>
-<li><p>本地变量(LocalVariable ) </p>
-</li>
-<li><p>全局变量(Global Variable) </p>
-</li>
-<li><p>环境变量(Environment Variable) </p>
-</li>
-<li><p>数据变量(Data Variable) </p>
-</li>
-</ul>
-<h2 id="3-Postman的变量详解"><a href="#3-Postman的变量详解" class="headerlink" title="3.Postman的变量详解"></a>3.Postman<strong>的变量详解</strong></h2><h3 id="1-环境变量-Environment-Variable"><a href="#1-环境变量-Environment-Variable" class="headerlink" title="1) 环境变量(Environment Variable)"></a><strong>1)</strong> 环境变量(Environment Variable)</h3><p>环境变量指在不同环境，同一个变量值随着环境不同而变化，比如我们上面举例场景就 可以使用环境变量，当在测试环境时，host 值为: dev.postman.com ,当切换到生产环境 时，host 值变为：postman-echo.com 。 环境变量设置： 在 postman 界面点击右上角眼睛图标，即可开始设置环境变量和全 局变量。环境变量设置过程如下图所示： </p>
-<p>我们可以设置两种环境 dev 和 release, </p>
-<p><strong>dev</strong> <strong>是开发测试环境；</strong> </p>
-<p><strong>release</strong> <strong>是正式的生产环境。</strong> </p>
-<p><strong>host</strong> <strong>环境变量， 根据不同的环境值不一样。</strong></p>
-<p><img src="https://pic.imgdb.cn/item/6138b5b144eaada7394d9428.png"></p>
-<p>同样的步骤，再来添加生产环境 </p>
-<p><img src="https://pic.imgdb.cn/item/6138b6f844eaada7394fe875.png"></p>
-<p>变量引用格式为,如下图所示：</p>
-<p> <img src="https://pic.imgdb.cn/item/6138b70a44eaada73950090e.png"></p>
-<p>列如：生产环境</p>
-<p>完整参考：<a href="https://jingyan.baidu.com/article/948f59247349c0980ff5f9c3.html">https://jingyan.baidu.com/article/948f59247349c0980ff5f9c3.html</a> </p>
-<h3 id="2-本地变量-LocalVariable"><a href="#2-本地变量-LocalVariable" class="headerlink" title="2) 本地变量(LocalVariable )"></a><strong>2)</strong> 本地变量(LocalVariable )</h3><p>本地变量主要是针对单个 URL 请求设置的变量，作用域只是局限在请求范围内。如 请求 URL 如下，设置两个本地变量（user,passwd）作为参数。请求方式为 POST准备参数：<a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
-<p><img src="https://pic.imgdb.cn/item/6138b72d44eaada739504dde.png"></p>
-<p>上面通过环境变量知道，设置变量的格式为： </p>
-<p>变量设置好之后需要赋值，在 Pre-request-Script 里面编写如下代码： </p>
-<p>pm.variables.set(“user”,”wu”); </p>
-<p>pm.variables.set(“passwd”,”123456”);</p>
-<p><img src="https://pic.imgdb.cn/item/6138b74844eaada739507a6f.png"></p>
-<p>点击 send 执行之后的返回值如下，可以看到我们定义的变量已经发送。</p>
-<p> <img src="https://pic.imgdb.cn/item/6138b74844eaada739507a6f.png"></p>
-<h3 id="3-全局变量-Global-Variable"><a href="#3-全局变量-Global-Variable" class="headerlink" title="3) 全局变量(Global Variable)"></a><strong>3)</strong> 全局变量(Global Variable)</h3><p>全局变量是指在所有的环境里面，变量值都是一样的，全局变量的作用域是所有请求。 </p>
-<p>全局变量设置有两种方式： </p>
-<h4 id="1-点击界面里设置"><a href="#1-点击界面里设置" class="headerlink" title="1. 点击界面里设置"></a><strong>1. 点击界面里设置</strong></h4><p>点击眼睛图标后，在 Global 选项菜单点击 Edit 菜单即可设置全局变量，如下图所示。 </p>
-<p><img src="https://pic.imgdb.cn/item/6138b78a44eaada73950f46b.png"></p>
-<p>全局变量的引用格式和环境 变量一样， </p>
-<p>注意：当环境变量和全局变量名称一样时，切换到某个环境时，环境变量会覆盖全局变量。</p>
-<h4 id="2-在脚本里设置"><a href="#2-在脚本里设置" class="headerlink" title="2.在脚本里设置"></a><strong>2.在脚本里设置</strong></h4><p>使用如下脚本可以设置全局变量：variable_key 表示变量名称， variable_value 表示 变量值。 </p>
-<p>pm.globals.set(“variable_key”, “variable_value”); </p>
-<h3 id="4-实践案例："><a href="#4-实践案例：" class="headerlink" title="4) 实践案例："></a><strong>4)</strong> <strong>实践案例：</strong></h3><p>在实际接口测试过程中，接口经常会有关联。比如需要取上一个接口的某个返回值，然 后作为参数传递到下一个接 口作为参数。 </p>
-<p><strong>假设我们要获取 A 接口返回的 userid 值作为 B 接口的请求参数</strong>。 </p>
-<p>A 接口请求 URL 如下： </p>
-<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
-<p>• 请求方式为 Post </p>
-<p>• 请求参数：userid(这里自己定义，接口会返回对应的 id 值)</p>
-<p><img src="https://pic.imgdb.cn/item/6138b7b344eaada739513ead.png"></p>
-<p>根据返回值我们需要从返回值中提取 userid 值。</p>
-<p><img src="https://pic.imgdb.cn/item/6138b7ef44eaada73951ab1a.png"></p>
-<p>在 Test 标签栏下编写如下脚本获 取 userid 值 B 接口请求 URL 如下：请求方式为 GET </p>
-<p>postman-<strong>echo</strong>.<strong>com</strong>/get?userid= </p>
-<p>先执行 A 接口的，然后在执行 B 接口，此时 B 接口通过全局变量 userid 可以获得 A 接口的返回值。</p>
-<p><img src="https://pic.imgdb.cn/item/6138b80944eaada73951da25.png"></p>
-<h1 id="七、断言："><a href="#七、断言：" class="headerlink" title="七、断言："></a><strong>七、断言：</strong></h1><h2 id="1-什么是断言？"><a href="#1-什么是断言？" class="headerlink" title="1) 什么是断言？"></a><strong>1)</strong> <strong>什么是断言？</strong></h2><p>一般来说执行完测试，我们需要对测试结果来进行校验，判断结果是是否符合我们的预 期，也就是断言。在接口测试中一般会根据响应状态码或者响应返回的数据来进行断言。 </p>
-<p>Postman 提供一个测试沙箱（Postman Sandbox） 测试沙箱是一个 JavaScript 执 行环境，可以通过 JS 脚本来编 写 pre-request Script 和 test Script。 </p>
-<p>pre-request Script（预置脚本）可以用来修改一些默认参数,在请求发送之前执行。 </p>
-<p>test Script（测试脚本）当接收到响应之后，再执行测试脚本。 </p>
-<h2 id="2-断言的案例"><a href="#2-断言的案例" class="headerlink" title="2) 断言的案例"></a><strong>2)</strong> <strong>断言的案例</strong></h2><h4 id="1-准备的-URL"><a href="#1-准备的-URL" class="headerlink" title="(1) 准备的 URL:"></a><strong>(1)</strong> <strong>准备的</strong> <strong>URL:</strong></h4><p>postman-echo.com/post </p>
-<h4 id="2-断言的规则"><a href="#2-断言的规则" class="headerlink" title="(2) 断言的规则"></a><strong>(2)</strong> <strong>断言的规则</strong></h4><p>• 响应状态码：200 </p>
-<p>• 响应内容：返回的 user 参数值与定义的一致 </p>
-<p>• 响应时间：小于 0.5s </p>
-<h4 id="3-准备的脚本"><a href="#3-准备的脚本" class="headerlink" title="(3) 准备的脚本"></a><strong>(3)</strong> <strong>准备的脚本</strong></h4><p><strong>在</strong> <strong>pre-request Script</strong> <strong>定义变量</strong> <strong>user</strong></p>
-<p>pm.variables.set(“user”,’wulibobo’); </p>
-<p><img src="https://pic.imgdb.cn/item/6138b88f44eaada73952d8bb.png"></p>
-<p><strong>在</strong> <strong>Test</strong> <strong>栏下面编写如下脚本</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//判断响应状态码 </span><br><span class="line">pm.test(&quot;Status code is 200&quot;, function () &#123; pm.response.to.have.status(200); &#125;); </span><br><span class="line"></span><br><span class="line">//获取发送的参数值 </span><br><span class="line">username=pm.variables.get(&quot;user&quot;); </span><br><span class="line">console.log(username); </span><br><span class="line"></span><br><span class="line">//校验响应内容是否和请求的一致 </span><br><span class="line">pm.test(&quot;Check username&quot;, function () &#123; var jsonData = pm.response.json(); pm.expect(jsonData.json[&#x27;user&#x27;]).to.eql(username); &#125;);</span><br><span class="line"></span><br><span class="line">//检测响应时间是否小于 0.5s </span><br><span class="line">pm.test(&quot;Response time is less than 500ms&quot;, function () &#123; pm.expect(pm.response.responseTime).to.be.below(500);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://pic.imgdb.cn/item/6138b8b844eaada7395321bf.png"></p>
-<h4 id="4-断言的结果"><a href="#4-断言的结果" class="headerlink" title="(4) 断言的结果"></a><strong>(4)</strong> <strong>断言的结果</strong></h4><p><img src="https://pic.imgdb.cn/item/6138b8cc44eaada7395344ce.png"></p>
-<p>Postman 测试脚本的官方文档： </p>
-<p><a href="https://learning.postman.com/docs/writing-scripts/intro-to-scripts/">https://learning.postman.com/docs/writing-scripts/intro-to-scripts/</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>selenium的IDE</title>
     <url>/2021/09/12/selenium%E7%9A%84IDE/</url>
     <content><![CDATA[<h1 id="一、Selenium-的入门"><a href="#一、Selenium-的入门" class="headerlink" title="一、Selenium 的入门"></a><strong>一、Selenium 的入门</strong></h1><h2 id="1-自动化测试的介绍"><a href="#1-自动化测试的介绍" class="headerlink" title="(1) 自动化测试的介绍"></a><strong>(1)</strong> <strong>自动化测试的介绍</strong></h2><p>自动化测试使用专用工具自动执行手动设计的测试用例，无需任何人为干 预。 自动化测试工具可以访问测试数据，控制测试的执行，并将实际结果与预 期结果进行比较。 因此，生成被测系统的详细测试报告。 <span id="more"></span></p>
@@ -3846,6 +3553,299 @@
 <h3 id="2-执行测试脚本"><a href="#2-执行测试脚本" class="headerlink" title="2. 执行测试脚本"></a><strong>2. 执行测试脚本</strong></h3><p>点击 IDE 的工具栏菜单上的按钮“运行当前测试”。 它将在浏览器上执行所有插 </p>
 <p>入的命令，并提供已执行测试脚本的总体摘要。 </p>
 <p>“日志”窗格显示已执行测试脚本的总体摘要。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>接口测试之postman工具</title>
+    <url>/2021/09/07/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B9%8Bpostman%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<h1 id="一、postman-的概述"><a href="#一、postman-的概述" class="headerlink" title="一、postman 的概述"></a>一、postman <strong>的概述</strong></h1><h2 id="1-为什么使用-postman？"><a href="#1-为什么使用-postman？" class="headerlink" title="1. 为什么使用 postman？"></a><strong>1.</strong> <strong>为什么使用</strong> postman？</h2><p>一般简单的接口测试我们可以直接在浏览器里面进行调试，但是涉及到一些权限设置的 就无法操作了，因此我们需 要接口测试的相关工具；Postman 是一个接口测试和 http 请 求的工具。<span id="more"></span> </p>
+<h2 id="2-Postman-的下载、安装"><a href="#2-Postman-的下载、安装" class="headerlink" title="2. Postman 的下载、安装"></a><strong>2. Postman</strong> <strong>的下载、安装</strong></h2><p>Postman 有 windows,Mac、Liunx 以及 Chrome 插件版本。这里主要介绍 Win 平 台软件版本的使用。 </p>
+<p>软件下载地址：<a href="https://dl.pstmn.io/download/latest/win64">https://dl.pstmn.io/download/latest/win64</a> </p>
+<img src="https://pic.imgdb.cn/item/6137859044eaada7396522f0.png">
+
+<p>当然这软件不能支持设置中文，如果对想看中文的，可以下载这款国产高仿的接口</p>
+<p>软件：apipost </p>
+<img src="https://pic.imgdb.cn/item/613785ca44eaada73965a582.png">
+
+<p>软件官网：<a href="https://www.apipost.cn/#">https://www.apipost.cn/#</a> </p>
+<p>软件手册：<a href="https://doc.apipost.cn/4a77c87f97fb686b">https://doc.apipost.cn/4a77c87f97fb686b</a> </p>
+<p><strong>3. Postman</strong> <strong>的优缺点</strong> </p>
+<ol>
+<li>支持各种的请求类型: get、post、put、patch、delete 等 </li>
+<li>支持在线存储数据，通过账号就可以进行迁移数据 </li>
+<li>很方便的支持请求 header 和请求参数的设置 </li>
+<li>支持不同的认证机制，如 Basic Auth，Digest Auth，OAuth 1.0，OAuth 2.0 等 </li>
+<li>响应数据是自动按照语法格式高亮的，包括 HTML，JSON 和 XML</li>
+</ol>
+<p><strong>Postman</strong> <strong>的界面介绍</strong> </p>
+<p><strong>A.</strong> <strong>Postman</strong> <strong>界面的组成</strong> </p>
+<img src="https://pic.imgdb.cn/item/6137865544eaada73966d067.png">
+
+<p><strong>B.</strong> <strong>控制台</strong> </p>
+<p>postman 控制台：先打开 console，再点击 send 发送请求</p>
+<img src="https://pic.imgdb.cn/item/6137869244eaada739676121.png">
+
+<p>devtools 控制台：view –&gt;developer 下 </p>
+<p>快捷键（ctrl+shift+I） </p>
+<img src="https://pic.imgdb.cn/item/613786c144eaada73967c5e1.png">
+
+<p><strong>C.</strong> <strong>基本的使用</strong> </p>
+<p>new，新建按钮，可以创建：请求、集合、环境变量、文档、Mock 服务器、 监视器、模版、API network </p>
+<img src="https://pic.imgdb.cn/item/6137870e44eaada739686cb8.png">
+
+<p>Request：创建一个基本的请求 </p>
+<p>Collection：就是请求的集合，里面可放多个请求，这些请求可以组成一组相关的测试场景 </p>
+<p>Environment：环境变量，用变量替代 URL 中的参数值 </p>
+<p>Monitor：监视器，定时运行接口，并收集、检查性能和相应结果（局域网不能使用，只支 持公网的 ip 请求；免费版使用次数有限制） </p>
+<p>API Documemtation：创建接口文档 </p>
+<p><strong>5.</strong> <strong>使用</strong> <strong>Postman</strong> <strong>的发送一个请求</strong> </p>
+<ol>
+<li><p>启动软件后在引导界面点击 Request，给 Request 命名，然后创建文件夹并把该 Request 归属到该文件夹。 </p>
+</li>
+<li><p>在地址栏输入 postman-echo.com/get 然后点击 Send 按钮，可以看到返回值。 </p>
+</li>
+</ol>
+<p>如下图所示：</p>
+<img src="https://pic.imgdb.cn/item/6137877144eaada7396941d2.png">
+
+<h1 id="二、Postman-的工作原理"><a href="#二、Postman-的工作原理" class="headerlink" title="二、Postman 的工作原理"></a>二、Postman 的工作原理</h1><p>如下图所示，当您在 Postman 中输入请求并单击 Send 按钮时，服务器将接收您的 请求并返回 Postman 在接口中显示的响应。 </p>
+<img src="https://pic.imgdb.cn/item/6137879b44eaada739699ee2.png">
+
+<p><strong>Request 编辑</strong> </p>
+<p>在主界面左侧可以查看、保存、编辑 Request。</p>
+<h1 id="三、Postman发送多种请求"><a href="#三、Postman发送多种请求" class="headerlink" title="三、Postman发送多种请求"></a><strong>三、Postman发送多种请求</strong></h1><h2 id="1-发送-get-请求"><a href="#1-发送-get-请求" class="headerlink" title="1. 发送 get 请求"></a><strong>1.</strong> <strong>发送</strong> <strong>get</strong> <strong>请求</strong></h2><p>HTTP GET 请求方法用于从服务器检索数据。 数据由唯一的 URI(统一资源标识符)标 识。 GET 请求可以使用“Query String Parameters”将参数传递给服务器。 例如，在 下面的请求中： </p>
+<p>案例：查询快递 100 的接口，下面准备接口地址 </p>
+<p><a href="https://www.kuaidi100.com/query?type=yuantong&amp;postid=123456">https://www.kuaidi100.com/query?type=yuantong&amp;postid=123456</a> </p>
+<p><strong>说明：</strong></p>
+<p>Type、postid 表示发送的参数 </p>
+<p>？问号后面连接参数 </p>
+<p>&amp;表示连接多个参数 </p>
+<p><strong>编辑参数：</strong> </p>
+<img src="https://pic.imgdb.cn/item/613787f044eaada7396a54c4.png">
+
+<p>解释：</p>
+<p>Type 设置的快递公司名称的拼音 </p>
+<p>Postid:表示快递的单号</p>
+<h2 id="2-发送-post-请求"><a href="#2-发送-post-请求" class="headerlink" title="2. 发送 post 请求"></a><strong>2.</strong> <strong>发送</strong> <strong>post</strong> <strong>请求</strong></h2><p>HTTP POST 请求方法旨在将数据传输到服务器，返回的数据取决于服务器的实现。 </p>
+<p>POST 请求可以使用 Query String Parameters 以及 body 将参数传递给服务器 </p>
+<p><strong>案例1：</strong></p>
+<p><strong>https</strong>://postman-echo.com/post?param=java </p>
+<p>返回值： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">&quot;args&quot;: &#123; </span><br><span class="line">&quot;param&quot;: &quot;java&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;data&quot;: &#123;&#125;, </span><br><span class="line">&quot;files&quot;: &#123;&#125;, </span><br><span class="line">&quot;form&quot;: &#123;&#125;, </span><br><span class="line">&quot;headers&quot;: &#123; </span><br><span class="line">&quot;x-forwarded-proto&quot;: &quot;https&quot;, </span><br><span class="line">&quot;x-forwarded-port&quot;: &quot;443&quot;, </span><br><span class="line">&quot;host&quot;: &quot;postman-echo.com&quot;, </span><br><span class="line">&quot;x-amzn-trace-id&quot;: &quot;Root=1-5f297e6e-ff1108001ac45200f71e6e00&quot;, </span><br><span class="line">&quot;content-length&quot;: &quot;0&quot;, </span><br><span class="line">&quot;cache-control&quot;: &quot;no-cache&quot;, </span><br><span class="line">&quot;postman-token&quot;: &quot;69f685b5-96ab-4ca2-83b5-26f4e1c50203&quot;, </span><br><span class="line">&quot;user-agent&quot;: &quot;PostmanRuntime/7.4.0&quot;, </span><br><span class="line">&quot;accept&quot;: &quot;*/*&quot;, </span><br><span class="line">&quot;cookie&quot;: &quot;sails.sid=s%3AwSs2NC8SufYRF_X8JSeoRRYm2S8zld8-.0lM9TgljEowpovt7s9T4jobFlIbPoF5e6gaYBSiw758&quot;, </span><br><span class="line">&quot;accept-encoding&quot;: &quot;gzip, deflate&quot; </span><br><span class="line">&#125;,</span><br><span class="line">&quot;json&quot;: null, </span><br><span class="line">&quot;url&quot;: &quot;https://postman-echo.com/post?param=java&quot; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>案例 2：</strong></p>
+<p>发送一个 Request，其中 body 为 application/x-www-form-urlencoded 类型，别为 param1=wulibobo 和 param2=888 </p>
+<p>请 求 URL 如下： </p>
+<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
+<img src="https://pic.imgdb.cn/item/6137881f44eaada7396abdef.png">
+
+<p><strong>Postman Body 数据类型说明：</strong> </p>
+<p>• <strong>form-data</strong> multipart/form-data 是 Web 表单用于传输数据的默认编码。这模拟了在 网站上填写表单并提 交它。表单数据编辑器允许我们为数据设置键-值对。我们也可以为文 件设置一个键，文件本身作为值进行 设置。 </p>
+<p>• <strong>x-www-form-urlencoded</strong> 该编码与 URL 参数中使用的编码相同。我们只需输入键- 值对，Postman 会 正确编码键和值。请注意，我们无法通过此编码模式上传文件。表单 数据和 urlencoded 之间可能存在一些差异，因此请务必首先检查 API 的编码实现，确定 是否可以使用这种方式发送请求。 </p>
+<p>• <strong>raw</strong> 请求可以包含任何内容。除了替换环境变量之外，Postman 不触碰在编辑器中输入 的字符串。无论你 在编辑区输入什么内容，都会随请求一起发送到服务器。编辑器允许我 们设置格式类型以及使用原始主体 发送的正确请求头。我们也可以手动设 Content-Type 标题，这将覆盖 Postman 定义的设置。 </p>
+<p>• <strong>binary</strong> 二进制数据可让我们发送 Postman 中无法输入的内容，例如图像，音频或视频 文件。 </p>
+<h2 id="3-发送-put-请求"><a href="#3-发送-put-请求" class="headerlink" title="3. 发送 put 请求"></a><strong>3.</strong> <strong>发送</strong> <strong>put</strong> <strong>请求</strong></h2><p>HTTP PUT 请求主要是从客户端向服务器传送的数据取代指定的文档的内容。 </p>
+<p>PUT 请求可以使用 Query String Parameters 以及 body 请求体将参数传递给服务器。 </p>
+<p><strong>案例：发送 put 请求，并传递字符串参数“xxxx”</strong></p>
+<img src="https://pic.imgdb.cn/item/613788b544eaada7396bfb44.png">
+
+<p><strong>4.</strong> <strong>发送</strong> <strong>delete</strong> <strong>请求</strong> </p>
+<p>HTTP DELETE 方法用于删除服务器上的资源，DELETE </p>
+<p>请求可以使用 Query String </p>
+<p>Parameters 以及 body 请求体将 参数传递给服务器。 </p>
+<p>准备接口参数：</p>
+<p><a href="https://postman-echo.com/delete">https://postman-echo.com/delete</a></p>
+<img src="https://pic.imgdb.cn/item/613788d744eaada7396c4599.png">
+
+<p><strong>5.</strong> <strong>请求头</strong> </p>
+<p>Request Header（请求头）用来说明服务器要使用的附加信息，比较重要的信息有 Cookie、Referer、User-Agent 等。在 Postman 中可以在请求下方的 Headers 栏目来 设置，如下如图所示： </p>
+<p><strong>准备接口参数：</strong> </p>
+<p><a href="https://postman-echo.com/post?param=java&amp;m=C#">https://postman-echo.com/post?param=java&amp;m=C#</a> </p>
+<p>如图：</p>
+<img src="https://pic.imgdb.cn/item/6137894044eaada7396d1fdd.png">
+
+<p><strong>6.</strong> <strong>响应头</strong> </p>
+<p>Response Header(响应头)其中包含了服务器对请求的应答信息，如 </p>
+<p>Content-Type、Server、Set-Cookie 等， 在 Postman 主界面下方 Headers 或者 Postman Console 界面都可以查看 Response Header 信息。 </p>
+<img src="https://pic.imgdb.cn/item/6137897244eaada7396d874b.png">
+
+<h1 id="四、授权设置"><a href="#四、授权设置" class="headerlink" title="四、授权设置"></a><strong>四、授权设置</strong></h1><p>很多时候，出于安全考虑我们的接口并不希望对外公开。这个时候就需要使用授权 (Authorization)机制 授权过程 验证您是否具有访问服务器所需数据的权限。 </p>
+<p>当您发送请求时，您通常必须包含参数，以确保请求具有访问和返 回所需数据的权限。 </p>
+<p>Postman 提供授权类型，可以轻松地在 Postman 本地应用程序中处理身份验证协 议。</p>
+<p><strong>Postman 支持的授权协议类型如下：</strong> </p>
+<p>• No Auth• Bearer Token</p>
+<p>• Basic auth</p>
+<p>• Digest Auth</p>
+<p>• OAuth 1.0</p>
+<p>• OAuth 2.0 </p>
+<p>• Hawk Authentication</p>
+<p>• AWS Signature </p>
+<p>• NTLM Authentication [Beta] </p>
+<p>这里主要介绍以上加粗标红的授权协议。</p>
+<h2 id="1-如何打开授权界面"><a href="#1-如何打开授权界面" class="headerlink" title="1. 如何打开授权界面"></a><strong>1.</strong> <strong>如何打开授权界面</strong></h2><p><strong>下方演示如何打开授权界面</strong> </p>
+<img src="https://pic.imgdb.cn/item/61378a1944eaada7396eed20.png">
+
+<h2 id="2-Basic-auth-授权"><a href="#2-Basic-auth-授权" class="headerlink" title="2. Basic auth 授权"></a><strong>2. Basic auth</strong> <strong>授权</strong></h2><p>基本身份验证是一种比较简单的授权类型，需要经过验证的用户名和密码才能访问数据资 源。这就需要我们输入用 户名和对应的密码。</p>
+<p><strong>案例：请求 URL 如下，授权账号为：</strong> </p>
+<p>• 用户名: postman </p>
+<p>• 密码: password </p>
+<p>• 授权协议为：Basic auth </p>
+<p><strong>准备的 URL：</strong>[<a href="https://postman-echo.com/basic-auth">https://postman-echo.com/basic-auth</a></p>
+<p><strong>注意：</strong> </p>
+<p>• 如果不输入用户名密码，直接使用 GET 请求，则会返回提示：Unauthorized </p>
+<p><a href="https://pic.imgdb.cn/item/6138ad7c44eaada7393fbe46.png"><img src="https://pic.imgdb.cn/item/6138ad7c44eaada7393fbe46.png"></a></p>
+<p>• 输入用户名密码，选择 Basic auth 授权类型，则返回如下结果：</p>
+<p><a href="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"><img src="https://pic.imgdb.cn/item/6138adb544eaada7394020b1.png"></a></p>
+<h2 id="3-Digest-Auth-授权"><a href="#3-Digest-Auth-授权" class="headerlink" title="3. Digest Auth 授权"></a><strong>3. Digest Auth</strong> <strong>授权</strong></h2><p>Digest auth 是一个简单的认证机制，最初是为 HTTP 协议开发的，因此也常叫做 HTTP 摘要。 </p>
+<p>其身份验证机制非 常简单，它采用哈希加密方法，以避免用明文传输用户的口令。摘 要认证就是要核实參与通信的两方都知道双方共 享的一个口令。 当 server 想要查证用户的身份，它产生一个摘要盘问（digest challenge），并发送 给用户。典型的摘要盘问例如 以下： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Digest realm=&quot;iptel.org&quot;, qop=&quot;auth,auth-int&quot;, </span><br><span class="line"></span><br><span class="line">nonce=&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;, opaque=&quot;&quot;, algorithm=MD5 </span><br></pre></td></tr></table></figure>
+
+<p>这里包含了一组参数，也要发送给用户。用户使用这些參数，来产生正确的摘要回答，并发 送给 server。各个參数意义如下： </p>
+<p><strong>realm（领域</strong>）：领域參数是强制的，在全部的盘问中都必须有。它是目的是鉴别 SIP 消 息中的机密。在 SIP 实际应用中，它通常设置为 SIP 代理 server 所负责的域名。 </p>
+<p><strong>nonce（现时）</strong>：这是由 server 规定的数据字符串，在 server 每次产生一个摘要盘问时， 这个參数都是不一样的 （与前面所产生的不会雷同）。“现时”一般是由一些数据通过 md5 杂凑运算构造的。 这种数据通常包含时间标 识和 server 的机密短语。这确保每一个“现 时”都有一个有限的生命期（也就是过了一些时间后会失效，并且以后再也不会使用），并 且是独一无二的 （即不论什么其他的 server 都不能产生一个同样的“现时”）。 </p>
+<p><strong>algorithm（算法）</strong>：这是用来计算的算法。当前仅仅支持 MD5 算法。 </p>
+<p><strong>qop（保护的质量）</strong>。这个參数规定 server 支持哪种保护方案。client 能够从列表中选择 一个。值 auth 表示仅仅 进行身份查验， auth-int 表示进行查验外，另一些完整性保护。</p>
+<p>须要看更具体的描写叙述，请參阅 RFC2617。 </p>
+<p>参考链接：<a href="https://blog.csdn.net/guobailu/article/details/82775459">https://blog.csdn.net/guobailu/article/details/82775459</a> </p>
+<p>案例： </p>
+<p>准备 URL： </p>
+<p><a href="https://postman-echo.com/digest-auth">https://postman-echo.com/digest-auth</a></p>
+<p>配置： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Digest username=&quot;postman&quot;, realm=&quot;Users&quot;, nonce=&quot;ni1LiL0O37PRRhofWdCLmwFsnEtH1lew&quot;, </span><br><span class="line"></span><br><span class="line">uri=&quot;/digest-auth&quot;, </span><br><span class="line">response=&quot;254679099562cf07df9b6f5d8d15db44&quot;, opaque=&quot;&quot; </span><br></pre></td></tr></table></figure>
+
+<p><a href="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"><img src="https://pic.imgdb.cn/item/6138ae9044eaada739418709.png"></a></p>
+<p>一切都正确，结果如下：</p>
+<p><a href="https://pic.imgdb.cn/item/6138aecc44eaada73941e757.png"><img src="https://pic.imgdb.cn/item/6138aecc44eaada73941e757.png"></a></p>
+<h2 id="4-Hawk-Auth"><a href="#4-Hawk-Auth" class="headerlink" title="4. Hawk Auth"></a><strong>4. Hawk Auth</strong></h2><p>Hawk Auth 是一个 HTTP 认证方案，使用 MAC(Message Authentication Code， 消息认证码算法)算法，它提供 了对请求进行部分加密验证的认证 HTTP 请求的方法。 hawk 方案要求提供一个共享对称密匙在服务器与客户端之 间，通常这个共享的凭证 在初始 TLS（安全传输层协议）保护阶段建立的，或者是从客户端和服务器都可用的其他 一些共享机密信息中获得的。 </p>
+<h3 id="1-准备参数"><a href="#1-准备参数" class="headerlink" title="1) 准备参数"></a><strong>1)</strong> <strong>准备参数</strong></h3><p>请求的 URL：<a href="https://postman-echo.com/auth/hawk">https://postman-echo.com/auth/hawk</a></p>
+<p><strong>秘钥信息：</strong> </p>
+<p>Hawk Auth ID: </p>
+<p>dh37fgj492je </p>
+<p>Hawk Auth Key: </p>
+<p>werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn </p>
+<p>Algorithm: sha256</p>
+<h3 id="2-步骤截图"><a href="#2-步骤截图" class="headerlink" title="2) 步骤截图"></a><strong>2) 步骤截图</strong></h3><p><a href="https://pic.imgdb.cn/item/6138af0644eaada7394241a4.png"><img src="https://pic.imgdb.cn/item/6138af0644eaada7394241a4.png"></a></p>
+<h3 id="3-执行结果"><a href="#3-执行结果" class="headerlink" title="3) 执行结果"></a><strong>3)</strong> <strong>执行结果</strong></h3><p><img src="https://pic.imgdb.cn/item/6138af3e44eaada739429f28.png"></p>
+<p>如果将 key 改为其他任意的字符则返回如下结果：</p>
+<p><a href="https://pic.imgdb.cn/item/6138af7044eaada73942f034.png"><img src="https://pic.imgdb.cn/item/6138af7044eaada73942f034.png"></a></p>
+<p><a href="https://pic.imgdb.cn/item/6138affc44eaada73943d56e.png"><img src="https://pic.imgdb.cn/item/6138affc44eaada73943d56e.png"></a></p>
+<ol start="5">
+<li>OAuth 1.0 OAuth（开放授权）是一个开放标准，允许用户让第三方应用访问该用户在某一网站 上存储的私密的资源（如照片， 视频，联系人列表），而无需将用户名和密码提供给第三 方应用。 </li>
+</ol>
+<p>扩展资料： <a href="https://blog.huoding.com/2010/10/10/8">https://blog.huoding.com/2010/10/10/8</a></p>
+<h4 id="1-准备参数-1"><a href="#1-准备参数-1" class="headerlink" title="1) 准备参数"></a><strong>1</strong>) 准备参数</h4><p>请求 URL 如下：请求方式为 GET，Add authorization data to </p>
+<p>设置 Request Headers 为：<a href="https://postman-echo.com/oauth1">https://postman-echo.com/oauth1</a> </p>
+<p><strong>配置参数：</strong> </p>
+<p>Consumer Key: RKCGzna7bv9YD57c </p>
+<p>Consumer Secret: D+EdQ-gs$-%@2Nu7 </p>
+<h4 id="2-步骤截图-1"><a href="#2-步骤截图-1" class="headerlink" title="2) 步骤截图"></a><strong>2) 步骤截图</strong></h4><p><a href="https://pic.imgdb.cn/item/6138b2f744eaada73948adca.png"><img src="https://pic.imgdb.cn/item/6138b2f744eaada73948adca.png"></a></p>
+<h4 id="3-执行结果-1"><a href="#3-执行结果-1" class="headerlink" title="3) 执行结果"></a><strong>3)</strong> <strong>执行结果</strong></h4><p>正确结果：</p>
+<p><a href="https://pic.imgdb.cn/item/6138b3b144eaada73949f5f8.png"><img src="https://pic.imgdb.cn/item/6138b3b144eaada73949f5f8.png"></a></p>
+<p>异常结果： </p>
+<p><a href="https://pic.imgdb.cn/item/6138b3be44eaada7394a0ee7.png"><img src="https://pic.imgdb.cn/item/6138b3be44eaada7394a0ee7.png"></a></p>
+<p>如果 Consumer Secret 错误则返回如下结果： </p>
+<h1 id="五、Cookie设置"><a href="#五、Cookie设置" class="headerlink" title="五、Cookie设置"></a><strong>五、Cookie设置</strong></h1><h2 id="1-什么是-cookie"><a href="#1-什么是-cookie" class="headerlink" title="1. 什么是 cookie"></a><strong>1.</strong> <strong>什么是</strong> <strong>cookie</strong></h2><p>cookie 是存储在浏览器中的小片段信息，每次请求后都将其发送回服务器，以便在请 求之间存储有用的信息。比如很多网站登录界面都有保留账号密码，以便下次登录。 由于 HTTP 是一种无状态的协议，服务器单从网络连接上无从知道客户身份。怎么办 呢？就给客户端们颁发一个通行证吧，每人一个，无论谁访问都必须携带自己通行证。这样 服务器就能从通行证上确认客户身份了。这就是 Cookie 的工作原理。 </p>
+<p>Cookie 是由服务端生成，存储在响应头中，返回给客户端，客户端会将 cookie 存储下来，在客户端发送请求时， user-agent 会自动获取本地存储的 cookie，将 cookie 信息存储在请求头中，并发送给服务端。 </p>
+<p>postman 也可以设置、获取、删除 Cookie。 </p>
+<h2 id="2-设置-cookie"><a href="#2-设置-cookie" class="headerlink" title="2. 设置 cookie"></a><strong>2.</strong> <strong>设置</strong> <strong>cookie</strong></h2><p>在 Send 按钮下方点击 Cookies 文字菜单，弹出如下界面，然后可以设置 Cookie。 </p>
+<p><a href="https://pic.imgdb.cn/item/6138b3fb44eaada7394a8ea1.png"><img src="https://pic.imgdb.cn/item/6138b3fb44eaada7394a8ea1.png"></a></p>
+<h3 id="1-准备参数："><a href="#1-准备参数：" class="headerlink" title="1) 准备参数："></a><strong>1)</strong> <strong>准备参数：</strong></h3><p>请求 URL：<a href="https://www.baidu.com/">https://www.baidu.com</a> </p>
+<p>请求方式：GET 请求 </p>
+<p>设置 cookie 为：username:wu</p>
+<p><strong>点击下方</strong> <strong>cookie</strong> </p>
+<p><a href="https://pic.imgdb.cn/item/6138b40d44eaada7394aaf61.png"><img src="https://pic.imgdb.cn/item/6138b40d44eaada7394aaf61.png"></a></p>
+<p><strong>添加参数进去</strong></p>
+<p><a href="https://pic.imgdb.cn/item/6138b49144eaada7394b9e2d.png"><img src="https://pic.imgdb.cn/item/6138b49144eaada7394b9e2d.png"></a></p>
+<p><strong>点击控制台</strong> </p>
+<p><img src="https://pic.imgdb.cn/item/6138b4f344eaada7394c4b64.png"></p>
+<p><strong>点击发送</strong></p>
+<p><img src="https://pic.imgdb.cn/item/6138b50d44eaada7394c78db.png"></p>
+<h3 id="3-查看结果："><a href="#3-查看结果：" class="headerlink" title="3) 查看结果："></a><strong>3)</strong> <strong>查看结果：</strong></h3><p><img src="https://pic.imgdb.cn/item/6138b57544eaada7394d2e3e.png"></p>
+<h2 id="3-获取-cookie"><a href="#3-获取-cookie" class="headerlink" title="3. 获取 cookie"></a><strong>3.</strong> <strong>获取</strong> <strong>cookie</strong></h2><p>Cookie 获取比较简单，直接获取 Response Headers 里面的 set-cookie 值即 可，或者在主界面下方 Cookie 菜单 栏里面也可以查看。</p>
+<p><img src="https://pic.imgdb.cn/item/6138b59d44eaada7394d72c5.png"></p>
+<h3 id="4-删除-cookie"><a href="#4-删除-cookie" class="headerlink" title="4. 删除 cookie"></a><strong>4.</strong> <strong>删除</strong> <strong>cookie</strong></h3><p>点击 Cookies 文字菜单,然后可以根据需求去清除对应的 Cookie。 </p>
+<h1 id="六、变量"><a href="#六、变量" class="headerlink" title="六、变量"></a><strong>六、变量</strong></h1><h2 id="1．为什么需要变量？"><a href="#1．为什么需要变量？" class="headerlink" title="1．为什么需要变量？"></a>1．为什么需要变量？</h2><p>在开发不同阶段可能存在不同的环境,比如测试环境和生产环境。 </p>
+<p>测试环境 API 如下： </p>
+<p><a href="https://dev.postman.com/get">https://dev.postman.com/get</a> </p>
+<p><a href="https://dev.postman.com/post">https://dev.postman.com/post</a> </p>
+<p><a href="https://dev.postman.com/put">https://dev.postman.com/put</a> </p>
+<p>生产环境 API 如下： </p>
+<p><a href="https://postman-echo.com/get">https://postman-echo.com/get</a> </p>
+<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
+<p><a href="https://postman-echo.com/put">https://postman-echo.com/put</a></p>
+<p>在这么情况下，按照常规思路要么你需要维护两套环境的 API，要么每次都手动一个 个去修改 URL，不管哪种选择 都比较麻烦且低效，那么有没有比较的好的方法来解决这个 问题呢？</p>
+<p>通过比较我们可以发现，以上两组 API 主要是除了 host 不同之外其他都一样，其实 把 Host 用<strong>变量</strong>替换，这样就可以灵活切换环境。</p>
+<h2 id="2．Postman-的变量类型"><a href="#2．Postman-的变量类型" class="headerlink" title="2．Postman 的变量类型"></a>2．Postman <strong>的变量类型</strong></h2><p><strong>Postman 提供了变量设置，有 4 种变量类型。</strong> </p>
+<ul>
+<li><p>本地变量(LocalVariable ) </p>
+</li>
+<li><p>全局变量(Global Variable) </p>
+</li>
+<li><p>环境变量(Environment Variable) </p>
+</li>
+<li><p>数据变量(Data Variable) </p>
+</li>
+</ul>
+<h2 id="3-Postman的变量详解"><a href="#3-Postman的变量详解" class="headerlink" title="3.Postman的变量详解"></a>3.Postman<strong>的变量详解</strong></h2><h3 id="1-环境变量-Environment-Variable"><a href="#1-环境变量-Environment-Variable" class="headerlink" title="1) 环境变量(Environment Variable)"></a><strong>1)</strong> 环境变量(Environment Variable)</h3><p>环境变量指在不同环境，同一个变量值随着环境不同而变化，比如我们上面举例场景就 可以使用环境变量，当在测试环境时，host 值为: dev.postman.com ,当切换到生产环境 时，host 值变为：postman-echo.com 。 环境变量设置： 在 postman 界面点击右上角眼睛图标，即可开始设置环境变量和全 局变量。环境变量设置过程如下图所示： </p>
+<p>我们可以设置两种环境 dev 和 release, </p>
+<p><strong>dev</strong> <strong>是开发测试环境；</strong> </p>
+<p><strong>release</strong> <strong>是正式的生产环境。</strong> </p>
+<p><strong>host</strong> <strong>环境变量， 根据不同的环境值不一样。</strong></p>
+<p><img src="https://pic.imgdb.cn/item/6138b5b144eaada7394d9428.png"></p>
+<p>同样的步骤，再来添加生产环境 </p>
+<p><img src="https://pic.imgdb.cn/item/6138b6f844eaada7394fe875.png"></p>
+<p>变量引用格式为,如下图所示：</p>
+<p> <img src="https://pic.imgdb.cn/item/6138b70a44eaada73950090e.png"></p>
+<p>列如：生产环境</p>
+<p>完整参考：<a href="https://jingyan.baidu.com/article/948f59247349c0980ff5f9c3.html">https://jingyan.baidu.com/article/948f59247349c0980ff5f9c3.html</a> </p>
+<h3 id="2-本地变量-LocalVariable"><a href="#2-本地变量-LocalVariable" class="headerlink" title="2) 本地变量(LocalVariable )"></a><strong>2)</strong> 本地变量(LocalVariable )</h3><p>本地变量主要是针对单个 URL 请求设置的变量，作用域只是局限在请求范围内。如 请求 URL 如下，设置两个本地变量（user,passwd）作为参数。请求方式为 POST准备参数：<a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
+<p><img src="https://pic.imgdb.cn/item/6138b72d44eaada739504dde.png"></p>
+<p>上面通过环境变量知道，设置变量的格式为： </p>
+<p>变量设置好之后需要赋值，在 Pre-request-Script 里面编写如下代码： </p>
+<p>pm.variables.set(“user”,”wu”); </p>
+<p>pm.variables.set(“passwd”,”123456”);</p>
+<p><img src="https://pic.imgdb.cn/item/6138b74844eaada739507a6f.png"></p>
+<p>点击 send 执行之后的返回值如下，可以看到我们定义的变量已经发送。</p>
+<p> <img src="https://pic.imgdb.cn/item/6138b74844eaada739507a6f.png"></p>
+<h3 id="3-全局变量-Global-Variable"><a href="#3-全局变量-Global-Variable" class="headerlink" title="3) 全局变量(Global Variable)"></a><strong>3)</strong> 全局变量(Global Variable)</h3><p>全局变量是指在所有的环境里面，变量值都是一样的，全局变量的作用域是所有请求。 </p>
+<p>全局变量设置有两种方式： </p>
+<h4 id="1-点击界面里设置"><a href="#1-点击界面里设置" class="headerlink" title="1. 点击界面里设置"></a><strong>1. 点击界面里设置</strong></h4><p>点击眼睛图标后，在 Global 选项菜单点击 Edit 菜单即可设置全局变量，如下图所示。 </p>
+<p><img src="https://pic.imgdb.cn/item/6138b78a44eaada73950f46b.png"></p>
+<p>全局变量的引用格式和环境 变量一样， </p>
+<p>注意：当环境变量和全局变量名称一样时，切换到某个环境时，环境变量会覆盖全局变量。</p>
+<h4 id="2-在脚本里设置"><a href="#2-在脚本里设置" class="headerlink" title="2.在脚本里设置"></a><strong>2.在脚本里设置</strong></h4><p>使用如下脚本可以设置全局变量：variable_key 表示变量名称， variable_value 表示 变量值。 </p>
+<p>pm.globals.set(“variable_key”, “variable_value”); </p>
+<h3 id="4-实践案例："><a href="#4-实践案例：" class="headerlink" title="4) 实践案例："></a><strong>4)</strong> <strong>实践案例：</strong></h3><p>在实际接口测试过程中，接口经常会有关联。比如需要取上一个接口的某个返回值，然 后作为参数传递到下一个接 口作为参数。 </p>
+<p><strong>假设我们要获取 A 接口返回的 userid 值作为 B 接口的请求参数</strong>。 </p>
+<p>A 接口请求 URL 如下： </p>
+<p><a href="https://postman-echo.com/post">https://postman-echo.com/post</a> </p>
+<p>• 请求方式为 Post </p>
+<p>• 请求参数：userid(这里自己定义，接口会返回对应的 id 值)</p>
+<p><img src="https://pic.imgdb.cn/item/6138b7b344eaada739513ead.png"></p>
+<p>根据返回值我们需要从返回值中提取 userid 值。</p>
+<p><img src="https://pic.imgdb.cn/item/6138b7ef44eaada73951ab1a.png"></p>
+<p>在 Test 标签栏下编写如下脚本获 取 userid 值 B 接口请求 URL 如下：请求方式为 GET </p>
+<p>postman-<strong>echo</strong>.<strong>com</strong>/get?userid= </p>
+<p>先执行 A 接口的，然后在执行 B 接口，此时 B 接口通过全局变量 userid 可以获得 A 接口的返回值。</p>
+<p><img src="https://pic.imgdb.cn/item/6138b80944eaada73951da25.png"></p>
+<h1 id="七、断言："><a href="#七、断言：" class="headerlink" title="七、断言："></a><strong>七、断言：</strong></h1><h2 id="1-什么是断言？"><a href="#1-什么是断言？" class="headerlink" title="1) 什么是断言？"></a><strong>1)</strong> <strong>什么是断言？</strong></h2><p>一般来说执行完测试，我们需要对测试结果来进行校验，判断结果是是否符合我们的预 期，也就是断言。在接口测试中一般会根据响应状态码或者响应返回的数据来进行断言。 </p>
+<p>Postman 提供一个测试沙箱（Postman Sandbox） 测试沙箱是一个 JavaScript 执 行环境，可以通过 JS 脚本来编 写 pre-request Script 和 test Script。 </p>
+<p>pre-request Script（预置脚本）可以用来修改一些默认参数,在请求发送之前执行。 </p>
+<p>test Script（测试脚本）当接收到响应之后，再执行测试脚本。 </p>
+<h2 id="2-断言的案例"><a href="#2-断言的案例" class="headerlink" title="2) 断言的案例"></a><strong>2)</strong> <strong>断言的案例</strong></h2><h4 id="1-准备的-URL"><a href="#1-准备的-URL" class="headerlink" title="(1) 准备的 URL:"></a><strong>(1)</strong> <strong>准备的</strong> <strong>URL:</strong></h4><p>postman-echo.com/post </p>
+<h4 id="2-断言的规则"><a href="#2-断言的规则" class="headerlink" title="(2) 断言的规则"></a><strong>(2)</strong> <strong>断言的规则</strong></h4><p>• 响应状态码：200 </p>
+<p>• 响应内容：返回的 user 参数值与定义的一致 </p>
+<p>• 响应时间：小于 0.5s </p>
+<h4 id="3-准备的脚本"><a href="#3-准备的脚本" class="headerlink" title="(3) 准备的脚本"></a><strong>(3)</strong> <strong>准备的脚本</strong></h4><p><strong>在</strong> <strong>pre-request Script</strong> <strong>定义变量</strong> <strong>user</strong></p>
+<p>pm.variables.set(“user”,’wulibobo’); </p>
+<p><img src="https://pic.imgdb.cn/item/6138b88f44eaada73952d8bb.png"></p>
+<p><strong>在</strong> <strong>Test</strong> <strong>栏下面编写如下脚本</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//判断响应状态码 </span><br><span class="line">pm.test(&quot;Status code is 200&quot;, function () &#123; pm.response.to.have.status(200); &#125;); </span><br><span class="line"></span><br><span class="line">//获取发送的参数值 </span><br><span class="line">username=pm.variables.get(&quot;user&quot;); </span><br><span class="line">console.log(username); </span><br><span class="line"></span><br><span class="line">//校验响应内容是否和请求的一致 </span><br><span class="line">pm.test(&quot;Check username&quot;, function () &#123; var jsonData = pm.response.json(); pm.expect(jsonData.json[&#x27;user&#x27;]).to.eql(username); &#125;);</span><br><span class="line"></span><br><span class="line">//检测响应时间是否小于 0.5s </span><br><span class="line">pm.test(&quot;Response time is less than 500ms&quot;, function () &#123; pm.expect(pm.response.responseTime).to.be.below(500);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/6138b8b844eaada7395321bf.png"></p>
+<h4 id="4-断言的结果"><a href="#4-断言的结果" class="headerlink" title="(4) 断言的结果"></a><strong>(4)</strong> <strong>断言的结果</strong></h4><p><img src="https://pic.imgdb.cn/item/6138b8cc44eaada7395344ce.png"></p>
+<p>Postman 测试脚本的官方文档： </p>
+<p><a href="https://learning.postman.com/docs/writing-scripts/intro-to-scripts/">https://learning.postman.com/docs/writing-scripts/intro-to-scripts/</a></p>
 ]]></content>
   </entry>
   <entry>
