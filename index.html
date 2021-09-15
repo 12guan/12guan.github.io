@@ -137,21 +137,9 @@
 <p>Test_Call_LoginPara.py</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from LoginClass_para import *</span><br><span class="line">from time import sleep</span><br><span class="line">import unittest</span><br><span class="line">class TestBaidu(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        self.driver = webdriver.Firefox()</span><br><span class="line">        self.driver.get(&quot;http://localhost&quot;)</span><br><span class="line">        self.driver.implicitly_wait(10)</span><br><span class="line"></span><br><span class="line">    def test_login(self):</span><br><span class="line">        driver=self.driver</span><br><span class="line">        Login().user_login(driver, &#x27;Test&#x27;, 123456)</span><br><span class="line">        sleep(3)</span><br><span class="line">        Login().user_logout(driver)</span><br><span class="line"></span><br><span class="line">        Login().user_login(driver, &#x27;TestPro&#x27;, 123456)</span><br><span class="line">        sleep(3)</span><br><span class="line">        Login().user_logout(driver)</span><br><span class="line"></span><br><span class="line">        sleep(3)</span><br><span class="line">        driver.quit()</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        self.driver.quit()</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
 
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>最终执行测试用例：</p>
 <p>restart.py</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">test_dir=&#x27;./&#x27;</span><br><span class="line"></span><br><span class="line">discover=unittest.defaultTestLoader.discover(test_dir,pattern=&quot;Test*.py&quot;)</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    runer=unittest.TextTestRunner()</span><br><span class="line">    runer.run(discover)</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="测试报告生成"><a href="#测试报告生成" class="headerlink" title="测试报告生成"></a><strong>测试报告生成</strong></h1><p>自动化测试执行完成之后，我们需要生成测试报告来查看测试结果，使用HTMLTestRunner模块可以直接生成Html格式的报告。</p>
 <h3 id="1-下载地址："><a href="#1-下载地址：" class="headerlink" title="1) 下载地址："></a>1) <strong>下载地址：</strong></h3><p><a target="_blank" rel="noopener" href="http://tungwaiyip.info/software/HTMLTestRunner.html">http://tungwaiyip.info/software/HTMLTestRunner.html</a></p>
@@ -174,7 +162,7 @@
 
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
         
         
           <blockquote id="copyright">
