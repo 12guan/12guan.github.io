@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>书</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="书" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">书</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-UnitTest单元测试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-09-15T14:23:24.263Z" itemprop="datePublished">2021年09月15日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/09/15/UnitTest%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>title: UnitTest单元测试<br>date: 2021-09-15 22:23:24<br>tags:</p>
+<h1 id="一、单元测试介绍"><a href="#一、单元测试介绍" class="headerlink" title="一、单元测试介绍"></a><strong>一、单元测试介绍</strong></h1><h2 id="1-单元测试的概念"><a href="#1-单元测试的概念" class="headerlink" title="1. 单元测试的概念"></a>1. <strong>单元测试的概念</strong></h2><p>单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。</p>
+<p>对于单元测试中单元的含义，要根据实际情况去判定其具体含义。一个单元可能是功能模块、类、方法（函数）等。<span id="more"></span></p>
+<h2 id="2-单元测试工具"><a href="#2-单元测试工具" class="headerlink" title="2. 单元测试工具"></a>2. <strong>单元测试工具</strong></h2><p>不同的编程语言都有比较成熟的单元测试框架，语法规则有些差别，其核心思想都是相通的。常见的单</p>
+<p>元测试框架有：</p>
+<p>Java语言：Junit、TestNG</p>
+<p>Python语言：UnitTest、Pytest</p>
+<p><strong>UnitTest单元测试框架</strong></p>
+<h2 id="3-单元测试的作用"><a href="#3-单元测试的作用" class="headerlink" title="3. 单元测试的作用"></a>3. <strong>单元测试的作用</strong></h2><p>提供用例组织与执行 </p>
+<p>提供丰富的断言方法 </p>
+<p>提供丰富的日志与测试结果</p>
+<h1 id="二、UnitTest框架介绍"><a href="#二、UnitTest框架介绍" class="headerlink" title="二、UnitTest框架介绍"></a><strong>二、UnitTest框架介绍</strong></h1><p>UnitTest是Python自带的一个单元测试框架，用它来做单元测试。也经常应用到UI自动化测试和接口自动化测试中，用来管理和维护测试用例脚本</p>
+<h2 id="1-使用UnitTest框架的好处："><a href="#1-使用UnitTest框架的好处：" class="headerlink" title="1. 使用UnitTest框架的好处："></a>1. <strong>使用UnitTest框架的好处：</strong></h2><ol>
+<li><p>能够组织多个用例去执行（可以把多条测试用例封装成一个测试套件，实现批量执行测试用例）</p>
+</li>
+<li><p>提供了丰富的断言方法，方便对用例执行的结果进行判断</p>
+</li>
+<li><p>能够生成HTML格式的测试报告</p>
+</li>
+<li><p>使用Fixture功能可以减少代码的冗余</p>
+</li>
+</ol>
+<h2 id="2-UnitTest核心要素："><a href="#2-UnitTest核心要素：" class="headerlink" title="2. UnitTest核心要素："></a>2. <strong>UnitTest核心要素：</strong></h2><ol>
+<li><p>TestCase  测试用例</p>
+</li>
+<li><p>TestSuite  测试套件</p>
+</li>
+<li><p>TestRunner  测试执行</p>
+</li>
+<li><p>TestLoader</p>
+</li>
+</ol>
+<h1 id="三、TestCase"><a href="#三、TestCase" class="headerlink" title="三、TestCase"></a><strong>三、TestCase</strong></h1><p><strong>TestCase就是表示测试用例</strong></p>
+<h2 id="1-案例：定义一个实现加法操作的函数，测试该函数"><a href="#1-案例：定义一个实现加法操作的函数，测试该函数" class="headerlink" title="1. 案例：定义一个实现加法操作的函数，测试该函数"></a>1. 案例：定义一个实现加法操作的函数，测试该函数</h2><p>如何定义测试用例:</p>
+<p>1).导包：importunittest</p>
+<p>2).定义测试类：新建测试类必须继承unittest.TestCase</p>
+<p>3).定义测试方法：测试方法名称命名必须以test开头</p>
+<p>示例代码：</p>
+<h2 id="2-定义math类"><a href="#2-定义math类" class="headerlink" title="2. 定义math类"></a>2. <strong>定义math类</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class math:</span><br><span class="line">    def __init__(self,a,b):</span><br><span class="line">        self.a=int(a)</span><br><span class="line">        self.b=int(b)</span><br><span class="line"></span><br><span class="line">    def add(self):</span><br><span class="line">        return self.a+self.b</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-编写测试类"><a href="#3-编写测试类" class="headerlink" title="3. 编写测试类"></a>3. <strong>编写测试类</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from Math import math</span><br><span class="line">import unittest</span><br><span class="line"></span><br><span class="line">class TestMath(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        print(&quot;测试开始了&quot;)</span><br><span class="line"></span><br><span class="line">    def test_add(self):</span><br><span class="line">        j=math(10,10);</span><br><span class="line">        self.assertEquals(j.add(),20)</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        print(&quot;测试结束&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    suite = unittest.TestSuite()</span><br><span class="line">    suite.addTest(TestMath(&quot;Test_add&quot;))</span><br><span class="line"></span><br><span class="line">    runner = unittest.TextTestRunner()</span><br><span class="line">    runner.run(suite)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-如何执行测试用例"><a href="#4-如何执行测试用例" class="headerlink" title="4. 如何执行测试用例"></a>4. <strong>如何执行测试用例</strong></h2><p>方式一：使用pycharm在代码上点击鼠标右键，选择使用UnitTest运行</p>
+<p>方式二：调用unittest.main()来运行</p>
+<h1 id="四、TestSuite"><a href="#四、TestSuite" class="headerlink" title="四、TestSuite"></a><strong>四、TestSuite</strong></h1><p>说明：(翻译：测试套件)多条测试用例集合在一起，就是一个TestSuite使用：</p>
+<p> 创建suite对象：suite=unittest.TestSuite()</p>
+<p> 添加用例：suite.addTest(ClassName(“MethodName”))(ClassName：为类名；MethodName：为方法名)</p>
+<p> 添加扩展：suite.addTest(unittest.makeSuite(ClassName))(搜索指定ClassName内test开头的方法并添加到测试套件中)</p>
+<p> 提示：TestSuite需要配合TestRunner才能被执行</p>
+<h1 id="五、TextTestRunner"><a href="#五、TextTestRunner" class="headerlink" title="五、TextTestRunner"></a><strong>五、TextTestRunner</strong></h1><p>说明：TextTestRunner是用来执行测试用例和测试套件的使用：</p>
+<p>1.创建对象：runner=unittest.TextTestRunner()</p>
+<p>2.执行：runner.run(suite)#suite：为测试套件名称</p>
+<h1 id="六、Fixture"><a href="#六、Fixture" class="headerlink" title="六、Fixture"></a><strong>六、Fixture</strong></h1><p>说明：Fixture是一个概述，对一个测试用例环境的初始化和销毁就是一个Fixture</p>
+<p>Fixture控制级别：</p>
+<p>方法级别使用：</p>
+<p><img src="https://pic.imgdb.cn/item/614206b82ab3f51d91f31b9b.png"> </p>
+<p>类级别使用：</p>
+<p> <img src="https://pic.imgdb.cn/item/614206c92ab3f51d91f34590.png"></p>
+<p>示例代码使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#在一个测试类中定义多个方法，查看每个方法执行完所花费的时间</span><br><span class="line"></span><br><span class="line">import  time</span><br><span class="line">import unittest</span><br><span class="line"></span><br><span class="line">def setUpModule():</span><br><span class="line">    print(&quot;setUpModule&quot;)</span><br><span class="line"></span><br><span class="line">def tearDownModule():</span><br><span class="line">    print(&quot;tearDownModule&quot;)</span><br><span class="line"></span><br><span class="line">class TestFixTure(unittest.TestCase):</span><br><span class="line">    @classmethod</span><br><span class="line">    def tearDownClass(cls):</span><br><span class="line">        print(&quot;tearDownClass&quot;)</span><br><span class="line"></span><br><span class="line">    def setUp(self):</span><br><span class="line">        print(&quot;start time=&quot;,time.time())</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        print(&quot;end time=&quot;, time.time())</span><br><span class="line">    def test_01(self):</span><br><span class="line">        print(&quot;test01&quot;)</span><br><span class="line">    def test_02(self):</span><br><span class="line">        print(&quot;test02&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、UnitTest-断言"><a href="#七、UnitTest-断言" class="headerlink" title="七、UnitTest 断言"></a><strong>七、UnitTest 断言</strong></h1><p>什么是断言</p>
+<p>概念：让程序代替人为判断测试程序执行结果是否符合预期结果的过程UnitTest 中提供了非常丰富的断言方法，但是常用的也就那么几个，并且使用起来也比较简单。</p>
+<p><img src="https://pic.imgdb.cn/item/6142066a2ab3f51d91f259cd.png">![im </p>
+<p>使用方式：</p>
+<p>断言方法经在unittest.TestCase 类中定义好了，而且我们自定义的测试类已经继承了 TestCase ，所以在测试方法中直接调用即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">#加法函数</span><br><span class="line">def add(x,y):</span><br><span class="line">    return x+y;</span><br><span class="line"></span><br><span class="line">class TestAssert(unittest.TestCase):</span><br><span class="line">    def test01(self):</span><br><span class="line">        num=add(1,2)</span><br><span class="line">        self.assertEqual(3,num)</span><br><span class="line"></span><br><span class="line">    def test02(self):</span><br><span class="line">        num=add(1,2)</span><br><span class="line">        is_ok=num==3</span><br><span class="line">        print(is_ok)</span><br><span class="line">        self.assertTrue(is_ok)</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、用例公共部分合并"><a href="#八、用例公共部分合并" class="headerlink" title="八、用例公共部分合并"></a><strong>八、用例公共部分合并</strong></h1><p>上述内容里面，每个****测试类****都有 SetUp()和 tearDown()方法，而且两个方法内容都是一样的， </p>
+<p>用于打印开始与结束提示语句，是否可以合并在一起呢？ </p>
+<p>Math模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class math:</span><br><span class="line">    def __init__(self,a,b):</span><br><span class="line">        self.a=int(a)</span><br><span class="line">        self.b=int(b)</span><br><span class="line">    #加法函数  两数相加</span><br><span class="line">    def add(self):</span><br><span class="line">        return self.a+self.b</span><br><span class="line"></span><br><span class="line">    def del1(self):</span><br><span class="line">        return self.a - self.b</span><br></pre></td></tr></table></figure>
+
+<p>写测试类，把用例公共部分合并</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from Math import math</span><br><span class="line">import unittest</span><br><span class="line">#把这个setUp与SetDown公共部分的合并</span><br><span class="line">class Test_StarEnd(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        print(&quot;测试开始&quot;)</span><br><span class="line">    def tearDown(self):</span><br><span class="line">        print(&quot;测试结束&quot;)</span><br><span class="line">class Testadd(Test_StarEnd):</span><br><span class="line">    def test_add(self):</span><br><span class="line">        j = math(5, 5)</span><br><span class="line">        self.assertEqual(j.add(), 10)</span><br><span class="line"></span><br><span class="line">class TestSub(Test_StarEnd):</span><br><span class="line">    def test_sub(self):</span><br><span class="line">        i = math(3, 2)</span><br><span class="line">        self.assertEqual(i.del1(), 1)</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<h1 id="九、用例执行顺序"><a href="#九、用例执行顺序" class="headerlink" title="九、用例执行顺序"></a><strong>九、用例执行顺序</strong></h1><p>观察下述代码，看执行顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line"></span><br><span class="line">def setUpModule():</span><br><span class="line">    print(&quot;setUpModule&quot;)</span><br><span class="line"></span><br><span class="line">def tearDownModule():</span><br><span class="line">    print(&quot;tearDownModule&quot;)</span><br><span class="line"></span><br><span class="line">#测试类1</span><br><span class="line">class Test1(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        print(&quot;Test1 start&quot;)</span><br><span class="line"></span><br><span class="line">    def test_c(self):</span><br><span class="line">        print(&quot;test_c&quot;)</span><br><span class="line"></span><br><span class="line">    def test_b(self):</span><br><span class="line">        print(&quot;test_b&quot;)</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        print(&quot;test end&quot;)</span><br><span class="line">#测试类2</span><br><span class="line">class Test2(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        print(&quot;Test2 start&quot;)</span><br><span class="line"></span><br><span class="line">    def test_d(self):</span><br><span class="line">        print(&quot;test_d&quot;)</span><br><span class="line"></span><br><span class="line">    def test_a(self):</span><br><span class="line">        print(&quot;test_a&quot;)</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        print(&quot;Test2 end!&quot;)</span><br><span class="line">#执行整个用例合集——判断顺序</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:  #  </span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+
+<p>$$</p>
+<p>$$<br>执行结果：</p>
+ <img src="https://pic.imgdb.cn/item/614206082ab3f51d91f154bd.png" style="zoom:80%;" />
+
+<p>得出结论：</p>
+<p>测试类或测试方法的数字与字母顺序 0~9，A-Z </p>
+<h1 id="十、用例综合框架管理"><a href="#十、用例综合框架管理" class="headerlink" title="十、用例综合框架管理"></a><strong>十、用例综合框架管理</strong></h1><p>前面测试用例与执行都是写在一个文件，当用例数量不断增加的时候，用例的执行与管 理变得非常麻烦，因此需要对用例根据具体的功能模块来使用单独的模块来管理。就像一所 </p>
+<p>学校要根据不同年级进行分班管理，也是同样道理。</p>
+<p><strong>案例：Test_Project 文件目录下包含 5 个 python 文件：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">l--StartEnd.py—— SetUp 与 TearDown 管理 </span><br><span class="line">l--calculatory.py——加减法运算方法的实现 </span><br><span class="line">l--test_add.py——加法测试用例 </span><br><span class="line">l--test_sub.py——减法测试用例 </span><br><span class="line">l--runtest.py——用例执行管理</span><br></pre></td></tr></table></figure>
+
+<p>使用 discover 可以一次调用多个脚本 </p>
+<p>· test_dir 被测试脚本的路径 </p>
+<p>· pattern 脚本名称匹配规则</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、单元测试介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 单元测试的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="toc-text">2. 单元测试工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">3. 单元测试的作用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81UnitTest%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="toc-text">二、UnitTest框架介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8UnitTest%E6%A1%86%E6%9E%B6%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%9A"><span class="toc-text">1. 使用UnitTest框架的好处：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-UnitTest%E6%A0%B8%E5%BF%83%E8%A6%81%E7%B4%A0%EF%BC%9A"><span class="toc-text">2. UnitTest核心要素：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81TestCase"><span class="toc-text">三、TestCase</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A1%88%E4%BE%8B%EF%BC%9A%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%B3%95%E6%93%8D%E4%BD%9C%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E6%B5%8B%E8%AF%95%E8%AF%A5%E5%87%BD%E6%95%B0"><span class="toc-text">1. 案例：定义一个实现加法操作的函数，测试该函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89math%E7%B1%BB"><span class="toc-text">2. 定义math类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="toc-text">3. 编写测试类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-text">4. 如何执行测试用例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81TestSuite"><span class="toc-text">四、TestSuite</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81TextTestRunner"><span class="toc-text">五、TextTestRunner</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81Fixture"><span class="toc-text">六、Fixture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81UnitTest-%E6%96%AD%E8%A8%80"><span class="toc-text">七、UnitTest 断言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E7%94%A8%E4%BE%8B%E5%85%AC%E5%85%B1%E9%83%A8%E5%88%86%E5%90%88%E5%B9%B6"><span class="toc-text">八、用例公共部分合并</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%94%A8%E4%BE%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-text">九、用例执行顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E7%94%A8%E4%BE%8B%E7%BB%BC%E5%90%88%E6%A1%86%E6%9E%B6%E7%AE%A1%E7%90%86"><span class="toc-text">十、用例综合框架管理</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://example.com/2021/09/15/UnitTest单元测试/">http://example.com/2021/09/15/UnitTest单元测试/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/09/15/UnitTest/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          UnitTest
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/14/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%90%86%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">自动化测试理解</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/15/UnitTest/">UnitTest</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/15/UnitTest%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/14/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%90%86%E8%A7%A3/">自动化测试理解</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/14/selenium%E7%9A%848%E7%A7%8D%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5/">selenium的8种定位策略</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/13/Rest%E4%BB%8B%E7%BB%8D%E4%B8%8EDjango-REST-Framework%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Rest介绍与Django REST Framework环境搭建</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年09月</a><span class="archive-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 John Doe.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
